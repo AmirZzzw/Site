@@ -1,5 +1,5 @@
 body {
-    font-family: 'Graphic-Arabic-Bold', sans-serif;
+    font-family: 'Vazir', sans-serif;
     background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
     color: white;
     text-align: center;
@@ -27,7 +27,7 @@ section {
     padding: 20px;
     background: rgba(255, 255, 255, 0.15);
     border-radius: 32px;
-    box-shadow: 10 1.5px 3px rgba(255, 255, 255, 0.3);
+    box-shadow: 10px 1.5px 3px rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(15px);
     transition: transform 0.3s ease;
 }
@@ -48,7 +48,13 @@ button {
     transition: 0.4s;
 }
 
-button:hover {
+button:hover:not(.disabled) {
     transform: scale(1.05);
     background: linear-gradient(to right, #e64a19, #f57c00);
+}
+
+button.disabled {
+    background: grey;
+    color: white;
+    cursor: not-allowed;
 }
