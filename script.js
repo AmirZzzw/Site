@@ -30,7 +30,8 @@ function openPaymentPage(productName, price) {
                 <input type="text" id="telegramID" placeholder="آیدی تلگرام شما" />
                 <input type="text" id="phoneNumber" placeholder="شماره شما" />
                 <textarea id="optionalText" placeholder="توضیحات بیشتر (اختیاری)"></textarea>
-
+                
+                <h1></h1>
                 <button id="sendButton">ارسال فیش</button>
                 <h3 id="timer">✅ ارسال فیش امکان‌پذیر است</h3>
                 <h2 id="statusMessage"></h2>
