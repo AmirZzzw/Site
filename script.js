@@ -12,16 +12,18 @@ function openPaymentPage(productName, price) {
                 html, body {
                     margin: 0;
                     padding: 0;
-                    height: 100%;
                     font-family: 'Vazir', sans-serif;
-                    overflow: hidden;
                     color: white;
+                    background: black;
+                    height: 100%;
+                    overflow: hidden;
                 }
-                #particles-js {
+                #tsparticles {
                     position: fixed;
                     width: 100%;
                     height: 100%;
-                    background: black;
+                    top: 0;
+                    left: 0;
                     z-index: -1;
                 }
                 .container {
@@ -31,9 +33,9 @@ function openPaymentPage(productName, price) {
                     box-shadow: 0 12px 24px rgba(0,0,0,0.3);
                     color: black;
                     max-width: 500px;
-                    margin: auto;
+                    margin: 50px auto;
                     position: relative;
-                    top: 30px;
+                    z-index: 1;
                     text-align: center;
                 }
                 button {
@@ -65,7 +67,8 @@ function openPaymentPage(productName, price) {
             </style>
         </head>
         <body onload="restoreTimer()">
-            <div id="particles-js"></div>
+            <div id="tsparticles"></div>
+
             <div class="container">
                 <h2>پرداخت ${productName}</h2>
                 <h2>مبلغ: <strong>${price.toLocaleString()} تومان</strong></h2>
@@ -79,7 +82,6 @@ function openPaymentPage(productName, price) {
                 <input type="text" id="phoneNumber" placeholder="شماره شما" />
                 <textarea id="optionalText" placeholder="توضیحات بیشتر (اختیاری)"></textarea>
 
-                <h1></h1>
                 <button id="sendButton">ارسال فیش</button>
                 <h3 id="timer">✅ ارسال فیش امکان‌پذیر است</h3>
                 <h2 id="statusMessage"></h2>
@@ -89,44 +91,47 @@ function openPaymentPage(productName, price) {
                 <button onclick="window.close()">بازگشت به سایت</button>
             </div>
 
-            <!-- Load Particles.js -->
-            <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
             <script>
-                particlesJS("particles-js", {
-                    "particles": {
-                        "number": { "value": 50 },
-                        "color": { "value": "#ff0000" },
-                        "shape": {
-                            "type": "triangle",
-                            "stroke": { "width": 0, "color": "#000000" }
+                tsParticles.load("tsparticles", {
+                    fullScreen: { enable: false },
+                    background: { color: { value: "#000000" } },
+                    particles: {
+                        number: { value: 60 },
+                        shape: {
+                            type: "triangle"
                         },
-                        "opacity": {
-                            "value": 0.5,
-                            "random": true
+                        color: { value: "#ff0000" },
+                        opacity: {
+                            value: 0.7,
+                            random: true
                         },
-                        "size": {
-                            "value": 8,
-                            "random": true
+                        size: {
+                            value: 10,
+                            random: true
                         },
-                        "move": {
-                            "enable": true,
-                            "speed": 2,
-                            "direction": "bottom-right",
-                            "random": false,
-                            "straight": false,
-                            "out_mode": "out"
+                        move: {
+                            enable: true,
+                            speed: 5,
+                            direction: "bottom-right",
+                            outModes: {
+                                default: "out"
+                            }
+                        },
+                        shadow: {
+                            enable: true,
+                            color: "#ff0000",
+                            blur: 5
+                        },
+                        stroke: {
+                            width: 0
                         }
                     },
-                    "interactivity": {
-                        "detect_on": "canvas",
-                        "events": {
-                            "onhover": { "enable": false },
-                            "onclick": { "enable": false }
-                        }
-                    },
-                    "retina_detect": true
+                    detectRetina: true
                 });
+            </script>
 
+            <script>
                 let lastSentTime = localStorage.getItem("lastSentTime") || 0;
 
                 document.getElementById("sendButton").addEventListener("click", function () {
