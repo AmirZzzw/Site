@@ -31,10 +31,13 @@ function openPaymentPage(productName, price) {
                 <input type="text" id="phoneNumber" placeholder="شماره شما" />
                 <textarea id="optionalText" placeholder="توضیحات بیشتر (اختیاری)"></textarea>
 
+                <h1></h1>
                 <button id="sendButton">ارسال فیش</button>
+                <h1></h1>
                 <h3 id="timer">✅ ارسال فیش امکان‌پذیر است</h3>
+                <h1></h1>
                 <h2 id="statusMessage"></h2>
-
+                <h1></h1>
                 <button onclick="window.open('https://t.me/AmirSidka', '_blank')">Telegram Pv</button>
                 <br /><br />
                 <button onclick="window.close()">بازگشت به سایت</button>
