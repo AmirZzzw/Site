@@ -9,26 +9,39 @@ function openPaymentPage(productName, price) {
             <title>پرداخت ${productName}</title>
             <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
             <style>
-                html, body {
-                    margin: 0;
-                    padding: 0;
-                    height: 100%;
-                    background: black;
-                    overflow: hidden;
+                body {
                     font-family: 'Vazir', sans-serif;
+                    text-align: center;
+                    background: #000;
+                    padding: 50px;
                     color: white;
+                    overflow: hidden;
                 }
-                #tsparticles {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    z-index: 0;
+
+                .triangle {
+                    position: absolute;
+                    width: 0;
+                    height: 0;
+                    border-left: 25px solid transparent;
+                    border-right: 25px solid transparent;
+                    border-bottom: 50px solid red;
+                    box-shadow: 0 0 20px red;
+                    opacity: 0.8;
+                    animation: fall 5s linear infinite;
                 }
+
+                @keyframes fall {
+                    0% {
+                        transform: translate(100vw, -50px) rotate(0deg);
+                        opacity: 1;
+                    }
+                    100% {
+                        transform: translate(-100px, 100vh) rotate(720deg);
+                        opacity: 0;
+                    }
+                }
+
                 .container {
-                    position: relative;
-                    z-index: 1;
                     background: white;
                     padding: 40px;
                     border-radius: 50px;
@@ -36,9 +49,10 @@ function openPaymentPage(productName, price) {
                     color: black;
                     max-width: 500px;
                     margin: auto;
-                    margin-top: 50px;
-                    text-align: center;
+                    position: relative;
+                    z-index: 2;
                 }
+
                 button {
                     background: linear-gradient(to right, #ff5722, #ff9800);
                     color: black;
@@ -49,10 +63,12 @@ function openPaymentPage(productName, price) {
                     border-radius: 50px;
                     transition: 0.3s;
                 }
+
                 button:hover {
                     transform: scale(1.1);
                     background: linear-gradient(to right, #e64a19, #f57c00);
                 }
+
                 input, textarea {
                     width: 90%;
                     padding: 10px;
@@ -61,15 +77,14 @@ function openPaymentPage(productName, price) {
                     margin-top: 10px;
                     border: 1px solid #ccc;
                 }
+
                 #timer {
                     margin-top: 15px;
                     color: green;
                 }
             </style>
         </head>
-        <body onload="restoreTimer()">
-            <div id="tsparticles"></div>
-
+        <body onload="restoreTimer(); generateTriangles();">
             <div class="container">
                 <h2>پرداخت ${productName}</h2>
                 <h2>مبلغ: <strong>${price.toLocaleString()} تومان</strong></h2>
@@ -83,7 +98,6 @@ function openPaymentPage(productName, price) {
                 <input type="text" id="phoneNumber" placeholder="شماره شما" />
                 <textarea id="optionalText" placeholder="توضیحات بیشتر (اختیاری)"></textarea>
 
-                <h1></h1>
                 <button id="sendButton">ارسال فیش</button>
                 <h3 id="timer">✅ ارسال فیش امکان‌پذیر است</h3>
                 <h2 id="statusMessage"></h2>
@@ -93,45 +107,7 @@ function openPaymentPage(productName, price) {
                 <button onclick="window.close()">بازگشت به سایت</button>
             </div>
 
-            <script src="https://cdn.jsdelivr.net/npm/tsparticles@3/tsparticles.bundle.min.js"></script>
             <script>
-                tsParticles.load("tsparticles", {
-                    fullScreen: { enable: false },
-                    background: {
-                        color: { value: "transparent" }
-                    },
-                    particles: {
-                        number: { value: 60 },
-                        color: { value: "#ff0000" },
-                        shape: { type: "triangle" },
-                        opacity: {
-                            value: 0.7,
-                            random: true
-                        },
-                        size: {
-                            value: 10,
-                            random: true
-                        },
-                        move: {
-                            enable: true,
-                            speed: 5,
-                            direction: "bottom-right",
-                            outModes: {
-                                default: "out"
-                            }
-                        },
-                        shadow: {
-                            enable: true,
-                            color: "#ff0000",
-                            blur: 5
-                        },
-                        stroke: {
-                            width: 0
-                        }
-                    },
-                    detectRetina: true
-                });
-
                 let lastSentTime = localStorage.getItem("lastSentTime") || 0;
 
                 document.getElementById("sendButton").addEventListener("click", function () {
@@ -207,6 +183,17 @@ function openPaymentPage(productName, price) {
                     lastSentTime = localStorage.getItem("lastSentTime") || 0;
                     if (Date.now() - lastSentTime < 60000) {
                         startCooldown();
+                    }
+                }
+
+                function generateTriangles() {
+                    for (let i = 0; i < 30; i++) {
+                        const tri = document.createElement('div');
+                        tri.className = 'triangle';
+                        tri.style.left = Math.random() * window.innerWidth + 'px';
+                        tri.style.animationDelay = (Math.random() * 5) + 's';
+                        tri.style.opacity = 0.6 + Math.random() * 0.4;
+                        document.body.appendChild(tri);
                     }
                 }
             </script>
