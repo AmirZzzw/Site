@@ -7,35 +7,36 @@ function openPaymentPage(productName, price) {
         <head>
             <meta charset="UTF-8" />
             <title>پرداخت ${productName}</title>
-            <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" />
+            <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
             <style>
                 html, body {
                     margin: 0;
                     padding: 0;
+                    height: 100%;
+                    background: black;
+                    overflow: hidden;
                     font-family: 'Vazir', sans-serif;
                     color: white;
-                    background: black;
-                    height: 100%;
-                    overflow: hidden;
                 }
                 #tsparticles {
                     position: fixed;
-                    width: 100%;
-                    height: 100%;
                     top: 0;
                     left: 0;
-                    z-index: -1;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 0;
                 }
                 .container {
+                    position: relative;
+                    z-index: 1;
                     background: white;
                     padding: 40px;
                     border-radius: 50px;
                     box-shadow: 0 12px 24px rgba(0,0,0,0.3);
                     color: black;
                     max-width: 500px;
-                    margin: 50px auto;
-                    position: relative;
-                    z-index: 1;
+                    margin: auto;
+                    margin-top: 50px;
                     text-align: center;
                 }
                 button {
@@ -82,6 +83,7 @@ function openPaymentPage(productName, price) {
                 <input type="text" id="phoneNumber" placeholder="شماره شما" />
                 <textarea id="optionalText" placeholder="توضیحات بیشتر (اختیاری)"></textarea>
 
+                <h1></h1>
                 <button id="sendButton">ارسال فیش</button>
                 <h3 id="timer">✅ ارسال فیش امکان‌پذیر است</h3>
                 <h2 id="statusMessage"></h2>
@@ -91,17 +93,17 @@ function openPaymentPage(productName, price) {
                 <button onclick="window.close()">بازگشت به سایت</button>
             </div>
 
-            <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/tsparticles@3/tsparticles.bundle.min.js"></script>
             <script>
                 tsParticles.load("tsparticles", {
                     fullScreen: { enable: false },
-                    background: { color: { value: "#000000" } },
+                    background: {
+                        color: { value: "transparent" }
+                    },
                     particles: {
                         number: { value: 60 },
-                        shape: {
-                            type: "triangle"
-                        },
                         color: { value: "#ff0000" },
+                        shape: { type: "triangle" },
                         opacity: {
                             value: 0.7,
                             random: true
@@ -129,9 +131,7 @@ function openPaymentPage(productName, price) {
                     },
                     detectRetina: true
                 });
-            </script>
 
-            <script>
                 let lastSentTime = localStorage.getItem("lastSentTime") || 0;
 
                 document.getElementById("sendButton").addEventListener("click", function () {
@@ -163,7 +163,7 @@ function openPaymentPage(productName, price) {
                     const formData = new FormData();
                     formData.append("chat_id", "7549513123");
                     formData.append("photo", file);
-                    formData.append("caption", \`🔹 محصول: \${productName}\\n🔹 مبلغ: \${price.toLocaleString()} تومان\\nآیدی تلگرام: \${telegramID}\\nشماره: \${phoneNumber}\\n\${optionalText ? 'توضیحات: ' + optionalText : ''}\`);
+                    formData.append("caption", \`🔹 محصول: \${productName}\n🔹 مبلغ: \${price.toLocaleString()} تومان\nآیدی تلگرام: \${telegramID}\nشماره: \${phoneNumber}\n\${optionalText ? 'توضیحات: ' + optionalText : ''}\`);
 
                     fetch("https://api.telegram.org/bot7638518449:AAG8f1e0qkeJ4QJHx1nSPXnnOdDWGCukDeM/sendPhoto", {
                         method: "POST",
