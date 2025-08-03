@@ -10,7 +10,7 @@ function openPaymentPage(productName, price) {
             <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
             <style>
                 body { font-family: 'Vazir', sans-serif; text-align: center; background: #000000; padding: 50px; color: white; }
-                .container { background: white; padding: 40px; border-radius: 50px; box-shadow: 0 12px 24px rgba(0,0,0,0.3); color: black; max-width: 500px; margin: auto; }
+                .container { background: white; padding: 50px; border-radius: 25px; box-shadow: 0 12px 24px rgba(0,0,0,0.3); color: black; max-width: 500px; margin: auto; }
                 button { background: linear-gradient(to right, #ff5722, #ff9800); color: black; padding: 18px 55px; border: none; font-size: 22px; cursor: pointer; border-radius: 50px; transition: 0.3s; }
                 button:hover { transform: scale(1.1); background: linear-gradient(to right, #e64a19, #f57c00); }
                 input, textarea { width: 90%; padding: 10px; font-size: 16px; border-radius: 50px; margin-top: 10px; border: 1px solid #ccc; }
