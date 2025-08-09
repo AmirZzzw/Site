@@ -1,147 +1,375 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Sidka Shop</title>
-    <meta property="og:site_name" content="Sidka Shop">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://sidka-shop.netlify.app">
-    <meta property="og:title" content="Sidka Shop">
-    <meta property="og:image" content="https://cdn.glitch.global/0b0ae7ee-4f8b-40ff-9261-3a23d7a172bc/Picsart_25-06-17_15-35-33-974.jpg?v=1750162247691">
-    <meta property="og:description" content="Developed By AmirSidka"/>
-    <!-- اضافه کردن فونت وزیر -->
-    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
-    <link rel="icon" href="https://raw.githubusercontent.com/AmirZzzw/Site/main/Logo.png" type="image/jpeg" />
-    <link rel="stylesheet" href="style.css" />
-    <style>
-        body {
-            text-align: center;
-            padding: 20px;
-            background: black;
-            color: white;
-            font-family: 'Vazir', sans-serif;
-        }
-        #paymentContainer {
-            display: none;
-            text-align: center;
-            padding: 20px;
-            background: #111;
-            color: white;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            overflow: auto;
-            z-index: 9999;
-        }
-        #paymentContainer .container {
-            max-width: 500px;
-            margin: auto;
-            background: #222;
-            padding: 30px;
-            border-radius: 15px;
-        }
-        #paymentContainer button#closePayment {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 20px;
-            padding: 10px 20px;
-            cursor: pointer;
-            background: #ff5722;
-            border: none;
-            border-radius: 10px;
-            color: white;
-            transition: background 0.3s ease;
-        }
-        #paymentContainer button#closePayment:hover {
-            background: #e64a19;
-        }
-        #paymentContainer button#sendButton {
-            background: linear-gradient(to right, #ff5722, #ff9800);
-            color: black;
-            padding: 18px 55px;
-            border: none;
-            font-size: 22px;
-            cursor: pointer;
-            border-radius: 50px;
-            transition: 0.3s;
-            margin-top: 20px;
-        }
-        #paymentContainer button#sendButton:hover {
-            transform: scale(1.1);
-            background: linear-gradient(to right, #e64a19, #f57c00);
-        }
-        #paymentContainer input, 
-        #paymentContainer textarea {
-            width: 90%;
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 50px;
-            margin-top: 10px;
-            border: 1px solid #ccc;
-            font-family: 'Vazir', sans-serif;
-        }
-        #timer {
-            margin-top: 15px;
-            color: green;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sidka Shop</title>
+  <meta property="og:site_name" content="Sidka Shop">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sidka-shop.netlify.app">
+  <meta property="og:title" content="Sidka Shop">
+  <meta property="og:image" content="https://cdn.glitch.global/0b0ae7ee-4f8b-40ff-9261-3a23d7a172bc/Picsart_25-06-17_15-35-33-974.jpg?v=1750162247691">
+  <meta property="og:description" content="Developed By AmirSidka"/>
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
+  <link rel="icon" href="https://raw.githubusercontent.com/AmirZzzw/Site/main/Logo.png" type="image/jpeg" />
+
+  <style>
+    body {
+      font-family: 'Vazir', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+      scroll-behavior: smooth;
+    }
+    header {
+      background: #0f3460;
+      padding: 20px;
+      font-size: 32px;
+      box-shadow: 0 2px 4px rgba(255,255,255,0.3);
+    }
+    section {
+      padding: 40px;
+    }
+    #products {
+      max-width: 900px;
+      margin: auto;
+    }
+    .product {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 32px;
+      box-shadow: 10px 1.5px 3px rgba(255,255,255,0.3);
+      backdrop-filter: blur(15px);
+      transition: transform 0.3s ease;
+    }
+    .product:hover {
+      transform: scale(1.03);
+    }
+    button {
+      background: linear-gradient(to right, #ff5722, #ff9800);
+      color: black;
+      padding: 16px 45px;
+      border: none;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 50px;
+      transition: 0.4s;
+      position: relative;
+      overflow: hidden;
+    }
+    button:hover:not(.disabled) {
+      transform: scale(1.05);
+      background: linear-gradient(to right, #e64a19, #f57c00);
+    }
+    button.disabled {
+      background: grey;
+      color: white;
+      cursor: not-allowed;
+    }
+    /* افکت برق روی دکمه */
+    button:after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        45deg,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,0.3) 50%,
+        rgba(255,255,255,0) 100%
+      );
+      transform: translateX(-100%) rotate(25deg);
+      transition: transform 0.7s ease;
+      pointer-events: none;
+    }
+    button:active:after {
+      transform: translateX(100%) rotate(25deg);
+      transition: transform 0.3s ease;
+    }
+    /* صفحه پرداخت */
+    #paymentPage {
+      max-width: 600px;
+      margin: 40px auto;
+      background: white;
+      color: black;
+      padding: 30px;
+      border-radius: 25px;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+      display: none;
+      text-align: center;
+    }
+    #paymentPage input, #paymentPage textarea {
+      width: 90%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 50px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    #paymentPage button {
+      margin-top: 20px;
+      padding: 18px 55px;
+      font-size: 22px;
+      background: linear-gradient(to right, #ff5722, #ff9800);
+      border-radius: 50px;
+      border: none;
+      color: black;
+      cursor: pointer;
+      transition: 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    #paymentPage button:hover {
+      background: linear-gradient(to right, #e64a19, #f57c00);
+      transform: scale(1.1);
+    }
+    #timer {
+      margin-top: 15px;
+      color: green;
+    }
+    #statusMessage {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-    <h1>Sidka Shop</h1>
-    <section id="products">
-        <h1>اشتراک ViaX Panel - پنل ایملاک موبایل</h1>
-        <div class="product">
-            <button onclick="openPaymentPage('اشتراک یکروزه', 15000)">یکروزه - 15,000 تومان</button>
-            <button onclick="openPaymentPage('اشتراک یک هفته', 70000)">یک هفته - 70,000 تومان</button>
-            <button onclick="openPaymentPage('اشتراک یک ماهه', 230000)">یک ماهه - 230,000 تومان</button>
-            <button onclick="openPaymentPage('اشتراک دائم', 350000)">دائم - 350,000 تومان</button>
-        </div>
 
-        <h1>تامنیل یوتیوب</h1>
-        <div class="product">
-            <button onclick="openPaymentPage('تامنیل یوتیوب', 50000)">50,000 تومان - خرید</button>
-        </div>
+  <header><h1>Sidka Shop</h1></header>
 
-        <h1>پروفایل چنل تلگرام</h1>
-        <div class="product">
-            <button onclick="openPaymentPage('پروفایل چنل تلگرام', 50000)">50,000 تومان - خرید</button>
-        </div>
-
-        <h1>سلف یکماهه ی تلگرام</h1>
-        <div class="product">
-            <button onclick="openPaymentPage('سلف یکماهه ی تلگرام', 40000)">40,000 تومان - خرید</button>
-            <h1>ممکنه بعضی اوقات فروش سلف متوقف بشه</h1>
-        </div>
-
-        <h1>ساخت پنل</h1>
-        <div class="product">
-            <button onclick="openPaymentPage('ساخت پنل', 259000)">259,000 تومان - خرید</button>
-        </div>
-
-        <h1>متود در اومدن اکانت تلگرام از ریپ</h1>
-        <div class="product">
-            <button onclick="openPaymentPage('متود در اومدن اکانت از ریپ', 100000)">100,000 تومان - خرید</button>
-        </div>
-    </section>
-
-    <section id="contact">
-        <h1>ارتباط با ما</h1>
-        <div class="product">
-            <button onclick="window.open('https://t.me/AmirSidkaSupport_Bot', '_blank')">Support Bot</button>
-            <button onclick="window.open('https://t.me/AmirSidkaSupport2_Bot', '_blank')">Support Bot ²</button>
-            <button onclick="window.open('https://t.me/SidkaShop', '_blank')">Telegram Channel</button>
-            <button onclick="window.open('https://t.me/AmirSidka', '_blank')">Telegram Pv</button>
-        </div>
-    </section>
-
-    <!-- کانتینر صفحه پرداخت -->
-    <div id="paymentContainer">
-        <button id="closePayment">بازگشت به فروشگاه</button>
-        <div id="paymentContent"></div>
+  <section id="products">
+    <h2>اشتراک ViaX Panel - پنل ایملاک موبایل</h2>
+    <div class="product">
+      <button onclick="showPayment('اشتراک یکروزه', 15000)">یکروزه - 15,000 تومان</button>
+      <button onclick="showPayment('اشتراک یک هفته', 70000)">یک هفته - 70,000 تومان</button>
+      <button onclick="showPayment('اشتراک یک ماهه', 230000)">یک ماهه - 230,000 تومان</button>
+      <button onclick="showPayment('اشتراک دائم', 350000)">دائم - 350,000 تومان</button>
     </div>
 
-    <script src="script.js"></script>
+    <h2>تامنیل یوتیوب</h2>
+    <div class="product">
+      <button onclick="showPayment('تامنیل یوتیوب', 50000)">50,000 تومان - خرید</button>
+    </div>
+
+    <h2>پروفایل چنل تلگرام</h2>
+    <div class="product">
+      <button onclick="showPayment('پروفایل چنل تلگرام', 50000)">50,000 تومان - خرید</button>
+    </div>
+
+    <h2>سلف یکماهه ی تلگرام</h2>
+    <div class="product">
+      <button onclick="showPayment('سلف یکماهه ی تلگرام', 40000)">40,000 تومان - خرید</button>
+      <h3>ممکنه بعضی اوقات فروش سلف متوقف بشه</h3>
+    </div>
+
+    <h2>ساخت پنل</h2>
+    <div class="product">
+      <button onclick="showPayment('ساخت پنل', 259000)">259,000 تومان - خرید</button>
+    </div>
+
+    <h2>متود در اومدن اکانت تلگرام از ریپ</h2>
+    <div class="product">
+      <button onclick="showPayment('متود در اومدن اکانت از ریپ', 100000)">100,000 تومان - خرید</button>
+    </div>
+  </section>
+
+  <section id="paymentPage">
+    <h2 id="payTitle"></h2>
+    <h3>مبلغ: <span id="payAmount"></span> تومان</h3>
+    <h3>به شماره کارت زیر واریز کنید:</h3>
+    <h3>6037998222276759</h3>
+    <h3>به نام: امیرمحمد یوسفی</h3>
+
+    <h3>📤 ارسال فیش پرداخت</h3>
+    <input type="file" id="receiptImage" accept="image/*" />
+    <input type="text" id="telegramID" placeholder="آیدی تلگرام شما" />
+    <input type="text" id="phoneNumber" placeholder="شماره شما" />
+    <textarea id="optionalText" placeholder="توضیحات بیشتر (اختیاری)"></textarea>
+
+    <button id="sendButton">ارسال فیش</button>
+
+    <h3 id="timer">✅ ارسال فیش امکان‌پذیر است</h3>
+    <h3 id="statusMessage"></h3>
+
+    <button onclick="goBack()">بازگشت به سایت</button>
+  </section>
+
+  <script>
+    let lastSentTime = localStorage.getItem("lastSentTime") || 0;
+    let currentProduct = '';
+    let currentPrice = 0;
+    let cooldownInterval;
+
+    function showPayment(productName, price) {
+      currentProduct = productName;
+      currentPrice = price;
+
+      document.getElementById('products').style.display = 'none';
+      const payPage = document.getElementById('paymentPage');
+      payPage.style.display = 'block';
+
+      document.getElementById('payTitle').textContent = 'پرداخت ' + productName;
+      document.getElementById('payAmount').textContent = price.toLocaleString();
+
+      history.pushState({page: 'payment', product: productName, price: price}, '', '/payment');
+
+      restoreTimer();
+      clearPaymentForm();
+      clearStatus();
+    }
+
+    function goBack() {
+      document.getElementById('paymentPage').style.display = 'none';
+      document.getElementById('products').style.display = 'block';
+
+      history.pushState({page: 'products'}, '', '/');
+
+      clearPaymentForm();
+      clearStatus();
+    }
+
+    // مدیریت بازگشت با دکمه مرورگر
+    window.onpopstate = function(event) {
+      if(event.state) {
+        if(event.state.page === 'payment') {
+          showPayment(event.state.product, event.state.price);
+        } else {
+          goBack();
+        }
+      } else {
+        goBack();
+      }
+    };
+
+    document.getElementById("sendButton").addEventListener("click", function () {
+      sendReceipt(currentProduct, currentPrice);
+    });
+
+    function sendReceipt(productName, price) {
+      const now = Date.now();
+      const timePassed = now - lastSentTime;
+
+      if (timePassed < 60000) {
+        alert(`🚨 لطفاً ${Math.ceil((60000 - timePassed) / 1000)} ثانیه دیگر صبر کنید!`);
+        return;
+      }
+
+      const imageInput = document.getElementById('receiptImage');
+      const telegramID = document.getElementById('telegramID').value.trim();
+      const phoneNumber = document.getElementById('phoneNumber').value.trim();
+      const optionalText = document.getElementById('optionalText').value.trim();
+      const statusMessage = document.getElementById('statusMessage');
+
+      if (imageInput.files.length === 0 || telegramID === "" || phoneNumber === "") {
+        statusMessage.textContent = "🚨 لطفاً عکس، آیدی تلگرام، و شماره خود را وارد کنید!";
+        statusMessage.style.color = "red";
+        return;
+      }
+
+      const file = imageInput.files[0];
+      const formData = new FormData();
+      formData.append("chat_id", "7549513123");
+      formData.append("photo", file);
+      formData.append("caption", `🔹 محصول: ${productName}\n🔹 مبلغ: ${price.toLocaleString()} تومان\nآیدی تلگرام: ${telegramID}\nشماره: ${phoneNumber}\n${optionalText ? 'توضیحات: ' + optionalText : ''}`);
+
+      fetch("https://api.telegram.org/bot7638518449:AAG8f1e0qkeJ4QJHx1nSPXnnOdDWGCukDeM/sendPhoto", {
+        method: "POST",
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.ok) {
+          statusMessage.textContent = "✅ فیش پرداخت با موفقیت ارسال شد!";
+          statusMessage.style.color = "green";
+          lastSentTime = now;
+          localStorage.setItem("lastSentTime", now);
+          startCooldown();
+          clearPaymentForm();
+        } else {
+          statusMessage.textContent = "❌ ارسال ناموفق بود!";
+          statusMessage.style.color = "red";
+        }
+      })
+      .catch(() => {
+        statusMessage.textContent = "❌ خطا در ارسال فیش!";
+        statusMessage.style.color = "red";
+      });
+    }
+
+    function clearPaymentForm() {
+      document.getElementById('receiptImage').value = '';
+      document.getElementById('telegramID').value = '';
+      document.getElementById('phoneNumber').value = '';
+      document.getElementById('optionalText').value = '';
+    }
+
+    function clearStatus() {
+      const statusMessage = document.getElementById('statusMessage');
+      statusMessage.textContent = '';
+    }
+
+    function startCooldown() {
+      const timer = document.getElementById('timer');
+      const sendBtn = document.getElementById('sendButton');
+      sendBtn.disabled = true;
+      sendBtn.classList.add('disabled');
+
+      clearInterval(cooldownInterval);
+      let count = 60;
+      timer.textContent = `⏳ لطفاً ${count} ثانیه صبر کنید تا دوباره ارسال کنید.`;
+      timer.style.color = "orange";
+
+      cooldownInterval = setInterval(() => {
+        count--;
+        if (count <= 0) {
+          clearInterval(cooldownInterval);
+          timer.textContent = "✅ ارسال فیش امکان‌پذیر است";
+          timer.style.color = "green";
+          sendBtn.disabled = false;
+          sendBtn.classList.remove('disabled');
+        } else {
+          timer.textContent = `⏳ لطفاً ${count} ثانیه صبر کنید تا دوباره ارسال کنید.`;
+          timer.style.color = "orange";
+        }
+      }, 1000);
+    }
+
+    function restoreTimer() {
+      const now = Date.now();
+      const timePassed = now - lastSentTime;
+      if(timePassed < 60000) {
+        startCooldown();
+      } else {
+        const timer = document.getElementById('timer');
+        timer.textContent = "✅ ارسال فیش امکان‌پذیر است";
+        timer.style.color = "green";
+        document.getElementById('sendButton').disabled = false;
+        document.getElementById('sendButton').classList.remove('disabled');
+      }
+    }
+
+    // اگر صفحه در حالت پرداخت بود صفحه پرداخت را باز کن
+    window.addEventListener('load', () => {
+      if(location.pathname === '/payment') {
+        // میتونید محصول پیش‌فرض بذارید یا با history.state چک کنید
+        if(history.state && history.state.page === 'payment') {
+          showPayment(history.state.product, history.state.price);
+        } else {
+          goBack();
+        }
+      }
+    });
+  </script>
+
 </body>
 </html>
