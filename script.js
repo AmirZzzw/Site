@@ -121,6 +121,16 @@ function openPaymentPage(productName, price) {
                         startCooldown();
                     }
                 }
+                const button = document.querySelector('button');
+
+button.addEventListener('click', (e) => {
+  e.stopPropagation();  // جلوگیری از انتشار کلیک به بالاتر
+  button.classList.add('active');
+});
+
+document.body.addEventListener('click', () => {
+  button.classList.remove('active');
+});
             </script>
         </body>
         </html>
