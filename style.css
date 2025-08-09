@@ -68,8 +68,14 @@ button::after {
     pointer-events: none;
 }
 
-button:active::after {
+/* افکت برق عادی روی کلیک دکمه */
+.shine-animation::after {
     animation: shine 0.6s forwards;
+}
+
+/* افکت برق معکوس روی کلیک بیرون دکمه */
+.reverse-shine-animation::after {
+    animation: reverseShine 0.6s forwards;
 }
 
 button:hover:not(.disabled) {
@@ -90,6 +96,17 @@ button.disabled {
     }
     100% {
         left: 150%;
+        opacity: 0;
+    }
+}
+
+@keyframes reverseShine {
+    0% {
+        left: 150%;
+        opacity: 1;
+    }
+    100% {
+        left: -50%;
         opacity: 0;
     }
 }
