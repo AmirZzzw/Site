@@ -1,242 +1,128 @@
 let lastSentTime = localStorage.getItem("lastSentTime") || 0;
 
-// باز کردن فرم پرداخت به صورت مودال
 function openPaymentPage(productName, price) {
-    // چک اگر مودال قبلی هست، حذفش کن
-    const existingModal = document.getElementById('paymentModal');
-    if (existingModal) existingModal.remove();
+    const paymentPage = window.open("", "_blank");
+    paymentPage.document.write(`
+        <html lang="fa">
+        <head>
+            <meta charset="UTF-8" />
+            <title>پرداخت ${productName}</title>
+            <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
+            <style>
+                body { font-family: 'Vazir', sans-serif; text-align: center; background: #000000; padding: 50px; color: white; }
+                .container { background: white; padding: 50px; border-radius: 25px; box-shadow: 0 12px 24px rgba(0,0,0,0.3); color: black; max-width: 500px; margin: auto; }
+                button { background: linear-gradient(to right, #ff5722, #ff9800); color: black; padding: 18px 55px; border: none; font-size: 22px; cursor: pointer; border-radius: 50px; transition: 0.3s; }
+                button:hover { transform: scale(1.1); background: linear-gradient(to right, #e64a19, #f57c00); }
+                input, textarea { width: 90%; padding: 10px; font-size: 16px; border-radius: 50px; margin-top: 10px; border: 1px solid #ccc; }
+                #timer { margin-top: 15px; color: green; }
+            </style>
+        </head>
+        <body onload="restoreTimer()">
+            <div class="container">
+                <h2>پرداخت ${productName}</h2>
+                <h2>مبلغ: <strong>${price.toLocaleString()} تومان</strong></h2>
+                <h2>به شماره کارت زیر واریز کنید:</h2>
+                <h2>6037998222276759</h2>
+                <h2>به نام: امیرمحمد یوسفی</h2>
 
-    // ساخت مودال
-    const modal = document.createElement('div');
-    modal.id = 'paymentModal';
-    modal.style = `
-        position: fixed;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background: rgba(0,0,0,0.85);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-    `;
+                <h2>📤 ارسال فیش پرداخت</h2>
+                <input type="file" id="receiptImage" accept="image/*" />
+                <input type="text" id="telegramID" placeholder="آیدی تلگرام شما" />
+                <input type="text" id="phoneNumber" placeholder="شماره شما" />
+                <textarea id="optionalText" placeholder="توضیحات بیشتر (اختیاری)"></textarea>
 
-    modal.innerHTML = `
-        <div style="
-            background: #fff;
-            color: black;
-            border-radius: 20px;
-            padding: 30px;
-            max-width: 500px;
-            width: 90%;
-            font-family: 'Vazir', sans-serif;
-            text-align: center;
-            position: relative;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-        ">
-            <h2>پرداخت ${productName}</h2>
-            <h3>مبلغ: <strong>${price.toLocaleString()} تومان</strong></h3>
-            <p>به شماره کارت زیر واریز کنید:</p>
-            <p style="font-weight:bold; font-size:20px; margin: 10px 0;">6037 9982 2227 6759</p>
-            <p>به نام: امیرمحمد یوسفی</p>
+                <h1></h1>
+                <button id="sendButton">ارسال فیش</button>
+                <h1></h1>
+                <h3 id="timer">✅ ارسال فیش امکان‌پذیر است</h3>
+                <h1></h1>
+                <h2 id="statusMessage"></h2>
+                <h1></h1>
+                <button onclick="window.open('https://t.me/AmirSidka', '_blank')">Telegram Pv</button>
+                <br /><br />
+                <button onclick="window.close()">بازگشت به سایت</button>
+            </div>
 
-            <hr style="margin: 20px 0;"/>
+            <script>
+                let lastSentTime = localStorage.getItem("lastSentTime") || 0;
 
-            <h3>ارسال فیش پرداخت</h3>
-            <input type="file" id="receiptImage" accept="image/*" style="width: 90%; margin: 10px 0;" />
-            <input type="text" id="telegramID" placeholder="آیدی تلگرام شما" style="width: 90%; margin: 10px 0; padding:10px; border-radius:50px; border:1px solid #ccc;" />
-            <input type="text" id="phoneNumber" placeholder="شماره شما" style="width: 90%; margin: 10px 0; padding:10px; border-radius:50px; border:1px solid #ccc;" />
-            <textarea id="optionalText" placeholder="توضیحات بیشتر (اختیاری)" style="width: 90%; margin: 10px 0; padding:10px; border-radius:20px; border:1px solid #ccc;" rows="3"></textarea>
+                document.getElementById("sendButton").addEventListener("click", function () {
+                    sendReceipt("${productName}", ${price});
+                });
 
-            <button id="sendButton" style="
-                background: linear-gradient(to right, #ff5722, #ff9800);
-                color: black;
-                padding: 15px 50px;
-                font-size: 20px;
-                font-weight: bold;
-                border-radius: 50px;
-                border: none;
-                cursor: pointer;
-                margin-top: 10px;
-                transition: 0.3s;
-            ">ارسال فیش</button>
+                function sendReceipt(productName, price) {
+                    const now = Date.now();
+                    const timePassed = now - lastSentTime;
 
-            <p id="timer" style="margin-top: 15px; color: green;">✅ ارسال فیش امکان‌پذیر است</p>
-            <p id="statusMessage" style="font-weight: bold; min-height: 24px;"></p>
+                    if (timePassed < 60000) {
+                        alert(\`🚨 لطفاً \${Math.ceil((60000 - timePassed) / 1000)} ثانیه دیگر صبر کنید!\`);
+                        return;
+                    }
 
-            <button id="closeModal" style="
-                background: #888;
-                color: white;
-                padding: 10px 30px;
-                border-radius: 50px;
-                border: none;
-                cursor: pointer;
-                margin-top: 20px;
-            ">بازگشت به سایت</button>
-        </div>
-    `;
+                    const imageInput = document.getElementById('receiptImage');
+                    const telegramID = document.getElementById('telegramID').value.trim();
+                    const phoneNumber = document.getElementById('phoneNumber').value.trim();
+                    const optionalText = document.getElementById('optionalText').value.trim();
+                    const statusMessage = document.getElementById('statusMessage');
 
-    document.body.appendChild(modal);
+                    if (imageInput.files.length === 0 || telegramID === "" || phoneNumber === "") {
+                        statusMessage.textContent = "🚨 لطفاً عکس، آیدی تلگرام، و شماره خود را وارد کنید!";
+                        statusMessage.style.color = "red";
+                        return;
+                    }
 
-    // افکت برق روی دکمه ارسال
-    const sendBtn = modal.querySelector("#sendButton");
-    sendBtn.addEventListener("click", () => {
-        flashEffect(sendBtn);
-        sendReceipt(productName, price);
-    });
+                    const file = imageInput.files[0];
+                    const formData = new FormData();
+                    formData.append("chat_id", "7549513123");
+                    formData.append("photo", file);
+                    formData.append("caption", \`🔹 محصول: \${productName}\n🔹 مبلغ: \${price.toLocaleString()} تومان\nآیدی تلگرام: \${telegramID}\nشماره: \${phoneNumber}\n\${optionalText ? 'توضیحات: ' + optionalText : ''}\`);
 
-    modal.querySelector("#closeModal").addEventListener("click", () => {
-        clearInterval(timerInterval);
-        modal.remove();
-    });
+                    fetch("https://api.telegram.org/bot7638518449:AAG8f1e0qkeJ4QJHx1nSPXnnOdDWGCukDeM/sendPhoto", {
+                        method: "POST",
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.ok) {
+                            statusMessage.textContent = "✅ فیش پرداخت با موفقیت ارسال شد!";
+                            statusMessage.style.color = "green";
+                            lastSentTime = now;
+                            localStorage.setItem("lastSentTime", now);
+                            startCooldown();
+                        } else {
+                            statusMessage.textContent = "❌ ارسال ناموفق بود!";
+                            statusMessage.style.color = "red";
+                        }
+                    })
+                    .catch(() => {
+                        statusMessage.textContent = "❌ خطا در ارسال فیش!";
+                        statusMessage.style.color = "red";
+                    });
+                }
 
-    restoreTimer();
+                function startCooldown() {
+                    let timeLeft = Math.ceil((60000 - (Date.now() - lastSentTime)) / 1000);
+                    const timerDisplay = document.getElementById('timer');
+                    timerDisplay.textContent = \`⏳ انتظار: \${timeLeft} ثانیه\`;
+
+                    const timerInterval = setInterval(() => {
+                        timeLeft--;
+                        timerDisplay.textContent = \`⏳ انتظار: \${timeLeft} ثانیه\`;
+                        if (timeLeft <= 0) {
+                            clearInterval(timerInterval);
+                            timerDisplay.textContent = "✅ ارسال فیش امکان‌پذیر است!";
+                        }
+                    }, 1000);
+                }
+
+                function restoreTimer() {
+                    lastSentTime = localStorage.getItem("lastSentTime") || 0;
+                    if (Date.now() - lastSentTime < 60000) {
+                        startCooldown();
+                    }
+                }
+            </script>
+        </body>
+        </html>
+    `);
 }
-
-function flashEffect(button) {
-    button.style.position = 'relative';
-    const flash = document.createElement('span');
-    flash.style = `
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: linear-gradient(45deg, rgba(255,255,255,0.6) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0.6) 75%, transparent 75%, transparent);
-        background-size: 50% 50%;
-        animation: flashMove 0.6s linear forwards;
-        pointer-events: none;
-        border-radius: 50px;
-        z-index: 10;
-    `;
-    button.appendChild(flash);
-
-    flash.addEventListener('animationend', () => {
-        flash.remove();
-    });
-}
-
-// ارسال فیش
-function sendReceipt(productName, price) {
-    const now = Date.now();
-    const timePassed = now - lastSentTime;
-
-    const statusMessage = document.getElementById('statusMessage');
-
-    if (timePassed < 60000) {
-        alert(`🚨 لطفاً ${Math.ceil((60000 - timePassed) / 1000)} ثانیه دیگر صبر کنید!`);
-        return;
-    }
-
-    const imageInput = document.getElementById('receiptImage');
-    const telegramID = document.getElementById('telegramID').value.trim();
-    const phoneNumber = document.getElementById('phoneNumber').value.trim();
-    const optionalText = document.getElementById('optionalText').value.trim();
-
-    if (imageInput.files.length === 0 || telegramID === "" || phoneNumber === "") {
-        statusMessage.textContent = "🚨 لطفاً عکس، آیدی تلگرام، و شماره خود را وارد کنید!";
-        statusMessage.style.color = "red";
-        return;
-    }
-
-    const file = imageInput.files[0];
-    const formData = new FormData();
-    formData.append('receipt', file);
-    formData.append('telegramID', telegramID);
-    formData.append('phoneNumber', phoneNumber);
-    formData.append('optionalText', optionalText);
-    formData.append('productName', productName);
-    formData.append('price', price);
-
-    statusMessage.textContent = "⏳ در حال ارسال فیش...";
-    statusMessage.style.color = "blue";
-
-    // به جای آدرس زیر آدرس API خودتو بگذار
-    fetch('https://your-server.com/api/sendReceipt', {
-        method: 'POST',
-        body: formData
-    })
-    .then(res => {
-        if (res.ok) return res.json();
-        else throw new Error('خطا در ارسال');
-    })
-    .then(data => {
-        statusMessage.textContent = "✅ فیش با موفقیت ارسال شد!";
-        statusMessage.style.color = "green";
-        lastSentTime = Date.now();
-        localStorage.setItem("lastSentTime", lastSentTime);
-        startTimer();
-
-        // پاک کردن فرم
-        document.getElementById('receiptImage').value = "";
-        document.getElementById('telegramID').value = "";
-        document.getElementById('phoneNumber').value = "";
-        document.getElementById('optionalText').value = "";
-    })
-    .catch(() => {
-        statusMessage.textContent = "❌ ارسال فیش ناموفق بود!";
-        statusMessage.style.color = "red";
-    });
-}
-
-let timerInterval = null;
-
-function startTimer() {
-    const timer = document.getElementById('timer');
-    if (!timer) return;
-
-    let secondsLeft = 60;
-    timer.textContent = `⏳ لطفا ${secondsLeft} ثانیه صبر کنید تا دوباره ارسال کنید`;
-    timer.style.color = "orange";
-
-    clearInterval(timerInterval);
-
-    timerInterval = setInterval(() => {
-        secondsLeft--;
-        if (secondsLeft > 0) {
-            timer.textContent = `⏳ لطفا ${secondsLeft} ثانیه صبر کنید تا دوباره ارسال کنید`;
-        } else {
-            clearInterval(timerInterval);
-            timer.textContent = "✅ ارسال فیش امکان‌پذیر است";
-            timer.style.color = "green";
-        }
-    }, 1000);
-}
-
-function restoreTimer() {
-    const timer = document.getElementById('timer');
-    if (!timer) return;
-
-    const now = Date.now();
-    const timePassed = now - lastSentTime;
-
-    if (timePassed < 60000) {
-        let secondsLeft = Math.ceil((60000 - timePassed) / 1000);
-        timer.textContent = `⏳ لطفا ${secondsLeft} ثانیه صبر کنید تا دوباره ارسال کنید`;
-        timer.style.color = "orange";
-
-        clearInterval(timerInterval);
-
-        timerInterval = setInterval(() => {
-            secondsLeft--;
-            if (secondsLeft > 0) {
-                timer.textContent = `⏳ لطفا ${secondsLeft} ثانیه صبر کنید تا دوباره ارسال کنید`;
-            } else {
-                clearInterval(timerInterval);
-                timer.textContent = "✅ ارسال فیش امکان‌پذیر است";
-                timer.style.color = "green";
-            }
-        }, 1000);
-    } else {
-        timer.textContent = "✅ ارسال فیش امکان‌پذیر است";
-        timer.style.color = "green";
-    }
-}
-
-/* افکت برق (انیمیشن) */
-const style = document.createElement('style');
-style.innerHTML = `
-@keyframes flashMove {
-  0% { background-position: 0 0; }
-  100% { background-position: 100% 100%; }
-}
-`;
-document.head.appendChild(style);
