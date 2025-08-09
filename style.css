@@ -1,110 +1,96 @@
 body {
-    font-family: 'Vazir', sans-serif;
-    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-    color: white;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    scroll-behavior: smooth;
+  font-family: 'Vazir', sans-serif;
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+  color: white;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
 }
 
 header {
-    background: #0f3460;
-    padding: 20px;
-    font-size: 32px;
-    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
+  background: #0f3460;
+  padding: 20px;
+  font-size: 32px;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
 }
 
 section {
-    padding: 40px;
+  padding: 40px;
 }
 
 .product {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 40px;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 32px;
-    box-shadow: 10px 1.5px 3px rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(15px);
-    transition: transform 0.3s ease;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 32px;
+  box-shadow: 10px 1.5px 3px rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(15px);
+  transition: transform 0.3s ease;
 }
 
 .product:hover {
-    transform: scale(1.03);
+  transform: scale(1.03);
 }
 
 button {
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(to right, #ff5722, #ff9800);
-    color: black;
-    padding: 16px 45px;
-    border: none;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 50px;
-    transition: 0.4s;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(to right, #ff5722, #ff9800);
+  color: black;
+  padding: 16px 45px;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 50px;
+  transition: 0.4s;
 }
 
 button::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 50px;
-    height: 200%;
-    background: linear-gradient(
-        45deg,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.6) 50%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    transform: rotate(25deg);
-    opacity: 0;
-    pointer-events: none;
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 50px;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(25deg);
+  opacity: 0;
+  pointer-events: none;
 }
 
-.shine-animation::after {
-    animation: shine 0.6s forwards;
-}
-
-.reverse-shine-animation::after {
-    animation: reverseShine 0.6s forwards;
+button.active::after {
+  animation: shine 0.6s forwards;
+  opacity: 1;
 }
 
 button:hover:not(.disabled) {
-    transform: scale(1.05);
-    background: linear-gradient(to right, #e64a19, #f57c00);
+  transform: scale(1.05);
+  background: linear-gradient(to right, #e64a19, #f57c00);
 }
 
 button.disabled {
-    background: grey;
-    color: white;
-    cursor: not-allowed;
+  background: grey;
+  color: white;
+  cursor: not-allowed;
 }
 
 @keyframes shine {
-    0% {
-        left: -50%;
-        opacity: 1;
-    }
-    100% {
-        left: 150%;
-        opacity: 0;
-    }
-}
-
-@keyframes reverseShine {
-    0% {
-        left: 150%;
-        opacity: 1;
-    }
-    100% {
-        left: -50%;
-        opacity: 0;
-    }
-        }
+  0% {
+    left: -50%;
+    opacity: 1;
+  }
+  100% {
+    left: 150%;
+    opacity: 0;
+  }
+      }
