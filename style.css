@@ -37,6 +37,8 @@ section {
 }
 
 button {
+    position: relative;
+    overflow: hidden;
     background: linear-gradient(to right, #ff5722, #ff9800);
     color: black;
     padding: 16px 45px;
@@ -48,6 +50,28 @@ button {
     transition: 0.4s;
 }
 
+button::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 50px;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.6) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(25deg);
+    opacity: 0;
+    pointer-events: none;
+}
+
+button:active::after {
+    animation: shine 0.6s forwards;
+}
+
 button:hover:not(.disabled) {
     transform: scale(1.05);
     background: linear-gradient(to right, #e64a19, #f57c00);
@@ -57,4 +81,15 @@ button.disabled {
     background: grey;
     color: white;
     cursor: not-allowed;
+}
+
+@keyframes shine {
+    0% {
+        left: -50%;
+        opacity: 1;
+    }
+    100% {
+        left: 150%;
+        opacity: 0;
+    }
 }
