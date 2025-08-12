@@ -38,7 +38,7 @@ function openPaymentPage(productName, price) {
                 <h1></h1>
                 <h2 id="statusMessage"></h2>
                 <h1></h1>
-                <button onclick="window.open('https://t.me/imVorq', '_blank')">Telegram Pv</button>
+                <button onclick="window.open('https://t.me/imCoy', '_blank')">Telegram Pv</button>
                 <br /><br />
                 <button onclick="window.close()">بازگشت به سایت</button>
             </div>
