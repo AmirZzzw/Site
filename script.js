@@ -77,7 +77,7 @@ function openPaymentPage(productName, price) {
                     formData.append("photo", file);
                     formData.append("caption", \`🔹 محصول: \${productName}\n🔹 مبلغ: \${price.toLocaleString()} تومان\nآیدی تلگرام: \${telegramID}\nشماره: \${phoneNumber}\n\${optionalText ? 'توضیحات: ' + optionalText : ''}\`);
 
-                    fetch("https://api.telegram.org/bot7638518449:AAG8f1e0qkeJ4QJHx1nSPXnnOdDWGCukDeM/sendPhoto", {
+                    fetch("https://api.telegram.org/bot7408423935:AAH9nkoZg7ykqQMGKDeitIiOtu6uYZl0Vxg/sendPhoto", {
                         method: "POST",
                         body: formData
                     })
