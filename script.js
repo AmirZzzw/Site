@@ -153,33 +153,54 @@ function openFeaturesPage() {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(15px);
   box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-
-  max-width: 400px;   /* ❌ اینجا طول (عرض) کادر رو محدود میکنی */
-  margin: 50px auto;  /* ❌ این باعث میشه وسط صفحه بمونه */
-  padding: 30px;      /* ❌ فضای داخل کادر (میتونی کم/زیاد کنی) */
-  min-height: 300px;  /* ❌ ارتفاع حداقل (اختیاری) */
 }
+
+/* برق افقی (چپ به راست) */
 .container::after {
   content: "";
   position: absolute;
-  top: -20%;   /* شروع بالاتر */
+  top: 0;
   left: -100%;
-  width: 30%;  /* باریک‌تر از قبل */
-  height: 140%; /* کمی بلندتر از container برای پوشش حرکت */
+  width: 30%;
+  height: 100%;
   background: linear-gradient(
-    120deg,
+    90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.45) 50%,
+    rgba(255, 255, 255, 0.35) 50%,
     transparent 100%
   );
   border-radius: inherit;
-  animation: shine 4s infinite;
+  animation: shineX 4s infinite;
 }
 
-@keyframes shine {
-  0%   { left: -100%; top: -20%; }
-  20%  { left: 120%; top: 20%; }
-  100% { left: 120%; top: 20%; }
+/* برق مورب (بالا پایین) */
+.container::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: -100%;
+  width: 25%;
+  height: 160%;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 100%
+  );
+  border-radius: inherit;
+  animation: shineY 5s infinite;
+}
+
+/* انیمیشن افقی */
+@keyframes shineX {
+  0%   { left: -100%; }
+  100% { left: 120%; }
+}
+
+/* انیمیشن مورب */
+@keyframes shineY {
+  0%   { left: -100%; top: -40%; }
+  100% { left: 120%;  top: 40%; }
 }
                 h1 {
                   font-size: 36px;
