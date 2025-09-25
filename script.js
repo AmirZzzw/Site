@@ -239,40 +239,49 @@ function openFeaturesPage() {
             </style>
         </head>
         <body>
-          <div class="container">
+<div class="container">
   <h1>✨ قابلیت‌های سلف ✨</h1>
   <ul id="featuresList"></ul>
   <button onclick="window.close()">بازگشت</button>
 </div>
 
 <script>
-  // همه قابلیت‌ها به صورت متن طولانی
+  // همه قابلیت‌ها یکجا، هر خط یک قابلیت
   const featuresText = `
-اول
-دوم
-سوم
-چهارم
-پنجم
-شش
-هفت
+سرعت بسیار بالا
+امنیت تضمینی
+پشتیبانی ۲۴ ساعته
+رابط کاربری ساده و جذاب
+گزارش دقیق و کامل
+قابلیت ششم
+قابلیت هفتم
+قابلیت هشتم
+قابلیت نهم
 `;
 
-  // تبدیل هر خط به یک آیتم لیست
-  const features = featuresText.split("\n");
+  // هر خط رو به لیست اضافه می‌کنیم
   const ul = document.getElementById("featuresList");
-
-  features.forEach((feature, index) => {
-    const trimmed = feature.trim();
+  featuresText.split("\n").forEach(line => {
+    const trimmed = line.trim();
     if(trimmed) {
       const li = document.createElement("li");
       li.textContent = "✅ " + trimmed;
-      li.style.animationDelay = (index * 0.2) + "s"; // انیمیشن ورود دینامیک
       ul.appendChild(li);
     }
   });
 </script>
-            <h1></h1
-          </div>
+
+<style>
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  li {
+    font-size: 22px;
+    margin: 10px 0;
+  }
+</style>
         </body>
         </html>
     `);
