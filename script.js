@@ -124,6 +124,107 @@ function openPaymentPage(productName, price) {
                 
             </script>
         </body>
+        </html>>
+    `);
+}
+
+// 🚀 تابع جدید برای صفحه قابلیت‌های سلف
+function openFeaturesPage() {
+    const featuresPage = window.open("", "_blank");
+    featuresPage.document.write(`
+        <html lang="fa">
+        <head>
+            <meta charset="UTF-8">
+            <title>قابلیت‌های سلف</title>
+            <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
+            <style>
+                body {
+                  font-family: 'Vazir', sans-serif;
+                  margin: 0;
+                  background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
+                  color: white;
+                  text-align: center;
+                  overflow-x: hidden;
+                }
+                .container {
+                  max-width: 800px;
+                  margin: 60px auto;
+                  padding: 40px;
+                  background: rgba(255, 255, 255, 0.05);
+                  border-radius: 25px;
+                  backdrop-filter: blur(15px);
+                  box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+                  animation: fadeIn 1.5s ease;
+                }
+                h1 {
+                  font-size: 36px;
+                  margin-bottom: 30px;
+                  background: linear-gradient(90deg, #ff9800, #ff5722);
+                  -webkit-background-clip: text;
+                  -webkit-text-fill-color: transparent;
+                }
+                ul {
+                  list-style: none;
+                  padding: 0;
+                  margin: 0;
+                }
+                li {
+                  font-size: 22px;
+                  margin: 15px 0;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  gap: 10px;
+                  opacity: 0;
+                  transform: translateY(20px);
+                  animation: slideUp 0.8s forwards;
+                }
+                li:nth-child(1) { animation-delay: 0.2s; }
+                li:nth-child(2) { animation-delay: 0.4s; }
+                li:nth-child(3) { animation-delay: 0.6s; }
+                li:nth-child(4) { animation-delay: 0.8s; }
+                li:nth-child(5) { animation-delay: 1s; }
+                button {
+                  margin-top: 40px;
+                  padding: 15px 40px;
+                  font-size: 18px;
+                  border: none;
+                  border-radius: 50px;
+                  cursor: pointer;
+                  background: linear-gradient(to right, #ff5722, #ff9800);
+                  color: black;
+                  font-weight: bold;
+                  transition: 0.3s;
+                }
+                button:hover {
+                  transform: scale(1.1);
+                  background: linear-gradient(to right, #e64a19, #f57c00);
+                }
+                @keyframes fadeIn {
+                  from { opacity: 0; transform: translateY(30px); }
+                  to { opacity: 1; transform: translateY(0); }
+                }
+                @keyframes slideUp {
+                  to {
+                    opacity: 1;
+                    transform: translateY(0);
+                  }
+                }
+            </style>
+        </head>
+        <body>
+          <div class="container">
+            <h1>✨ قابلیت‌های سلف ✨</h1>
+            <ul>
+              <li>✅ سرعت بسیار بالا</li>
+              <li>✅ امنیت تضمینی</li>
+              <li>✅ پشتیبانی ۲۴ ساعته</li>
+              <li>✅ رابط کاربری ساده و جذاب</li>
+              <li>✅ گزارش دقیق و کامل</li>
+            </ul>
+            <button onclick="window.close()">بازگشت</button>
+          </div>
+        </body>
         </html>
     `);
 }
