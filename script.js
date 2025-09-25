@@ -147,14 +147,30 @@ function openFeaturesPage() {
                   overflow-x: hidden;
                 }
                 .container {
-                  max-width: 800px;
-                  margin: 60px auto;
-                  padding: 40px;
-                  background: rgba(255, 255, 255, 0.05);
-                  border-radius: 25px;
-                  backdrop-filter: blur(15px);
-                  box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-                  animation: fadeIn 1.5s ease;
+                  position: relative;
+                  overflow: hidden; /* برای اینکه برق بیرون نزنه */
+                }
+
+                .container::after {
+                  content: "";
+                  position: absolute;
+                  top: 0;
+                  left: -100%;
+                  width: 50%;
+                  height: 100%;
+                  background: linear-gradient(
+                   120deg,
+                   transparent 0%,
+                   rgba(255, 255, 255, 0.4) 50%,
+                   transparent 100%
+                 );
+                  animation: shine 4s infinite;
+                }
+
+                @keyframes shine {
+                0% { left: -100%; }
+                20% { left: 120%; } /* برق از راست رد میشه */
+                100% { left: 120%; }
                 }
                 h1 {
                   font-size: 36px;
