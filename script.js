@@ -164,10 +164,10 @@ function openFeaturesPage() {
 .container::after {
   content: "";
   position: absolute;
-  top: -30%;       /* شروع کمی بالاتر */
-  left: -100%;     /* بیرون از سمت چپ */
+  top: 0;          /* هم‌سطح بالا */
+  left: -100%;     /* شروع از بیرون سمت چپ */
   width: 30%;      /* پهنای برق */
-  height: 160%;    /* ارتفاع نوار */
+  height: 100%;    /* هم‌قد container */
   background: linear-gradient(
     90deg,         /* افقی باشه */
     transparent 0%,
@@ -179,9 +179,8 @@ function openFeaturesPage() {
 }
 
 @keyframes shine {
-  0%   { left: -100%; top: -30%; }
-  50%  { left: 50%;   top: 30%; }  /* وسط انیمیشن برق پایین بیاد */
-  100% { left: 120%;  top: -30%; } /* به سمت راست و بالا برگرده */
+  0%   { left: -100%; }
+  100% { left: 120%; }
 }
                 h1 {
                   font-size: 36px;
