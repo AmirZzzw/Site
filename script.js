@@ -148,7 +148,7 @@ function openFeaturesPage() {
                 }
                 .container {
   position: relative;
-  overflow: hidden; /* جلوگیری از بیرون زدن برق */
+  overflow: hidden;
   border-radius: 25px;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(15px);
@@ -158,14 +158,14 @@ function openFeaturesPage() {
 .container::after {
   content: "";
   position: absolute;
-  top: -10%;   /* شروع کمی بالاتر */
+  top: -20%;   /* شروع بالاتر */
   left: -100%;
-  width: 60%;
-  height: 120%; /* کمی بیشتر از ارتفاع تا بالا پایین رو پوشش بده */
+  width: 30%;  /* باریک‌تر از قبل */
+  height: 140%; /* کمی بلندتر از container برای پوشش حرکت */
   background: linear-gradient(
     120deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0.45) 50%,
     transparent 100%
   );
   border-radius: inherit;
@@ -173,9 +173,9 @@ function openFeaturesPage() {
 }
 
 @keyframes shine {
-  0%   { left: -100%; top: -5%; }
-  20%  { left: 120%; top: 5%; }
-  100% { left: 120%; top: 5%; }
+  0%   { left: -100%; top: -20%; }
+  20%  { left: 120%; top: 20%; }
+  100% { left: 120%; top: 20%; }
 }
                 h1 {
                   font-size: 36px;
