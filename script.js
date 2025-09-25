@@ -240,15 +240,38 @@ function openFeaturesPage() {
         </head>
         <body>
           <div class="container">
-            <h1>✨ قابلیت‌های سلف ✨</h1>
-            <ul>
-              <li>✅ سرعت بسیار بالا</li>
-              <li>✅ امنیت تضمینی</li>
-              <li>✅ پشتیبانی ۲۴ ساعته</li>
-              <li>✅ رابط کاربری ساده و جذاب</li>
-              <li>✅ گزارش دقیق و کامل</li>
-            </ul>
-            <button onclick="window.close()">بازگشت</button>
+  <h1>✨ قابلیت‌های سلف ✨</h1>
+  <ul id="featuresList"></ul>
+  <button onclick="window.close()">بازگشت</button>
+</div>
+
+<script>
+  // همه قابلیت‌ها به صورت متن طولانی
+  const featuresText = `
+اول
+دوم
+سوم
+چهارم
+پنجم
+شش
+هفت
+`;
+
+  // تبدیل هر خط به یک آیتم لیست
+  const features = featuresText.split("\n");
+  const ul = document.getElementById("featuresList");
+
+  features.forEach((feature, index) => {
+    const trimmed = feature.trim();
+    if(trimmed) {
+      const li = document.createElement("li");
+      li.textContent = "✅ " + trimmed;
+      li.style.animationDelay = (index * 0.2) + "s"; // انیمیشن ورود دینامیک
+      ul.appendChild(li);
+    }
+  });
+</script>
+            <h1></h1
           </div>
         </body>
         </html>
