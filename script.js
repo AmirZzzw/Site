@@ -153,54 +153,34 @@ function openFeaturesPage() {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(15px);
   box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-}
 
-/* برق افقی (چپ به راست) */
+  max-width: 500px;   /* عرض کادر (پیش‌فرض شاید 800px باشه) */
+  margin: 40px auto;  /* فاصله از بالا/پایین + وسط چین */
+  padding: 25px;      /* فضای داخل کادر (کم کنی کوچیک‌تر میشه) */
+  min-height: 250px;  /* ارتفاع کادر (میتونی کم/زیاد کنی) */
+}
+/* نوار برق */
 .container::after {
   content: "";
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 30%;
-  height: 100%;
+  top: -40%;       /* بالاتر شروع بشه */
+  left: -100%;     /* بیرون از سمت چپ شروع بشه */
+  width: 30%;      /* پهنای نوار برق */
+  height: 160%;    /* بلندتر از container که بالا پایین رو پوشش بده */
   background: linear-gradient(
-    90deg,
+    120deg,        /* مورب باشه تا طبیعی‌تر دیده بشه */
     transparent 0%,
-    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0.4) 50%,
     transparent 100%
   );
   border-radius: inherit;
-  animation: shineX 4s infinite;
+  animation: shine 4s infinite;
 }
 
-/* برق مورب (بالا پایین) */
-.container::before {
-  content: "";
-  position: absolute;
-  top: -40%;
-  left: -100%;
-  width: 25%;
-  height: 160%;
-  background: linear-gradient(
-    120deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.25) 50%,
-    transparent 100%
-  );
-  border-radius: inherit;
-  animation: shineY 5s infinite;
-}
-
-/* انیمیشن افقی */
-@keyframes shineX {
-  0%   { left: -100%; }
-  100% { left: 120%; }
-}
-
-/* انیمیشن مورب */
-@keyframes shineY {
-  0%   { left: -100%; top: -40%; }
-  100% { left: 120%;  top: 40%; }
+@keyframes shine {
+  0%   { left: -100%; top: -40%; }  /* از بالا و بیرون سمت چپ شروع کن */
+  20%  { left: 120%;  top: 40%; }   /* به سمت راست و پایین بره */
+  100% { left: 120%;  top: 40%; }   /* آخرش همونجا بمونه تا دوباره تکرار شه */
 }
                 h1 {
                   font-size: 36px;
