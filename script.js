@@ -154,21 +154,22 @@ function openFeaturesPage() {
   backdrop-filter: blur(15px);
   box-shadow: 0 15px 40px rgba(0,0,0,0.6);
 
-  max-width: 500px;   /* عرض کادر (پیش‌فرض شاید 800px باشه) */
-  margin: 40px auto;  /* فاصله از بالا/پایین + وسط چین */
-  padding: 25px;      /* فضای داخل کادر (کم کنی کوچیک‌تر میشه) */
-  min-height: 250px;  /* ارتفاع کادر (میتونی کم/زیاد کنی) */
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 25px;
+  min-height: 250px;
 }
+
 /* نوار برق */
 .container::after {
   content: "";
   position: absolute;
-  top: -40%;       /* بالاتر شروع بشه */
-  left: -100%;     /* بیرون از سمت چپ شروع بشه */
-  width: 30%;      /* پهنای نوار برق */
-  height: 160%;    /* بلندتر از container که بالا پایین رو پوشش بده */
+  top: -30%;       /* شروع کمی بالاتر */
+  left: -100%;     /* بیرون از سمت چپ */
+  width: 30%;      /* پهنای برق */
+  height: 160%;    /* ارتفاع نوار */
   background: linear-gradient(
-    120deg,        /* مورب باشه تا طبیعی‌تر دیده بشه */
+    90deg,         /* افقی باشه */
     transparent 0%,
     rgba(255, 255, 255, 0.4) 50%,
     transparent 100%
@@ -178,9 +179,9 @@ function openFeaturesPage() {
 }
 
 @keyframes shine {
-  0%   { left: -100%; top: -40%; }  /* از بالا و بیرون سمت چپ شروع کن */
-  20%  { left: 120%;  top: 40%; }   /* به سمت راست و پایین بره */
-  100% { left: 120%;  top: 40%; }   /* آخرش همونجا بمونه تا دوباره تکرار شه */
+  0%   { left: -100%; top: -30%; }
+  50%  { left: 50%;   top: 30%; }  /* وسط انیمیشن برق پایین بیاد */
+  100% { left: 120%;  top: -30%; } /* به سمت راست و بالا برگرده */
 }
                 h1 {
                   font-size: 36px;
