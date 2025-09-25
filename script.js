@@ -153,8 +153,12 @@ function openFeaturesPage() {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(15px);
   box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-}
 
+  max-width: 400px;   /* ❌ اینجا طول (عرض) کادر رو محدود میکنی */
+  margin: 50px auto;  /* ❌ این باعث میشه وسط صفحه بمونه */
+  padding: 30px;      /* ❌ فضای داخل کادر (میتونی کم/زیاد کنی) */
+  min-height: 300px;  /* ❌ ارتفاع حداقل (اختیاری) */
+}
 .container::after {
   content: "";
   position: absolute;
