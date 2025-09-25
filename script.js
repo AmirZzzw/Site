@@ -175,7 +175,7 @@ function openFeaturesPage() {
     transparent 100%
   );
   border-radius: inherit;
-  animation: shine 4s infinite;
+  animation: shine 8s infinite;
 }
 
 @keyframes shine {
@@ -314,8 +314,6 @@ function openFeaturesPage() {
 <li>- .چک اسپم: چک میکنه اکانتتون ریپورت هست یا نه باید ریپلای کنید روی پیام خودتون این دستور رو</li>
 <li>🧹 مدیریت و حذف پیام</li>
 <li>- .بستن: ریپلای کنید روی همین پیام و بنویسید بستن تا این پیام پاک بشه.</li>
-
-[Program finished]
             </ul>
             <button onclick="window.close()">بازگشت</button>
             <h1></h1
