@@ -10,13 +10,13 @@ body {
 
 header {
     background: #0f3460;
-    padding: 20px;
+    padding: 10px;
     font-size: 32px;
     box-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
 }
 
 section {
-    padding: 25px;
+    padding: 40px;
 }
 
 .product {
