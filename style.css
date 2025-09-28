@@ -21,9 +21,9 @@ section {
 
 .product {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 40px;
+    flex-direction: column; /* 👈 آیتم‌ها رو عمودی می‌چینه */
+    align-items: center;    /* 👈 وسط‌چین افقی */
+    gap: 20px;              /* فاصله بین عکس و دکمه */
     padding: 20px;
     background: rgba(255, 255, 255, 0.15);
     border-radius: 32px;
@@ -31,7 +31,6 @@ section {
     backdrop-filter: blur(15px);
     transition: transform 0.3s ease;
 }
-
 .product:hover {
     transform: scale(1.03);
 }
