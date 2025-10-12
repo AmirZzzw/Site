@@ -1,2 +1,330 @@
-// Powered By SidkaShop 
-const _0x2ff161=_0x367b;(function(_0x37a822,_0x78875f){const _0x39c52c=_0x367b,_0xf0b14d=_0x37a822();while(!![]){try{const _0x3493b5=parseInt(_0x39c52c(0x1a2))/0x1+parseInt(_0x39c52c(0x18f))/0x2*(-parseInt(_0x39c52c(0x1a1))/0x3)+-parseInt(_0x39c52c(0x19c))/0x4*(-parseInt(_0x39c52c(0x197))/0x5)+parseInt(_0x39c52c(0x1a0))/0x6*(parseInt(_0x39c52c(0x19e))/0x7)+-parseInt(_0x39c52c(0x1a5))/0x8+parseInt(_0x39c52c(0x194))/0x9*(-parseInt(_0x39c52c(0x19b))/0xa)+-parseInt(_0x39c52c(0x195))/0xb*(parseInt(_0x39c52c(0x191))/0xc);if(_0x3493b5===_0x78875f)break;else _0xf0b14d['push'](_0xf0b14d['shift']());}catch(_0x53acfd){_0xf0b14d['push'](_0xf0b14d['shift']());}}}(_0x33cf,0x9e860));let lastSentTime=localStorage[_0x2ff161(0x198)]('lastSentTime')||0x0;function openPaymentPage(_0x1cc4ac,_0x51b136){const _0x2df148=_0x2ff161,_0x4bb52c=window[_0x2df148(0x19d)](_0x2df148(0x192)+encodeURIComponent(_0x1cc4ac)+_0x2df148(0x19f)+_0x51b136,_0x2df148(0x1a4));_0x4bb52c[_0x2df148(0x193)]['write'](_0x2df148(0x19a)+_0x1cc4ac+_0x2df148(0x1a3)+_0x1cc4ac+_0x2df148(0x199)+_0x51b136['toLocaleString']()+_0x2df148(0x190)+_0x1cc4ac+_0x2df148(0x1a6)+_0x51b136+_0x2df148(0x196));}function _0x33cf(){const _0x1f3e0b=['_blank','1982584vSlkMm','\x22,\x20','\x0a\x20\x20\x20\x20\x20\x20\x20\x20<html\x20lang=\x22fa\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<head>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<meta\x20charset=\x22UTF-8\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<title>قابلیت‌های\x20سلف</title>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<link\x20href=\x22https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css\x22\x20rel=\x22stylesheet\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<style>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20body\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-family:\x20\x27Vazir\x27,\x20sans-serif;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin:\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background:\x20linear-gradient(135deg,\x20#0f0f0f,\x20#1c1c1c);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20white;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20text-align:\x20center;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20overflow-x:\x20hidden;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20.container\x20{\x0a\x20\x20position:\x20relative;\x0a\x20\x20overflow:\x20hidden;\x0a\x20\x20border-radius:\x2025px;\x0a\x20\x20background:\x20rgba(255,\x20255,\x20255,\x200.05);\x0a\x20\x20backdrop-filter:\x20blur(15px);\x0a\x20\x20box-shadow:\x200\x2015px\x2040px\x20rgba(0,0,0,0.6);\x0a\x0a\x20\x20max-width:\x20500px;\x0a\x20\x20margin:\x2040px\x20auto;\x0a\x20\x20padding:\x2025px;\x0a\x20\x20min-height:\x20250px;\x0a}\x0a\x0a/*\x20نوار\x20برق\x20*/\x0a.container::after\x20{\x0a\x20\x20content:\x20\x22\x22;\x0a\x20\x20position:\x20absolute;\x0a\x20\x20top:\x200;\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20/*\x20هم‌سطح\x20بالا\x20*/\x0a\x20\x20left:\x20-100%;\x20\x20\x20\x20\x20/*\x20شروع\x20از\x20بیرون\x20سمت\x20چپ\x20*/\x0a\x20\x20width:\x2030%;\x20\x20\x20\x20\x20\x20/*\x20پهنای\x20برق\x20*/\x0a\x20\x20height:\x20100%;\x20\x20\x20\x20/*\x20هم‌قد\x20container\x20*/\x0a\x20\x20background:\x20linear-gradient(\x0a\x20\x20\x20\x2090deg,\x20\x20\x20\x20\x20\x20\x20\x20\x20/*\x20افقی\x20باشه\x20*/\x0a\x20\x20\x20\x20transparent\x200%,\x0a\x20\x20\x20\x20rgba(255,\x20255,\x20255,\x200.4)\x2050%,\x0a\x20\x20\x20\x20transparent\x20100%\x0a\x20\x20);\x0a\x20\x20border-radius:\x20inherit;\x0a\x20\x20animation:\x20shine\x208s\x20infinite;\x0a}\x0a\x0a@keyframes\x20shine\x20{\x0a\x20\x200%\x20\x20\x20{\x20left:\x20-100%;\x20}\x0a\x20\x20100%\x20{\x20left:\x20120%;\x20}\x0a}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20h1\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x2036px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin-bottom:\x2030px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background:\x20linear-gradient(90deg,\x20#ff9800,\x20#ff5722);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20-webkit-background-clip:\x20text;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20-webkit-text-fill-color:\x20transparent;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20ul\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20list-style:\x20none;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin:\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20li\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x2022px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin:\x2015px\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20display:\x20flex;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20align-items:\x20center;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20justify-content:\x20center;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20gap:\x2010px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20opacity:\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transform:\x20translateY(20px);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20animation:\x20slideUp\x200.8s\x20forwards;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20li:nth-child(1)\x20{\x20animation-delay:\x200.2s;\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20li:nth-child(2)\x20{\x20animation-delay:\x200.4s;\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20li:nth-child(3)\x20{\x20animation-delay:\x200.6s;\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20li:nth-child(4)\x20{\x20animation-delay:\x200.8s;\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20li:nth-child(5)\x20{\x20animation-delay:\x201s;\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20button\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin-top:\x2040px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x2015px\x2040px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x2018px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border:\x20none;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border-radius:\x2050px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20cursor:\x20pointer;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background:\x20linear-gradient(to\x20right,\x20#ff5722,\x20#ff9800);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20black;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-weight:\x20bold;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transition:\x200.3s;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20button:hover\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transform:\x20scale(1.1);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background:\x20linear-gradient(to\x20right,\x20#e64a19,\x20#f57c00);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20@keyframes\x20fadeIn\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20from\x20{\x20opacity:\x200;\x20transform:\x20translateY(30px);\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20to\x20{\x20opacity:\x201;\x20transform:\x20translateY(0);\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20@keyframes\x20slideUp\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20to\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20opacity:\x201;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20transform:\x20translateY(0);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</style>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</head>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<body>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22container\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h1>✨\x20قابلیت‌های\x20سلف\x20✨</h1>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<ul>\x0a<li>🕒\x20دستورات\x20مربوط\x20به\x20ساعت\x20و\x20بیو</li>\x0a<li>-\x20.تایم\x20روشن:\x20فعال\x20کردن\x20نمایش\x20ساعت\x20در\x20اسم.</li>\x0a<li>-\x20.تایم\x20خاموش:\x20غیرفعال\x20کردن\x20ساعت.</li>\x0a<li>-\x20.بیو\x20روشن:\x20اگه\x20بیو\x20داشته\x20باشین\x20بیو\x20کامل\x20حذف\x20میشه\x20و\x20ساعت\x20قرار\x20میگیره\x20به\x20جاش</li>\x0a<li>-\x20.بیو\x20خاموش:\x20ساعت\x20از\x20بیو\x20تون\x20حذف\x20میشه</li>\x0a<li>🎨\x20دستورات\x20مربوط\x20به\x20فونت\x20و\x20زیبایی</li>\x0a<li>-\x20.فونت\x20ها:\x20توضیحی\x20ثبت\x20نشده!</li>\x0a<li>-\x20.تنظیم\x20فونت\x20n:\x20به\x20جای\x20n\x20باید\x20عدد\x20اون\x20فونت\x20مورد\x20نظر\x20رو\x20بزارید.</li>\x0a<li>-\x20.لایک\x20اسم\x20مورد\x20نظر:\x20براتون\x20لایک\x20میسازه\x20باید\x20بزنید\x20نمیتونم\x20توضیح\x20بدم\x20چجوریه\x20دقیق.</li>\x0a<li>-\x20.بیو\x20رندوم:\x20از\x20اسمش\x20مشخصه\x20چی\x20تولید\x20میکنه.</li>\x0a<li>📢\x20دستورات\x20مربوط\x20به\x20بنر\x20و\x20پیام\x20گروه‌ها</li>\x0a<li>-\x20.بنر:\x20ارسال\x20پیام\x20به\x20گروه‌ها.</li>\x0a<li>-\x20.بنر\x20غیرفعال:\x20توقف\x20ارسال\x20بنر.</li>\x0a<li>-\x20.حذف\x20بنر:\x20وقتی\x20این\x20دستور\x20رو\x20داخل\x20گروه\x20ارسال\x20کنید\x20دیگه\x20بنر\x20داخل\x20اون\x20گروه\x20ارسال\x20نمیشه</li>\x0a<li>-\x20.حذف\x20بنر\x20غیرفعال:\x20با\x20ارسال\x20این\x20دستور\x20داخل\x20همون\x20گروهی\x20که\x20دستور\x20بالا\x20رو\x20ارسال\x20کردید\x20دوباره\x20به\x20حالت\x20عادی\x20برمیگرده\x20اون\x20گروه\x20و\x20پیام\x20بنر\x20اونجا\x20دوباره\x20ارسال\x20میشه</li>\x0a<li>🧑‍💻\x20وضعیت\x20آنلاین\x20و\x20برجسته\x20سازی</li>\x0a<li>-\x20.برجسته\x20فعال:\x20برجسته\x20کردن\x20پیام‌ها.</li>\x0a<li>-\x20.برجسته\x20غیرفعال:\x20غیرفعال\x20کردن\x20برجسته\x20سازی.</li>\x0a<li>-\x20.آنلاین\x20فعال:\x20حفظ\x20وضعیت\x20آنلاین.</li>\x0a<li>-\x20.کج\x20فعال:\x20هر\x20پیامی\x20بدین\x20با\x20حالت\x20کج\x20ارسال\x20میشه</li>\x0a<li>-\x20.کج\x20غیرفعال:\x20قابلیت\x20بالا\x20رو\x20غیرفعال\x20میکنه</li>\x0a<li>-\x20.تکی\x20فعال:\x20هر\x20پیامی\x20بفرستید\x20با\x20حالت\x20تکی\x20ارسال\x20میشه</li>\x0a<li>-\x20تکی\x20غیرفعال:\x20قابلین\x20بالا\x20رو\x20غیرفعال\x20میکنه-\x20.آنلاین\x20خاموش:\x20غیرفعال\x20کردن\x20وضعیت\x20آنلاین.</li>\x0a<li>🔒\x20دستورات\x20مربوط\x20به\x20جوین\x20اجباری\x20و\x20قفل‌ها</li>\x0a<li>-\x20.معاف\x20جوین\x20اجباری\x20123456:\x20از\x20دستور\x20مشخصه\x20چیکار\x20میکنه\x20فقط\x20باید\x20به\x20جای\x20123456\x20بیاید\x20و\x20ایدی\x20عددی\x20کاربر\x20مورد\x20نظر\x20رو\x20وارد\x20کنید.</li>\x0a<li>-\x20.حذف\x20معاف\x20جوین\x20اجباری\x20123456:\x20اینم\x20از\x20دستور\x20مشخصه\x20چیکار\x20میکنه\x20.</li>\x0a<li>-\x20.پیوی\x20قفل:\x20هیچ‌کس\x20اجازه\x20ارسال\x20پیام\x20در\x20پیوی\x20ندارد\x20و\x20پیام\x20کاربران\x20حذف\x20می‌شود.</li>\x0a<li>-\x20.پیوی\x20باز:\x20قفل\x20پیوی\x20غیرفعال\x20می‌شود\x20و\x20کاربران\x20می‌توانند\x20پیام\x20دهند.</li>\x0a<li>-\x20.قفل\x20ایدی\x20چنل:\x20با\x20ارسال\x20این\x20دستور\x20هر\x20کاربری\x20که\x20بخواد\x20به\x20شما\x20پیام\x20بده\x20باید\x20داخل\x20چنلی\x20که\x20قفل\x20کردین\x20جوین\x20بده\x20وگرنه\x20پیامش\x20پاک\x20میشه</li>\x0a<li>-\x20.حذف\x20قفل\x20ایدی\x20چنل:\x20کاری\x20میکنه\x20دیگه\x20نیازی\x20به\x20جوین\x20داخل\x20کانال\x20نباشه\x20برای\x20ارسال\x20پیام</li>\x0a<li>👥\x20مدیریت\x20کاربران</li>\x0a<li>-\x20.سکوت:\x20حذف\x20پیام\x20های\x20کاربر\x20خاص.</li>\x0a<li>-\x20.حذف\x20سکوت:\x20کاربر\x20از\x20لیست\x20دشمنان\x20حذف\x20خواهد\x20شد.</li>\x0a<li>-\x20.آیدی:\x20با\x20ریپلای\x20کردن\x20روی\x20پیام\x20کاربر\x20میتونی\x20اطلاعاتش\x20رو\x20دریافت\x20بکنی.</li>\x0a<li>-\x20.دشمن:\x20با\x20ریپلای\x20کردن\x20روی\x20پیام\x20کاربر\x20و\x20ارسال\x20این\x20دستور\x20کاربر\x20خودکار\x20فهش\x20میخوره.</li><li>-\x20.حذف\x20دشمن:\x20با\x20ریپلای\x20کردن\x20روی\x20پیام\x20کاربر\x20و\x20ارسال\x20این\x20دستور\x20دیگه\x20فهش\x20نمیخوره.</li>\x0a<li>📄\x20تنظیمات\x20پیام‌ها\x20و\x20ذخیره‌سازی</li>\x0a<li>-\x20.تنظیم\x20ریلم:\x20با\x20ارسال\x20این\x20دستور\x20در\x20گروه\x20هرکی\x20هر\x20پیامی\x20بهت\x20فرستاد\x20داخل\x20اون\x20گروه\x20تنظیم\x20شده\x20میره.</li>\x0a<li>-\x20.حذف\x20ریلم:\x20این\x20دستور\x20رو\x20داخل\x20جایی\x20که\x20ریلم\x20رو\x20فعال\x20کردید\x20میزنید\x20و\x20قابلیت\x20ریلم\x20کامل\x20غیرفعال\x20میشه</li>\x0a<li>-\x20.پشتیبانگیری\x20از\x20چت\x20ها:\x20این\x20دستور\x20رو\x20اگه\x20داخل\x20پیوی\x20بفرستید\x20کل\x20چت\x20رو\x20براتون\x20داخل\x20فایل\x20txt\x20میفرسته\x20اما\x20فقط\x20پیام\x20هایی\x20که\x20اون\x20شخص\x20داده\x20بود\x20داخل\x20فایل\x20txt\x20قرار\x20میده\x20و\x20پیام\x20های\x20شما\x20رو\x20قرار\x20نمیده</li>\x0a<li>-\x20.پشتیبانگیری\x20از\x20چت:\x20دقیق\x20کار\x20دستور\x20بالا\x20رو\x20انجام\x20میده\x20اما\x20ایندفعه\x20پیام\x20های\x20شما\x20هم\x20قرار\x20میده\x20داخل\x20فایل\x20txt.</li>\x0a<li>-\x20ذخیره\x20ی\x20پیام\x20های\x20تایم\x20دار:\x20نیازی\x20به\x20ارسال\x20این\x20دستور\x20به\x20جایی\x20نیست.\x20هرکسی\x20که\x20عکس\x20یا\x20فیلم\x20زمان\x20دار\x20بفرسته\x20داخل\x20پیام\x20های\x20شخصی\x20خودت\x20ذخیره\x20میشه</li>\x0a<li>🚫\x20فیلتر\x20کلمات</li>\x0a<li>-\x20.فیلتر\x20کلمه\x20کلمه1،\x20کلمه2،\x20...:\x20افزودن\x20چند\x20کلمه\x20به\x20لیست\x20فیلتر.\x20اگر\x20کاربر\x20در\x20پیوی\x20این\x20کلمات\x20را\x20بنویسد،\x20پیامش\x20حذف\x20می‌شود.</li>\x0a<li>-\x20.حذف\x20کلمه\x20فیلتر\x20کلمه1،\x20کلمه2،\x20...:\x20حذف\x20چند\x20کلمه\x20از\x20لیست\x20فیلتر\x20شده.</li>\x0a<li>-\x20.لیست\x20کلمات\x20فیلتر\x20شده:\x20نمایش\x20لیست\x20همه\x20کلمات\x20فیلتر\x20شده\x20فعلی.</li>\x0a<li>🛠️\x20دستورات\x20متفرقه\x20و\x20کاربردی</li>\x0a<li>-\x20.ارز:\x20قیمت\x20بعضی\x20از\x20ارز\x20ها\x20رو\x20میاره\x0a<li>-\x20.فال:\x20با\x20ارسال\x20این\x20دستور\x20یدونه\x20فال\x20رندوم\x20براتون\x20میفرسته\x20سلف.</li>\x0a<li>-\x20.سرعت:\x20با\x20ارسال\x20این\x20دستور\x20سرعت\x20سلف\x20رو\x20مشاهده\x20میکنید</li>\x0a<li>-\x20.بگو\x20test:\x20یک\x20ویس\x20میسازه\x20و\x20متنی\x20که\x20بعد\x20بگو\x20مینویسین\x20رو\x20ویس\x20میگیره\x20و\x20میگه،\x20از\x20کلمات\x20انگلیسی\x20استفاده\x20کنید.</li>\x0a<li>-\x20.انقضا:\x20دیگه\x20از\x20اسمش\x20مشخصه\x20چی\x20رو\x20نشون\x20میده</li>\x0a<li>-\x20.دوست\x20دارم:\x20بنویس\x20تا\x20متوجه\x20بشی\x20☺️</li>\x0a<li>-\x20.جق\x20زدن:\x20یه\x20کیر\x20میاد\x20داره\x20باهاش\x20جق\x20میزنه</li>\x0a<li>-\x20.قلب:\x20وقتی\x20این\x20دستور\x20رو\x20ارسال\x20کنی\x20همه\x20نوع\x20قلب\x20ویرایش\x20میشه\x20جالبه</li>\x0a<li>-\x20.اسپم\x20پیام\x20مورد\x20نظر\x20100:\x20100\x20تا\x20پیام\x20به\x20کاربر\x20مورد\x20نظر\x20ارسال\x20میکنه\x20با\x20سرعت</li>\x0a<li>-\x20.حذف\x2010:\x20اون\x20عدد\x2010\x20متغیر\x20هست\x20و\x20میتونه\x20هرچیزی\x20باشه.\x20خب\x20کارایی\x20این\x20چیه؟\x20وقتی\x20این\x20دستور\x20رو\x20بزنی\x2010\x20تا\x20پیامت\x20که\x20داخل\x20هرجایی\x20دادی\x20حذف\x20میشه</li>\x0a<li>🔞\x20دستورات\x20فان\x20و\x20شوخی\x2018+</li>\x0a<li>-\x20.کیر:\x20این\x20یه\x20کیر\x20رو\x20مینویسه\x20و\x20میگه\x20تو\x20کونت</li>\x0a<li>-\x20.بیگ:\x20کیر\x20میاد</li>\x0a<li>📆\x20تاریخ\x20و\x20محاسبات</li>\x0a<li>-\x20.تاریخ:\x20تاریخ\x20رو\x20به\x20شمسی\x20و\x20میلادی\x20میگه</li>\x0a<li>-\x20.حساب\x202+2:\x20اون\x20اعداد\x20و\x20ضرب\x20تقسیم\x20دست\x20خودتونه\x20سلف\x20خودش\x20حساب\x20میکنه\x20و\x20براتون\x20مینویسه</li>\x0a<li>😂\x20شوخی\x20و\x20واکنش‌ها</li>\x0a<li>-\x20.خنده:\x20با\x20ارسال\x20این\x20دستور\x20ایموجی\x20خنده\x20همش\x20تغییر\x20میکنه</li>\x0a<li>-\x20.فاک:\x20با\x20ارسال\x20این\x20دستور\x20پیام\x20ویرایش\x20میشه\x20و\x20فاک\x20میاد</li>\x0a<li>-\x20.بیوتیفول:\x20کهکشان\x20میاد</li>\x0a<li>-\x20.دختر:\x20دختر\x20کشیده\x20میشه</li>\x0a<li>-\x20.گل:\x20گل\x20کشیده\x20میشه</li>\x0a<li>-\x20.دوست\x20دارم:\x20بنویس\x20تا\x20متوجه\x20بشی\x20☺️</li>\x0a<li>-\x20.جوک:\x20با\x20ارسال\x20این\x20دستور\x20یه\x20جوک\x20میگه\x20بهت</li>\x0a<li>🌍\x20ترجمه\x20و\x20محتوای\x20چنل‌ها</li>\x0a<li>-\x20.ترجمه\x20test:\x20به\x20جای\x20test\x20هرچیزی\x20بنویسی\x20به\x20فارسی\x20ترجمه\x20میشه</li>\x0a<li>-\x20.دریافت\x20:\x20با\x20ارسال\x20دستور\x20دریافت\x20لینک\x20پیام\x20چنل\x20پابلیک،\x20میتونید\x20اون\x20رو\x20دریافت\x20کنید\x20حالا\x20چه\x20عکس\x20باشه\x20یا\x20هرچی\x20اما\x20روی\x20چنل\x20هایی\x20مثل\x20https://t.me/c/99999999/99\x20جواب\x20نیست\x20اما\x20چنل\x20های\x20پابلیک\x20که\x20پابلیک\x20ان\x20جوابه\x20حالا\x20چه\x20محدود\x20به\x20فوروارد\x20یا\x20هرچی\x20باشه\x20بعضی\x20چنل\x20ها\x20یا\x20گروه\x20هم\x20کلا\x20نمیشه</li>\x0a<li>-\x20.چک\x20اسپم:\x20چک\x20میکنه\x20اکانتتون\x20ریپورت\x20هست\x20یا\x20نه\x20باید\x20ریپلای\x20کنید\x20روی\x20پیام\x20خودتون\x20این\x20دستور\x20رو</li>\x0a<li>🧹\x20مدیریت\x20و\x20حذف\x20پیام</li>\x0a<li>-\x20.بستن:\x20ریپلای\x20کنید\x20روی\x20همین\x20پیام\x20و\x20بنویسید\x20بستن\x20تا\x20این\x20پیام\x20پاک\x20بشه.</li>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</ul>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20onclick=\x22window.close()\x22>بازگشت</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h1></h1\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</body>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</html>\x0a\x20\x20\x20\x20','2RkEtYl','\x20تومان</strong></h2>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h2>به\x20شماره\x20کارت\x20زیر\x20واریز\x20کنید:</h2>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h2>6037998222276759</h2>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h2>به\x20نام:\x20امیرمحمد\x20یوسفی</h2>\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h2>📤\x20ارسال\x20فیش\x20پرداخت</h2>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<input\x20type=\x22file\x22\x20id=\x22receiptImage\x22\x20accept=\x22image/*\x22\x20/>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<input\x20type=\x22text\x22\x20id=\x22telegramID\x22\x20placeholder=\x22آیدی\x20تلگرام\x20شما\x22\x20/>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<input\x20type=\x22text\x22\x20id=\x22phoneNumber\x22\x20placeholder=\x22شماره\x20شما\x22\x20/>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<textarea\x20id=\x22optionalText\x22\x20placeholder=\x22توضیحات\x20بیشتر\x20(اختیاری)\x22></textarea>\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h1></h1>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20id=\x22sendButton\x22>ارسال\x20فیش</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h1></h1>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h3\x20id=\x22timer\x22>✅\x20ارسال\x20فیش\x20امکان‌پذیر\x20است</h3>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h1></h1>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h2\x20id=\x22statusMessage\x22></h2>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h1></h1>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20onclick=\x22window.open(\x27https://t.me/AqooAmir\x27,\x20\x27_blank\x27)\x22>Telegram\x20Pv</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<br\x20/><br\x20/>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20onclick=\x22window.close()\x22>بازگشت\x20به\x20سایت</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<script>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20let\x20lastSentTime\x20=\x20localStorage.getItem(\x22lastSentTime\x22)\x20||\x200;\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20document.getElementById(\x22sendButton\x22).addEventListener(\x22click\x22,\x20function\x20()\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20sendReceipt(\x22','2304RduGEw','https://sidkashop.qzz.io/#/buy?product=','document','11691egUPwo','1144StqqTG',');\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20});\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20function\x20sendReceipt(productName,\x20price)\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20const\x20now\x20=\x20Date.now();\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20const\x20timePassed\x20=\x20now\x20-\x20lastSentTime;\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20if\x20(timePassed\x20<\x2060000)\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20alert(`🚨\x20لطفاً\x20${Math.ceil((60000\x20-\x20timePassed)\x20/\x201000)}\x20ثانیه\x20دیگر\x20صبر\x20کنید!`);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20return;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20const\x20imageInput\x20=\x20document.getElementById(\x27receiptImage\x27);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20const\x20telegramID\x20=\x20document.getElementById(\x27telegramID\x27).value.trim();\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20const\x20phoneNumber\x20=\x20document.getElementById(\x27phoneNumber\x27).value.trim();\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20const\x20optionalText\x20=\x20document.getElementById(\x27optionalText\x27).value.trim();\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20const\x20statusMessage\x20=\x20document.getElementById(\x27statusMessage\x27);\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20if\x20(imageInput.files.length\x20===\x200\x20||\x20telegramID\x20===\x20\x22\x22\x20||\x20phoneNumber\x20===\x20\x22\x22)\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20statusMessage.textContent\x20=\x20\x22🚨\x20لطفاً\x20عکس،\x20آیدی\x20تلگرام،\x20و\x20شماره\x20خود\x20را\x20وارد\x20کنید!\x22;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20statusMessage.style.color\x20=\x20\x22red\x22;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20return;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20const\x20file\x20=\x20imageInput.files[0];\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20const\x20formData\x20=\x20new\x20FormData();\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20formData.append(\x22chat_id\x22,\x20\x227549513123\x22);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20formData.append(\x22photo\x22,\x20file);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20formData.append(\x22caption\x22,\x20`🔹\x20محصول:\x20${productName}\x0a🔹\x20مبلغ:\x20${price.toLocaleString()}\x20تومان\x0aآیدی\x20تلگرام:\x20${telegramID}\x0aشماره:\x20${phoneNumber}\x0a${optionalText\x20?\x20\x27توضیحات:\x20\x27\x20+\x20optionalText\x20:\x20\x27\x27}`);\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20fetch(\x22https://api.telegram.org/bot7408423935:AAH9nkoZg7ykqQMGKDeitIiOtu6uYZl0Vxg/sendPhoto\x22,\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20method:\x20\x22POST\x22,\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20body:\x20formData\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20})\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20.then(response\x20=>\x20response.json())\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20.then(data\x20=>\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20if\x20(data.ok)\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20statusMessage.textContent\x20=\x20\x22✅\x20فیش\x20پرداخت\x20با\x20موفقیت\x20ارسال\x20شد!\x22;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20statusMessage.style.color\x20=\x20\x22green\x22;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20lastSentTime\x20=\x20now;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20localStorage.setItem(\x22lastSentTime\x22,\x20now);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20startCooldown();\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x20else\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20statusMessage.textContent\x20=\x20\x22❌\x20ارسال\x20ناموفق\x20بود!\x22;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20statusMessage.style.color\x20=\x20\x22red\x22;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20})\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20.catch(()\x20=>\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20statusMessage.textContent\x20=\x20\x22❌\x20خطا\x20در\x20ارسال\x20فیش!\x22;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20statusMessage.style.color\x20=\x20\x22red\x22;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20});\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20function\x20startCooldown()\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20let\x20timeLeft\x20=\x20Math.ceil((60000\x20-\x20(Date.now()\x20-\x20lastSentTime))\x20/\x201000);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20const\x20timerDisplay\x20=\x20document.getElementById(\x27timer\x27);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20timerDisplay.textContent\x20=\x20`⏳\x20انتظار:\x20${timeLeft}\x20ثانیه`;\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20const\x20timerInterval\x20=\x20setInterval(()\x20=>\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20timeLeft--;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20timerDisplay.textContent\x20=\x20`⏳\x20انتظار:\x20${timeLeft}\x20ثانیه`;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20if\x20(timeLeft\x20<=\x200)\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20clearInterval(timerInterval);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20timerDisplay.textContent\x20=\x20\x22✅\x20ارسال\x20فیش\x20امکان‌پذیر\x20است!\x22;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20},\x201000);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20function\x20restoreTimer()\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20lastSentTime\x20=\x20localStorage.getItem(\x22lastSentTime\x22)\x20||\x200;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20if\x20(Date.now()\x20-\x20lastSentTime\x20<\x2060000)\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20startCooldown();\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</script>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</body>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</html>>\x0a\x20\x20\x20\x20','68605xINNSJ','getItem','</h2>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h2>مبلغ:\x20<strong>','\x0a\x20\x20\x20\x20\x20\x20\x20\x20<html\x20lang=\x22fa\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<head>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<meta\x20charset=\x22UTF-8\x22\x20/>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<title>پرداخت\x20','2530LnVQci','268CmOXDj','open','31787wzAmZs','&price=','534IRXUAH','3393711drILfN','1053531ZOhBEy','</title>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<link\x20href=\x22https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css\x22\x20rel=\x22stylesheet\x22\x20type=\x22text/css\x22\x20/>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<style>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20body\x20{\x20font-family:\x20\x27Vazir\x27,\x20sans-serif;\x20text-align:\x20center;\x20background:\x20#000000;\x20padding:\x2050px;\x20color:\x20white;\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20.container\x20{\x20background:\x20white;\x20padding:\x2050px;\x20border-radius:\x2025px;\x20box-shadow:\x200\x2012px\x2024px\x20rgba(0,0,0,0.3);\x20color:\x20black;\x20max-width:\x20500px;\x20margin:\x20auto;\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20button\x20{\x20background:\x20linear-gradient(to\x20right,\x20#ff5722,\x20#ff9800);\x20color:\x20black;\x20padding:\x2018px\x2055px;\x20border:\x20none;\x20font-size:\x2022px;\x20cursor:\x20pointer;\x20border-radius:\x2050px;\x20transition:\x200.3s;\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20button:hover\x20{\x20transform:\x20scale(1.1);\x20background:\x20linear-gradient(to\x20right,\x20#e64a19,\x20#f57c00);\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20input,\x20textarea\x20{\x20width:\x2090%;\x20padding:\x2010px;\x20font-size:\x2016px;\x20border-radius:\x2050px;\x20margin-top:\x2010px;\x20border:\x201px\x20solid\x20#ccc;\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20#timer\x20{\x20margin-top:\x2015px;\x20color:\x20green;\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</style>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</head>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<body\x20onload=\x22restoreTimer()\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22container\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h2>پرداخت\x20'];_0x33cf=function(){return _0x1f3e0b;};return _0x33cf();}function _0x367b(_0x541529,_0x4741e7){const _0x33cf89=_0x33cf();return _0x367b=function(_0x367b7d,_0x11a4b5){_0x367b7d=_0x367b7d-0x18e;let _0x5240f0=_0x33cf89[_0x367b7d];return _0x5240f0;},_0x367b(_0x541529,_0x4741e7);}function openFeaturesPage(){const _0x23c3a2=_0x2ff161,_0x2b6c85=window[_0x23c3a2(0x19d)]('',_0x23c3a2(0
+let lastSentTime = localStorage.getItem("lastSentTime") || 0;
+
+function openPaymentPage(productName, price) {
+  const url = `https://sidkashop.qzz.io/#/buy?product=${encodeURIComponent(productName)}&price=${price}`;
+  window.open(url, "_blank");
+}
+    paymentPage.document.write(`
+        <html lang="fa">
+        <head>
+            <meta charset="UTF-8" />
+            <title>پرداخت ${productName}</title>
+            <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
+            <style>
+                body { font-family: 'Vazir', sans-serif; text-align: center; background: #000000; padding: 50px; color: white; }
+                .container { background: white; padding: 50px; border-radius: 25px; box-shadow: 0 12px 24px rgba(0,0,0,0.3); color: black; max-width: 500px; margin: auto; }
+                button { background: linear-gradient(to right, #ff5722, #ff9800); color: black; padding: 18px 55px; border: none; font-size: 22px; cursor: pointer; border-radius: 50px; transition: 0.3s; }
+                button:hover { transform: scale(1.1); background: linear-gradient(to right, #e64a19, #f57c00); }
+                input, textarea { width: 90%; padding: 10px; font-size: 16px; border-radius: 50px; margin-top: 10px; border: 1px solid #ccc; }
+                #timer { margin-top: 15px; color: green; }
+            </style>
+        </head>
+        <body onload="restoreTimer()">
+            <div class="container">
+                <h2>پرداخت ${productName}</h2>
+                <h2>مبلغ: <strong>${price.toLocaleString()} تومان</strong></h2>
+                <h2>به شماره کارت زیر واریز کنید:</h2>
+                <h2>6037998222276759</h2>
+                <h2>به نام: امیرمحمد یوسفی</h2>
+
+                <h2>📤 ارسال فیش پرداخت</h2>
+                <input type="file" id="receiptImage" accept="image/*" />
+                <input type="text" id="telegramID" placeholder="آیدی تلگرام شما" />
+                <input type="text" id="phoneNumber" placeholder="شماره شما" />
+                <textarea id="optionalText" placeholder="توضیحات بیشتر (اختیاری)"></textarea>
+
+                <h1></h1>
+                <button id="sendButton">ارسال فیش</button>
+                <h1></h1>
+                <h3 id="timer">✅ ارسال فیش امکان‌پذیر است</h3>
+                <h1></h1>
+                <h2 id="statusMessage"></h2>
+                <h1></h1>
+                <button onclick="window.open('https://t.me/AqooAmir', '_blank')">Telegram Pv</button>
+                <br /><br />
+                <button onclick="window.close()">بازگشت به سایت</button>
+            </div>
+
+            <script>
+                let lastSentTime = localStorage.getItem("lastSentTime") || 0;
+
+                document.getElementById("sendButton").addEventListener("click", function () {
+                    sendReceipt("${productName}", ${price});
+                });
+
+                function sendReceipt(productName, price) {
+                    const now = Date.now();
+                    const timePassed = now - lastSentTime;
+
+                    if (timePassed < 60000) {
+                        alert(\`🚨 لطفاً \${Math.ceil((60000 - timePassed) / 1000)} ثانیه دیگر صبر کنید!\`);
+                        return;
+                    }
+
+                    const imageInput = document.getElementById('receiptImage');
+                    const telegramID = document.getElementById('telegramID').value.trim();
+                    const phoneNumber = document.getElementById('phoneNumber').value.trim();
+                    const optionalText = document.getElementById('optionalText').value.trim();
+                    const statusMessage = document.getElementById('statusMessage');
+
+                    if (imageInput.files.length === 0 || telegramID === "" || phoneNumber === "") {
+                        statusMessage.textContent = "🚨 لطفاً عکس، آیدی تلگرام، و شماره خود را وارد کنید!";
+                        statusMessage.style.color = "red";
+                        return;
+                    }
+
+                    const file = imageInput.files[0];
+                    const formData = new FormData();
+                    formData.append("chat_id", "7549513123");
+                    formData.append("photo", file);
+                    formData.append("caption", \`🔹 محصول: \${productName}\n🔹 مبلغ: \${price.toLocaleString()} تومان\nآیدی تلگرام: \${telegramID}\nشماره: \${phoneNumber}\n\${optionalText ? 'توضیحات: ' + optionalText : ''}\`);
+
+                    fetch("https://api.telegram.org/bot7408423935:AAH9nkoZg7ykqQMGKDeitIiOtu6uYZl0Vxg/sendPhoto", {
+                        method: "POST",
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.ok) {
+                            statusMessage.textContent = "✅ فیش پرداخت با موفقیت ارسال شد!";
+                            statusMessage.style.color = "green";
+                            lastSentTime = now;
+                            localStorage.setItem("lastSentTime", now);
+                            startCooldown();
+                        } else {
+                            statusMessage.textContent = "❌ ارسال ناموفق بود!";
+                            statusMessage.style.color = "red";
+                        }
+                    })
+                    .catch(() => {
+                        statusMessage.textContent = "❌ خطا در ارسال فیش!";
+                        statusMessage.style.color = "red";
+                    });
+                }
+
+                function startCooldown() {
+                    let timeLeft = Math.ceil((60000 - (Date.now() - lastSentTime)) / 1000);
+                    const timerDisplay = document.getElementById('timer');
+                    timerDisplay.textContent = \`⏳ انتظار: \${timeLeft} ثانیه\`;
+
+                    const timerInterval = setInterval(() => {
+                        timeLeft--;
+                        timerDisplay.textContent = \`⏳ انتظار: \${timeLeft} ثانیه\`;
+                        if (timeLeft <= 0) {
+                            clearInterval(timerInterval);
+                            timerDisplay.textContent = "✅ ارسال فیش امکان‌پذیر است!";
+                        }
+                    }, 1000);
+                }
+
+                function restoreTimer() {
+                    lastSentTime = localStorage.getItem("lastSentTime") || 0;
+                    if (Date.now() - lastSentTime < 60000) {
+                        startCooldown();
+                    }
+                }
+                
+            </script>
+        </body>
+        </html>>
+    `);
+}
+
+// 🚀 تابع جدید برای صفحه قابلیت‌های سلف
+function openFeaturesPage() {
+    const featuresPage = window.open("", "_blank");
+    featuresPage.document.write(`
+        <html lang="fa">
+        <head>
+            <meta charset="UTF-8">
+            <title>قابلیت‌های سلف</title>
+            <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
+            <style>
+                body {
+                  font-family: 'Vazir', sans-serif;
+                  margin: 0;
+                  background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
+                  color: white;
+                  text-align: center;
+                  overflow-x: hidden;
+                }
+                .container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 25px;
+  min-height: 250px;
+}
+
+/* نوار برق */
+.container::after {
+  content: "";
+  position: absolute;
+  top: 0;          /* هم‌سطح بالا */
+  left: -100%;     /* شروع از بیرون سمت چپ */
+  width: 30%;      /* پهنای برق */
+  height: 100%;    /* هم‌قد container */
+  background: linear-gradient(
+    90deg,         /* افقی باشه */
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 100%
+  );
+  border-radius: inherit;
+  animation: shine 8s infinite;
+}
+
+@keyframes shine {
+  0%   { left: -100%; }
+  100% { left: 120%; }
+}
+                h1 {
+                  font-size: 36px;
+                  margin-bottom: 30px;
+                  background: linear-gradient(90deg, #ff9800, #ff5722);
+                  -webkit-background-clip: text;
+                  -webkit-text-fill-color: transparent;
+                }
+                ul {
+                  list-style: none;
+                  padding: 0;
+                  margin: 0;
+                }
+                li {
+                  font-size: 22px;
+                  margin: 15px 0;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  gap: 10px;
+                  opacity: 0;
+                  transform: translateY(20px);
+                  animation: slideUp 0.8s forwards;
+                }
+                li:nth-child(1) { animation-delay: 0.2s; }
+                li:nth-child(2) { animation-delay: 0.4s; }
+                li:nth-child(3) { animation-delay: 0.6s; }
+                li:nth-child(4) { animation-delay: 0.8s; }
+                li:nth-child(5) { animation-delay: 1s; }
+                button {
+                  margin-top: 40px;
+                  padding: 15px 40px;
+                  font-size: 18px;
+                  border: none;
+                  border-radius: 50px;
+                  cursor: pointer;
+                  background: linear-gradient(to right, #ff5722, #ff9800);
+                  color: black;
+                  font-weight: bold;
+                  transition: 0.3s;
+                }
+                button:hover {
+                  transform: scale(1.1);
+                  background: linear-gradient(to right, #e64a19, #f57c00);
+                }
+                @keyframes fadeIn {
+                  from { opacity: 0; transform: translateY(30px); }
+                  to { opacity: 1; transform: translateY(0); }
+                }
+                @keyframes slideUp {
+                  to {
+                    opacity: 1;
+                    transform: translateY(0);
+                  }
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+            <h1>✨ قابلیت‌های سلف ✨</h1>
+            <ul>
+<li>🕒 دستورات مربوط به ساعت و بیو</li>
+<li>- .تایم روشن: فعال کردن نمایش ساعت در اسم.</li>
+<li>- .تایم خاموش: غیرفعال کردن ساعت.</li>
+<li>- .بیو روشن: اگه بیو داشته باشین بیو کامل حذف میشه و ساعت قرار میگیره به جاش</li>
+<li>- .بیو خاموش: ساعت از بیو تون حذف میشه</li>
+<li>🎨 دستورات مربوط به فونت و زیبایی</li>
+<li>- .فونت ها: توضیحی ثبت نشده!</li>
+<li>- .تنظیم فونت n: به جای n باید عدد اون فونت مورد نظر رو بزارید.</li>
+<li>- .لایک اسم مورد نظر: براتون لایک میسازه باید بزنید نمیتونم توضیح بدم چجوریه دقیق.</li>
+<li>- .بیو رندوم: از اسمش مشخصه چی تولید میکنه.</li>
+<li>📢 دستورات مربوط به بنر و پیام گروه‌ها</li>
+<li>- .بنر: ارسال پیام به گروه‌ها.</li>
+<li>- .بنر غیرفعال: توقف ارسال بنر.</li>
+<li>- .حذف بنر: وقتی این دستور رو داخل گروه ارسال کنید دیگه بنر داخل اون گروه ارسال نمیشه</li>
+<li>- .حذف بنر غیرفعال: با ارسال این دستور داخل همون گروهی که دستور بالا رو ارسال کردید دوباره به حالت عادی برمیگرده اون گروه و پیام بنر اونجا دوباره ارسال میشه</li>
+<li>🧑‍💻 وضعیت آنلاین و برجسته سازی</li>
+<li>- .برجسته فعال: برجسته کردن پیام‌ها.</li>
+<li>- .برجسته غیرفعال: غیرفعال کردن برجسته سازی.</li>
+<li>- .آنلاین فعال: حفظ وضعیت آنلاین.</li>
+<li>- .کج فعال: هر پیامی بدین با حالت کج ارسال میشه</li>
+<li>- .کج غیرفعال: قابلیت بالا رو غیرفعال میکنه</li>
+<li>- .تکی فعال: هر پیامی بفرستید با حالت تکی ارسال میشه</li>
+<li>- تکی غیرفعال: قابلین بالا رو غیرفعال میکنه- .آنلاین خاموش: غیرفعال کردن وضعیت آنلاین.</li>
+<li>🔒 دستورات مربوط به جوین اجباری و قفل‌ها</li>
+<li>- .معاف جوین اجباری 123456: از دستور مشخصه چیکار میکنه فقط باید به جای 123456 بیاید و ایدی عددی کاربر مورد نظر رو وارد کنید.</li>
+<li>- .حذف معاف جوین اجباری 123456: اینم از دستور مشخصه چیکار میکنه .</li>
+<li>- .پیوی قفل: هیچ‌کس اجازه ارسال پیام در پیوی ندارد و پیام کاربران حذف می‌شود.</li>
+<li>- .پیوی باز: قفل پیوی غیرفعال می‌شود و کاربران می‌توانند پیام دهند.</li>
+<li>- .قفل ایدی چنل: با ارسال این دستور هر کاربری که بخواد به شما پیام بده باید داخل چنلی که قفل کردین جوین بده وگرنه پیامش پاک میشه</li>
+<li>- .حذف قفل ایدی چنل: کاری میکنه دیگه نیازی به جوین داخل کانال نباشه برای ارسال پیام</li>
+<li>👥 مدیریت کاربران</li>
+<li>- .سکوت: حذف پیام های کاربر خاص.</li>
+<li>- .حذف سکوت: کاربر از لیست دشمنان حذف خواهد شد.</li>
+<li>- .آیدی: با ریپلای کردن روی پیام کاربر میتونی اطلاعاتش رو دریافت بکنی.</li>
+<li>- .دشمن: با ریپلای کردن روی پیام کاربر و ارسال این دستور کاربر خودکار فهش میخوره.</li><li>- .حذف دشمن: با ریپلای کردن روی پیام کاربر و ارسال این دستور دیگه فهش نمیخوره.</li>
+<li>📄 تنظیمات پیام‌ها و ذخیره‌سازی</li>
+<li>- .تنظیم ریلم: با ارسال این دستور در گروه هرکی هر پیامی بهت فرستاد داخل اون گروه تنظیم شده میره.</li>
+<li>- .حذف ریلم: این دستور رو داخل جایی که ریلم رو فعال کردید میزنید و قابلیت ریلم کامل غیرفعال میشه</li>
+<li>- .پشتیبانگیری از چت ها: این دستور رو اگه داخل پیوی بفرستید کل چت رو براتون داخل فایل txt میفرسته اما فقط پیام هایی که اون شخص داده بود داخل فایل txt قرار میده و پیام های شما رو قرار نمیده</li>
+<li>- .پشتیبانگیری از چت: دقیق کار دستور بالا رو انجام میده اما ایندفعه پیام های شما هم قرار میده داخل فایل txt.</li>
+<li>- ذخیره ی پیام های تایم دار: نیازی به ارسال این دستور به جایی نیست. هرکسی که عکس یا فیلم زمان دار بفرسته داخل پیام های شخصی خودت ذخیره میشه</li>
+<li>🚫 فیلتر کلمات</li>
+<li>- .فیلتر کلمه کلمه1، کلمه2، ...: افزودن چند کلمه به لیست فیلتر. اگر کاربر در پیوی این کلمات را بنویسد، پیامش حذف می‌شود.</li>
+<li>- .حذف کلمه فیلتر کلمه1، کلمه2، ...: حذف چند کلمه از لیست فیلتر شده.</li>
+<li>- .لیست کلمات فیلتر شده: نمایش لیست همه کلمات فیلتر شده فعلی.</li>
+<li>🛠️ دستورات متفرقه و کاربردی</li>
+<li>- .ارز: قیمت بعضی از ارز ها رو میاره
+<li>- .فال: با ارسال این دستور یدونه فال رندوم براتون میفرسته سلف.</li>
+<li>- .سرعت: با ارسال این دستور سرعت سلف رو مشاهده میکنید</li>
+<li>- .بگو test: یک ویس میسازه و متنی که بعد بگو مینویسین رو ویس میگیره و میگه، از کلمات انگلیسی استفاده کنید.</li>
+<li>- .انقضا: دیگه از اسمش مشخصه چی رو نشون میده</li>
+<li>- .دوست دارم: بنویس تا متوجه بشی ☺️</li>
+<li>- .جق زدن: یه کیر میاد داره باهاش جق میزنه</li>
+<li>- .قلب: وقتی این دستور رو ارسال کنی همه نوع قلب ویرایش میشه جالبه</li>
+<li>- .اسپم پیام مورد نظر 100: 100 تا پیام به کاربر مورد نظر ارسال میکنه با سرعت</li>
+<li>- .حذف 10: اون عدد 10 متغیر هست و میتونه هرچیزی باشه. خب کارایی این چیه؟ وقتی این دستور رو بزنی 10 تا پیامت که داخل هرجایی دادی حذف میشه</li>
+<li>🔞 دستورات فان و شوخی 18+</li>
+<li>- .کیر: این یه کیر رو مینویسه و میگه تو کونت</li>
+<li>- .بیگ: کیر میاد</li>
+<li>📆 تاریخ و محاسبات</li>
+<li>- .تاریخ: تاریخ رو به شمسی و میلادی میگه</li>
+<li>- .حساب 2+2: اون اعداد و ضرب تقسیم دست خودتونه سلف خودش حساب میکنه و براتون مینویسه</li>
+<li>😂 شوخی و واکنش‌ها</li>
+<li>- .خنده: با ارسال این دستور ایموجی خنده همش تغییر میکنه</li>
+<li>- .فاک: با ارسال این دستور پیام ویرایش میشه و فاک میاد</li>
+<li>- .بیوتیفول: کهکشان میاد</li>
+<li>- .دختر: دختر کشیده میشه</li>
+<li>- .گل: گل کشیده میشه</li>
+<li>- .دوست دارم: بنویس تا متوجه بشی ☺️</li>
+<li>- .جوک: با ارسال این دستور یه جوک میگه بهت</li>
+<li>🌍 ترجمه و محتوای چنل‌ها</li>
+<li>- .ترجمه test: به جای test هرچیزی بنویسی به فارسی ترجمه میشه</li>
+<li>- .دریافت : با ارسال دستور دریافت لینک پیام چنل پابلیک، میتونید اون رو دریافت کنید حالا چه عکس باشه یا هرچی اما روی چنل هایی مثل https://t.me/c/99999999/99 جواب نیست اما چنل های پابلیک که پابلیک ان جوابه حالا چه محدود به فوروارد یا هرچی باشه بعضی چنل ها یا گروه هم کلا نمیشه</li>
+<li>- .چک اسپم: چک میکنه اکانتتون ریپورت هست یا نه باید ریپلای کنید روی پیام خودتون این دستور رو</li>
+<li>🧹 مدیریت و حذف پیام</li>
+<li>- .بستن: ریپلای کنید روی همین پیام و بنویسید بستن تا این پیام پاک بشه.</li>
+            </ul>
+            <button onclick="window.close()">بازگشت</button>
+            <h1></h1
+          </div>
+        </body>
+        </html>
+    `);
+}
