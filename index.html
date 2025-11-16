@@ -20,10 +20,17 @@
     <link rel="icon" href="https://raw.githubusercontent.com/AmirZzzw/Site/main/Logo.png" type="image/jpeg" />
     <link rel="stylesheet" href="style.css" />
 </head>
-<body style="text-align:center; padding:20px; background:black; color:white;">
+<body>
     <h1>Sidka Shop</h1>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">محصولات</button>
+        <button onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">درباره ما</button>
+        <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">ارتباط با ما</button>
+    </nav>
+
     <section id="products">
-        
         <h1>اشتراک ViaX Panel - پنل ایملاک موبایل</h1>
         <div class="product">
             <button onclick="openPaymentPage('اشتراک یکروزه', 15000)">یکروزه - 15,000 تومان</button>
@@ -57,7 +64,14 @@
         <div class="product">
            <button onclick="openPaymentPage('ساخت پنل', 259000)">259,000 تومان - خرید</button>
         </div>
-        
+    </section>
+
+    <section id="about">
+        <h1>درباره Sidka Shop</h1>
+        <p>
+            Sidka Shop ارائه‌دهنده بهترین خدمات دیجیتال شامل اشتراک سلف تلگرام، VPN، ViaX Panel و طراحی‌های گرافیکی است.  
+            هدف ما ارائه کیفیت بالا، قیمت مناسب و پشتیبانی سریع و واقعی می‌باشد.
+        </p>
     </section>
 
     <section id="contact">
