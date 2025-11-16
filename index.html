@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <meta name="google-site-verification" content="FETzCbURTNniW1Py8OX5YAo7TxW1ht8iLoLeg1BF0YE">
-
-    <title>Sidka Shop | خرید اشتراک سلف تلگرام، VPN، ViaX Panel و خدمات دیجیتال</title>
+    <title>Sidka Shop | اشتراک سلف تلگرام، VPN، ViaX Panel و خدمات دیجیتال</title>
     <meta name="description" content="Sidka Shop ارائه‌دهنده اشتراک سلف تلگرام، VPN، v2rayNG، ViaX Panel و خدمات گرافیکی با بهترین قیمت و پشتیبانی.">
     <meta name="keywords" content="Sidka Shop, سلف تلگرام, خرید سلف تلگرام, خرید vpn, v2rayng, viavpn, پنل تلگرام, ساخت پنل, خدمات دیجیتال">
 
@@ -35,9 +33,12 @@
     <link rel="icon" href="https://raw.githubusercontent.com/AmirZzzw/Site/main/Logo.png">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="dark">
 
-<header>Sidka Shop</header>
+<header>
+    Sidka Shop
+    <button id="theme-toggle" title="تغییر حالت روشن/تاریک">🌙</button>
+</header>
 
 <nav class="navbar">
     <a href="#products">محصولات</a>
@@ -84,7 +85,7 @@
 <section id="about" class="glass">
     <h2>درباره Sidka Shop</h2>
     <p>
-        سیدکا شاپ ارائه‌دهنده بهترین خدمات دیجیتال شامل اشتراک سلف تلگرام، VPN، ساخت پنل و طراحی‌های گرافیکی است.  
+        سیدکا شاپ ارائه‌دهنده بهترین خدمات دیجیتال شامل اشتراک سلف تلگرام، VPN، ساخت پنل و طراحی‌های گرافیکی است.
         هدف ما ارائه کیفیت بالا، قیمت مناسب و پشتیبانی سریع و واقعی می‌باشد.
     </p>
 </section>
@@ -100,6 +101,14 @@
     </div>
 </section>
 
-<script src="script.js"></script>
+<script>
+const toggleBtn = document.getElementById('theme-toggle');
+toggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    document.body.classList.toggle('light');
+    toggleBtn.textContent = document.body.classList.contains('dark') ? '🌙' : '☀️';
+});
+</script>
+
 </body>
 </html>
