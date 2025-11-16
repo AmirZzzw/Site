@@ -8,31 +8,65 @@ body {
     scroll-behavior: smooth;
 }
 
-header {
-    background: #0f3460;
-    padding: 20px;
-    font-size: 32px;
-    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
-}
-
-section {
-    padding: 40px;
-}
-
-.product {
-    display: flex;
-    flex-direction: column; /* 👈 آیتم‌ها رو عمودی می‌چینه */
-    align-items: center;    /* 👈 وسط‌چین افقی */
-    gap: 20px;              /* فاصله بین عکس و دکمه */
-    padding: 20px;
+/* Glass effect sections */
+.glass {
     background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
     border-radius: 32px;
     box-shadow: 10px 1.5px 3px rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(15px);
+    margin: 40px auto;
+    padding: 40px 20px;
+    max-width: 1000px;
     transition: transform 0.3s ease;
 }
-.product:hover {
-    transform: scale(1.03);
+
+.glass:hover {
+    transform: scale(1.01);
+}
+
+/* Navbar */
+.navbar-glass {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar-glass ul {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-glass li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.navbar-glass li a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+/* Products */
+.product {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
 }
 
 button {
@@ -91,4 +125,27 @@ button.disabled {
         left: 150%;
         opacity: 0;
     }
+}
+
+/* Contact Buttons */
+.contact-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.contact-buttons a {
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(to right, #ff5722, #ff9800);
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.contact-buttons a:hover {
+    transform: scale(1.05);
+    background: linear-gradient(to right, #e64a19, #f57c00);
 }
