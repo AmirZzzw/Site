@@ -34,6 +34,13 @@ h1 {
     background: rgba(255, 255, 255, 0.25);
 }
 
+/* حالت فعال یا کلیک شده */
+.navbar button:active {
+    background: #fff5b3;  /* رنگ Butter-like */
+    color: #222;          /* متن با رنگ تیره برای کنتراست */
+    transform: scale(1.02);
+}
+
 section {
     padding: 40px 20px;
 }
