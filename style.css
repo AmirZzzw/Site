@@ -18,6 +18,25 @@ header {
     backdrop-filter: blur(10px);
 }
 
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 10px;
+}
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 20px;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+.navbar a:hover {
+    background: rgba(255,255,255,0.2);
+}
+
 /* Sections */
 section {
     padding: 40px;
@@ -70,8 +89,32 @@ button,
     font-weight: bold;
     cursor: pointer;
     border-radius: 50px;
-    transition: 0.3s;
+    transition: 0.4s;
     display: inline-block;
+    position: relative;
+    overflow: hidden;
+}
+
+button::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 50px;
+    height: 200%;
+    background: linear-gradient(45deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
+    transform: rotate(25deg);
+    opacity: 0;
+    pointer-events: none;
+}
+
+button:active::after {
+    animation: shine 0.6s forwards;
+}
+
+@keyframes shine {
+    0% { left: -50%; opacity: 1; }
+    100% { left: 150%; opacity: 0; }
 }
 
 button:hover,
@@ -80,15 +123,16 @@ button:hover,
     background: linear-gradient(to right, #e64a19, #f57c00);
 }
 
+button.disabled {
+    background: grey;
+    color: white;
+    cursor: not-allowed;
+}
+
+/* Contact Buttons */
 .contact-buttons {
     display: flex;
     flex-direction: column;
     gap: 15px;
     margin-top: 20px;
-}
-
-button.disabled {
-    background: grey;
-    color: white;
-    cursor: not-allowed;
 }
