@@ -1,50 +1,67 @@
+/* فونت و بدنه */
 body {
     font-family: 'Vazir', sans-serif;
-    background: black;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
     color: white;
     text-align: center;
     margin: 0;
-    padding: 20px;
+    padding: 0;
     scroll-behavior: smooth;
 }
 
-h1 {
-    margin-bottom: 20px;
+/* هدر سایت */
+header {
+    background: #0f3460;
+    padding: 20px;
+    font-size: 32px;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
 }
 
+/* ناوبری زیر هدر */
 .navbar {
     display: flex;
     justify-content: center;
-    gap: 15px;
-    margin-bottom: 30px;
+    gap: 25px;
+    margin: 15px 0 40px 0;
 }
 
-.navbar button {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    border: none;
-    padding: 10px 25px;
+.navbar a {
+    font-family: 'Vazir', sans-serif;
+    text-decoration: none;
+    color: #f2f2f2;
+    padding: 10px 20px;
     border-radius: 20px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s;
+    transition: all 0.3s ease;
+    background: rgba(255,255,255,0.1);
 }
 
-.navbar button:hover {
-    background: rgba(255, 255, 255, 0.25);
+.navbar a:hover {
+    background: rgba(255,255,255,0.25);
+    color: #fff;
 }
 
-/* حالت فعال یا کلیک شده */
-.navbar button:active {
-    background: #fff5b3;  /* رنگ Butter-like */
-    color: #222;          /* متن با رنگ تیره برای کنتراست */
+/* بخش‌ها */
+section {
+    padding: 40px;
+}
+
+/* گلس افکت */
+.glass {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 32px;
+    box-shadow: 10px 1.5px 3px rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(15px);
+    padding: 30px;
+    margin: 20px auto;
+    max-width: 900px;
+    transition: transform 0.3s ease;
+}
+
+.glass:hover {
     transform: scale(1.02);
 }
 
-section {
-    padding: 40px 20px;
-}
-
+/* محصولات */
 .product {
     display: flex;
     flex-direction: column;
@@ -56,14 +73,15 @@ section {
     box-shadow: 10px 1.5px 3px rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(15px);
     transition: transform 0.3s ease;
-    margin-bottom: 30px;
 }
 
 .product:hover {
     transform: scale(1.03);
 }
 
+/* دکمه خرید محصولات */
 button {
+    font-family: 'Vazir', sans-serif;
     position: relative;
     overflow: hidden;
     background: linear-gradient(to right, #ff5722, #ff9800);
@@ -119,4 +137,27 @@ button.disabled {
         left: 150%;
         opacity: 0;
     }
+}
+
+/* دکمه‌های لینک تماس و شبکه‌های اجتماعی */
+.contact-buttons a {
+    font-family: 'Vazir', sans-serif;
+    text-decoration: none;
+    background: rgba(255,255,255,0.1);
+    padding: 12px 25px;
+    border-radius: 25px;
+    color: #fff;
+    margin: 10px;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.contact-buttons a:hover {
+    background: rgba(255,255,255,0.25);
+}
+
+/* تیترها */
+h1, h2 {
+    font-family: 'Vazir', sans-serif;
+    margin-bottom: 20px;
 }
