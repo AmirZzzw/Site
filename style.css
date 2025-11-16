@@ -1,3 +1,6 @@
+/* ===============================
+   فونت و تنظیمات عمومی
+=============================== */
 body {
     font-family: 'Vazir', sans-serif;
     background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
@@ -8,15 +11,26 @@ body {
     scroll-behavior: smooth;
 }
 
-h1 {
+h1, h2 {
     margin-bottom: 20px;
 }
 
+/* ===============================
+   هدر و ناوبری
+=============================== */
+header {
+    background: #0f3460;
+    padding: 20px;
+    font-size: 32px;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
+}
+
+/* ناوبری */
 .navbar {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-bottom: 30px;
+    margin: 20px 0 40px 0;
 }
 
 .navbar button {
@@ -42,10 +56,16 @@ h1 {
     transform: scale(1.02);
 }
 
+/* ===============================
+   بخش‌ها
+=============================== */
 section {
     padding: 40px 20px;
 }
 
+/* ===============================
+   محصولات / گلس
+=============================== */
 .product {
     display: flex;
     flex-direction: column;
@@ -64,7 +84,10 @@ section {
     transform: scale(1.03);
 }
 
-button {
+/* ===============================
+   دکمه‌های خرید
+=============================== */
+button.buy-button {
     font-family: 'Vazir', sans-serif;
     position: relative;
     overflow: hidden;
@@ -79,7 +102,7 @@ button {
     transition: 0.4s;
 }
 
-button::after {
+button.buy-button::after {
     content: '';
     position: absolute;
     top: -50%;
@@ -97,16 +120,16 @@ button::after {
     pointer-events: none;
 }
 
-button:active::after {
+button.buy-button:active::after {
     animation: shine 0.6s forwards;
 }
 
-button:hover:not(.disabled) {
+button.buy-button:hover:not(.disabled) {
     transform: scale(1.05);
     background: linear-gradient(to right, #e64a19, #f57c00);
 }
 
-button.disabled {
+button.buy-button.disabled {
     background: grey;
     color: white;
     cursor: not-allowed;
@@ -121,4 +144,35 @@ button.disabled {
         left: 150%;
         opacity: 0;
     }
+}
+
+/* ===============================
+   دکمه‌های ناوبری (غیر از خرید)
+=============================== */
+.navbar button {
+    font-family: 'Vazir', sans-serif;
+}
+
+/* ===============================
+   بخش تماس
+=============================== */
+.contact-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.contact-buttons a {
+    font-family: 'Vazir', sans-serif;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: 12px 30px;
+    border-radius: 25px;
+    transition: 0.3s;
+}
+
+.contact-buttons a:hover {
+    background: rgba(255, 255, 255, 0.3);
 }
