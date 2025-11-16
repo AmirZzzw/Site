@@ -1,4 +1,5 @@
-body {
+/* حالت تاریک */
+body.dark {
     font-family: 'Vazir', sans-serif;
     background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
     color: white;
@@ -6,6 +7,13 @@ body {
     margin: 0;
     padding: 0;
     scroll-behavior: smooth;
+}
+
+/* حالت روشن */
+body.light {
+    font-family: 'Vazir', sans-serif;
+    background: linear-gradient(to right, #ffffff, #e0e0e0);
+    color: #111;
 }
 
 /* Header */
@@ -16,6 +24,25 @@ header {
     font-weight: bold;
     box-shadow: 0 3px 10px rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Theme toggle button */
+#theme-toggle {
+    font-size: 24px;
+    padding: 8px 14px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    background: rgba(255,255,255,0.2);
+}
+
+#theme-toggle:hover {
+    transform: scale(1.2);
+    background: rgba(255,255,255,0.3);
 }
 
 /* Navbar */
@@ -26,7 +53,7 @@ header {
     margin-top: 10px;
 }
 .navbar a {
-    color: white;
+    color: inherit;
     text-decoration: none;
     font-weight: bold;
     padding: 8px 20px;
@@ -38,9 +65,7 @@ header {
 }
 
 /* Sections */
-section {
-    padding: 40px;
-}
+section { padding: 40px; }
 
 /* Glass Sections */
 .glass {
@@ -52,6 +77,7 @@ section {
     box-shadow: 0 1px 12px rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(15px);
 }
+body.light .glass { background: rgba(0,0,0,0.05); }
 
 .glass p {
     line-height: 2;
@@ -72,10 +98,9 @@ section {
     backdrop-filter: blur(20px);
     transition: transform 0.3s ease;
 }
+body.light .product { background: rgba(0,0,0,0.08); }
 
-.product:hover {
-    transform: scale(1.03);
-}
+.product:hover { transform: scale(1.03); }
 
 /* Buttons */
 button,
@@ -107,10 +132,7 @@ button::after {
     opacity: 0;
     pointer-events: none;
 }
-
-button:active::after {
-    animation: shine 0.6s forwards;
-}
+button:active::after { animation: shine 0.6s forwards; }
 
 @keyframes shine {
     0% { left: -50%; opacity: 1; }
@@ -123,11 +145,7 @@ button:hover,
     background: linear-gradient(to right, #e64a19, #f57c00);
 }
 
-button.disabled {
-    background: grey;
-    color: white;
-    cursor: not-allowed;
-}
+button.disabled { background: grey; color: white; cursor: not-allowed; }
 
 /* Contact Buttons */
 .contact-buttons {
