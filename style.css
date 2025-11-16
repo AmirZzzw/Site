@@ -8,36 +8,60 @@ body {
     scroll-behavior: smooth;
 }
 
+/* Header */
 header {
-    background: #0f3460;
-    padding: 20px;
-    font-size: 32px;
-    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
+    background: rgba(15, 52, 96, 0.9);
+    padding: 25px;
+    font-size: 35px;
+    font-weight: bold;
+    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
 }
 
+/* Sections */
 section {
     padding: 40px;
 }
 
+/* Glass Sections */
+.glass {
+    margin: 40px auto;
+    max-width: 700px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 30px;
+    box-shadow: 0 1px 12px rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+}
+
+.glass p {
+    line-height: 2;
+    opacity: 0.9;
+    font-size: 17px;
+}
+
+/* Product Cards */
 .product {
     display: flex;
-    flex-direction: column; /* 👈 آیتم‌ها رو عمودی می‌چینه */
-    align-items: center;    /* 👈 وسط‌چین افقی */
-    gap: 20px;              /* فاصله بین عکس و دکمه */
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
     padding: 20px;
     background: rgba(255, 255, 255, 0.15);
-    border-radius: 32px;
-    box-shadow: 10px 1.5px 3px rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(15px);
+    border-radius: 28px;
+    box-shadow: 0 1px 8px rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(20px);
     transition: transform 0.3s ease;
 }
+
 .product:hover {
     transform: scale(1.03);
 }
 
-button {
-    position: relative;
-    overflow: hidden;
+/* Buttons */
+button,
+.contact-buttons a {
+    text-decoration: none;
     background: linear-gradient(to right, #ff5722, #ff9800);
     color: black;
     padding: 16px 45px;
@@ -46,49 +70,25 @@ button {
     font-weight: bold;
     cursor: pointer;
     border-radius: 50px;
-    transition: 0.4s;
+    transition: 0.3s;
+    display: inline-block;
 }
 
-button::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 50px;
-    height: 200%;
-    background: linear-gradient(
-        45deg,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.6) 50%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    transform: rotate(25deg);
-    opacity: 0;
-    pointer-events: none;
-}
-
-button:active::after {
-    animation: shine 0.6s forwards;
-}
-
-button:hover:not(.disabled) {
+button:hover,
+.contact-buttons a:hover {
     transform: scale(1.05);
     background: linear-gradient(to right, #e64a19, #f57c00);
+}
+
+.contact-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
 }
 
 button.disabled {
     background: grey;
     color: white;
     cursor: not-allowed;
-}
-
-@keyframes shine {
-    0% {
-        left: -50%;
-        opacity: 1;
-    }
-    100% {
-        left: 150%;
-        opacity: 0;
-    }
 }
