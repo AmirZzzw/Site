@@ -1,10 +1,10 @@
 body {
     font-family: 'Vazir', sans-serif;
-    background: black;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
     color: white;
     text-align: center;
     margin: 0;
-    padding: 20px;
+    padding: 0;
     scroll-behavior: smooth;
 }
 
