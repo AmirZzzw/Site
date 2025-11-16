@@ -1,89 +1,76 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="google-site-verification" content="FETzCbURTNniW1Py8OX5YAo7TxW1ht8iLoLeg1BF0YE" />
-    <title>Sidka Shop</title>
-    <meta name="description" content="Sidka Shop ارائه‌دهنده اشتراک سلف تلگرام، VPN، ViaX Panel و خدمات دیجیتال">
     <meta name="keywords" content="Sidka Shop, سلف تلگرام, خرید سلف تلگرام, خرید vpn, v2rayng, viavpn, پنل تلگرام, ساخت پنل, خدمات دیجیتال">
-
+    <title>Sidka Shop</title>
     <meta property="og:site_name" content="Sidka Shop">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://sidkashop.qzz.io">
     <meta property="og:title" content="Sidka Shop">
     <meta property="og:image" content="https://cdn.glitch.global/0b0ae7ee-4f8b-40ff-9261-3a23d7a172bc/Picsart_25-06-17_15-35-33-974.jpg?v=1750162247691">
     <meta property="og:description" content="Developed By AmirSidka"/>
+    <script type="application/ld+json">
+    </script>
 
+    <!-- اضافه کردن فونت وزیر -->
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
     <link rel="icon" href="https://raw.githubusercontent.com/AmirZzzw/Site/main/Logo.png" type="image/jpeg" />
     <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body style="text-align:center; padding:20px; background:black; color:white;">
+    <h1>Sidka Shop</h1>
+    <section id="products">
+        
+        <h1>اشتراک ViaX Panel - پنل ایملاک موبایل</h1>
+        <div class="product">
+            <button onclick="openPaymentPage('اشتراک یکروزه', 15000)">یکروزه - 15,000 تومان</button>
+            <button onclick="openPaymentPage('اشتراک یک هفته', 70000)">یک هفته - 70,000 تومان</button>
+            <button onclick="openPaymentPage('اشتراک یک ماهه', 230000)">یک ماهه - 230,000 تومان</button>
+            <button onclick="openPaymentPage('اشتراک دائم', 350000)">دائم - 350,000 تومان</button>
+        </div>
 
-<header>Sidka Shop</header>
+        <h1>اشتراک 50 گیگ یکماهه‌ی v2rayNG</h1>
+        <div class="product">
+            <button onclick="window.open('https://t.me/SidkaVPNBot', '_blank')">30,000 تومان - خرید</button>
+        </div>
 
-<nav class="navbar">
-    <button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'});">محصولات</button>
-    <button onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'});">درباره ما</button>
-    <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});">ارتباط با ما</button>
-</nav>
+        <h1>اشتراک یکماهه‌ی سلف تلگرام</h1>
+        <div class="product">
+            <button onclick="window.open('https://t.me/SidkaSelfBot', '_blank')">40,000 تومان - خرید</button>
+            <button onclick="openFeaturesPage()">مشاهده قابلیت‌های سلف</button>
+        </div>
+        
+        <h1>تامنیل یوتیوب</h1>
+        <div class="product">
+            <button onclick="openPaymentPage('تامنیل یوتیوب', 50000)">50,000 تومان - خرید</button>
+        </div>
 
-<section id="products">
-    <h2>اشتراک ViaX Panel - پنل ایملاک موبایل</h2>
-    <div class="product">
-        <button onclick="openPaymentPage('اشتراک یکروزه', 15000)">یکروزه - 15,000 تومان</button>
-        <button onclick="openPaymentPage('اشتراک یک هفته', 70000)">یک هفته - 70,000 تومان</button>
-        <button onclick="openPaymentPage('اشتراک یک ماهه', 230000)">یک ماهه - 230,000 تومان</button>
-        <button onclick="openPaymentPage('اشتراک دائم', 350000)">دائم - 350,000 تومان</button>
-    </div>
+        <h1>پروفایل چنل تلگرام</h1>
+        <div class="product">
+            <button onclick="openPaymentPage('پروفایل چنل تلگرام', 50000)">50,000 تومان - خرید</button>
+        </div>
 
-    <h2>اشتراک 50 گیگ یکماهه‌ی v2rayNG</h2>
-    <div class="product">
-        <button onclick="window.open('https://t.me/SidkaVPNBot', '_blank')">30,000 تومان - خرید</button>
-    </div>
+        <h1>ساخت پنل</h1>
+        <div class="product">
+           <button onclick="openPaymentPage('ساخت پنل', 259000)">259,000 تومان - خرید</button>
+        </div>
+        
+    </section>
 
-    <h2>اشتراک یکماهه‌ی سلف تلگرام</h2>
-    <div class="product">
-        <button onclick="window.open('https://t.me/SidkaSelfBot', '_blank')">40,000 تومان - خرید</button>
-        <button onclick="openFeaturesPage()">مشاهده قابلیت‌های سلف</button>
-    </div>
+    <section id="contact">
+        <h1>ارتباط با ما</h1>
+        <div class="product">
+            <button onclick="window.open('https://t.me/SidkaShop', '_blank')">Telegram Channel</button>
+            <button onclick="window.open('https://t.me/SidkaVPN', '_blank')">Telegram VPN Channel</button>
+            <button onclick="window.open('https://t.me/SidkaSelf', '_blank')">Telegram Self Channel</button>
+            <button onclick="window.open('https://t.me/AqooAmir', '_blank')">Telegram Pv</button>
+            <button onclick="window.open('https://www.instagram.com/aqooamir?igsh=cG5wbHVoNnltdzF6', '_blank')">Instagram</button>
+        </div>
+    </section>
 
-    <h2>تامنیل یوتیوب</h2>
-    <div class="product">
-        <button onclick="openPaymentPage('تامنیل یوتیوب', 50000)">50,000 تومان - خرید</button>
-    </div>
-
-    <h2>پروفایل چنل تلگرام</h2>
-    <div class="product">
-        <button onclick="openPaymentPage('پروفایل چنل تلگرام', 50000)">50,000 تومان - خرید</button>
-    </div>
-
-    <h2>ساخت پنل اختصاصی</h2>
-    <div class="product">
-        <button onclick="openPaymentPage('ساخت پنل', 259000)">259,000 تومان - خرید</button>
-    </div>
-</section>
-
-<section id="about" class="glass">
-    <h2>درباره Sidka Shop</h2>
-    <p>
-        سیدکا شاپ ارائه‌دهنده بهترین خدمات دیجیتال شامل اشتراک سلف تلگرام، VPN، ساخت پنل و طراحی‌های گرافیکی است.
-        هدف ما ارائه کیفیت بالا، قیمت مناسب و پشتیبانی سریع و واقعی می‌باشد.
-    </p>
-</section>
-
-<section id="contact" class="glass">
-    <h2>ارتباط با ما</h2>
-    <div class="contact-buttons">
-        <a href="https://t.me/SidkaShop" target="_blank">کانال فروشگاه</a>
-        <a href="https://t.me/SidkaVPN" target="_blank">کانال VPN</a>
-        <a href="https://t.me/SidkaSelf" target="_blank">کانال Self</a>
-        <a href="https://t.me/AqooAmir" target="_blank">پیوی تلگرام</a>
-        <a href="https://instagram.com/aqooamir" target="_blank">Instagram</a>
-    </div>
-</section>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
