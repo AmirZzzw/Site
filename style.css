@@ -12,45 +12,38 @@ body.dark {
 /* حالت روشن */
 body.light {
     font-family: 'Vazir', sans-serif;
-    background: linear-gradient(to right, #ffffff, #e0e0e0);
+    background: linear-gradient(to right, #f5f5f5, #e0e0e0);
     color: #111;
 }
 
-/* Header */
 header {
-    background: rgba(15, 52, 96, 0.9);
-    padding: 25px;
-    font-size: 35px;
+    background: rgba(15, 52, 96, 0.85);
+    padding: 20px 40px;
+    font-size: 32px;
     font-weight: bold;
-    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-radius: 0 0 15px 15px;
 }
 
-/* Theme toggle button */
 #theme-toggle {
     font-size: 24px;
-    padding: 8px 14px;
-    border-radius: 50%;
     border: none;
+    border-radius: 50%;
     cursor: pointer;
-    transition: 0.3s;
     background: rgba(255,255,255,0.2);
+    padding: 6px 12px;
+    transition: 0.3s;
 }
+#theme-toggle:hover { background: rgba(255,255,255,0.3); transform: scale(1.15); }
 
-#theme-toggle:hover {
-    transform: scale(1.2);
-    background: rgba(255,255,255,0.3);
-}
-
-/* Navbar */
 .navbar {
     display: flex;
     justify-content: center;
-    gap: 30px;
-    margin-top: 10px;
+    gap: 25px;
+    margin: 15px 0;
 }
 .navbar a {
     color: inherit;
@@ -60,52 +53,42 @@ header {
     border-radius: 20px;
     transition: 0.3s;
 }
-.navbar a:hover {
-    background: rgba(255,255,255,0.2);
-}
+.navbar a:hover { background: rgba(255,255,255,0.15); }
 
 /* Sections */
 section { padding: 40px; }
 
-/* Glass Sections */
 .glass {
     margin: 40px auto;
     max-width: 700px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.15);
     padding: 30px;
     border-radius: 30px;
-    box-shadow: 0 1px 12px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 5px 15px rgba(255,255,255,0.2);
     backdrop-filter: blur(15px);
+    transition: transform 0.3s;
 }
 body.light .glass { background: rgba(0,0,0,0.05); }
 
-.glass p {
-    line-height: 2;
-    opacity: 0.9;
-    font-size: 17px;
-}
-
-/* Product Cards */
 .product {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 18px;
+    gap: 20px;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 28px;
-    box-shadow: 0 1px 8px rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(20px);
+    background: rgba(255,255,255,0.15);
+    border-radius: 32px;
+    box-shadow: 10px 2px 5px rgba(255,255,255,0.3);
+    backdrop-filter: blur(15px);
     transition: transform 0.3s ease;
 }
+.product:hover { transform: scale(1.03); }
 body.light .product { background: rgba(0,0,0,0.08); }
 
-.product:hover { transform: scale(1.03); }
-
-/* Buttons */
 button,
 .contact-buttons a {
-    text-decoration: none;
+    position: relative;
+    overflow: hidden;
     background: linear-gradient(to right, #ff5722, #ff9800);
     color: black;
     padding: 16px 45px;
@@ -115,9 +98,6 @@ button,
     cursor: pointer;
     border-radius: 50px;
     transition: 0.4s;
-    display: inline-block;
-    position: relative;
-    overflow: hidden;
 }
 
 button::after {
@@ -133,21 +113,13 @@ button::after {
     pointer-events: none;
 }
 button:active::after { animation: shine 0.6s forwards; }
-
-@keyframes shine {
-    0% { left: -50%; opacity: 1; }
-    100% { left: 150%; opacity: 0; }
-}
+@keyframes shine { 0% { left:-50%; opacity:1; } 100% { left:150%; opacity:0; } }
 
 button:hover,
-.contact-buttons a:hover {
-    transform: scale(1.05);
-    background: linear-gradient(to right, #e64a19, #f57c00);
-}
+.contact-buttons a:hover { transform: scale(1.05); background: linear-gradient(to right,#e64a19,#f57c00); }
 
 button.disabled { background: grey; color: white; cursor: not-allowed; }
 
-/* Contact Buttons */
 .contact-buttons {
     display: flex;
     flex-direction: column;
