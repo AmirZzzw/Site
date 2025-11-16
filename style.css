@@ -1,36 +1,57 @@
 body {
     font-family: 'Vazir', sans-serif;
-    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    background: black;
     color: white;
     text-align: center;
     margin: 0;
-    padding: 0;
+    padding: 20px;
     scroll-behavior: smooth;
 }
 
-header {
-    background: #0f3460;
-    padding: 20px;
-    font-size: 32px;
-    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
+h1 {
+    margin-bottom: 20px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.navbar button {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.navbar button:hover {
+    background: rgba(255, 255, 255, 0.25);
 }
 
 section {
-    padding: 40px;
+    padding: 40px 20px;
 }
 
 .product {
     display: flex;
-    flex-direction: column; /* 👈 آیتم‌ها رو عمودی می‌چینه */
-    align-items: center;    /* 👈 وسط‌چین افقی */
-    gap: 20px;              /* فاصله بین عکس و دکمه */
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
     padding: 20px;
     background: rgba(255, 255, 255, 0.15);
     border-radius: 32px;
     box-shadow: 10px 1.5px 3px rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(15px);
     transition: transform 0.3s ease;
+    margin-bottom: 30px;
 }
+
 .product:hover {
     transform: scale(1.03);
 }
