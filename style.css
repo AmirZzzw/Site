@@ -15,72 +15,21 @@ header {
     box-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
 }
 
-.navbar {
-    margin: 20px 0;
-}
-
-.navbar button {
-    margin: 0 10px;
-    padding: 12px 25px;
-    border-radius: 50px;
-    border: none;
-    font-weight: bold;
-    background: linear-gradient(to right, #ff5722, #ff9800);
-    cursor: pointer;
-    color: black;
-    position: relative;
-    overflow: hidden;
-    transition: 0.4s;
-}
-
-.navbar button::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 50px;
-    height: 200%;
-    background: linear-gradient(
-        45deg,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.6) 50%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    transform: rotate(25deg);
-    opacity: 0;
-    pointer-events: none;
-}
-
-.navbar button:active::after {
-    animation: shine 0.6s forwards;
-}
-
-.navbar button:hover {
-    transform: scale(1.05);
-    background: linear-gradient(to right, #e64a19, #f57c00);
-}
-
-@keyframes shine {
-    0% { left: -50%; opacity:1; }
-    100% { left: 150%; opacity:0; }
-}
-
 section {
     padding: 40px;
 }
 
 .product {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+    flex-direction: column; /* 👈 آیتم‌ها رو عمودی می‌چینه */
+    align-items: center;    /* 👈 وسط‌چین افقی */
+    gap: 20px;              /* فاصله بین عکس و دکمه */
     padding: 20px;
     background: rgba(255, 255, 255, 0.15);
     border-radius: 32px;
     box-shadow: 10px 1.5px 3px rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(15px);
     transition: transform 0.3s ease;
-    margin-bottom: 30px;
 }
 .product:hover {
     transform: scale(1.03);
@@ -133,46 +82,13 @@ button.disabled {
     cursor: not-allowed;
 }
 
-section.glass {
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 32px;
-    padding: 40px;
-    backdrop-filter: blur(15px);
-    box-shadow: 0 0 30px rgba(0,0,0,0.2);
-    margin-bottom: 40px;
-}
-
-.contact-buttons a {
-    display: inline-block;
-    margin: 10px;
-    padding: 12px 30px;
-    background: linear-gradient(to right, #ff5722, #ff9800);
-    border-radius: 50px;
-    color: black;
-    text-decoration: none;
-    font-weight: bold;
-    position: relative;
-    overflow: hidden;
-    transition: 0.4s;
-}
-
-.contact-buttons a::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 50px;
-    height: 200%;
-    background: linear-gradient(
-        45deg,
-        rgba(255,255,255,0) 0%,
-        rgba(255,255,255,0.6) 50%,
-        rgba(255,255,255,0) 100%
-    );
-    transform: rotate(25deg);
-    opacity: 0;
-}
-
-.contact-buttons a:active::after {
-    animation: shine 0.6s forwards;
+@keyframes shine {
+    0% {
+        left: -50%;
+        opacity: 1;
+    }
+    100% {
+        left: 150%;
+        opacity: 0;
+    }
 }
