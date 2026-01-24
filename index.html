@@ -66,15 +66,25 @@
     <section id="products">
         <h1>اشتراک ویاکس پنل</h1> <h1>ViaX Panel Subscriptions</h1>
         <div class="product">
-            <button onclick="openPaymentPage('اشتراک یکروزه', 15000)">یکروزه - 15,000 تومان</button>
-            <button onclick="openPaymentPage('اشتراک یک هفته', 70000)">یک هفته - 70,000 تومان</button>
-            <button onclick="openPaymentPage('اشتراک یک ماهه', 230000)">یک ماهه - 230,000 تومان</button>
+            <button onclick="openPaymentPage('اشتراک یکروزه', 15000)">یک‌روزه - 15,000 تومان</button>
+            <button onclick="openPaymentPage('اشتراک یک‌هفته', 70000)">یک‌هفته - 70,000 تومان</button>
+            <button onclick="openPaymentPage('اشتراک یک‌ماهه', 230000)">یک‌ماهه - 230,000 تومان</button>
             <button onclick="openPaymentPage('اشتراک دائم', 350000)">دائم - 350,000 تومان</button>
         </div>
 
-        <h1>اشتراک یکماهه‌ی سلف تلگرام</h1>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">محصولات</button>
+        <button onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">درباره ما</button>
+        <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">ارتباط با ما</button>
+    </nav>
+
+    <section id="products">
+        <h1>اشتراک سلف تلگرام</h1> <h1>Telegram Self Subscriptions</h1>
         <div class="product">
-            <button onclick="window.open('https://t.me/SidkaSelfBot', '_blank')">40,000 تومان - خرید</button>
+            <button class="disabled" onclick="return false;">یک‌ماهه - 40,000 تومان</button>
+            <button class="disabled" onclick="return false;">دو ماهه - 80,000 تومان</button>
+            <button class="disabled" onclick="return false;">سه‌ماهه - 120,000 تومان</button>
             <button onclick="openFeaturesPage()">مشاهده قابلیت‌های سلف</button>
         </div>
         
