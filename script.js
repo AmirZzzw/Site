@@ -22,67 +22,20 @@ function openPaymentPage(productName, price) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
 <style>
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:'Vazir',sans-serif;
-  background:#f1f2f4;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  min-height:100vh;
-}
-.card{
-  background:#fff;
-  width:100%;
-  max-width:360px;
-  padding:20px;
-  border-radius:16px;
-  box-shadow:0 8px 25px rgba(0,0,0,.1);
-}
-h3{text-align:center;margin:0;color:#333}
-.price{text-align:center;color:#27ae60;margin:5px 0 15px;font-weight:bold}
-.bank{
-  background:#f7f7f7;
-  border-radius:12px;
-  padding:10px;
-  text-align:center;
-  font-size:14px;
-  margin-bottom:15px;
-  color:#222;
-}
-.upload{
-  border:1.5px dashed #bbb;
-  border-radius:12px;
-  padding:15px;
-  text-align:center;
-  font-size:14px;
-  margin-bottom:10px;
-  color:#222;
-}
-.upload input{display:none}
-.upload label{cursor:pointer}
-input,textarea{
-  width:100%;
-  margin-top:8px;
-  padding:10px;
-  border-radius:12px;
-  border:1px solid #ccc;
-  font-family:'Vazir';
-  color:#222;
-}
-button{
-  width:100%;
-  margin-top:15px;
-  padding:12px;
-  border:none;
-  border-radius:14px;
-  background:#ff9800;
-  font-size:15px;
-  font-weight:bold;
-  cursor:pointer;
-}
-#status{text-align:center;font-size:13px;margin-top:10px;color:#333}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Vazir',sans-serif;background:#f1f2f4;display:flex;justify-content:center;align-items:center;min-height:100vh;}
+.card{background:#fff;width:100%;max-width:400px;padding:25px;border-radius:16px;box-shadow:0 8px 25px rgba(0,0,0,.1);}
+h3{text-align:center;margin:0 0 10px;color:#333;font-size:22px;}
+.price{text-align:center;color:#27ae60;margin:5px 0 15px;font-weight:bold;font-size:18px;}
+.bank{background:#f7f7f7;border-radius:12px;padding:12px;text-align:center;font-size:14px;margin-bottom:15px;color:#222;}
+.upload{border:1.5px dashed #bbb;border-radius:12px;padding:15px;text-align:center;font-size:14px;margin-bottom:10px;color:#222;position:relative;}
+.upload input{display:none;}
+.upload label{cursor:pointer;}
+input,textarea{width:100%;margin-top:8px;padding:10px;border-radius:12px;border:1px solid #ccc;font-family:'Vazir';color:#222;font-size:14px;}
+textarea{resize:none;}
+button{width:100%;margin-top:15px;padding:12px;border:none;border-radius:14px;background:#ff9800;font-size:15px;font-weight:bold;cursor:pointer;transition:0.3s;}
+button:hover{background:#e68900;}
+#status{text-align:center;font-size:13px;margin-top:10px;color:#333;}
 </style>
 </head>
 <body>
@@ -203,34 +156,9 @@ function openSuccessPage(){
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
 <style>
-body{
-  margin:0;
-  font-family:'Vazir';
-  background:#f1f2f4;
-  color:#333;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-}
-.card{
-  background:#fff;
-  padding:30px;
-  border-radius:18px;
-  text-align:center;
-  box-shadow:0 10px 30px rgba(0,0,0,.15);
-}
-.check{
-  width:70px;height:70px;
-  border-radius:50%;
-  background:#2ecc71;
-  color:#fff;
-  font-size:40px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin:0 auto 10px;
-}
+body{margin:0;font-family:'Vazir';background:#f1f2f4;color:#333;display:flex;justify-content:center;align-items:center;height:100vh;}
+.card{background:#fff;padding:30px;border-radius:18px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.15);}
+.check{width:70px;height:70px;border-radius:50%;background:#2ecc71;color:#fff;font-size:40px;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;}
 </style>
 </head>
 <body>
@@ -258,7 +186,7 @@ const interval = setInterval(()=>{
 </body>
 </html>
 `);
-} 
+}
 
 /* =========================
    صفحه قابلیت‌های سلف
