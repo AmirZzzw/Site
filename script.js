@@ -15,13 +15,14 @@ function openPaymentPage(productName, price) {
 <html lang="fa">
 <head>
 <meta charset="UTF-8">
-<title>پرداخت ${productName}</title>
+<title>پرداخت</title>
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
 
 <style>
 body{
+  margin:0;
   font-family:'Vazir',sans-serif;
-  background:linear-gradient(135deg,#0f0f0f,#1c1c1c);
+  background:#f2f3f5;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -30,63 +31,69 @@ body{
 
 .box{
   background:#fff;
-  width:430px;
-  padding:30px;
-  border-radius:22px;
+  width:95%;
+  max-width:380px;
+  padding:25px;
+  border-radius:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,.12);
   text-align:center;
-  box-shadow:0 20px 50px rgba(0,0,0,.4);
 }
 
-h3{margin-bottom:5px}
-.price{color:#4caf50;font-size:18px;margin-bottom:10px}
+h3{margin:5px 0}
+.price{color:#2ecc71;font-size:17px;margin-bottom:10px}
 
 .card{
-  background:#f5f7fa;
-  padding:10px;
+  background:#f7f8fa;
   border-radius:12px;
-  margin-bottom:15px;
+  padding:10px;
   font-size:14px;
+  margin-bottom:15px;
 }
 
 .upload{
-  border:2px dashed #ccc;
-  border-radius:15px;
-  padding:20px;
-  cursor:pointer;
-  transition:.3s;
+  border:2px dashed #d0d0d0;
+  border-radius:14px;
+  padding:18px;
   color:#666;
+  cursor:pointer;
+  margin-bottom:10px;
 }
-.upload:hover{border-color:#4caf50;color:#4caf50}
-.upload span{display:block;margin-top:8px;font-size:13px}
+.upload span{
+  display:block;
+  font-size:13px;
+  margin-top:5px;
+}
 
 input,textarea{
-  width:90%;
+  width:100%;
+  box-sizing:border-box;
   padding:10px;
-  margin:6px 0;
-  border-radius:20px;
+  margin-top:8px;
+  border-radius:14px;
   border:1px solid #ccc;
+  font-family:'Vazir';
 }
 
 button{
-  background:linear-gradient(to right,#ff9800,#ff5722);
+  margin-top:15px;
+  width:100%;
+  padding:12px;
   border:none;
-  padding:12px 45px;
-  border-radius:30px;
+  border-radius:20px;
+  background:#ff9800;
+  font-size:15px;
   cursor:pointer;
-  color:#000;
-  font-size:16px;
-  margin-top:10px;
 }
 
-#timer{color:#4caf50;margin-top:10px}
-#status{margin-top:8px;font-size:14px}
+#timer{color:#2ecc71;margin-top:10px;font-size:13px}
+#status{margin-top:8px;font-size:13px}
 </style>
 </head>
 
 <body onload="restoreTimer()">
 
 <div class="box">
-  <h3>پرداخت ${productName}</h3>
+  <h3>${productName}</h3>
   <div class="price">${price.toLocaleString()} تومان</div>
 
   <div class="card">
@@ -96,8 +103,8 @@ button{
   </div>
 
   <label class="upload">
-    📤 آپلود فیش پرداخت
-    <span id="fileName">برای انتخاب عکس کلیک کنید</span>
+    📤 انتخاب تصویر رسید
+    <span id="fileName">برای آپلود ضربه بزنید</span>
     <input type="file" id="img" accept="image/*" hidden>
   </label>
 
@@ -105,9 +112,9 @@ button{
   <input type="text" id="phone" placeholder="شماره تماس">
   <textarea id="txt" placeholder="توضیحات (اختیاری)"></textarea>
 
-  <button onclick="sendReceipt()">ارسال فیش</button>
+  <button onclick="sendReceipt()">ارسال رسید</button>
 
-  <div id="timer">✅ ارسال فیش امکان‌پذیر است</div>
+  <div id="timer">✅ امکان ارسال وجود دارد</div>
   <div id="status"></div>
 </div>
 
@@ -118,9 +125,9 @@ const imgInput = document.getElementById("img");
 const fileName = document.getElementById("fileName");
 
 imgInput.onchange = () => {
-  fileName.innerText = imgInput.files[0]
+  fileName.innerText = imgInput.files.length
     ? imgInput.files[0].name
-    : "برای انتخاب عکس کلیک کنید";
+    : "برای آپلود ضربه بزنید";
 };
 
 function sendReceipt(){
@@ -137,7 +144,7 @@ function sendReceipt(){
   const status = document.getElementById("status");
 
   if(!img || !tg || !phone){
-    status.innerText="❌ لطفاً همه فیلدهای ضروری را پر کنید";
+    status.innerText = "❌ اطلاعات کامل نیست";
     status.style.color="red";
     return;
   }
@@ -168,7 +175,7 @@ function sendReceipt(){
     }
   })
   .catch(()=>{
-    status.innerText="❌ خطا در ارسال";
+    status.innerText="❌ خطا";
     status.style.color="red";
   });
 }
@@ -184,7 +191,7 @@ function startCooldown(){
     el.innerText="⏳ "+t+" ثانیه";
     if(--t<=0){
       clearInterval(i);
-      el.innerText="✅ ارسال فیش امکان‌پذیر است";
+      el.innerText="✅ امکان ارسال وجود دارد";
     }
   },1000);
 }
@@ -196,7 +203,7 @@ function startCooldown(){
 }
 
 /* ======================
-   پرداخت موفق (بهبود یافته)
+   پرداخت موفق (فوق مینیمال)
 ====================== */
 function openSuccessPage(){
   const w = window.open("", "_blank");
@@ -205,69 +212,33 @@ function openSuccessPage(){
 <html lang="fa">
 <head>
 <meta charset="UTF-8">
-<title>پرداخت موفق</title>
+<title>موفق</title>
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
 
 <style>
 body{
+  margin:0;
   font-family:'Vazir',sans-serif;
-  background:linear-gradient(135deg,#f4f6f8,#e9edf2);
+  background:#ffffff;
   display:flex;
   justify-content:center;
   align-items:center;
   min-height:100vh;
-}
-
-.card{
-  background:#fff;
-  padding:40px;
-  width:400px;
-  border-radius:25px;
-  text-align:center;
-  box-shadow:0 20px 50px rgba(0,0,0,.15);
-}
-
-.check{
-  width:90px;
-  height:90px;
-  border-radius:50%;
-  background:#4caf50;
-  color:#fff;
-  font-size:48px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  margin:auto;
-}
-
-.timer{
-  margin-top:20px;
-  color:#555;
-  font-size:15px;
+  color:#2ecc71;
+  font-size:32px;
 }
 </style>
 </head>
 
 <body>
-<div class="card">
-  <div class="check">✓</div>
-  <h2>پرداخت موفق</h2>
-  <p>سفارش شما با موفقیت ثبت شد</p>
-  <p class="timer">بازگشت به سایت تا <b id="t">10</b> ثانیه دیگر</p>
-</div>
+موفق
 
 <script>
-let t=10;
-const el=document.getElementById("t");
-const i=setInterval(()=>{
-  t--;
-  el.innerText=t;
-  if(t<=0){
-    clearInterval(i);
-    location.href="${SITE_URL}";
-  }
-},1000);
+setTimeout(()=>{
+  location.href="${SITE_URL}";
+},10000);
 </script>
+
 </body>
 </html>
 `);
