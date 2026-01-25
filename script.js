@@ -22,13 +22,12 @@ function openPaymentPage(productName, price) {
 <title>پرداخت</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
-
 <style>
 *{box-sizing:border-box}
 body{
   margin:0;
   font-family:'Vazir',sans-serif;
-  background:#e0e4e8;
+  background:#f1f2f4;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -41,9 +40,8 @@ body{
   padding:20px;
   border-radius:16px;
   box-shadow:0 8px 25px rgba(0,0,0,.1);
-  color:#222;
 }
-h3{text-align:center;margin:0;color:#222;font-weight:bold}
+h3{text-align:center;margin:0;color:#333}
 .price{text-align:center;color:#27ae60;margin:5px 0 15px;font-weight:bold}
 .bank{
   background:#f7f7f7;
@@ -52,7 +50,7 @@ h3{text-align:center;margin:0;color:#222;font-weight:bold}
   text-align:center;
   font-size:14px;
   margin-bottom:15px;
-  color:#333;
+  color:#222;
 }
 .upload{
   border:1.5px dashed #bbb;
@@ -60,8 +58,8 @@ h3{text-align:center;margin:0;color:#222;font-weight:bold}
   padding:15px;
   text-align:center;
   font-size:14px;
-  color:#555;
   margin-bottom:10px;
+  color:#222;
 }
 .upload input{display:none}
 .upload label{cursor:pointer}
@@ -73,9 +71,7 @@ input,textarea{
   border:1px solid #ccc;
   font-family:'Vazir';
   color:#222;
-  background:#fff;
 }
-input::placeholder, textarea::placeholder { color:#888; }
 button{
   width:100%;
   margin-top:15px;
@@ -84,14 +80,12 @@ button{
   border-radius:14px;
   background:#ff9800;
   font-size:15px;
-  color:#fff;
   font-weight:bold;
   cursor:pointer;
 }
-#status{text-align:center;font-size:13px;margin-top:10px}
+#status{text-align:center;font-size:13px;margin-top:10px;color:#333}
 </style>
 </head>
-
 <body>
 <div class="card">
   <h3>${productName}</h3>
@@ -126,9 +120,9 @@ img.onchange = () => {
 };
 
 function send(){
-  const status = document.getElementById("status");
+  const status = document.getElementById("status"); // ← تعریف شد اول
   const now = Date.now();
-  if(now - lastSentTime < ${SPAM_TIME}){
+  if(now - lastSentTime < SPAM_TIME){
     status.innerText = "⏳ لطفاً یک دقیقه صبر کنید";
     status.style.color = "orange";
     return;
@@ -149,7 +143,7 @@ function send(){
   fd.append("photo",img.files[0]);
   fd.append("caption",
 \`${productName}
-${price} تومان
+${price.toLocaleString()} تومان
 تلگرام: \${tg}
 شماره: \${phone}
 \${txt}\`);
@@ -182,21 +176,17 @@ ${price} تومان
 
 function showSuccessHere(){
   document.body.innerHTML = \`
-    <div style="font-family:Vazir;text-align:center;padding:40px;background:#f0f2f5;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;">
-      <div style="width:80px;height:80px;border-radius:50%;background:#2ecc71;color:#fff;font-size:40px;display:flex;align-items:center;justify-content:center;margin-bottom:15px">✓</div>
-      <h2 style="color:#27ae60;margin:5px 0">سفارش با موفقیت ثبت شد</h2>
-      <p style="color:#333">تا چند ثانیه دیگر به سایت بازمی‌گردید</p>
-      <div style="font-size:16px;color:#555;margin-top:10px">بازگشت در <b id="t">10</b> ثانیه</div>
+    <div style="font-family:Vazir;text-align:center;padding:40px;background:#f1f2f4;color:#333;min-height:100vh;display:flex;justify-content:center;align-items:center;flex-direction:column">
+      <h2 style="color:#2ecc71;font-weight:bold">✅ سفارش ثبت شد</h2>
+      <p>تا چند ثانیه دیگر به سایت بازمی‌گردید</p>
+      <b id="t">10</b>
     </div>
   \`;
   let t = 10;
-  const interval = setInterval(()=>{
+  setInterval(()=>{
     t--;
     document.getElementById("t").innerText = t;
-    if(t<=0) {
-      clearInterval(interval);
-      location.href = "${SITE_URL}";
-    }
+    if(t<=0) location.href = "${SITE_URL}";
   },1000);
 }
 </script>
@@ -222,7 +212,8 @@ function openSuccessPage(){
 body{
   margin:0;
   font-family:'Vazir';
-  background:#f0f2f5;
+  background:#f1f2f4;
+  color:#333;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -234,7 +225,6 @@ body{
   border-radius:18px;
   text-align:center;
   box-shadow:0 10px 30px rgba(0,0,0,.15);
-  color:#222;
 }
 .check{
   width:70px;height:70px;
@@ -247,25 +237,20 @@ body{
   justify-content:center;
   margin:0 auto 10px;
 }
-h3{color:#27ae60;margin:5px 0}
-p{color:#333}
 </style>
 </head>
 <body>
 <div class="card">
   <div class="check">✓</div>
-  <h3>سفارش با موفقیت ثبت شد</h3>
+  <h3>سفارش ثبت شد</h3>
   <p>بازگشت تا <b id="t">10</b> ثانیه</p>
 </div>
 <script>
 let t=10;
-const interval = setInterval(()=>{
+setInterval(()=>{
   t--;
   document.getElementById("t").innerText=t;
-  if(t<=0) {
-    clearInterval(interval);
-    location.href="${SITE_URL}";
-  }
+  if(t<=0) location.href="${SITE_URL}";
 },1000);
 </script>
 </body>
