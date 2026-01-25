@@ -258,7 +258,7 @@ const interval = setInterval(()=>{
 </body>
 </html>
 `);
-}
+} 
 
 /* =========================
    صفحه قابلیت‌های سلف
@@ -300,7 +300,7 @@ body {
   background: linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.4) 50%,transparent 100%);
   border-radius:inherit;
   animation: shine 8s infinite;
-}
+
 @keyframes shine {
   0%{left:-100%} 100%{left:120%}
 }
