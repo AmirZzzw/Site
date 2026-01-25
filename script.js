@@ -10,6 +10,7 @@ const SPAM_TIME = 60 * 1000; // 1 دقیقه
 /* =========================
    صفحه پرداخت
 ========================= */
+
 function openPaymentPage(productName, price) {
   const w = window.open("", "_blank");
 
@@ -123,58 +124,18 @@ ${price.toLocaleString()} تومان
   });
 };
 
-<script>
 function showSuccessPage(){
-  document.body.innerHTML = `
-    <div style="
-      font-family: Vazir, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      background: #f8f9fa;
-      padding: 20px;
-    ">
-      <div style="
-        background: #fff;
-        border-radius: 12px;
-        padding: 40px 30px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        text-align: center;
-        max-width: 400px;
-        width: 100%;
-      ">
-        <div style="
-          font-size: 60px;
-          color: #27ae60;
-          margin-bottom: 20px;
-        ">✅</div>
-        <h2 style="
-          font-weight: bold;
-          font-size: 24px;
-          margin-bottom: 10px;
-          color: #2c3e50;
-        ">سفارش ثبت شد</h2>
-        <p style="
-          color: #555;
-          margin-bottom: 20px;
-        ">تا چند ثانیه دیگر به سایت بازمی‌گردید</p>
-        <b id="t" style="
-          font-size: 20px;
-          color: #fff;
-          background: #27ae60;
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          margin: 0 auto;
-        ">10</b>
+  document.body.innerHTML = \`
+    <div style="font-family: Vazir, sans-serif; display:flex; justify-content:center; align-items:center; min-height:100vh; background:#f8f9fa; padding:20px;">
+      <div style="background:#fff; border-radius:12px; padding:40px 30px; box-shadow:0 8px 20px rgba(0,0,0,0.1); text-align:center; max-width:400px; width:100%;">
+        <div style="font-size:60px; color:#27ae60; margin-bottom:20px;">✅</div>
+        <h2 style="font-weight:bold; font-size:24px; margin-bottom:10px; color:#2c3e50;">سفارش ثبت شد</h2>
+        <p style="color:#555; margin-bottom:20px;">تا چند ثانیه دیگر به سایت بازمی‌گردید</p>
+        <b id="t" style="font-size:20px; color:#fff; background:#27ae60; width:50px; height:50px; border-radius:50%; display:flex; justify-content:center; align-items:center; margin:0 auto;">10</b>
       </div>
     </div>
-  `;
-  
+  \`;
+
   let t = 10;
   const interval = setInterval(()=>{
     t--;
@@ -189,8 +150,10 @@ function showSuccessPage(){
 </body>
 </html>
 `);
+
+w.document.close();
 }
-  
+
 /* =========================
    صفحه قابلیت‌های سلف
 ========================= */
