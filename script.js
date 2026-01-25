@@ -124,29 +124,103 @@ ${price.toLocaleString()} تومان
 };
 
 function showSuccessPage(){
-  document.body.innerHTML = \`
-    <div style="font-family:Vazir;text-align:center;padding:40px;background:#f1f2f4;color:#333;min-height:100vh;display:flex;justify-content:center;align-items:center;flex-direction:column">
-      <h2 style="color:#2ecc71;font-weight:bold">✅ سفارش ثبت شد</h2>
-      <p>تا چند ثانیه دیگر به سایت بازمی‌گردید</p>
-      <b id="t">10</b>
-    </div>
-  \`;
-  let t = 10;
-  const interval = setInterval(()=>{
-    t--;
-    document.getElementById("t").innerText = t;
-    if(t <= 0){
-      clearInterval(interval);
-      location.href = "${SITE_URL}";
-    }
-  }, 1000);
+  const w = window.open("", "_blank"); // باز کردن صفحه جدید
+  w.document.write(`
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<title>موفقیت پرداخت</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
+<style>
+body {
+  margin:0;
+  font-family:'Vazir',sans-serif;
+  background:#f7f8fc;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
 }
+.container {
+  background:#fff;
+  padding:40px 30px;
+  border-radius:20px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.2);
+  text-align:center;
+  max-width:400px;
+  width:90%;
+}
+.success-icon {
+  width:80px;
+  height:80px;
+  background:#2ecc71;
+  color:#fff;
+  font-size:50px;
+  border-radius:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin:0 auto 20px;
+}
+h1 {
+  font-size:28px;
+  color:#2ecc71;
+  margin-bottom:10px;
+}
+p {
+  font-size:16px;
+  color:#333;
+  margin-bottom:20px;
+}
+#countdown {
+  font-size:22px;
+  font-weight:bold;
+  color:#555;
+}
+button {
+  margin-top:20px;
+  padding:12px 30px;
+  font-size:16px;
+  border:none;
+  border-radius:50px;
+  background:#ff9800;
+  color:#fff;
+  cursor:pointer;
+  transition:0.3s;
+}
+button:hover {
+  transform:scale(1.05);
+  background:#e68900;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="success-icon">✓</div>
+  <h1>موفق</h1>
+  <p>سفارش با موفقیت ثبت شد</p>
+  <p>بازگشت به سایت در <span id="countdown">10</span> ثانیه</p>
+  <button onclick="window.location.href='${SITE_URL}'">بازگشت سریع</button>
+</div>
+<script>
+let t = 10;
+const countdown = document.getElementById("countdown");
+const interval = setInterval(() => {
+  t--;
+  countdown.innerText = t;
+  if(t <= 0){
+    clearInterval(interval);
+    window.location.href = "${SITE_URL}";
+  }
+}, 1000);
 </script>
 </body>
 </html>
-`);
-}
-
+  `);
+  w.document.close();
+  }
 /* =========================
    صفحه قابلیت‌های سلف
 ========================= */
