@@ -9,12 +9,12 @@ const SPAM_TIME = 60 * 1000; // 1 دقیقه
 let lastSentTime = localStorage.getItem("lastSentTime") || 0;
 
 /* =========================
-   صفحه پرداخت
+   باز کردن صفحه پرداخت
 ========================= */
 function openPaymentPage(productName, price) {
   const w = window.open("", "_blank");
 
-  w.document.write(`
+  const html = `
 <!DOCTYPE html>
 <html lang="fa">
 <head>
@@ -107,92 +107,75 @@ button{
   <input id="phone" placeholder="شماره تماس">
   <textarea id="txt" placeholder="توضیحات (اختیاری)"></textarea>
 
-  <button onclick="send()">ارسال رسید</button>
+  <button id="sendBtn">ارسال رسید</button>
   <div id="status"></div>
 </div>
 
 <script>
-const img = document.getElementById("img");
-const fileName = document.getElementById("fileName");
+(function(){
+  const img = document.getElementById("img");
+  const fileName = document.getElementById("fileName");
+  const status = document.getElementById("status");
+  const sendBtn = document.getElementById("sendBtn");
 
-img.onchange = () => {
-  fileName.innerText = img.files[0] ? img.files[0].name : "هیچ فایلی انتخاب نشده";
-};
+  img.onchange = () => {
+    fileName.innerText = img.files[0] ? img.files[0].name : "هیچ فایلی انتخاب نشده";
+  };
 
-function send(){
-  const status = document.getElementById("status"); // ← تعریف شد اول
-  const now = Date.now();
-  if(now - lastSentTime < SPAM_TIME){
-    status.innerText = "⏳ لطفاً یک دقیقه صبر کنید";
-    status.style.color = "orange";
-    return;
-  }
+  sendBtn.onclick = () => {
+    const now = Date.now();
+    if(now - ${lastSentTime} < ${SPAM_TIME}){
+      status.innerText = "⏳ لطفاً یک دقیقه صبر کنید";
+      status.style.color = "orange";
+      return;
+    }
 
-  const tg = document.getElementById("tg").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  const txt = document.getElementById("txt").value.trim();
+    const tg = document.getElementById("tg").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const txt = document.getElementById("txt").value.trim();
 
-  if(!img.files[0] || !tg || !phone){
-    status.innerText = "❌ اطلاعات کامل نیست";
-    status.style.color = "red";
-    return;
-  }
+    if(!img.files[0] || !tg || !phone){
+      status.innerText = "❌ اطلاعات کامل نیست";
+      status.style.color = "red";
+      return;
+    }
 
-  const fd = new FormData();
-  fd.append("chat_id","${CHAT_ID}");
-  fd.append("photo",img.files[0]);
-  fd.append("caption",
-\`${productName}
+    const fd = new FormData();
+    fd.append("chat_id","${CHAT_ID}");
+    fd.append("photo",img.files[0]);
+    fd.append("caption",\`${productName}
 ${price.toLocaleString()} تومان
 تلگرام: \${tg}
 شماره: \${phone}
 \${txt}\`);
 
-  fetch("https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto",{
-    method:"POST",
-    body:fd
-  })
-  .then(r=>r.json())
-  .then(d=>{
-    if(d.ok){
-      localStorage.setItem("lastSentTime", Date.now());
-
-      if(window.opener && window.opener.openSuccessPage){
-        window.opener.openSuccessPage();
-        window.close();
-      } else {
-        showSuccessHere();
+    fetch("https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto",{
+      method:"POST",
+      body:fd
+    })
+    .then(r=>r.json())
+    .then(d=>{
+      if(d.ok){
+        localStorage.setItem("lastSentTime", Date.now());
+        openSuccessPage();
+      }else{
+        status.innerText="❌ ارسال ناموفق";
+        status.style.color="red";
       }
-    } else {
-      status.innerText="❌ ارسال ناموفق";
+    })
+    .catch(()=>{
+      status.innerText="❌ خطا در ارتباط";
       status.style.color="red";
-    }
-  })
-  .catch(()=>{
-    status.innerText="❌ خطا در ارتباط";
-    status.style.color="red";
-  });
-}
-
-function showSuccessHere(){
-  document.body.innerHTML = \`
-    <div style="font-family:Vazir;text-align:center;padding:40px;background:#f1f2f4;color:#333;min-height:100vh;display:flex;justify-content:center;align-items:center;flex-direction:column">
-      <h2 style="color:#2ecc71;font-weight:bold">✅ سفارش ثبت شد</h2>
-      <p>تا چند ثانیه دیگر به سایت بازمی‌گردید</p>
-      <b id="t">10</b>
-    </div>
-  \`;
-  let t = 10;
-  setInterval(()=>{
-    t--;
-    document.getElementById("t").innerText = t;
-    if(t<=0) location.href = "${SITE_URL}";
-  },1000);
-}
+    });
+  };
+})();
 </script>
 </body>
 </html>
-`);
+`;
+
+  w.document.write(html);
+  w.document.close();
 }
 
 /* =========================
@@ -200,7 +183,7 @@ function showSuccessHere(){
 ========================= */
 function openSuccessPage(){
   const w = window.open("", "_blank");
-  w.document.write(\`
+  const html = `
 <!DOCTYPE html>
 <html lang="fa">
 <head>
@@ -247,131 +230,101 @@ body{
 </div>
 <script>
 let t=10;
-setInterval(()=>{
+const interval = setInterval(()=>{
   t--;
   document.getElementById("t").innerText=t;
-  if(t<=0) location.href="${SITE_URL}";
+  if(t<=0){
+    clearInterval(interval);
+    window.location.href="${SITE_URL}";
+  }
 },1000);
 </script>
 </body>
 </html>
-\`);
+`;
+  w.document.write(html);
+  w.document.close();
 }
 
-// 🚀 تابع جدید برای صفحه قابلیت‌های سلف
+/* =========================
+   صفحه قابلیت‌های سلف
+========================= */
 function openFeaturesPage() {
-    const featuresPage = window.open("", "_blank");
-    featuresPage.document.write(`
-        <html lang="fa">
-        <head>
-            <meta charset="UTF-8">
-            <title>قابلیت‌های سلف</title>
-            <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
-            <style>
-                body {
-                  font-family: 'Vazir', sans-serif;
-                  margin: 0;
-                  background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
-                  color: white;
-                  text-align: center;
-                  overflow-x: hidden;
-                }
-                .container {
+  const w = window.open("", "_blank");
+  const html = `
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<title>قابلیت‌های سلف</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
+<style>
+body {
+  font-family: 'Vazir', sans-serif;
+  margin: 0;
+  background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
+  color: white;
+  text-align: center;
+}
+.container {
   position: relative;
   overflow: hidden;
   border-radius: 25px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255,255,255,0.05);
   backdrop-filter: blur(15px);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-
-  max-width: 500px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.6);
+  max-width: 600px;
   margin: 40px auto;
   padding: 25px;
-  min-height: 250px;
 }
-
-/* نوار برق */
 .container::after {
-  content: "";
-  position: absolute;
-  top: 0;          /* هم‌سطح بالا */
-  left: -100%;     /* شروع از بیرون سمت چپ */
-  width: 30%;      /* پهنای برق */
-  height: 100%;    /* هم‌قد container */
-  background: linear-gradient(
-    90deg,         /* افقی باشه */
-    transparent 0%,
-    rgba(255, 255, 255, 0.4) 50%,
-    transparent 100%
-  );
-  border-radius: inherit;
+  content:"";
+  position:absolute;
+  top:0; left:-100%;
+  width:30%; height:100%;
+  background: linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.4) 50%,transparent 100%);
+  border-radius:inherit;
   animation: shine 8s infinite;
 }
-
 @keyframes shine {
-  0%   { left: -100%; }
-  100% { left: 120%; }
+  0%{left:-100%} 100%{left:120%}
 }
-                h1 {
-                  font-size: 36px;
-                  margin-bottom: 30px;
-                  background: linear-gradient(90deg, #ff9800, #ff5722);
-                  -webkit-background-clip: text;
-                  -webkit-text-fill-color: transparent;
-                }
-                ul {
-                  list-style: none;
-                  padding: 0;
-                  margin: 0;
-                }
-                li {
-                  font-size: 22px;
-                  margin: 15px 0;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  gap: 10px;
-                  opacity: 0;
-                  transform: translateY(20px);
-                  animation: slideUp 0.8s forwards;
-                }
-                li:nth-child(1) { animation-delay: 0.2s; }
-                li:nth-child(2) { animation-delay: 0.4s; }
-                li:nth-child(3) { animation-delay: 0.6s; }
-                li:nth-child(4) { animation-delay: 0.8s; }
-                li:nth-child(5) { animation-delay: 1s; }
-                button {
-                  margin-top: 40px;
-                  padding: 15px 40px;
-                  font-size: 18px;
-                  border: none;
-                  border-radius: 50px;
-                  cursor: pointer;
-                  background: linear-gradient(to right, #ff5722, #ff9800);
-                  color: black;
-                  font-weight: bold;
-                  transition: 0.3s;
-                }
-                button:hover {
-                  transform: scale(1.1);
-                  background: linear-gradient(to right, #e64a19, #f57c00);
-                }
-                @keyframes fadeIn {
-                  from { opacity: 0; transform: translateY(30px); }
-                  to { opacity: 1; transform: translateY(0); }
-                }
-                @keyframes slideUp {
-                  to {
-                    opacity: 1;
-                    transform: translateY(0);
-                  }
-                }
-            </style>
-        </head>
-        <body>
-            <div class="container">
-            <h1>✨ قابلیت‌های سلف ✨</h1>
-            <ul>
+h1{
+  font-size:36px;
+  margin-bottom:20px;
+  background: linear-gradient(90deg,#ff9800,#ff5722);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+ul{list-style:none;padding:0;margin:0;}
+li{font-size:18px;margin:8px 0;opacity:0;transform:translateY(20px);animation:slideUp 0.5s forwards;}
+li:nth-child(1){animation-delay:0.2s;}
+li:nth-child(2){animation-delay:0.4s;}
+li:nth-child(3){animation-delay:0.6s;}
+li:nth-child(4){animation-delay:0.8s;}
+li:nth-child(5){animation-delay:1s;}
+@keyframes slideUp { to {opacity:1; transform:translateY(0);} }
+button{
+  margin-top:20px;
+  padding:10px 30px;
+  font-size:16px;
+  border:none;
+  border-radius:50px;
+  cursor:pointer;
+  background:linear-gradient(to right,#ff5722,#ff9800);
+  color:black;
+  font-weight:bold;
+}
+button:hover{
+  transform:scale(1.05);
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>✨ قابلیت‌های سلف ✨</h1>
+<ul>
 <li>🕒 دستورات مربوط به ساعت و بیو</li>
 <li>- .تایم روشن: فعال کردن نمایش ساعت در اسم.</li>
 <li>- .تایم خاموش: غیرفعال کردن ساعت.</li>
@@ -448,11 +401,12 @@ function openFeaturesPage() {
 <li>- .چک اسپم: چک میکنه اکانتتون ریپورت هست یا نه باید ریپلای کنید روی پیام خودتون این دستور رو</li>
 <li>🧹 مدیریت و حذف پیام</li>
 <li>- .بستن: ریپلای کنید روی همین پیام و بنویسید بستن تا این پیام پاک بشه.</li>
-            </ul>
-            <button onclick="window.close()">بازگشت</button>
-            <h1></h1
-          </div>
-        </body>
-        </html>
-    `);
+</ul>
+<button onclick="window.close()">بازگشت</button>
+</div>
+</body>
+</html>
+`;
+  w.document.write(html);
+  w.document.close();
 }
