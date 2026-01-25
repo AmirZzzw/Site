@@ -84,9 +84,9 @@ function openPaymentPage(productName, price) {
                     .then(response => response.json())
                     .then(data => {
                         if (data.ok) {
-                            // ✅ ایجاد صفحه موفقیت
-                            const successPage = window.open("", "_blank");
-                            successPage.document.write(\`
+                            // ✅ ایجاد صفحه موفقیت در یک پنجره جدید
+                            const successWindow = window.open("", "_blank");
+                            successWindow.document.write(\`
                                 <!DOCTYPE html>
                                 <html lang="fa">
                                 <head>
@@ -101,13 +101,17 @@ function openPaymentPage(productName, price) {
                                             text-align: center;
                                             padding: 100px 20px;
                                             margin: 0;
+                                            display: flex;
+                                            justify-content: center;
+                                            align-items: center;
+                                            min-height: 100vh;
                                         }
                                         .success-box {
                                             background: linear-gradient(135deg, #00b09b, #96c93d);
                                             border-radius: 25px;
-                                            padding: 50px;
+                                            padding: 50px 30px;
+                                            width: 90%;
                                             max-width: 500px;
-                                            margin: 0 auto;
                                             box-shadow: 0 15px 40px rgba(0, 255, 0, 0.3);
                                             animation: fadeIn 0.5s ease;
                                         }
@@ -118,12 +122,14 @@ function openPaymentPage(productName, price) {
                                             animation: bounce 1s ease infinite alternate;
                                         }
                                         h1 {
-                                            font-size: 36px;
+                                            font-size: 32px;
                                             margin-bottom: 20px;
+                                            line-height: 1.4;
                                         }
                                         p {
                                             font-size: 18px;
                                             margin-bottom: 30px;
+                                            line-height: 1.6;
                                         }
                                         .timer {
                                             font-size: 48px;
@@ -134,6 +140,7 @@ function openPaymentPage(productName, price) {
                                             padding: 15px 30px;
                                             border-radius: 50px;
                                             margin-top: 20px;
+                                            min-width: 80px;
                                         }
                                         @keyframes fadeIn {
                                             from { opacity: 0; transform: translateY(-30px); }
@@ -148,8 +155,9 @@ function openPaymentPage(productName, price) {
                                 <body>
                                     <div class="success-box">
                                         <div class="checkmark">✅</div>
-                                        <h1>سفارش با موفقیت ثبت شد!</h1>
-                                        <p>سفارش شما دریافت و در حال پردازش است.</p>
+                                        <h1>سفارش شما با موفقیت ثبت شد!</h1>
+                                        <p>فیش پرداخت دریافت شد و در حال پردازش است.</p>
+                                        <p>پشتیبانی به زودی با شما تماس خواهد گرفت.</p>
                                         <p>این صفحه به طور خودکار بسته خواهد شد.</p>
                                         <div class="timer" id="countdown">10</div>
                                     </div>
@@ -168,11 +176,11 @@ function openPaymentPage(productName, price) {
                                 </body>
                                 </html>
                             \`);
-
-                            // ✅ بستن صفحه پرداخت
+                            
+                            // ✅ بستن صفحه پرداخت فعلی
                             window.close();
                             
-                            // ✅ به‌روزرسانی تایمر و ذخیره
+                            // ✅ به‌روزرسانی تایمر
                             lastSentTime = now;
                             localStorage.setItem("lastSentTime", now);
                         } else {
