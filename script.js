@@ -125,93 +125,25 @@ ${price.toLocaleString()} تومان
 };
 
 function showSuccessPage(){
-  document.body.innerHTML = `
-    <div style="
-      font-family: Vazir, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      background: #f8f9fa;
-      padding: 20px;
-    ">
-      <div style="
-        background:#fff;
-        border-radius:16px;
-        padding:50px 30px;
-        box-shadow:0 12px 30px rgba(0,0,0,0.12);
-        text-align:center;
-        max-width:420px;
-        width:100%;
-        position: relative;
-        overflow: hidden;
-      ">
-        <div id="checkIcon" style="
-          font-size:80px;
-          color:#27ae60;
-          margin-bottom:25px;
-          text-shadow: 0 4px 0 #1e8449, 0 8px 0 #16a085, 0 12px 0 #2ecc71;
-          animation: pop 0.6s ease forwards;
-        ">✅</div>
-        <h2 style="
-          font-weight:bold;
-          font-size:26px;
-          margin-bottom:15px;
-          color:#2c3e50;
-        ">سفارش شما با موفقیت ثبت شد</h2>
-        <p style="
-          color:#555;
-          font-size:16px;
-          margin-bottom:30px;
-        ">تا چند ثانیه دیگر به سایت بازمی‌گردید</p>
-        <b id="t" style="
-          font-size:22px;
-          color:#fff;
-          background:#27ae60;
-          width:60px;
-          height:60px;
-          border-radius:50%;
-          display:flex;
-          justify-content:center;
-          align-items:center;
-          margin:0 auto;
-          font-weight:bold;
-          box-shadow:0 4px 12px rgba(0,0,0,0.2);
-          animation: pop 0.6s ease forwards;
-        ">10</b>
-      </div>
-    </div>
-
-    <style>
-      @keyframes pop {
-        0% { transform: scale(0.5); opacity: 0; }
-        60% { transform: scale(1.2); opacity: 1; }
-        100% { transform: scale(1); }
-      }
-
-      #checkIcon {
-        animation-delay: 0.2s;
-      }
-
-      #t {
-        animation-delay: 0.4s;
-      }
-    </style>
-  `;
+function showSuccessPage(){
+  document.body.innerHTML = 
+    '<div style="font-family: Vazir, sans-serif; display:flex; justify-content:center; align-items:center; min-height:100vh; background:#f8f9fa; padding:20px;">'+
+      '<div style="background:#fff; border-radius:16px; padding:50px 30px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align:center; max-width:400px; width:100%;">'+
+        '<div style="font-size:70px; color:#27ae60; margin-bottom:20px; text-shadow: 0 3px 0 #1e8449, 0 6px 0 #16a085, 0 9px 0 #2ecc71;">✅</div>'+
+        '<h2 style="font-weight:bold; font-size:24px; margin-bottom:10px; color:#2c3e50;">سفارش شما با موفقیت ثبت شد</h2>'+
+        '<p style="color:#555; margin-bottom:25px;">تا چند ثانیه دیگر به سایت بازمی‌گردید</p>'+
+        '<b id="t" style="font-size:20px; color:#fff; background:#27ae60; width:50px; height:50px; border-radius:50%; display:flex; justify-content:center; align-items:center; margin:0 auto; font-weight:bold;">10</b>'+
+      '</div>'+
+    '</div>';
 
   let t = 10;
   const interval = setInterval(()=>{
     t--;
     const tEl = document.getElementById("t");
-    if(tEl){
-      tEl.innerText = t;
-      // ضربه کوچک روی عدد برای جذابیت
-      tEl.style.transform = "scale(1.3)";
-      setTimeout(()=>{ tEl.style.transform="scale(1)"; }, 150);
-    }
+    if(tEl) tEl.innerText = t;
     if(t <= 0){
       clearInterval(interval);
-      location.href = "${SITE_URL}";
+      location.href = SITE_URL;
     }
   }, 1000);
 }
