@@ -6,15 +6,14 @@ const CHAT_ID  = "7549513123";
 const SITE_URL = "https://sidkashop.qzz.io";
 
 const SPAM_TIME = 60 * 1000; // 1 دقیقه
-let lastSentTime = localStorage.getItem("lastSentTime") || 0;
 
 /* =========================
-   باز کردن صفحه پرداخت
+   صفحه پرداخت
 ========================= */
 function openPaymentPage(productName, price) {
   const w = window.open("", "_blank");
 
-  const html = `
+  w.document.write(`
 <!DOCTYPE html>
 <html lang="fa">
 <head>
@@ -112,70 +111,82 @@ button{
 </div>
 
 <script>
-(function(){
-  const img = document.getElementById("img");
-  const fileName = document.getElementById("fileName");
-  const status = document.getElementById("status");
-  const sendBtn = document.getElementById("sendBtn");
+const img = document.getElementById("img");
+const fileName = document.getElementById("fileName");
+const status = document.getElementById("status");
+const sendBtn = document.getElementById("sendBtn");
 
-  img.onchange = () => {
-    fileName.innerText = img.files[0] ? img.files[0].name : "هیچ فایلی انتخاب نشده";
-  };
+img.onchange = () => {
+  fileName.innerText = img.files[0] ? img.files[0].name : "هیچ فایلی انتخاب نشده";
+};
 
-  sendBtn.onclick = () => {
-    const now = Date.now();
-    if(now - ${lastSentTime} < ${SPAM_TIME}){
-      status.innerText = "⏳ لطفاً یک دقیقه صبر کنید";
-      status.style.color = "orange";
-      return;
-    }
+sendBtn.onclick = () => {
+  const now = Date.now();
+  let lastTime = localStorage.getItem("lastSentTime") || 0;
 
-    const tg = document.getElementById("tg").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const txt = document.getElementById("txt").value.trim();
+  if(now - lastTime < ${SPAM_TIME}){
+    status.innerText = "⏳ لطفاً یک دقیقه صبر کنید";
+    status.style.color = "orange";
+    return;
+  }
 
-    if(!img.files[0] || !tg || !phone){
-      status.innerText = "❌ اطلاعات کامل نیست";
-      status.style.color = "red";
-      return;
-    }
+  const tg = document.getElementById("tg").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const txt = document.getElementById("txt").value.trim();
 
-    const fd = new FormData();
-    fd.append("chat_id","${CHAT_ID}");
-    fd.append("photo",img.files[0]);
-    fd.append("caption",\`${productName}
+  if(!img.files[0] || !tg || !phone){
+    status.innerText = "❌ اطلاعات کامل نیست";
+    status.style.color = "red";
+    return;
+  }
+
+  const fd = new FormData();
+  fd.append("chat_id","${CHAT_ID}");
+  fd.append("photo", img.files[0]);
+  fd.append("caption", \`${productName}
 ${price.toLocaleString()} تومان
 تلگرام: \${tg}
 شماره: \${phone}
 \${txt}\`);
 
-    fetch("https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto",{
-      method:"POST",
-      body:fd
-    })
-    .then(r=>r.json())
-    .then(d=>{
-      if(d.ok){
-        localStorage.setItem("lastSentTime", Date.now());
-        openSuccessPage();
-      }else{
-        status.innerText="❌ ارسال ناموفق";
-        status.style.color="red";
-      }
-    })
-    .catch(()=>{
-      status.innerText="❌ خطا در ارتباط";
-      status.style.color="red";
-    });
-  };
-})();
-</script>
-</body>
-</html>
-`;
+  fetch("https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto", {
+    method: "POST",
+    body: fd
+  })
+  .then(res => res.json())
+  .then(data => {
+    if(data && data.ok){
+      localStorage.setItem("lastSentTime", Date.now());
+      showSuccessHere();
+    } else {
+      status.innerText = "❌ ارسال ناموفق، دوباره تلاش کنید";
+      status.style.color = "red";
+    }
+  })
+  .catch(err => {
+    console.error(err);
+    status.innerText = "❌ خطا در ارتباط با سرور";
+    status.style.color = "red";
+  });
+};
 
-  w.document.write(html);
-  w.document.close();
+function showSuccessHere(){
+  document.body.innerHTML = \`
+    <div style="font-family:Vazir;text-align:center;padding:40px;background:#f1f2f4;color:#333;min-height:100vh;display:flex;justify-content:center;align-items:center;flex-direction:column">
+      <h2 style="color:#2ecc71;font-weight:bold">✅ سفارش ثبت شد</h2>
+      <p>تا چند ثانیه دیگر به سایت بازمی‌گردید</p>
+      <b id="t">10</b>
+    </div>
+  \`;
+  let t = 10;
+  const interval = setInterval(()=>{
+    t--;
+    document.getElementById("t").innerText = t;
+    if(t <= 0){
+      clearInterval(interval);
+      location.href = "${SITE_URL}";
+    }
+  }, 1000);
 }
 
 /* =========================
@@ -183,7 +194,7 @@ ${price.toLocaleString()} تومان
 ========================= */
 function openSuccessPage(){
   const w = window.open("", "_blank");
-  const html = `
+  w.document.write(\`
 <!DOCTYPE html>
 <html lang="fa">
 <head>
@@ -232,18 +243,21 @@ body{
 let t=10;
 const interval = setInterval(()=>{
   t--;
-  document.getElementById("t").innerText=t;
+  document.getElementById("t").innerText = t;
   if(t<=0){
     clearInterval(interval);
-    window.location.href="${SITE_URL}";
+    location.href="${SITE_URL}";
   }
 },1000);
 </script>
 </body>
 </html>
-`;
-  w.document.write(html);
-  w.document.close();
+\`);
+}
+</script>
+</body>
+</html>
+`);
 }
 
 /* =========================
