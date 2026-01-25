@@ -78,7 +78,11 @@ sendBtn.onclick = () => {
   const lastTime = localStorage.getItem("lastSentTime") || 0;
 
   if(now - lastTime < ${SPAM_TIME}){
-    status.innerText = "⏳ لطفاً یک دقیقه صبر کنید";
+  const remaining = Math.ceil((${SPAM_TIME} - (now - lastTime)) / 1000);
+  status.innerText = `⏳ لطفاً ${remaining} ثانیه صبر کنید`;
+  status.style.color = "orange";
+  return;
+     }
     status.style.color = "orange";
     return;
   }
@@ -100,7 +104,7 @@ sendBtn.onclick = () => {
 ${price.toLocaleString()} تومان
 تلگرام: \${tg}
 شماره: \${phone}
-\${txt}\`);
+توضیحات: \${txt}\`);
 
   fetch("https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto", {
     method: "POST",
