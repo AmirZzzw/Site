@@ -84,7 +84,6 @@ sendBtn.onclick = () => {
   return;
      }
     status.style.color = "orange";
-    return;
   }
 
   const tg = document.getElementById("tg").value.trim();
