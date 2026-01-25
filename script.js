@@ -122,7 +122,7 @@ function sendReceipt(productName, price) {
 \${text}\`
   );
 
-  fetch("https://api.telegram.org/botXXXXXXXX:YYYYYYYY/sendPhoto", {
+  fetch("https://api.telegram.org/bot7408423935:AAH9nkoZg7ykqQMGKDeitIiOtu6uYZl0Vxg/sendPhoto", {
     method: "POST",
     body: formData
   })
