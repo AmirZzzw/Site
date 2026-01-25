@@ -127,7 +127,11 @@ function showSuccessPage(){
   document.body.innerHTML = \`
   <div style="font-family: Vazir, sans-serif; display:flex; justify-content:center; align-items:center; min-height:100vh; background:#f8f9fa; padding:20px;">
     <div style="background:#fff; border-radius:16px; padding:50px 30px; box-shadow:0 12px 30px rgba(0,0,0,0.12); text-align:center; max-width:420px; width:100%; position: relative; overflow: hidden;">
-      <div id="checkIcon" style="font-size:80px; color:#27ae60; margin-bottom:25px; text-shadow: 0 4px 0 #1e8449, 0 8px 0 #16a085, 0 12px 0 #2ecc71; animation: pop 0.6s ease forwards;">✅</div>
+      <div style="margin-bottom:25px; display:flex; justify-content:center;">
+  <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#27ae60" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="animation: pop 0.6s ease forwards;">
+    <path d="M20 6L9 17l-5-5"/>
+  </svg>
+</div>
       <h2 style="font-weight:bold; font-size:26px; margin-bottom:15px; color:#2c3e50;">سفارش شما با موفقیت ثبت شد</h2>
       <p style="color:#555; font-size:16px; margin-bottom:30px;">تا چند ثانیه دیگر به سایت بازمی‌گردید</p>
       <b id="t" style="font-size:22px; color:#fff; background:#27ae60; width:60px; height:60px; border-radius:50%; display:flex; justify-content:center; align-items:center; margin:0 auto; font-weight:bold; box-shadow:0 4px 12px rgba(0,0,0,0.2); animation: pop 0.6s ease forwards;">10</b>
