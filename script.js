@@ -1,8 +1,14 @@
 let lastSentTime = localStorage.getItem("lastSentTime") || 0;
 
+/* =========================
+   تنظیمات
+========================= */
 const BOT_TOKEN = "7408423935:AAH9nkoZg7ykqQMGKDeitIiOtu6uYZl0Vxg";
 const CHAT_ID  = "7549513123";
 const SITE_URL = "https://sidkashop.qzz.io";
+
+const SPAM_TIME = 60 * 1000; // 1 دقیقه
+let lastSentTime = localStorage.getItem("lastSentTime") || 0;
 
 /* =========================
    صفحه پرداخت
@@ -38,9 +44,8 @@ body{
   border-radius:16px;
   box-shadow:0 8px 25px rgba(0,0,0,.1);
 }
-h3{margin:0 0 5px 0;text-align:center}
-.price{text-align:center;color:#27ae60;margin-bottom:15px}
-
+h3{text-align:center;margin:0}
+.price{text-align:center;color:#27ae60;margin:5px 0 15px}
 .bank{
   background:#f7f7f7;
   border-radius:12px;
@@ -49,19 +54,16 @@ h3{margin:0 0 5px 0;text-align:center}
   font-size:14px;
   margin-bottom:15px;
 }
-
 .upload{
   border:1.5px dashed #bbb;
   border-radius:12px;
   padding:15px;
   text-align:center;
   font-size:14px;
-  color:#555;
   margin-bottom:10px;
 }
 .upload input{display:none}
-.upload label{display:block;cursor:pointer}
-
+.upload label{cursor:pointer}
 input,textarea{
   width:100%;
   margin-top:8px;
@@ -69,9 +71,7 @@ input,textarea{
   border-radius:12px;
   border:1px solid #ccc;
   font-family:'Vazir';
-  font-size:14px;
 }
-
 button{
   width:100%;
   margin-top:15px;
@@ -81,17 +81,11 @@ button{
   background:#ff9800;
   font-size:15px;
 }
-
-#status{
-  margin-top:10px;
-  font-size:13px;
-  text-align:center;
-}
+#status{text-align:center;font-size:13px;margin-top:10px}
 </style>
 </head>
 
 <body>
-
 <div class="card">
   <h3>${productName}</h3>
   <div class="price">${price.toLocaleString()} تومان</div>
@@ -125,10 +119,17 @@ img.onchange = () => {
 };
 
 function send(){
-  const status = document.getElementById("status");
+  const now = Date.now();
+  if(now - ${lastSentTime} < ${SPAM_TIME}){
+    status.innerText = "⏳ لطفاً یک دقیقه صبر کنید";
+    status.style.color = "orange";
+    return;
+  }
+
   const tg = document.getElementById("tg").value.trim();
   const phone = document.getElementById("phone").value.trim();
   const txt = document.getElementById("txt").value.trim();
+  const status = document.getElementById("status");
 
   if(!img.files[0] || !tg || !phone){
     status.innerText = "❌ اطلاعات کامل نیست";
@@ -153,63 +154,79 @@ ${price} تومان
   .then(r=>r.json())
   .then(d=>{
     if(d.ok){
-      window.opener.openSuccessPage();
-      window.close();
+      localStorage.setItem("lastSentTime", Date.now());
+
+      // اگر از سایت باز شده
+      if(window.opener && window.opener.openSuccessPage){
+        window.opener.openSuccessPage();
+        window.close();
+      } else {
+        showSuccessHere();
+      }
     }else{
       status.innerText="❌ ارسال ناموفق";
       status.style.color="red";
     }
   })
   .catch(()=>{
-    status.innerText="❌ خطا در ارسال";
+    status.innerText="❌ خطا در ارتباط";
     status.style.color="red";
   });
 }
-</script>
 
+function showSuccessHere(){
+  document.body.innerHTML = \`
+    <div style="font-family:Vazir;text-align:center;padding:40px">
+      <h2 style="color:#2ecc71">✅ سفارش ثبت شد</h2>
+      <p>تا چند ثانیه دیگر به سایت بازمی‌گردید</p>
+      <b id="t">10</b>
+    </div>
+  \`;
+  let t = 10;
+  setInterval(()=>{
+    t--;
+    document.getElementById("t").innerText = t;
+    if(t<=0) location.href = "${SITE_URL}";
+  },1000);
+}
+</script>
 </body>
 </html>
 `);
 }
 
 /* =========================
-   صفحه موفق (خیلی مینیمال)
+   صفحه موفق
 ========================= */
 function openSuccessPage(){
   const w = window.open("", "_blank");
-  w.document.write(`
+  w.document.write(\`
 <!DOCTYPE html>
 <html lang="fa">
 <head>
 <meta charset="UTF-8">
-<title>پرداخت موفق</title>
+<title>موفق</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
-
 <style>
 body{
   margin:0;
-  font-family:'Vazir',sans-serif;
+  font-family:'Vazir';
   background:#f2f3f5;
   display:flex;
   justify-content:center;
   align-items:center;
-  min-height:100vh;
+  height:100vh;
 }
-
 .card{
   background:#fff;
-  width:90%;
-  max-width:360px;
-  padding:30px 25px;
+  padding:30px;
   border-radius:18px;
   text-align:center;
   box-shadow:0 10px 30px rgba(0,0,0,.15);
 }
-
 .check{
-  width:70px;
-  height:70px;
+  width:70px;height:70px;
   border-radius:50%;
   background:#2ecc71;
   color:#fff;
@@ -217,56 +234,27 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  margin:0 auto 15px;
-}
-
-h2{
-  margin:0;
-  font-size:20px;
-  color:#2ecc71;
-}
-
-p{
-  font-size:14px;
-  color:#555;
-  margin:10px 0 0;
-}
-
-.timer{
-  margin-top:15px;
-  font-size:13px;
-  color:#777;
+  margin:0 auto 10px;
 }
 </style>
 </head>
-
 <body>
-
 <div class="card">
   <div class="check">✓</div>
-  <h2>موفق</h2>
-  <p>سفارش شما با موفقیت ثبت شد</p>
-  <div class="timer">
-    بازگشت به سایت تا <b id="t">10</b> ثانیه دیگر
-  </div>
+  <h3>سفارش ثبت شد</h3>
+  <p>بازگشت تا <b id="t">10</b> ثانیه</p>
 </div>
-
 <script>
-let t = 10;
-const el = document.getElementById("t");
-const i = setInterval(() => {
+let t=10;
+setInterval(()=>{
   t--;
-  el.innerText = t;
-  if(t <= 0){
-    clearInterval(i);
-    location.href = "${SITE_URL}";
-  }
-}, 1000);
+  document.getElementById("t").innerText=t;
+  if(t<=0) location.href="${SITE_URL}";
+},1000);
 </script>
-
 </body>
 </html>
-`);
+\`);
 }
 
 // 🚀 تابع جدید برای صفحه قابلیت‌های سلف
