@@ -12,247 +12,116 @@ let lastSentTime = localStorage.getItem("lastSentTime") || 0;
    صفحه پرداخت
 ========================= */
 function openPaymentPage(productName, price) {
-  const w = window.open("", "_blank");
+  // محتوا را داخل body صفحه جاری نمایش بده
+  document.body.innerHTML = `
+  <div style="font-family:'Vazir',sans-serif; display:flex; justify-content:center; align-items:center; min-height:100vh; background:#f1f2f4;">
+    <div style="background:#fff; width:100%; max-width:360px; padding:20px; border-radius:16px; box-shadow:0 8px 25px rgba(0,0,0,.1);">
+      <h3 style="text-align:center;margin:0">${productName}</h3>
+      <div style="text-align:center;color:#27ae60;margin:5px 0 15px">${price.toLocaleString()} تومان</div>
 
-  w.document.write(`
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-<meta charset="UTF-8">
-<title>پرداخت</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
+      <div style="background:#f7f7f7;border-radius:12px;padding:10px;text-align:center;font-size:14px;margin-bottom:15px;">
+        واریز به کارت<br>
+        <b>6037 9982 2227 6759</b><br>
+        امیرمحمد یوسفی
+      </div>
 
-<style>
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:'Vazir',sans-serif;
-  background:#f1f2f4;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  min-height:100vh;
-}
-.card{
-  background:#fff;
-  width:100%;
-  max-width:360px;
-  padding:20px;
-  border-radius:16px;
-  box-shadow:0 8px 25px rgba(0,0,0,.1);
-}
-h3{text-align:center;margin:0}
-.price{text-align:center;color:#27ae60;margin:5px 0 15px}
-.bank{
-  background:#f7f7f7;
-  border-radius:12px;
-  padding:10px;
-  text-align:center;
-  font-size:14px;
-  margin-bottom:15px;
-}
-.upload{
-  border:1.5px dashed #bbb;
-  border-radius:12px;
-  padding:15px;
-  text-align:center;
-  font-size:14px;
-  margin-bottom:10px;
-}
-.upload input{display:none}
-.upload label{cursor:pointer}
-input,textarea{
-  width:100%;
-  margin-top:8px;
-  padding:10px;
-  border-radius:12px;
-  border:1px solid #ccc;
-  font-family:'Vazir';
-}
-button{
-  width:100%;
-  margin-top:15px;
-  padding:12px;
-  border:none;
-  border-radius:14px;
-  background:#ff9800;
-  font-size:15px;
-}
-#status{text-align:center;font-size:13px;margin-top:10px}
-</style>
-</head>
+      <div id="upload" style="border:1.5px dashed #bbb;border-radius:12px;padding:15px;text-align:center;font-size:14px;margin-bottom:10px;cursor:pointer;">
+        📤 انتخاب تصویر رسید
+        <input type="file" id="img" accept="image/*" style="display:none;">
+        <div id="fileName" style="margin-top:5px;color:#555;font-size:13px;">هیچ فایلی انتخاب نشده</div>
+      </div>
 
-<body>
-<div class="card">
-  <h3>${productName}</h3>
-  <div class="price">${price.toLocaleString()} تومان</div>
+      <input id="tg" placeholder="آیدی تلگرام" style="width:100%;margin-top:8px;padding:10px;border-radius:12px;border:1px solid #ccc;font-family:'Vazir';">
+      <input id="phone" placeholder="شماره تماس" style="width:100%;margin-top:8px;padding:10px;border-radius:12px;border:1px solid #ccc;font-family:'Vazir';">
+      <textarea id="txt" placeholder="توضیحات (اختیاری)" style="width:100%;margin-top:8px;padding:10px;border-radius:12px;border:1px solid #ccc;font-family:'Vazir';"></textarea>
 
-  <div class="bank">
-    واریز به کارت<br>
-    <b>6037 9982 2227 6759</b><br>
-    امیرمحمد یوسفی
-  </div>
-
-  <div class="upload">
-    <label for="img">📤 انتخاب تصویر رسید</label>
-    <div id="fileName">هیچ فایلی انتخاب نشده</div>
-    <input type="file" id="img" accept="image/*">
-  </div>
-
-  <input id="tg" placeholder="آیدی تلگرام">
-  <input id="phone" placeholder="شماره تماس">
-  <textarea id="txt" placeholder="توضیحات (اختیاری)"></textarea>
-
-  <button onclick="send()">ارسال رسید</button>
-  <div id="status"></div>
-</div>
-
-<script>
-const img = document.getElementById("img");
-const fileName = document.getElementById("fileName");
-
-img.onchange = () => {
-  fileName.innerText = img.files[0] ? img.files[0].name : "هیچ فایلی انتخاب نشده";
-};
-
-function send(){
-  const now = Date.now();
-  if(now - ${lastSentTime} < ${SPAM_TIME}){
-    status.innerText = "⏳ لطفاً یک دقیقه صبر کنید";
-    status.style.color = "orange";
-    return;
-  }
-
-  const tg = document.getElementById("tg").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  const txt = document.getElementById("txt").value.trim();
-  const status = document.getElementById("status");
-
-  if(!img.files[0] || !tg || !phone){
-    status.innerText = "❌ اطلاعات کامل نیست";
-    status.style.color = "red";
-    return;
-  }
-
-  const fd = new FormData();
-  fd.append("chat_id","${CHAT_ID}");
-  fd.append("photo",img.files[0]);
-  fd.append("caption",
-\`${productName}
-${price} تومان
-تلگرام: \${tg}
-شماره: \${phone}
-\${txt}\`);
-
-  fetch("https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto",{
-    method:"POST",
-    body:fd
-  })
-  .then(r=>r.json())
-  .then(d=>{
-    if(d.ok){
-      localStorage.setItem("lastSentTime", Date.now());
-
-      // اگر از سایت باز شده
-      if(window.opener && window.opener.openSuccessPage){
-        window.opener.openSuccessPage();
-        window.close();
-      } else {
-        showSuccessHere();
-      }
-    }else{
-      status.innerText="❌ ارسال ناموفق";
-      status.style.color="red";
-    }
-  })
-  .catch(()=>{
-    status.innerText="❌ خطا در ارتباط";
-    status.style.color="red";
-  });
-}
-
-function showSuccessHere(){
-  document.body.innerHTML = \`
-    <div style="font-family:Vazir;text-align:center;padding:40px">
-      <h2 style="color:#2ecc71">✅ سفارش ثبت شد</h2>
-      <p>تا چند ثانیه دیگر به سایت بازمی‌گردید</p>
-      <b id="t">10</b>
+      <button id="sendBtn" style="width:100%;margin-top:15px;padding:12px;border:none;border-radius:14px;background:#ff9800;font-size:15px;">ارسال رسید</button>
+      <div id="status" style="text-align:center;font-size:13px;margin-top:10px"></div>
     </div>
-  \`;
-  let t = 10;
-  setInterval(()=>{
-    t--;
-    document.getElementById("t").innerText = t;
-    if(t<=0) location.href = "${SITE_URL}";
-  },1000);
-}
-</script>
-</body>
-</html>
-`);
+  </div>
+  `;
+
+  const img = document.getElementById("img");
+  const upload = document.getElementById("upload");
+  const fileName = document.getElementById("fileName");
+  const status = document.getElementById("status");
+  const sendBtn = document.getElementById("sendBtn");
+
+  // وقتی روی div آپلود کلیک شد، input فایل باز شود
+  upload.onclick = () => img.click();
+
+  img.onchange = () => {
+    fileName.innerText = img.files[0] ? img.files[0].name : "هیچ فایلی انتخاب نشده";
+  };
+
+  sendBtn.onclick = () => {
+    const now = Date.now();
+    if(now - lastSentTime < SPAM_TIME){
+      status.innerText = "⏳ لطفاً یک دقیقه صبر کنید";
+      status.style.color = "orange";
+      return;
+    }
+
+    const tg = document.getElementById("tg").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const txt = document.getElementById("txt").value.trim();
+
+    if(!img.files[0] || !tg || !phone){
+      status.innerText = "❌ اطلاعات کامل نیست";
+      status.style.color = "red";
+      return;
+    }
+
+    const fd = new FormData();
+    fd.append("chat_id", CHAT_ID);
+    fd.append("photo", img.files[0]);
+    fd.append("caption", `${productName}\n${price} تومان\nتلگرام: ${tg}\nشماره: ${phone}\n${txt}`);
+
+    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+      method: "POST",
+      body: fd
+    })
+    .then(r => r.json())
+    .then(d => {
+      if(d.ok){
+        lastSentTime = Date.now();
+        localStorage.setItem("lastSentTime", lastSentTime);
+        openSuccessPage();
+      } else {
+        status.innerText = "❌ ارسال ناموفق";
+        status.style.color = "red";
+      }
+    })
+    .catch(() => {
+      status.innerText = "❌ خطا در ارتباط";
+      status.style.color = "red";
+    });
+  };
 }
 
 /* =========================
    صفحه موفق
 ========================= */
 function openSuccessPage(){
-  const w = window.open("", "_blank");
-  w.document.write(\`
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-<meta charset="UTF-8">
-<title>موفق</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
-<style>
-body{
-  margin:0;
-  font-family:'Vazir';
-  background:#f2f3f5;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-}
-.card{
-  background:#fff;
-  padding:30px;
-  border-radius:18px;
-  text-align:center;
-  box-shadow:0 10px 30px rgba(0,0,0,.15);
-}
-.check{
-  width:70px;height:70px;
-  border-radius:50%;
-  background:#2ecc71;
-  color:#fff;
-  font-size:40px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin:0 auto 10px;
-}
-</style>
-</head>
-<body>
-<div class="card">
-  <div class="check">✓</div>
-  <h3>سفارش ثبت شد</h3>
-  <p>بازگشت تا <b id="t">10</b> ثانیه</p>
-</div>
-<script>
-let t=10;
-setInterval(()=>{
-  t--;
-  document.getElementById("t").innerText=t;
-  if(t<=0) location.href="${SITE_URL}";
-},1000);
-</script>
-</body>
-</html>
-\`);
+  document.body.innerHTML = `
+    <div style="font-family:'Vazir'; display:flex; justify-content:center; align-items:center; flex-direction:column; min-height:100vh; background:#f2f3f5;">
+      <div style="background:#fff; padding:30px; border-radius:18px; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,.15);">
+        <div style="width:70px;height:70px;border-radius:50%;background:#2ecc71;color:#fff;font-size:40px;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">✓</div>
+        <h3 style="margin:0;color:#2ecc71;">سفارش ثبت شد</h3>
+        <p>تا بازگشت به سایت <b id="t">10</b> ثانیه</p>
+      </div>
+    </div>
+  `;
+
+  let t = 10;
+  const interval = setInterval(() => {
+    t--;
+    document.getElementById("t").innerText = t;
+    if(t <= 0){
+      clearInterval(interval);
+      location.href = SITE_URL;
+    }
+  }, 1000);
 }
 
 // 🚀 تابع جدید برای صفحه قابلیت‌های سلف
