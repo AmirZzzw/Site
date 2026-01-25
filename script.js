@@ -1,173 +1,218 @@
 let lastSentTime = localStorage.getItem("lastSentTime") || 0;
 
-function openPaymentPage(productName, price) {
-  const paymentPage = window.open("", "_blank");
+const BOT_TOKEN = "7408423935:AAH9nkoZg7ykqQMGKDeitIiOtu6uYZl0Vxg";
+const CHAT_ID  = "7549513123";
+const SITE_URL = "https://sidkashop.qzz.io/";
 
-  paymentPage.document.write(`
+/* =======================
+   صفحه پرداخت
+======================= */
+function openPaymentPage(productName, price) {
+  const w = window.open("", "_blank");
+
+  w.document.write(`
 <!DOCTYPE html>
 <html lang="fa">
 <head>
 <meta charset="UTF-8">
 <title>پرداخت ${productName}</title>
-
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
-
 <style>
-body {
-  font-family: 'Vazir', sans-serif;
-  background: #000;
-  color: white;
-  text-align: center;
-  padding: 40px;
+body{
+  font-family:'Vazir',sans-serif;
+  background:#0f0f0f;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
 }
-
-.container {
-  background: white;
-  color: black;
-  max-width: 500px;
-  margin: auto;
-  padding: 40px;
-  border-radius: 25px;
+.box{
+  background:#fff;
+  width:420px;
+  padding:30px;
+  border-radius:20px;
+  text-align:center;
 }
-
-button {
-  background: linear-gradient(to right, #ff5722, #ff9800);
-  border: none;
-  padding: 15px 40px;
-  border-radius: 50px;
-  font-size: 18px;
-  cursor: pointer;
+input,textarea{
+  width:90%;
+  padding:10px;
+  margin:6px 0;
+  border-radius:20px;
+  border:1px solid #ccc;
 }
-
-input, textarea {
-  width: 90%;
-  margin-top: 10px;
-  padding: 10px;
-  border-radius: 25px;
-  border: 1px solid #ccc;
+button{
+  background:#ff9800;
+  border:none;
+  padding:12px 40px;
+  border-radius:30px;
+  cursor:pointer;
 }
-
-#timer {
-  margin-top: 15px;
-  color: green;
-}
+#timer{color:green;margin-top:10px}
 </style>
 </head>
 
 <body onload="restoreTimer()">
 
-<div class="container">
-  <h2>پرداخت ${productName}</h2>
-  <h3>مبلغ: ${price.toLocaleString()} تومان</h3>
+<div class="box">
+<h3>پرداخت ${productName}</h3>
+<p>مبلغ: <b>${price.toLocaleString()} تومان</b></p>
 
-  <p>به شماره کارت زیر واریز کنید:</p>
-  <h3>6037998222276759</h3>
-  <p>به نام: امیرمحمد یوسفی</p>
+<p>به شماره کارت زیر واریز کنید</p>
+<b>6037998222276759</b>
+<p>امیرمحمد یوسفی</p>
 
-  <h3>📤 ارسال فیش پرداخت</h3>
+<hr>
 
-  <input type="file" id="receiptImage" accept="image/*">
-  <input type="text" id="telegramID" placeholder="آیدی تلگرام شما">
-  <input type="text" id="phoneNumber" placeholder="شماره شما">
-  <textarea id="optionalText" placeholder="توضیحات بیشتر (اختیاری)"></textarea>
+<input type="file" id="img" accept="image/*">
+<input type="text" id="tg" placeholder="آیدی تلگرام">
+<input type="text" id="phone" placeholder="شماره تماس">
+<textarea id="txt" placeholder="توضیحات (اختیاری)"></textarea>
 
-  <br><br>
-  <button id="sendButton">ارسال فیش</button>
+<br>
+<button onclick="sendReceipt()">ارسال فیش</button>
 
-  <h3 id="timer">✅ ارسال فیش امکان‌پذیر است</h3>
-  <h3 id="statusMessage"></h3>
-
-  <br>
-  <button onclick="window.open('https://t.me/IAmiro','_blank')">Telegram Pv</button>
-  <br><br>
-  <button onclick="window.close()">بازگشت به سایت</button>
+<p id="timer">✅ ارسال فیش امکان‌پذیر است</p>
+<p id="status"></p>
 </div>
 
 <script>
 let lastSentTime = localStorage.getItem("lastSentTime") || 0;
 
-document.getElementById("sendButton").onclick = () => {
-  sendReceipt("${productName}", ${price});
-};
-
-function sendReceipt(productName, price) {
+function sendReceipt(){
   const now = Date.now();
-
-  if (now - lastSentTime < 60000) {
+  if(now - lastSentTime < 60000){
     alert("لطفاً کمی صبر کنید");
     return;
   }
 
-  const image = document.getElementById("receiptImage").files[0];
-  const telegramID = document.getElementById("telegramID").value.trim();
-  const phone = document.getElementById("phoneNumber").value.trim();
-  const text = document.getElementById("optionalText").value.trim();
-  const status = document.getElementById("statusMessage");
+  const img   = document.getElementById("img").files[0];
+  const tg    = document.getElementById("tg").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const txt   = document.getElementById("txt").value.trim();
+  const status= document.getElementById("status");
 
-  if (!image || !telegramID || !phone) {
-    status.textContent = "❌ همه فیلدها الزامی هستند";
-    status.style.color = "red";
+  if(!img || !tg || !phone){
+    status.innerText="❌ همه فیلدها الزامی است";
     return;
   }
 
-  const formData = new FormData();
-  formData.append("chat_id", "7549513123");
-  formData.append("photo", image);
-  formData.append(
-    "caption",
-    \`محصول: \${productName}
-مبلغ: \${price} تومان
-تلگرام: \${telegramID}
+  const fd = new FormData();
+  fd.append("chat_id","${CHAT_ID}");
+  fd.append("photo",img);
+  fd.append("caption",
+\`محصول: ${productName}
+مبلغ: ${price} تومان
+تلگرام: \${tg}
 شماره: \${phone}
-\${text}\`
-  );
+\${txt}\`);
 
-  fetch("https://api.telegram.org/bot7408423935:AAH9nkoZg7ykqQMGKDeitIiOtu6uYZl0Vxg/sendPhoto", {
-    method: "POST",
-    body: formData
+  fetch("https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto",{
+    method:"POST",
+    body:fd
   })
-  .then(res => res.json())
-  .then(data => {
-    if (data.ok) {
-      lastSentTime = now;
-      localStorage.setItem("lastSentTime", now);
-      openSuccessPage();
+  .then(r=>r.json())
+  .then(d=>{
+    if(d.ok){
+      localStorage.setItem("lastSentTime",now);
+      window.opener.openSuccessPage();
       window.close();
-    } else {
-      status.textContent = "❌ ارسال ناموفق";
+    }else{
+      status.innerText="❌ ارسال ناموفق";
     }
   })
-  .catch(() => {
-    status.textContent = "❌ خطا در ارسال";
-  });
+  .catch(()=>status.innerText="❌ خطا در ارسال");
 }
 
-function startCooldown() {
-  let t = Math.ceil((60000 - (Date.now() - lastSentTime)) / 1000);
-  const timer = document.getElementById("timer");
+function restoreTimer(){
+  if(Date.now()-lastSentTime < 60000) startCooldown();
+}
 
-  const i = setInterval(() => {
-    t--;
-    timer.textContent = "⏳ انتظار: " + t + " ثانیه";
-    if (t <= 0) {
+function startCooldown(){
+  let t=Math.ceil((60000-(Date.now()-lastSentTime))/1000);
+  const el=document.getElementById("timer");
+  const i=setInterval(()=>{
+    el.innerText="⏳ "+t+" ثانیه";
+    if(--t<=0){
       clearInterval(i);
-      timer.textContent = "✅ ارسال فیش امکان‌پذیر است";
+      el.innerText="✅ ارسال فیش امکان‌پذیر است";
     }
-  }, 1000);
-}
-
-function restoreTimer() {
-  if (Date.now() - lastSentTime < 60000) {
-    startCooldown();
-  }
-}
-
-function openSuccessPage() {
-  const w = window.open("", "_blank");
-  w.document.write("<h1 style='text-align:center'>✅ سفارش ثبت شد</h1>");
+  },1000);
 }
 </script>
 
+</body>
+</html>
+`);
+}
+
+/* =======================
+   صفحه پرداخت موفق (زرین‌پالی)
+======================= */
+function openSuccessPage(){
+  const w = window.open("", "_blank");
+  w.document.write(`
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<title>پرداخت موفق</title>
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
+<style>
+body{
+  font-family:'Vazir',sans-serif;
+  background:#f4f6f8;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+}
+.card{
+  background:#fff;
+  padding:40px;
+  width:380px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 15px 40px rgba(0,0,0,.1);
+}
+.check{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  background:#4caf50;
+  color:#fff;
+  font-size:46px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin:auto;
+}
+.timer{
+  margin-top:20px;
+  color:#555;
+}
+</style>
+</head>
+
+<body>
+<div class="card">
+  <div class="check">✓</div>
+  <h2>پرداخت موفق</h2>
+  <p>سفارش شما با موفقیت ثبت شد</p>
+  <p class="timer">انتقال به سایت تا <b id="t">10</b> ثانیه دیگر</p>
+</div>
+
+<script>
+let t=10;
+const el=document.getElementById("t");
+const i=setInterval(()=>{
+  t--;
+  el.innerText=t;
+  if(t<=0){
+    clearInterval(i);
+    location.href="${SITE_URL}";
+  }
+},1000);
+</script>
 </body>
 </html>
 `);
