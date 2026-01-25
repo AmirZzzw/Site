@@ -75,7 +75,7 @@ img.onchange = () => {
 
 sendBtn.onclick = () => {
   const now = Date.now();
-  let lastTime = localStorage.getItem("lastSentTime") || 0;
+  const lastTime = localStorage.getItem("lastSentTime") || 0;
 
   if(now - lastTime < ${SPAM_TIME}){
     status.innerText = "⏳ لطفاً یک دقیقه صبر کنید";
@@ -108,9 +108,9 @@ ${price.toLocaleString()} تومان
   })
   .then(res => res.json())
   .then(data => {
-    if(data && data.ok){
+    if(data.ok){
       localStorage.setItem("lastSentTime", Date.now());
-      showSuccessHere();
+      showSuccessPage();
     } else {
       status.innerText = "❌ ارسال ناموفق، دوباره تلاش کنید";
       status.style.color = "red";
@@ -123,7 +123,7 @@ ${price.toLocaleString()} تومان
   });
 };
 
-function showSuccessHere(){
+function showSuccessPage(){
   document.body.innerHTML = \`
     <div style="font-family:Vazir;text-align:center;padding:40px;background:#f1f2f4;color:#333;min-height:100vh;display:flex;justify-content:center;align-items:center;flex-direction:column">
       <h2 style="color:#2ecc71;font-weight:bold">✅ سفارش ثبت شد</h2>
@@ -140,47 +140,6 @@ function showSuccessHere(){
       location.href = "${SITE_URL}";
     }
   }, 1000);
-}
-
-/* =========================
-   صفحه موفق
-========================= */
-function openSuccessPage(){
-  const w = window.open("", "_blank");
-  w.document.write(\`
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-<meta charset="UTF-8">
-<title>موفق</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
-<style>
-body{margin:0;font-family:'Vazir';background:#f1f2f4;color:#333;display:flex;justify-content:center;align-items:center;height:100vh;}
-.card{background:#fff;padding:30px;border-radius:18px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.15);}
-.check{width:70px;height:70px;border-radius:50%;background:#2ecc71;color:#fff;font-size:40px;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;}
-</style>
-</head>
-<body>
-<div class="card">
-  <div class="check">✓</div>
-  <h3>سفارش ثبت شد</h3>
-  <p>بازگشت تا <b id="t">10</b> ثانیه</p>
-</div>
-<script>
-let t=10;
-const interval = setInterval(()=>{
-  t--;
-  document.getElementById("t").innerText = t;
-  if(t<=0){
-    clearInterval(interval);
-    location.href="${SITE_URL}";
-  }
-},1000);
-</script>
-</body>
-</html>
-\`);
 }
 </script>
 </body>
@@ -202,65 +161,13 @@ function openFeaturesPage() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
 <style>
-body {
-  font-family: 'Vazir', sans-serif;
-  margin: 0;
-  background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
-  color: white;
-  text-align: center;
-}
-.container {
-  position: relative;
-  overflow: hidden;
-  border-radius: 25px;
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(15px);
-  box-shadow:0 15px 40px rgba(0,0,0,0.6);
-  max-width: 600px;
-  margin: 40px auto;
-  padding: 25px;
-}
-.container::after {
-  content:"";
-  position:absolute;
-  top:0; left:-100%;
-  width:30%; height:100%;
-  background: linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.4) 50%,transparent 100%);
-  border-radius:inherit;
-  animation: shine 8s infinite;
-
-@keyframes shine {
-  0%{left:-100%} 100%{left:120%}
-}
-h1{
-  font-size:36px;
-  margin-bottom:20px;
-  background: linear-gradient(90deg,#ff9800,#ff5722);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-ul{list-style:none;padding:0;margin:0;}
-li{font-size:18px;margin:8px 0;opacity:0;transform:translateY(20px);animation:slideUp 0.5s forwards;}
-li:nth-child(1){animation-delay:0.2s;}
-li:nth-child(2){animation-delay:0.4s;}
-li:nth-child(3){animation-delay:0.6s;}
-li:nth-child(4){animation-delay:0.8s;}
-li:nth-child(5){animation-delay:1s;}
-@keyframes slideUp { to {opacity:1; transform:translateY(0);} }
-button{
-  margin-top:20px;
-  padding:10px 30px;
-  font-size:16px;
-  border:none;
-  border-radius:50px;
-  cursor:pointer;
-  background:linear-gradient(to right,#ff5722,#ff9800);
-  color:black;
-  font-weight:bold;
-}
-button:hover{
-  transform:scale(1.05);
-}
+body{font-family:'Vazir';margin:0;background:#1c1c1c;color:white;text-align:center;}
+.container{max-width:700px;margin:30px auto;padding:25px;background:rgba(255,255,255,0.05);border-radius:20px;backdrop-filter:blur(15px);}
+h1{font-size:30px;margin-bottom:20px;color:#ff9800;}
+ul{list-style:none;padding:0;text-align:right;}
+li{margin:8px 0;font-size:16px;}
+button{margin-top:20px;padding:10px 30px;font-size:16px;border:none;border-radius:50px;background:linear-gradient(to right,#ff5722,#ff9800);color:black;cursor:pointer;}
+button:hover{transform:scale(1.05);}
 </style>
 </head>
 <body>
