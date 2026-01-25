@@ -4,9 +4,9 @@ const BOT_TOKEN = "7408423935:AAH9nkoZg7ykqQMGKDeitIiOtu6uYZl0Vxg";
 const CHAT_ID  = "7549513123";
 const SITE_URL = "https://sidkashop.qzz.io";
 
-/* ======================
+/* =========================
    صفحه پرداخت
-====================== */
+========================= */
 function openPaymentPage(productName, price) {
   const w = window.open("", "_blank");
 
@@ -16,145 +16,132 @@ function openPaymentPage(productName, price) {
 <head>
 <meta charset="UTF-8">
 <title>پرداخت</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
 
 <style>
+*{box-sizing:border-box}
 body{
   margin:0;
   font-family:'Vazir',sans-serif;
-  background:#f2f3f5;
+  background:#f1f2f4;
   display:flex;
   justify-content:center;
   align-items:center;
   min-height:100vh;
 }
-
-.box{
-  background:#fff;
-  width:95%;
-  max-width:380px;
-  padding:25px;
-  border-radius:18px;
-  box-shadow:0 10px 30px rgba(0,0,0,.12);
-  text-align:center;
-}
-
-h3{margin:5px 0}
-.price{color:#2ecc71;font-size:17px;margin-bottom:10px}
-
 .card{
-  background:#f7f8fa;
+  background:#fff;
+  width:100%;
+  max-width:360px;
+  padding:20px;
+  border-radius:16px;
+  box-shadow:0 8px 25px rgba(0,0,0,.1);
+}
+h3{margin:0 0 5px 0;text-align:center}
+.price{text-align:center;color:#27ae60;margin-bottom:15px}
+
+.bank{
+  background:#f7f7f7;
   border-radius:12px;
   padding:10px;
+  text-align:center;
   font-size:14px;
   margin-bottom:15px;
 }
 
 .upload{
-  border:2px dashed #d0d0d0;
-  border-radius:14px;
-  padding:18px;
-  color:#666;
-  cursor:pointer;
+  border:1.5px dashed #bbb;
+  border-radius:12px;
+  padding:15px;
+  text-align:center;
+  font-size:14px;
+  color:#555;
   margin-bottom:10px;
 }
-.upload span{
-  display:block;
-  font-size:13px;
-  margin-top:5px;
-}
+.upload input{display:none}
+.upload label{display:block;cursor:pointer}
 
 input,textarea{
   width:100%;
-  box-sizing:border-box;
-  padding:10px;
   margin-top:8px;
-  border-radius:14px;
+  padding:10px;
+  border-radius:12px;
   border:1px solid #ccc;
   font-family:'Vazir';
+  font-size:14px;
 }
 
 button{
-  margin-top:15px;
   width:100%;
+  margin-top:15px;
   padding:12px;
   border:none;
-  border-radius:20px;
+  border-radius:14px;
   background:#ff9800;
   font-size:15px;
-  cursor:pointer;
 }
 
-#timer{color:#2ecc71;margin-top:10px;font-size:13px}
-#status{margin-top:8px;font-size:13px}
+#status{
+  margin-top:10px;
+  font-size:13px;
+  text-align:center;
+}
 </style>
 </head>
 
-<body onload="restoreTimer()">
+<body>
 
-<div class="box">
+<div class="card">
   <h3>${productName}</h3>
   <div class="price">${price.toLocaleString()} تومان</div>
 
-  <div class="card">
+  <div class="bank">
     واریز به کارت<br>
     <b>6037 9982 2227 6759</b><br>
     امیرمحمد یوسفی
   </div>
 
-  <label class="upload">
-    📤 انتخاب تصویر رسید
-    <span id="fileName">برای آپلود ضربه بزنید</span>
-    <input type="file" id="img" accept="image/*" hidden>
-  </label>
+  <div class="upload">
+    <label for="img">📤 انتخاب تصویر رسید</label>
+    <div id="fileName">هیچ فایلی انتخاب نشده</div>
+    <input type="file" id="img" accept="image/*">
+  </div>
 
-  <input type="text" id="tg" placeholder="آیدی تلگرام">
-  <input type="text" id="phone" placeholder="شماره تماس">
+  <input id="tg" placeholder="آیدی تلگرام">
+  <input id="phone" placeholder="شماره تماس">
   <textarea id="txt" placeholder="توضیحات (اختیاری)"></textarea>
 
-  <button onclick="sendReceipt()">ارسال رسید</button>
-
-  <div id="timer">✅ امکان ارسال وجود دارد</div>
+  <button onclick="send()">ارسال رسید</button>
   <div id="status"></div>
 </div>
 
 <script>
-let lastSentTime = localStorage.getItem("lastSentTime") || 0;
-
-const imgInput = document.getElementById("img");
+const img = document.getElementById("img");
 const fileName = document.getElementById("fileName");
 
-imgInput.onchange = () => {
-  fileName.innerText = imgInput.files.length
-    ? imgInput.files[0].name
-    : "برای آپلود ضربه بزنید";
+img.onchange = () => {
+  fileName.innerText = img.files[0] ? img.files[0].name : "هیچ فایلی انتخاب نشده";
 };
 
-function sendReceipt(){
-  const now = Date.now();
-  if(now - lastSentTime < 60000){
-    alert("⏳ لطفاً کمی صبر کنید");
-    return;
-  }
-
-  const img = imgInput.files[0];
+function send(){
+  const status = document.getElementById("status");
   const tg = document.getElementById("tg").value.trim();
   const phone = document.getElementById("phone").value.trim();
   const txt = document.getElementById("txt").value.trim();
-  const status = document.getElementById("status");
 
-  if(!img || !tg || !phone){
+  if(!img.files[0] || !tg || !phone){
     status.innerText = "❌ اطلاعات کامل نیست";
-    status.style.color="red";
+    status.style.color = "red";
     return;
   }
 
   const fd = new FormData();
   fd.append("chat_id","${CHAT_ID}");
-  fd.append("photo",img);
+  fd.append("photo",img.files[0]);
   fd.append("caption",
-\`محصول: ${productName}
-مبلغ: ${price} تومان
+\`${productName}
+${price} تومان
 تلگرام: \${tg}
 شماره: \${phone}
 \${txt}\`);
@@ -166,7 +153,6 @@ function sendReceipt(){
   .then(r=>r.json())
   .then(d=>{
     if(d.ok){
-      localStorage.setItem("lastSentTime",now);
       window.opener.openSuccessPage();
       window.close();
     }else{
@@ -175,25 +161,9 @@ function sendReceipt(){
     }
   })
   .catch(()=>{
-    status.innerText="❌ خطا";
+    status.innerText="❌ خطا در ارسال";
     status.style.color="red";
   });
-}
-
-function restoreTimer(){
-  if(Date.now()-lastSentTime < 60000) startCooldown();
-}
-
-function startCooldown(){
-  let t=Math.ceil((60000-(Date.now()-lastSentTime))/1000);
-  const el=document.getElementById("timer");
-  const i=setInterval(()=>{
-    el.innerText="⏳ "+t+" ثانیه";
-    if(--t<=0){
-      clearInterval(i);
-      el.innerText="✅ امکان ارسال وجود دارد";
-    }
-  },1000);
 }
 </script>
 
@@ -202,9 +172,9 @@ function startCooldown(){
 `);
 }
 
-/* ======================
-   پرداخت موفق (فوق مینیمال)
-====================== */
+/* =========================
+   صفحه موفق (خیلی مینیمال)
+========================= */
 function openSuccessPage(){
   const w = window.open("", "_blank");
   w.document.write(`
@@ -213,32 +183,26 @@ function openSuccessPage(){
 <head>
 <meta charset="UTF-8">
 <title>موفق</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
-
 <style>
 body{
   margin:0;
   font-family:'Vazir',sans-serif;
-  background:#ffffff;
   display:flex;
   justify-content:center;
   align-items:center;
   min-height:100vh;
-  color:#2ecc71;
   font-size:32px;
+  color:#27ae60;
 }
 </style>
 </head>
-
 <body>
 موفق
-
 <script>
-setTimeout(()=>{
-  location.href="${SITE_URL}";
-},10000);
+setTimeout(()=>location.href="${SITE_URL}",10000);
 </script>
-
 </body>
 </html>
 `);
