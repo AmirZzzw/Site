@@ -182,27 +182,88 @@ function openSuccessPage(){
 <html lang="fa">
 <head>
 <meta charset="UTF-8">
-<title>موفق</title>
+<title>پرداخت موفق</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
+
 <style>
 body{
   margin:0;
   font-family:'Vazir',sans-serif;
+  background:#f2f3f5;
   display:flex;
   justify-content:center;
   align-items:center;
   min-height:100vh;
-  font-size:32px;
-  color:#27ae60;
+}
+
+.card{
+  background:#fff;
+  width:90%;
+  max-width:360px;
+  padding:30px 25px;
+  border-radius:18px;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,.15);
+}
+
+.check{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  background:#2ecc71;
+  color:#fff;
+  font-size:40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 15px;
+}
+
+h2{
+  margin:0;
+  font-size:20px;
+  color:#2ecc71;
+}
+
+p{
+  font-size:14px;
+  color:#555;
+  margin:10px 0 0;
+}
+
+.timer{
+  margin-top:15px;
+  font-size:13px;
+  color:#777;
 }
 </style>
 </head>
+
 <body>
-موفق
+
+<div class="card">
+  <div class="check">✓</div>
+  <h2>پرداخت موفق</h2>
+  <p>سفارش شما با موفقیت ثبت شد</p>
+  <div class="timer">
+    بازگشت به سایت تا <b id="t">10</b> ثانیه دیگر
+  </div>
+</div>
+
 <script>
-setTimeout(()=>location.href="${SITE_URL}",10000);
+let t = 10;
+const el = document.getElementById("t");
+const i = setInterval(() => {
+  t--;
+  el.innerText = t;
+  if(t <= 0){
+    clearInterval(i);
+    location.href = "${SITE_URL}";
+  }
+}, 1000);
 </script>
+
 </body>
 </html>
 `);
