@@ -2,11 +2,11 @@ let lastSentTime = localStorage.getItem("lastSentTime") || 0;
 
 const BOT_TOKEN = "7408423935:AAH9nkoZg7ykqQMGKDeitIiOtu6uYZl0Vxg";
 const CHAT_ID  = "7549513123";
-const SITE_URL = "https://sidkashop.qzz.io/";
+const SITE_URL = "https://sidkashop.qzz.io";
 
-/* =======================
+/* ======================
    صفحه پرداخت
-======================= */
+====================== */
 function openPaymentPage(productName, price) {
   const w = window.open("", "_blank");
 
@@ -17,22 +17,48 @@ function openPaymentPage(productName, price) {
 <meta charset="UTF-8">
 <title>پرداخت ${productName}</title>
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
+
 <style>
 body{
   font-family:'Vazir',sans-serif;
-  background:#0f0f0f;
+  background:linear-gradient(135deg,#0f0f0f,#1c1c1c);
   display:flex;
   justify-content:center;
   align-items:center;
   min-height:100vh;
 }
+
 .box{
   background:#fff;
-  width:420px;
+  width:430px;
   padding:30px;
-  border-radius:20px;
+  border-radius:22px;
   text-align:center;
+  box-shadow:0 20px 50px rgba(0,0,0,.4);
 }
+
+h3{margin-bottom:5px}
+.price{color:#4caf50;font-size:18px;margin-bottom:10px}
+
+.card{
+  background:#f5f7fa;
+  padding:10px;
+  border-radius:12px;
+  margin-bottom:15px;
+  font-size:14px;
+}
+
+.upload{
+  border:2px dashed #ccc;
+  border-radius:15px;
+  padding:20px;
+  cursor:pointer;
+  transition:.3s;
+  color:#666;
+}
+.upload:hover{border-color:#4caf50;color:#4caf50}
+.upload span{display:block;margin-top:8px;font-size:13px}
+
 input,textarea{
   width:90%;
   padding:10px;
@@ -40,59 +66,79 @@ input,textarea{
   border-radius:20px;
   border:1px solid #ccc;
 }
+
 button{
-  background:#ff9800;
+  background:linear-gradient(to right,#ff9800,#ff5722);
   border:none;
-  padding:12px 40px;
+  padding:12px 45px;
   border-radius:30px;
   cursor:pointer;
+  color:#000;
+  font-size:16px;
+  margin-top:10px;
 }
-#timer{color:green;margin-top:10px}
+
+#timer{color:#4caf50;margin-top:10px}
+#status{margin-top:8px;font-size:14px}
 </style>
 </head>
 
 <body onload="restoreTimer()">
 
 <div class="box">
-<h3>پرداخت ${productName}</h3>
-<p>مبلغ: <b>${price.toLocaleString()} تومان</b></p>
+  <h3>پرداخت ${productName}</h3>
+  <div class="price">${price.toLocaleString()} تومان</div>
 
-<p>به شماره کارت زیر واریز کنید</p>
-<b>6037998222276759</b>
-<p>امیرمحمد یوسفی</p>
+  <div class="card">
+    واریز به کارت<br>
+    <b>6037 9982 2227 6759</b><br>
+    امیرمحمد یوسفی
+  </div>
 
-<hr>
+  <label class="upload">
+    📤 آپلود فیش پرداخت
+    <span id="fileName">برای انتخاب عکس کلیک کنید</span>
+    <input type="file" id="img" accept="image/*" hidden>
+  </label>
 
-<input type="file" id="img" accept="image/*">
-<input type="text" id="tg" placeholder="آیدی تلگرام">
-<input type="text" id="phone" placeholder="شماره تماس">
-<textarea id="txt" placeholder="توضیحات (اختیاری)"></textarea>
+  <input type="text" id="tg" placeholder="آیدی تلگرام">
+  <input type="text" id="phone" placeholder="شماره تماس">
+  <textarea id="txt" placeholder="توضیحات (اختیاری)"></textarea>
 
-<br>
-<button onclick="sendReceipt()">ارسال فیش</button>
+  <button onclick="sendReceipt()">ارسال فیش</button>
 
-<p id="timer">✅ ارسال فیش امکان‌پذیر است</p>
-<p id="status"></p>
+  <div id="timer">✅ ارسال فیش امکان‌پذیر است</div>
+  <div id="status"></div>
 </div>
 
 <script>
 let lastSentTime = localStorage.getItem("lastSentTime") || 0;
 
+const imgInput = document.getElementById("img");
+const fileName = document.getElementById("fileName");
+
+imgInput.onchange = () => {
+  fileName.innerText = imgInput.files[0]
+    ? imgInput.files[0].name
+    : "برای انتخاب عکس کلیک کنید";
+};
+
 function sendReceipt(){
   const now = Date.now();
   if(now - lastSentTime < 60000){
-    alert("لطفاً کمی صبر کنید");
+    alert("⏳ لطفاً کمی صبر کنید");
     return;
   }
 
-  const img   = document.getElementById("img").files[0];
-  const tg    = document.getElementById("tg").value.trim();
+  const img = imgInput.files[0];
+  const tg = document.getElementById("tg").value.trim();
   const phone = document.getElementById("phone").value.trim();
-  const txt   = document.getElementById("txt").value.trim();
-  const status= document.getElementById("status");
+  const txt = document.getElementById("txt").value.trim();
+  const status = document.getElementById("status");
 
   if(!img || !tg || !phone){
-    status.innerText="❌ همه فیلدها الزامی است";
+    status.innerText="❌ لطفاً همه فیلدهای ضروری را پر کنید";
+    status.style.color="red";
     return;
   }
 
@@ -118,9 +164,13 @@ function sendReceipt(){
       window.close();
     }else{
       status.innerText="❌ ارسال ناموفق";
+      status.style.color="red";
     }
   })
-  .catch(()=>status.innerText="❌ خطا در ارسال");
+  .catch(()=>{
+    status.innerText="❌ خطا در ارسال";
+    status.style.color="red";
+  });
 }
 
 function restoreTimer(){
@@ -145,9 +195,9 @@ function startCooldown(){
 `);
 }
 
-/* =======================
-   صفحه پرداخت موفق (زرین‌پالی)
-======================= */
+/* ======================
+   پرداخت موفق (بهبود یافته)
+====================== */
 function openSuccessPage(){
   const w = window.open("", "_blank");
   w.document.write(`
@@ -157,38 +207,43 @@ function openSuccessPage(){
 <meta charset="UTF-8">
 <title>پرداخت موفق</title>
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
+
 <style>
 body{
   font-family:'Vazir',sans-serif;
-  background:#f4f6f8;
+  background:linear-gradient(135deg,#f4f6f8,#e9edf2);
   display:flex;
   justify-content:center;
   align-items:center;
   min-height:100vh;
 }
+
 .card{
   background:#fff;
   padding:40px;
-  width:380px;
-  border-radius:20px;
+  width:400px;
+  border-radius:25px;
   text-align:center;
-  box-shadow:0 15px 40px rgba(0,0,0,.1);
+  box-shadow:0 20px 50px rgba(0,0,0,.15);
 }
+
 .check{
-  width:80px;
-  height:80px;
+  width:90px;
+  height:90px;
   border-radius:50%;
   background:#4caf50;
   color:#fff;
-  font-size:46px;
+  font-size:48px;
   display:flex;
   justify-content:center;
   align-items:center;
   margin:auto;
 }
+
 .timer{
   margin-top:20px;
   color:#555;
+  font-size:15px;
 }
 </style>
 </head>
@@ -198,7 +253,7 @@ body{
   <div class="check">✓</div>
   <h2>پرداخت موفق</h2>
   <p>سفارش شما با موفقیت ثبت شد</p>
-  <p class="timer">انتقال به سایت تا <b id="t">10</b> ثانیه دیگر</p>
+  <p class="timer">بازگشت به سایت تا <b id="t">10</b> ثانیه دیگر</p>
 </div>
 
 <script>
