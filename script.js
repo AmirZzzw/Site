@@ -1,5 +1,3 @@
-let lastSentTime = localStorage.getItem("lastSentTime") || 0;
-
 /* =========================
    تنظیمات
 ========================= */
