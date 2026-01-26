@@ -22,36 +22,76 @@ function openPaymentPage(productName, price) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
 <style>
+*{box-sizing:border-box}
 body{
-  margin:0;font-family:Vazir;background:linear-gradient(135deg,#f2f4f8,#e9ecf2);
-  display:flex;justify-content:center;align-items:center;min-height:100vh
+  margin:0;
+  font-family:Vazir;
+  background:linear-gradient(135deg,#eef2f7,#e3e8ef);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center
 }
 .card{
-  background:#fff;max-width:430px;width:100%;
-  padding:30px;border-radius:22px;
-  box-shadow:0 20px 50px rgba(0,0,0,.15)
+  width:100%;
+  max-width:440px;
+  background:#fff;
+  padding:28px;
+  border-radius:26px;
+  box-shadow:0 25px 60px rgba(0,0,0,.18)
 }
 h3{text-align:center;margin:0}
-.price{text-align:center;color:#27ae60;font-weight:bold;margin:12px 0;font-size:18px}
+.price{
+  text-align:center;
+  margin:12px 0;
+  font-size:20px;
+  color:#27ae60;
+  font-weight:bold
+}
 .bank{
-  background:#f7f7f7;padding:16px;border-radius:16px;
-  text-align:center;margin-bottom:15px;font-size:14px
+  background:#f6f7f9;
+  padding:16px;
+  border-radius:18px;
+  text-align:center;
+  font-size:14px;
+  margin-bottom:16px
 }
 .upload{
-  border:2px dashed #ccc;padding:16px;border-radius:16px;
-  text-align:center;cursor:pointer;margin-bottom:10px
+  border:2px dashed #cfd6e0;
+  border-radius:18px;
+  padding:18px;
+  text-align:center;
+  cursor:pointer;
+  transition:.3s;
+  margin-bottom:10px
 }
+.upload:hover{background:#f7f9fc}
+.upload span{display:block;font-size:14px;color:#666;margin-top:6px}
 .upload input{display:none}
-input,textarea,button{
-  width:100%;margin-top:10px;padding:12px;
-  border-radius:14px;border:1px solid #ccc;font-family:Vazir
+input,textarea{
+  width:100%;
+  margin-top:10px;
+  padding:12px 14px;
+  border-radius:14px;
+  border:1px solid #d0d6df;
+  font-family:Vazir;
+  font-size:14px
 }
+textarea{resize:none;height:80px}
 button{
+  width:100%;
+  margin-top:14px;
+  padding:14px;
+  border:none;
+  border-radius:18px;
+  font-family:Vazir;
+  font-size:15px;
+  font-weight:bold;
   background:linear-gradient(135deg,#ff9800,#ffb347);
-  border:none;font-weight:bold;cursor:pointer;color:#000
+  cursor:pointer
 }
 button:disabled{opacity:.6}
-#status{text-align:center;font-size:13px;margin-top:12px}
+#status{text-align:center;margin-top:10px;font-size:13px}
 </style>
 </head>
 <body>
@@ -66,13 +106,15 @@ app.innerHTML = \`
 <div class="price">${price.toLocaleString()} تومان</div>
 
 <div class="bank">
-6037 9982 2227 6759<br>امیرمحمد یوسفی
+واریز به کارت<br>
+<b>6037 9982 2227 6759</b><br>
+امیرمحمد یوسفی
 </div>
 
 <label class="upload">
-📤 انتخاب تصویر رسید
+📤 آپلود تصویر رسید
+<span id="fileName">هیچ فایلی انتخاب نشده</span>
 <input type="file" id="img" accept="image/*">
-<div id="fileName">فایلی انتخاب نشده</div>
 </label>
 
 <input id="tg" placeholder="آیدی تلگرام">
@@ -88,125 +130,122 @@ const fileName = app.querySelector("#fileName");
 const sendBtn = app.querySelector("#sendBtn");
 const status = app.querySelector("#status");
 
-img.onchange = () => fileName.innerText = img.files[0]?.name || "فایلی انتخاب نشده";
+img.onchange = () => {
+  fileName.innerText = img.files[0]?.name || "هیچ فایلی انتخاب نشده";
+};
 
 sendBtn.onclick = () => {
   const now = Date.now();
   const last = +localStorage.getItem("lastSentTime") || 0;
-  if (now - last < ${SPAM_TIME}) return status.innerText="⏳ کمی صبر کنید";
+  if (now - last < ${SPAM_TIME})
+    return status.innerText = "⏳ لطفا کمی صبر کنید";
 
   if (!img.files[0] || !tg.value || !phone.value)
-    return status.innerText="❌ اطلاعات ناقص";
+    return status.innerText = "❌ اطلاعات ناقص است";
 
   sendBtn.disabled = true;
-  status.innerText="⏳ در حال ارسال";
+  status.innerText = "⏳ در حال ارسال...";
 
   const fd = new FormData();
   fd.append("chat_id","${CHAT_ID}");
   fd.append("photo",img.files[0]);
   fd.append("caption",
 \`${productName}
-${price} تومان
+${price.toLocaleString()} تومان
 تلگرام: \${tg.value}
 شماره: \${phone.value}
 \${txt.value}\`
   );
 
-  fetch("https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto",{method:"POST",body:fd})
+  fetch("https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto",{
+    method:"POST",body:fd
+  })
   .then(r=>r.json())
   .then(d=>{
     if(!d.ok) throw 0;
     localStorage.setItem("lastSentTime",Date.now());
     showSuccess();
   })
-  .catch(()=>{status.innerText="❌ خطا";sendBtn.disabled=false});
+  .catch(()=>{
+    status.innerText="❌ خطا در ارسال";
+    sendBtn.disabled=false;
+  });
 };
 
 /**********************
- SUCCESS PAGE (PRO)
+ SUCCESS PAGE (ULTRA)
 **********************/
 function showSuccess(){
 document.body.innerHTML=\`
 <style>
 body{
-  margin:0;font-family:Vazir;
+  margin:0;
+  font-family:Vazir;
   background:radial-gradient(circle at top,#2ecc71,#27ae60);
-  min-height:100vh;display:flex;justify-content:center;align-items:center;
-  color:#2c3e50
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center
 }
-.wrap{
+.box{
   background:#fff;
-  width:100%;max-width:460px;
-  padding:45px 30px;border-radius:28px;
-  box-shadow:0 30px 70px rgba(0,0,0,.25);
+  width:100%;
+  max-width:460px;
+  padding:45px 30px;
+  border-radius:30px;
   text-align:center;
-  animation:pop .7s ease
+  box-shadow:0 35px 80px rgba(0,0,0,.3);
+  animation:scale .6s ease
 }
-@keyframes pop{from{opacity:0;transform:scale(.9)}}
-.check{
-  width:120px;height:120px;margin:0 auto 25px;
-}
-h2{margin:0 0 10px}
+@keyframes scale{from{opacity:0;transform:scale(.9)}}
+.check{width:120px;height:120px;margin:0 auto 20px}
+h2{margin:0}
 .info{
-  background:#f4f6f8;
-  border-radius:18px;
-  padding:15px;
   margin:20px 0;
-  font-size:14px;
+  background:#f4f6f8;
+  padding:16px;
+  border-radius:18px;
+  font-size:14px
 }
 .progress{
   height:6px;
   background:#e0e0e0;
   border-radius:10px;
-  overflow:hidden;
-  margin-top:20px
+  overflow:hidden
 }
 .bar{
   height:100%;
-  width:0%;
+  width:0;
   background:linear-gradient(90deg,#27ae60,#2ecc71);
   animation:load 5s linear forwards
 }
 @keyframes load{to{width:100%}}
-.timer{
-  margin-top:15px;
-  font-size:15px;
-  color:#555
-}
 </style>
 
-<div class="wrap">
-  <svg class="check" viewBox="0 0 52 52">
-    <circle cx="26" cy="26" r="25" fill="none" stroke="#27ae60" stroke-width="3"/>
-    <path fill="none" stroke="#27ae60" stroke-width="4"
-      stroke-dasharray="100" stroke-dashoffset="100"
-      d="M14 27 L23 35 L38 18"
-      style="animation:draw .6s ease forwards .3s"/>
-  </svg>
+<div class="box">
+<svg class="check" viewBox="0 0 52 52">
+<circle cx="26" cy="26" r="25" fill="none" stroke="#27ae60" stroke-width="3"/>
+<path fill="none" stroke="#27ae60" stroke-width="4"
+stroke-dasharray="100" stroke-dashoffset="100"
+d="M14 27 L23 35 L38 18"
+style="animation:draw .6s ease forwards .3s"/>
+</svg>
 
-  <h2>پرداخت شما ثبت شد</h2>
-  <p>با موفقیت دریافت شد ✅</p>
+<h2>پرداخت ثبت شد</h2>
+<p>در انتظار بررسی</p>
 
-  <div class="info">
-    مبلغ: <b>${price.toLocaleString()} تومان</b><br>
-    وضعیت: در انتظار بررسی
-  </div>
-
-  <div class="progress"><div class="bar"></div></div>
-  <div class="timer">بازگشت به سایت تا <span id="t">5</span> ثانیه</div>
+<div class="info">
+مبلغ: <b>${price.toLocaleString()} تومان</b>
 </div>
 
-<style>
-@keyframes draw{to{stroke-dashoffset:0}}
-</style>
+<div class="progress"><div class="bar"></div></div>
+<p style="margin-top:15px;font-size:13px">بازگشت خودکار...</p>
+</div>
+
+<style>@keyframes draw{to{stroke-dashoffset:0}}</style>
 \`;
 
-let t=5;
-const i=setInterval(()=>{
-  t--;
-  document.getElementById("t").innerText=t;
-  if(t<=0){clearInterval(i);location.href="${SITE_URL}"}
-},1000);
+setTimeout(()=>location.href="${SITE_URL}",5000);
 }
 </script>
 </body>
@@ -215,7 +254,7 @@ const i=setInterval(()=>{
 }
 
 /**********************
- FEATURES PAGE (LIGHT)
+ FEATURES PAGE
 **********************/
 function openFeaturesPage(){
   const w = window.open("", "_blank");
@@ -230,17 +269,43 @@ function openFeaturesPage(){
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
 <style>
-body{margin:0;font-family:Vazir;background:#111;color:#fff}
-.box{max-width:600px;margin:30px auto;padding:25px;
-background:#1c1c1c;border-radius:20px}
-li{margin:8px 0}
-button{margin-top:20px;padding:10px 30px;
-border-radius:50px;border:none;background:#ff9800}
+body{
+  margin:0;
+  font-family:Vazir;
+  background:#0f0f0f;
+  color:#fff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh
+}
+.card{
+  width:100%;
+  max-width:600px;
+  background:#1c1c1c;
+  padding:30px;
+  border-radius:26px
+}
+h2{text-align:center;margin-top:0}
+ul{padding:0;list-style:none}
+li{margin:10px 0;font-size:15px}
+.btn{
+  display:block;
+  margin:30px auto 0;
+  padding:12px 36px;
+  border:none;
+  border-radius:50px;
+  font-family:Vazir;
+  font-size:15px;
+  background:#ff9800;
+  cursor:pointer
+}
 </style>
 </head>
 <body>
-<div class="box">
-<h2>✨ قابلیت‌های سلف</h2>
+
+<div class="card">
+<h2>✨ قابلیت‌های سلف ✨️</h2>
 <ul>
 <li>🕒 دستورات مربوط به ساعت و بیو</li>  
 <li>- .تایم روشن: فعال کردن نمایش ساعت در اسم.</li>  
@@ -319,7 +384,8 @@ border-radius:50px;border:none;background:#ff9800}
 <li>🧹 مدیریت و حذف پیام</li>  
 <li>- .بستن: ریپلای کنید روی همین پیام و بنویسید بستن تا این پیام پاک بشه.</li>
 </ul>
-<button onclick="safeClose()">بازگشت</button>
+
+<button class="btn" onclick="safeClose()">بازگشت</button>
 </div>
 
 <script>
@@ -328,6 +394,7 @@ function safeClose(){
   else location.href="${SITE_URL}";
 }
 </script>
+
 </body>
 </html>`);
   w.document.close();
