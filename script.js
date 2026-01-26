@@ -103,7 +103,8 @@ sendBtn.onclick = () => {
 ${price.toLocaleString()} تومان
 تلگرام: \${tg}
 شماره: \${phone}
-توضیحات: \${txt}`);
+توضیحات: \${txt}
+);
 
   fetch("https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto", {
     method: "POST",
