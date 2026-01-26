@@ -425,7 +425,6 @@ function openFeaturesPage() {
 
        "<li>- .بستن: ریپلای کنید روی همین پیام و بنویسید بستن تا این پیام پاک بشه.</li>" +
 
-[Program finished]
       "</ul><button onclick='window.close()'>بازگشت</button>";
     })();
   `;
