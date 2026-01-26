@@ -3,7 +3,7 @@
 **********************/
 const BOT_TOKEN = "7408423935:AAH9nkoZg7ykqQMGKDeitIiOtu6uYZl0Vxg";
 const CHAT_ID  = "7549513123";
-const SITE_URL = "https://example.com";
+const SITE_URL = "https://sidkashop.qzz.io";
 const SPAM_TIME = 60 * 1000;
 
 /**********************
@@ -23,32 +23,35 @@ function openPaymentPage(productName, price) {
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
 <style>
 body{
-  margin:0;font-family:Vazir;background:#f1f2f4;
+  margin:0;font-family:Vazir;background:linear-gradient(135deg,#f2f4f8,#e9ecf2);
   display:flex;justify-content:center;align-items:center;min-height:100vh
 }
 .card{
-  background:#fff;max-width:420px;width:100%;
-  padding:30px;border-radius:18px;
-  box-shadow:0 10px 30px rgba(0,0,0,.12)
+  background:#fff;max-width:430px;width:100%;
+  padding:30px;border-radius:22px;
+  box-shadow:0 20px 50px rgba(0,0,0,.15)
 }
 h3{text-align:center;margin:0}
-.price{text-align:center;color:#27ae60;font-weight:bold;margin:10px 0}
+.price{text-align:center;color:#27ae60;font-weight:bold;margin:12px 0;font-size:18px}
 .bank{
-  background:#f7f7f7;padding:15px;border-radius:14px;
+  background:#f7f7f7;padding:16px;border-radius:16px;
   text-align:center;margin-bottom:15px;font-size:14px
 }
 .upload{
-  border:2px dashed #ccc;padding:15px;border-radius:14px;
+  border:2px dashed #ccc;padding:16px;border-radius:16px;
   text-align:center;cursor:pointer;margin-bottom:10px
 }
 .upload input{display:none}
 input,textarea,button{
-  width:100%;margin-top:8px;padding:11px;
-  border-radius:12px;border:1px solid #ccc;font-family:Vazir
+  width:100%;margin-top:10px;padding:12px;
+  border-radius:14px;border:1px solid #ccc;font-family:Vazir
 }
-button{background:#ff9800;border:none;font-weight:bold;cursor:pointer}
+button{
+  background:linear-gradient(135deg,#ff9800,#ffb347);
+  border:none;font-weight:bold;cursor:pointer;color:#000
+}
 button:disabled{opacity:.6}
-#status{text-align:center;font-size:13px;margin-top:10px}
+#status{text-align:center;font-size:13px;margin-top:12px}
 </style>
 </head>
 <body>
@@ -90,13 +93,13 @@ img.onchange = () => fileName.innerText = img.files[0]?.name || "فایلی ان
 sendBtn.onclick = () => {
   const now = Date.now();
   const last = +localStorage.getItem("lastSentTime") || 0;
-  if (now - last < ${SPAM_TIME}) return status.innerText = "⏳ کمی صبر کنید";
+  if (now - last < ${SPAM_TIME}) return status.innerText="⏳ کمی صبر کنید";
 
   if (!img.files[0] || !tg.value || !phone.value)
-    return status.innerText = "❌ اطلاعات ناقص";
+    return status.innerText="❌ اطلاعات ناقص";
 
   sendBtn.disabled = true;
-  status.innerText = "⏳ در حال ارسال";
+  status.innerText="⏳ در حال ارسال";
 
   const fd = new FormData();
   fd.append("chat_id","${CHAT_ID}");
@@ -119,29 +122,91 @@ ${price} تومان
   .catch(()=>{status.innerText="❌ خطا";sendBtn.disabled=false});
 };
 
+/**********************
+ SUCCESS PAGE (PRO)
+**********************/
 function showSuccess(){
-  document.body.innerHTML=\`
-  <style>
-  body{margin:0;font-family:Vazir;background:#f5f6f8;
-  display:flex;justify-content:center;align-items:center;min-height:100vh}
-  .card{background:#fff;padding:40px;border-radius:22px;
-  text-align:center;box-shadow:0 15px 40px rgba(0,0,0,.15)}
-  .timer{width:70px;height:70px;border-radius:50%;
-  background:#27ae60;color:#fff;display:flex;
-  align-items:center;justify-content:center;
-  font-size:24px;margin:20px auto}
-  </style>
-  <div class="card">
-  <h2>پرداخت ثبت شد ✅</h2>
-  <p>بازگشت به سایت</p>
-  <div class="timer" id="t">5</div>
-  </div>\`;
+document.body.innerHTML=\`
+<style>
+body{
+  margin:0;font-family:Vazir;
+  background:radial-gradient(circle at top,#2ecc71,#27ae60);
+  min-height:100vh;display:flex;justify-content:center;align-items:center;
+  color:#2c3e50
+}
+.wrap{
+  background:#fff;
+  width:100%;max-width:460px;
+  padding:45px 30px;border-radius:28px;
+  box-shadow:0 30px 70px rgba(0,0,0,.25);
+  text-align:center;
+  animation:pop .7s ease
+}
+@keyframes pop{from{opacity:0;transform:scale(.9)}}
+.check{
+  width:120px;height:120px;margin:0 auto 25px;
+}
+h2{margin:0 0 10px}
+.info{
+  background:#f4f6f8;
+  border-radius:18px;
+  padding:15px;
+  margin:20px 0;
+  font-size:14px;
+}
+.progress{
+  height:6px;
+  background:#e0e0e0;
+  border-radius:10px;
+  overflow:hidden;
+  margin-top:20px
+}
+.bar{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#27ae60,#2ecc71);
+  animation:load 5s linear forwards
+}
+@keyframes load{to{width:100%}}
+.timer{
+  margin-top:15px;
+  font-size:15px;
+  color:#555
+}
+</style>
 
-  let t=5;
-  const i=setInterval(()=>{
-    t--;t<=0&&(clearInterval(i),location.href="${SITE_URL}");
-    document.getElementById("t").innerText=t;
-  },1000);
+<div class="wrap">
+  <svg class="check" viewBox="0 0 52 52">
+    <circle cx="26" cy="26" r="25" fill="none" stroke="#27ae60" stroke-width="3"/>
+    <path fill="none" stroke="#27ae60" stroke-width="4"
+      stroke-dasharray="100" stroke-dashoffset="100"
+      d="M14 27 L23 35 L38 18"
+      style="animation:draw .6s ease forwards .3s"/>
+  </svg>
+
+  <h2>پرداخت شما ثبت شد</h2>
+  <p>با موفقیت دریافت شد ✅</p>
+
+  <div class="info">
+    مبلغ: <b>${price.toLocaleString()} تومان</b><br>
+    وضعیت: در انتظار بررسی
+  </div>
+
+  <div class="progress"><div class="bar"></div></div>
+  <div class="timer">بازگشت به سایت تا <span id="t">5</span> ثانیه</div>
+</div>
+
+<style>
+@keyframes draw{to{stroke-dashoffset:0}}
+</style>
+\`;
+
+let t=5;
+const i=setInterval(()=>{
+  t--;
+  document.getElementById("t").innerText=t;
+  if(t<=0){clearInterval(i);location.href="${SITE_URL}"}
+},1000);
 }
 </script>
 </body>
@@ -167,7 +232,7 @@ function openFeaturesPage(){
 <style>
 body{margin:0;font-family:Vazir;background:#111;color:#fff}
 .box{max-width:600px;margin:30px auto;padding:25px;
-background:#1c1c1c;border-radius:18px}
+background:#1c1c1c;border-radius:20px}
 li{margin:8px 0}
 button{margin-top:20px;padding:10px 30px;
 border-radius:50px;border:none;background:#ff9800}
@@ -263,7 +328,6 @@ function safeClose(){
   else location.href="${SITE_URL}";
 }
 </script>
-
 </body>
 </html>`);
   w.document.close();
