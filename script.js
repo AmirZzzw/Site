@@ -23,67 +23,18 @@ function openPaymentPage(productName, price) {
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
 <style>
 *{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Vazir;
-  background:linear-gradient(135deg,#eef2f7,#e3e8ef);
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center
-}
-.card{
-  width:100%;
-  max-width:440px;
-  background:#fff;
-  padding:28px;
-  border-radius:26px;
-  box-shadow:0 25px 60px rgba(0,0,0,.18)
-}
+body{margin:0;font-family:Vazir;background:#eef2f7;min-height:100vh;display:flex;align-items:center;justify-content:center}
+.card{width:100%;max-width:440px;background:#fff;padding:30px;border-radius:26px;box-shadow:0 20px 60px rgba(0,0,0,.12)}
 h3{text-align:center;margin:0 0 10px}
-.price{text-align:center;margin:12px 0;font-size:20px;color:#27ae60;font-weight:bold}
-.bank{
-  background:#f6f7f9;
-  padding:16px;
-  border-radius:18px;
-  text-align:center;
-  font-size:14px;
-  margin-bottom:16px
-}
-.upload{
-  border:2px dashed #cfd6e0;
-  border-radius:18px;
-  padding:18px;
-  text-align:center;
-  cursor:pointer;
-  transition:.3s;
-  margin-bottom:10px
-}
+.price{text-align:center;margin:10px 0;font-size:20px;color:#27ae60;font-weight:bold}
+.bank{background:#f6f7f9;padding:16px;border-radius:18px;text-align:center;margin-bottom:16px;font-size:14px}
+.upload{border:2px dashed #cfd6e0;border-radius:18px;padding:16px;text-align:center;cursor:pointer;margin-bottom:12px;display:flex;flex-direction:column;align-items:center;gap:6px;transition:.3s}
 .upload:hover{background:#f7f9fc}
-.upload span{display:block;font-size:14px;color:#666;margin-top:6px}
+.upload span{font-size:14px;color:#666;word-break: break-word;}
 .upload input{display:none}
-input,textarea{
-  width:100%;
-  margin-top:10px;
-  padding:12px 14px;
-  border-radius:14px;
-  border:1px solid #d0d6df;
-  font-family:Vazir;
-  font-size:14px
-}
+input,textarea{width:100%;margin-top:10px;padding:12px;border-radius:14px;border:1px solid #d0d6df;font-family:Vazir;font-size:14px}
 textarea{resize:none;height:80px}
-button{
-  width:100%;
-  margin-top:14px;
-  padding:14px;
-  border:none;
-  border-radius:18px;
-  font-family:Vazir;
-  font-size:15px;
-  font-weight:bold;
-  background:linear-gradient(135deg,#ff9800,#ffb347);
-  cursor:pointer
-}
+button{width:100%;margin-top:14px;padding:14px;border:none;border-radius:18px;font-family:Vazir;font-size:15px;font-weight:bold;background:linear-gradient(135deg,#ff9800,#ffb347);cursor:pointer}
 button:disabled{opacity:.6}
 #status{text-align:center;margin-top:10px;font-size:13px;color:#333}
 </style>
@@ -130,14 +81,11 @@ sendBtn.onclick = () => {
     status.innerText = "⏳ لطفا " + wait + " ثانیه صبر کنید";
     return;
   }
-
   if(!img.files[0] || !tg.value || !phone.value){
-    status.innerText = "❌ اطلاعات ناقص است"; return;
+    status.innerText="❌ اطلاعات ناقص است"; return;
   }
-
   sendBtn.disabled=true;
   status.innerText="⏳ در حال ارسال...";
-
   const fd = new FormData();
   fd.append("chat_id","${CHAT_ID}");
   fd.append("photo",img.files[0]);
@@ -146,7 +94,6 @@ ${price.toLocaleString()} تومان
 تلگرام: \${tg.value}
 شماره: \${phone.value}
 \${txt.value ? "توضیحات: "+txt.value : ""}\`);
-
   fetch("https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto",{method:"POST",body:fd})
   .then(r=>r.json())
   .then(d=>{
@@ -167,35 +114,36 @@ document.body.innerHTML=\`
 body{margin:0;font-family:Vazir;background:radial-gradient(circle,#2ecc71,#27ae60);display:flex;justify-content:center;align-items:center;min-height:100vh;}
 .box{background:#fff;width:100%;max-width:460px;padding:45px 30px;border-radius:30px;text-align:center;box-shadow:0 35px 80px rgba(0,0,0,.3);animation:scale .6s ease;}
 @keyframes scale{from{opacity:0;transform:scale(.9)}}
-.check{width:120px;height:120px;margin:0 auto 20px}
-h2{margin:0}
+.check{width:120px;height:120px;margin:0 auto 20px;position:relative}
+.check::before{content:"";position:absolute;top:0;left:0;width:100%;height:100%;border-radius:50%;background:rgba(39,174,96,.1);}
+.check svg{width:100%;height:100%}
+h2{margin:0;font-size:22px;color:#2c3e50}
 .info{margin:20px 0;background:#f4f6f8;padding:16px;border-radius:18px;font-size:14px}
 .progress{height:6px;background:#e0e0e0;border-radius:10px;overflow:hidden}
 .bar{height:100%;width:0;background:linear-gradient(90deg,#27ae60,#2ecc71);animation:load ${n}s linear forwards}
 @keyframes load{to{width:100%}}
 </style>
-
 <div class="box">
-<svg class="check" viewBox="0 0 52 52">
+<div class="check">
+<svg viewBox="0 0 52 52">
 <circle cx="26" cy="26" r="25" fill="none" stroke="#27ae60" stroke-width="3"/>
 <path fill="none" stroke="#27ae60" stroke-width="4"
 stroke-dasharray="100" stroke-dashoffset="100"
 d="M14 27 L23 35 L38 18"
 style="animation:draw .6s ease forwards .3s"/>
 </svg>
+</div>
 <h2>پرداخت ثبت شد</h2>
-<p>در انتظار بررسی</p>
 <div class="info">مبلغ: <b>${price.toLocaleString()} تومان</b></div>
 <div class="progress"><div class="bar"></div></div>
 <p style="margin-top:15px;font-size:13px">بازگشت خودکار در <span id="t">${n}</span> ثانیه...</p>
 <style>@keyframes draw{to{stroke-dashoffset:0}}</style>
-</div>
-\`;
+</div>\`;
 
 let t=n;
-const interval = setInterval(()=>{
-  t--; document.getElementById("t").innerText=t;
-  if(t<=0){clearInterval(interval);location.href="${SITE_URL}";}
+const interval=setInterval(()=>{
+t--; document.getElementById("t").innerText=t;
+if(t<=0){clearInterval(interval);location.href="${SITE_URL}";}
 },1000);
 }
 </script>
@@ -220,18 +168,18 @@ function openFeaturesPage(){
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
 <style>
-body{margin:0;font-family:Vazir;background:#0f0f0f;color:#fff;display:flex;justify-content:center;align-items:center;min-height:100vh}
-.card{width:100%;max-width:600px;background:#1c1c1c;padding:30px;border-radius:26px;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+body{margin:0;font-family:Vazir;background:#111;color:#fff;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.card{width:100%;max-width:600px;background:#1f1f1f;padding:30px;border-radius:26px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
 h2{text-align:center;margin-top:0;color:#ff9800}
-ul{padding:0;list-style:none}
-li{margin:10px 0;font-size:15px;line-height:1.5}
-.btn{display:block;margin:30px auto 0;padding:12px 36px;border:none;border-radius:50px;font-family:Vazir;font-size:15px;background:#ff9800;color:#fff;cursor:pointer;transition:.3s}
+ul{padding:0;list-style:none;margin:20px 0}
+li{margin:8px 0;font-size:15px;line-height:1.5}
+.btn{display:block;margin:30px auto 0;padding:12px 36px;border:none;border-radius:50px;font-family:Vazir;font-size:15px;background:#ff9800;color:#fff;cursor:pointer;transition:.3s;text-align:center}
 .btn:hover{transform:scale(1.05);box-shadow:0 4px 20px rgba(255,152,0,.6)}
 </style>
 </head>
 <body>
 <div class="card">
-<h2>✨ قابلیت‌های سلف ✨️</h2>
+<h2>✨ قابلیت‌های سلف</h2>
 <ul>
 <li>🕒 دستورات مربوط به ساعت و بیو</li>  
 <li>- .تایم روشن: فعال کردن نمایش ساعت در اسم.</li>  
@@ -312,7 +260,10 @@ li{margin:10px 0;font-size:15px;line-height:1.5}
 </ul>
 <button class="btn" onclick="safeClose()">بازگشت</button>
 <script>
-function safeClose(){if(window.opener) window.close(); else location.href="${SITE_URL}";}
+function safeClose(){
+  if(window.opener) window.close();
+  else location.href="${SITE_URL}";
+}
 </script>
 </div>
 </body>
