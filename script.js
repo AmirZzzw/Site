@@ -25,20 +25,21 @@ function openPaymentPage(productName, price) {
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Vazir',sans-serif;background:#f1f2f4;display:flex;justify-content:center;align-items:center;min-height:100vh;}
 .card{background:#fff;width:100%;max-width:420px;padding:30px;border-radius:16px;box-shadow:0 8px 25px rgba(0,0,0,.1);}
-h3{text-align:center;margin:0 0 10px;color:#333;font-size:24px;}
-.price{text-align:center;color:#27ae60;margin:5px 0 15px;font-weight:bold;font-size:18px;}
-.bank{background:#f7f7f7;border-radius:12px;padding:12px;text-align:center;font-size:14px;margin-bottom:15px;color:#222;}
-.upload{border:1.5px dashed #bbb;border-radius:12px;padding:15px;text-align:center;font-size:14px;margin-bottom:10px;color:#222;position:relative;}
+h3{text-align:center;margin-bottom:10px;font-size:24px;}
+.price{text-align:center;color:#27ae60;margin-bottom:15px;font-weight:bold;font-size:18px;}
+.bank{background:#f7f7f7;border-radius:12px;padding:12px;text-align:center;font-size:14px;margin-bottom:15px;}
+.upload{border:1.5px dashed #bbb;border-radius:12px;padding:15px;text-align:center;font-size:14px;margin-bottom:10px;}
 .upload input{display:none;}
 .upload label{cursor:pointer;}
-input,textarea{width:100%;margin-top:8px;padding:10px;border-radius:12px;border:1px solid #ccc;font-family:'Vazir';color:#222;font-size:14px;}
+input,textarea{width:100%;margin-top:8px;padding:10px;border-radius:12px;border:1px solid #ccc;font-family:'Vazir';font-size:14px;}
 textarea{resize:none;}
-button{width:100%;margin-top:15px;padding:12px;border:none;border-radius:14px;background:#ff9800;font-size:15px;font-weight:bold;cursor:pointer;transition:0.3s;}
-button:hover{background:#e68900;}
-#status{text-align:center;font-size:13px;margin-top:10px;color:#333;}
+button{width:100%;margin-top:15px;padding:12px;border:none;border-radius:14px;background:#ff9800;font-size:15px;font-weight:bold;cursor:pointer;}
+button:disabled{opacity:.6;cursor:not-allowed;}
+#status{text-align:center;font-size:13px;margin-top:10px;}
 </style>
 </head>
 <body>
+
 <div class="card">
   <h3>${productName}</h3>
   <div class="price">${price.toLocaleString()} تومان</div>
@@ -70,15 +71,16 @@ const status = document.getElementById("status");
 const sendBtn = document.getElementById("sendBtn");
 
 img.onchange = () => {
-  fileName.innerText = img.files[0] ? img.files[0].name : "هیچ فایلی انتخاب نشده";
+  fileName.innerText = img.files[0]?.name || "هیچ فایلی انتخاب نشده";
 };
 
 sendBtn.onclick = () => {
   const now = Date.now();
-  const lastTime = localStorage.getItem("lastSentTime") || 0;
+  const lastTime = Number(localStorage.getItem("lastSentTime") || 0);
 
-  if(now - lastTime < ${SPAM_TIME}){
-    status.innerText = "⏳ لطفاً یک دقیقه صبر کنید";
+  if (now - lastTime < ${SPAM_TIME}) {
+    const remaining = Math.ceil((${SPAM_TIME} - (now - lastTime)) / 1000);
+    status.innerText = "⏳ لطفاً " + remaining + " ثانیه صبر کنید";
     status.style.color = "orange";
     return;
   }
@@ -87,20 +89,30 @@ sendBtn.onclick = () => {
   const phone = document.getElementById("phone").value.trim();
   const txt = document.getElementById("txt").value.trim();
 
-  if(!img.files[0] || !tg || !phone){
+  if (!img.files[0] || !tg || !phone) {
     status.innerText = "❌ اطلاعات کامل نیست";
     status.style.color = "red";
     return;
   }
 
-  const fd = new FormData();
-  fd.append("chat_id","${CHAT_ID}");
-  fd.append("photo", img.files[0]);
-  fd.append("caption", \`${productName}
+  sendBtn.disabled = true;
+  status.innerText = "⏳ در حال ارسال...";
+  status.style.color = "orange";
+
+  let caption =
+\`${productName}
 ${price.toLocaleString()} تومان
-تلگرام: \${tg}
-شماره: \${phone}
-\${txt}\`);
+آیدی تلگرام: ${tg}
+شماره: ${phone}\`;
+
+  if (txt) {
+    caption += "\\nتوضیحات: " + txt;
+  }
+
+  const fd = new FormData();
+  fd.append("chat_id", "${CHAT_ID}");
+  fd.append("photo", img.files[0]);
+  fd.append("caption", caption);
 
   fetch("https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto", {
     method: "POST",
@@ -108,52 +120,35 @@ ${price.toLocaleString()} تومان
   })
   .then(res => res.json())
   .then(data => {
-    if(data.ok){
+    if (data.ok) {
       localStorage.setItem("lastSentTime", Date.now());
       showSuccessPage();
     } else {
-      status.innerText = "❌ ارسال ناموفق، دوباره تلاش کنید";
-      status.style.color = "red";
+      throw new Error();
     }
   })
-  .catch(err => {
-    console.error(err);
-    status.innerText = "❌ خطا در ارتباط با سرور";
+  .catch(() => {
+    status.innerText = "❌ خطا در ارسال اطلاعات";
     status.style.color = "red";
+    sendBtn.disabled = false;
   });
 };
 
 function showSuccessPage(){
   document.body.innerHTML = \`
-  <div style="font-family: Vazir, sans-serif; display:flex; justify-content:center; align-items:center; min-height:100vh; background:#f8f9fa; padding:20px;">
-    <div style="margin-bottom:25px; display:flex; justify-content:center;">
-    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#27ae60" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="animation: pop 0.6s ease forwards;">
-      <path d="M20 6L9 17l-5-5"/>
-    </svg>
-  </div>
-      <h2 style="font-weight:bold; font-size:26px; margin-bottom:15px; color:#2c3e50;">سفارش شما با موفقیت ثبت شد</h2>
-      <p style="color:#555; font-size:16px; margin-bottom:30px;">تا چند ثانیه دیگر به سایت بازمی‌گردید</p>
-      <b id="t" style="font-size:22px; color:#fff; background:#27ae60; width:60px; height:60px; border-radius:50%; display:flex; justify-content:center; align-items:center; margin:0 auto; font-weight:bold; box-shadow:0 4px 12px rgba(0,0,0,0.2); animation: pop 0.6s ease forwards;">10</b>
+  <div style="font-family:Vazir;display:flex;justify-content:center;align-items:center;min-height:100vh;">
+    <div style="background:#fff;padding:40px;border-radius:16px;text-align:center;max-width:400px;width:100%;box-shadow:0 10px 30px rgba(0,0,0,.15)">
+      <h2 style="color:#27ae60;margin-bottom:15px;">✅ سفارش ثبت شد</h2>
+      <p>بازگشت به سایت تا <b id="t">10</b> ثانیه دیگر</p>
     </div>
-  </div>
-  <style>
-    @keyframes pop {0% { transform: scale(0.5); opacity: 0; } 60% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(1); }}
-    #checkIcon { animation-delay: 0.2s; }
-    #t { animation-delay: 0.4s; }
-  </style>
-  \`;
+  </div>\`;
 
   let t = 10;
-  const interval = setInterval(()=>{
+  const i = setInterval(() => {
     t--;
-    const tEl = document.getElementById("t");
-    if(tEl){
-      tEl.innerText = t;
-      tEl.style.transform = "scale(1.3)";
-      setTimeout(()=>{ tEl.style.transform="scale(1)"; }, 150);
-    }
-    if(t <= 0){
-      clearInterval(interval);
+    document.getElementById("t").innerText = t;
+    if (t <= 0) {
+      clearInterval(i);
       location.href = "${SITE_URL}";
     }
   }, 1000);
@@ -162,7 +157,6 @@ function showSuccessPage(){
 </body>
 </html>
 `);
-
   w.document.close();
 }
 
