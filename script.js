@@ -1,8 +1,8 @@
 /**********************
  CONFIG
 **********************/
-const BOT_TOKEN = "YOUR_BOT_TOKEN";
-const CHAT_ID  = "YOUR_CHAT_ID";
+const BOT_TOKEN = "7408423935:AAH9nkoZg7ykqQMGKDeitIiOtu6uYZl0Vxg";
+const CHAT_ID  = "7549513123";
 const SITE_URL = "https://example.com";
 const SPAM_TIME = 60 * 1000;
 
