@@ -65,15 +65,22 @@ button:disabled{opacity:.6;cursor:not-allowed}
 </div>
 
 <script>
+// ===== گرفتن المنت‌ها (مهم: اول تعریف شده) =====
 const img = document.getElementById("img");
 const fileName = document.getElementById("fileName");
 const status = document.getElementById("status");
 const sendBtn = document.getElementById("sendBtn");
 
+const tgEl = document.getElementById("tg");
+const phoneEl = document.getElementById("phone");
+const txtEl = document.getElementById("txt");
+
+// ===== انتخاب فایل =====
 img.onchange = () => {
   fileName.innerText = img.files[0]?.name || "هیچ فایلی انتخاب نشده";
 };
 
+// ===== ارسال =====
 sendBtn.onclick = () => {
   const now = Date.now();
   const last = Number(localStorage.getItem("lastSentTime") || 0);
@@ -99,13 +106,16 @@ sendBtn.onclick = () => {
   status.innerText = "⏳ در حال ارسال...";
   status.style.color = "orange";
 
+  // ===== کپشن هوشمند =====
   let caption =
 \`${productName}
 ${price.toLocaleString()} تومان
 آیدی تلگرام: ${tg}
 شماره: ${phone}\`;
 
-  if (txt) caption += "\\nتوضیحات: " + txt;
+  if (txt) {
+    caption += "\\nتوضیحات: " + txt;
+  }
 
   const fd = new FormData();
   fd.append("chat_id", "${CHAT_ID}");
@@ -120,7 +130,7 @@ ${price.toLocaleString()} تومان
   .then(d => {
     if (!d.ok) throw "";
     localStorage.setItem("lastSentTime", Date.now());
-    success();
+    successPage();
   })
   .catch(() => {
     status.innerText = "❌ خطا در ارسال";
@@ -129,16 +139,13 @@ ${price.toLocaleString()} تومان
   });
 };
 
-const tgEl = document.getElementById("tg");
-const phoneEl = document.getElementById("phone");
-const txtEl = document.getElementById("txt");
-
-function success(){
+// ===== صفحه موفقیت =====
+function successPage(){
   document.body.innerHTML = \`
   <div style="font-family:Vazir;display:flex;justify-content:center;align-items:center;min-height:100vh">
     <div style="background:#fff;padding:40px;border-radius:16px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.15)">
-      <h2 style="color:#27ae60">✅ سفارش ثبت شد</h2>
-      <p>بازگشت تا <b id="t">10</b> ثانیه دیگر</p>
+      <h2 style="color:#27ae60;margin-bottom:10px">✅ سفارش با موفقیت ثبت شد</h2>
+      <p>بازگشت به سایت تا <b id="t">10</b> ثانیه دیگر</p>
     </div>
   </div>\`;
 
@@ -152,6 +159,7 @@ function success(){
   },1000);
 }
 </script>
+
 </body>
 </html>
 `);
