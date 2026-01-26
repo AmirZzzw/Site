@@ -1,11 +1,11 @@
-<script>
 /* =========================
    تنظیمات
 ========================= */
 const BOT_TOKEN = "7408423935:AAH9nkoZg7ykqQMGKDeitIiOtu6uYZl0Vxg";
 const CHAT_ID  = "7549513123";
 const SITE_URL = "https://sidkashop.qzz.io";
-const SPAM_TIME = 60 * 1000;
+
+const SPAM_TIME = 60 * 1000; // 1 دقیقه
 
 /* =========================
    صفحه پرداخت
@@ -13,7 +13,8 @@ const SPAM_TIME = 60 * 1000;
 function openPaymentPage(productName, price) {
   const w = window.open("", "_blank");
 
-  w.document.write(`<!DOCTYPE html>
+  w.document.write(`
+<!DOCTYPE html>
 <html lang="fa">
 <head>
 <meta charset="UTF-8">
@@ -21,130 +22,177 @@ function openPaymentPage(productName, price) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Vazir;background:#f1f2f4;display:flex;align-items:center;justify-content:center;min-height:100vh}
-.card{background:#fff;width:100%;max-width:420px;padding:30px;border-radius:16px;box-shadow:0 8px 25px rgba(0,0,0,.1)}
-h3{text-align:center;margin-bottom:10px}
-.price{text-align:center;color:#27ae60;font-weight:bold;margin-bottom:15px}
-.bank{background:#f7f7f7;border-radius:12px;padding:12px;text-align:center;margin-bottom:15px}
-.upload{border:1.5px dashed #bbb;border-radius:12px;padding:15px;text-align:center;margin-bottom:10px}
-.upload input{display:none}
-input,textarea{width:100%;margin-top:8px;padding:10px;border-radius:12px;border:1px solid #ccc;font-family:Vazir}
-button{width:100%;margin-top:15px;padding:12px;border:none;border-radius:14px;background:#ff9800;font-weight:bold;cursor:pointer}
-#status{text-align:center;margin-top:10px;font-size:13px}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Vazir',sans-serif;background:#f1f2f4;display:flex;justify-content:center;align-items:center;min-height:100vh;}
+.card{background:#fff;width:100%;max-width:420px;padding:30px;border-radius:16px;box-shadow:0 8px 25px rgba(0,0,0,.1);}
+h3{text-align:center;margin:0 0 10px;color:#333;font-size:24px;}
+.price{text-align:center;color:#27ae60;margin:5px 0 15px;font-weight:bold;font-size:18px;}
+.bank{background:#f7f7f7;border-radius:12px;padding:12px;text-align:center;font-size:14px;margin-bottom:15px;color:#222;}
+.upload{border:1.5px dashed #bbb;border-radius:12px;padding:15px;text-align:center;font-size:14px;margin-bottom:10px;color:#222;position:relative;}
+.upload input{display:none;}
+.upload label{cursor:pointer;}
+input,textarea{width:100%;margin-top:8px;padding:10px;border-radius:12px;border:1px solid #ccc;font-family:'Vazir';color:#222;font-size:14px;}
+textarea{resize:none;}
+button{width:100%;margin-top:15px;padding:12px;border:none;border-radius:14px;background:#ff9800;font-size:15px;font-weight:bold;cursor:pointer;transition:0.3s;}
+button:hover{background:#e68900;}
+#status{text-align:center;font-size:13px;margin-top:10px;color:#333;}
 </style>
 </head>
 <body>
-
 <div class="card">
-<h3>${productName}</h3>
-<div class="price">${price.toLocaleString()} تومان</div>
+  <h3>${productName}</h3>
+  <div class="price">${price.toLocaleString()} تومان</div>
 
-<div class="bank">
-واریز به کارت<br>
-<b>6037 9982 2227 6759</b><br>
-امیرمحمد یوسفی
-</div>
+  <div class="bank">
+    واریز به کارت<br>
+    <b>6037 9982 2227 6759</b><br>
+    امیرمحمد یوسفی
+  </div>
 
-<div class="upload">
-<label for="img">انتخاب تصویر رسید</label>
-<div id="fileName">هیچ فایلی انتخاب نشده</div>
-<input type="file" id="img" accept="image/*">
-</div>
+  <div class="upload">
+    <label for="img">📤 انتخاب تصویر رسید</label>
+    <div id="fileName">هیچ فایلی انتخاب نشده</div>
+    <input type="file" id="img" accept="image/*">
+  </div>
 
-<input id="tg" placeholder="آیدی تلگرام">
-<input id="phone" placeholder="شماره تماس">
-<textarea id="txt" placeholder="توضیحات (اختیاری)"></textarea>
+  <input id="tg" placeholder="آیدی تلگرام">
+  <input id="phone" placeholder="شماره تماس">
+  <textarea id="txt" placeholder="توضیحات (اختیاری)"></textarea>
 
-<button id="sendBtn">ارسال رسید</button>
-<div id="status"></div>
+  <button id="sendBtn">ارسال رسید</button>
+  <div id="status"></div>
 </div>
 
 <script>
-const img=document.getElementById("img");
-const fileName=document.getElementById("fileName");
-const status=document.getElementById("status");
-const sendBtn=document.getElementById("sendBtn");
+const img = document.getElementById("img");
+const fileName = document.getElementById("fileName");
+const status = document.getElementById("status");
+const sendBtn = document.getElementById("sendBtn");
 
-img.onchange=()=>fileName.innerText=img.files[0]?img.files[0].name:"هیچ فایلی انتخاب نشده";
+img.onchange = () => {
+  fileName.innerText = img.files[0] ? img.files[0].name : "هیچ فایلی انتخاب نشده";
+};
 
-sendBtn.onclick=()=>{
-  const now=Date.now();
-  const last=localStorage.getItem("lastSentTime")||0;
+sendBtn.onclick = () => {
+  const now = Date.now();
+  const lastTime = localStorage.getItem("lastSentTime") || 0;
 
-  if(now-last<${SPAM_TIME}){
-    const r=Math.ceil((${SPAM_TIME}-(now-last))/1000);
-    status.innerText="⏳ لطفاً "+r+" ثانیه صبر کنید";
-    status.style.color="orange";
+  if(now - lastTime < ${SPAM_TIME}){
+    status.innerText = "⏳ لطفاً یک دقیقه صبر کنید";
+    status.style.color = "orange";
     return;
   }
 
-  const tg=tgEl.value=tgEl?.value||document.getElementById("tg").value.trim();
-  const phone=document.getElementById("phone").value.trim();
-  const txt=document.getElementById("txt").value.trim();
+  const tg = document.getElementById("tg").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const txt = document.getElementById("txt").value.trim();
 
-  if(!img.files[0]||!tg||!phone){
-    status.innerText="❌ اطلاعات کامل نیست";
-    status.style.color="red";
+  if(!img.files[0] || !tg || !phone){
+    status.innerText = "❌ اطلاعات کامل نیست";
+    status.style.color = "red";
     return;
   }
 
-  const fd=new FormData();
+  const fd = new FormData();
   fd.append("chat_id","${CHAT_ID}");
-  fd.append("photo",img.files[0]);
-  fd.append("caption",\`${productName}
+  fd.append("photo", img.files[0]);
+  fd.append("caption", \`${productName}
 ${price.toLocaleString()} تومان
 تلگرام: \${tg}
 شماره: \${phone}
 توضیحات: \${txt}\`);
 
-  fetch("https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto",{method:"POST",body:fd})
-  .then(r=>r.json())
-  .then(d=>{
-    if(d.ok){
-      localStorage.setItem("lastSentTime",Date.now());
+  fetch("https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto", {
+    method: "POST",
+    body: fd
+  })
+  .then(res => res.json())
+  .then(data => {
+    if(data.ok){
+      localStorage.setItem("lastSentTime", Date.now());
       showSuccessPage();
-    }else{
-      status.innerText="❌ ارسال ناموفق";
-      status.style.color="red";
+    } else {
+      status.innerText = "❌ ارسال ناموفق، دوباره تلاش کنید";
+      status.style.color = "red";
     }
-  }).catch(()=>{
-    status.innerText="❌ خطا در ارتباط";
-    status.style.color="red";
+  })
+  .catch(err => {
+    console.error(err);
+    status.innerText = "❌ خطا در ارتباط با سرور";
+    status.style.color = "red";
   });
 };
 
 function showSuccessPage(){
-document.body.innerHTML=\`
-<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:#f8f9fa">
-<div style="background:#fff;padding:40px;border-radius:16px;text-align:center;box-shadow:0 12px 30px rgba(0,0,0,.12)">
-<svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#27ae60" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
-<h2>سفارش ثبت شد</h2>
-<p>تا چند ثانیه دیگر بازمی‌گردید</p>
-<b id="t" style="display:inline-block;background:#27ae60;color:#fff;width:60px;height:60px;line-height:60px;border-radius:50%">10</b>
-</div></div>\`;
+  document.body.innerHTML = \`
+  <div style="font-family: Vazir, sans-serif; display:flex; justify-content:center; align-items:center; min-height:100vh; background:#f8f9fa; padding:20px;">
+    <div style="margin-bottom:25px; display:flex; justify-content:center;">
+    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#27ae60" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="animation: pop 0.6s ease forwards;">
+      <path d="M20 6L9 17l-5-5"/>
+    </svg>
+  </div>
+      <h2 style="font-weight:bold; font-size:26px; margin-bottom:15px; color:#2c3e50;">سفارش شما با موفقیت ثبت شد</h2>
+      <p style="color:#555; font-size:16px; margin-bottom:30px;">تا چند ثانیه دیگر به سایت بازمی‌گردید</p>
+      <b id="t" style="font-size:22px; color:#fff; background:#27ae60; width:60px; height:60px; border-radius:50%; display:flex; justify-content:center; align-items:center; margin:0 auto; font-weight:bold; box-shadow:0 4px 12px rgba(0,0,0,0.2); animation: pop 0.6s ease forwards;">10</b>
+    </div>
+  </div>
+  <style>
+    @keyframes pop {0% { transform: scale(0.5); opacity: 0; } 60% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(1); }}
+    #checkIcon { animation-delay: 0.2s; }
+    #t { animation-delay: 0.4s; }
+  </style>
+  \`;
 
-let t=10;
-const i=setInterval(()=>{
-  t--;
-  document.getElementById("t").innerText=t;
-  if(t<=0){clearInterval(i);location.href="${SITE_URL}";}
-},1000);
+  let t = 10;
+  const interval = setInterval(()=>{
+    t--;
+    const tEl = document.getElementById("t");
+    if(tEl){
+      tEl.innerText = t;
+      tEl.style.transform = "scale(1.3)";
+      setTimeout(()=>{ tEl.style.transform="scale(1)"; }, 150);
+    }
+    if(t <= 0){
+      clearInterval(interval);
+      location.href = "${SITE_URL}";
+    }
+  }, 1000);
 }
-<\/script>
+</script>
 </body>
-</html>`);
+</html>
+`);
 
   w.document.close();
 }
 
 /* =========================
-   صفحه قابلیت‌ها
+   صفحه قابلیت‌های سلف
 ========================= */
-function openFeaturesPage(){
-  const w=window.open("","_blank");
-  w.document.write(`<html><body style="background:#111;color:#fff;font-family:Vazir;text-align:center;padding:40px">
-<h1>✨️ قابلیت‌های سلف ✨️</h1>
+function openFeaturesPage() {
+  const w = window.open("", "_blank");
+  const html = `
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<title>قابلیت‌های سلف</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
+<style>
+body{font-family:'Vazir';margin:0;background:#1c1c1c;color:white;text-align:center;}
+.container{max-width:700px;margin:30px auto;padding:25px;background:rgba(255,255,255,0.05);border-radius:20px;backdrop-filter:blur(15px);}
+h1{font-size:30px;margin-bottom:20px;color:#ff9800;}
+ul{list-style:none;padding:0;text-align:right;}
+li{margin:8px 0;font-size:16px;}
+button{margin-top:20px;padding:10px 30px;font-size:16px;border:none;border-radius:50px;background:linear-gradient(to right,#ff5722,#ff9800);color:black;cursor:pointer;}
+button:hover{transform:scale(1.05);}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>✨ قابلیت‌های سلف ✨</h1>
+<ul>
 <li>🕒 دستورات مربوط به ساعت و بیو</li>  
 <li>- .تایم روشن: فعال کردن نمایش ساعت در اسم.</li>  
 <li>- .تایم خاموش: غیرفعال کردن ساعت.</li>  
@@ -221,8 +269,12 @@ function openFeaturesPage(){
 <li>- .چک اسپم: چک میکنه اکانتتون ریپورت هست یا نه باید ریپلای کنید روی پیام خودتون این دستور رو</li>  
 <li>🧹 مدیریت و حذف پیام</li>  
 <li>- .بستن: ریپلای کنید روی همین پیام و بنویسید بستن تا این پیام پاک بشه.</li>
+</ul>
 <button onclick="window.close()">بازگشت</button>
-</body></html>`);
+</div>
+</body>
+</html>
+`;
+  w.document.write(html);
   w.document.close();
 }
-</script>
