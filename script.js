@@ -45,7 +45,7 @@ h3{text-align:center;margin-top:0}
   border-radius:14px;
   text-align:center;
   margin-bottom:15px;
-  font-size:14px
+  font-size:14px;
 }
 .upload{
   border:2px dashed #ccc;
