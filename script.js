@@ -4,14 +4,14 @@
 const BOT_TOKEN = "7408423935:AAH9nkoZg7ykqQMGKDeitIiOtu6uYZl0Vxg";
 const CHAT_ID  = "7549513123";
 const SITE_URL = "https://sidkashop.qzz.io";
-const SPAM_TIME = 60 * 1000;
+const SPAM_TIME = 60 * 1000; // محدودیت ارسال
 
 /**********************
  PAYMENT PAGE
 **********************/
 function openPaymentPage(productName, price) {
   const w = window.open("", "_blank");
-  if (!w) return alert("Popup Blocked");
+  if(!w) return alert("لطفا پاپ‌آپ را فعال کنید");
 
   w.document.open();
   w.document.write(`<!DOCTYPE html>
@@ -40,14 +40,8 @@ body{
   border-radius:26px;
   box-shadow:0 25px 60px rgba(0,0,0,.18)
 }
-h3{text-align:center;margin:0}
-.price{
-  text-align:center;
-  margin:12px 0;
-  font-size:20px;
-  color:#27ae60;
-  font-weight:bold
-}
+h3{text-align:center;margin:0 0 10px}
+.price{text-align:center;margin:12px 0;font-size:20px;color:#27ae60;font-weight:bold}
 .bank{
   background:#f6f7f9;
   padding:16px;
@@ -91,36 +85,29 @@ button{
   cursor:pointer
 }
 button:disabled{opacity:.6}
-#status{text-align:center;margin-top:10px;font-size:13px}
+#status{text-align:center;margin-top:10px;font-size:13px;color:#333}
 </style>
 </head>
 <body>
-
 <div class="card" id="app"></div>
-
 <script>
 const app = document.getElementById("app");
-
 app.innerHTML = \`
 <h3>${productName}</h3>
 <div class="price">${price.toLocaleString()} تومان</div>
-
 <div class="bank">
 واریز به کارت<br>
 <b>6037 9982 2227 6759</b><br>
 امیرمحمد یوسفی
 </div>
-
 <label class="upload">
 📤 آپلود تصویر رسید
 <span id="fileName">هیچ فایلی انتخاب نشده</span>
 <input type="file" id="img" accept="image/*">
 </label>
-
 <input id="tg" placeholder="آیدی تلگرام">
 <input id="phone" placeholder="شماره تماس">
 <textarea id="txt" placeholder="توضیحات (اختیاری)"></textarea>
-
 <button id="sendBtn">ارسال رسید</button>
 <div id="status"></div>
 \`;
@@ -129,96 +116,62 @@ const img = app.querySelector("#img");
 const fileName = app.querySelector("#fileName");
 const sendBtn = app.querySelector("#sendBtn");
 const status = app.querySelector("#status");
+const tg = app.querySelector("#tg");
+const phone = app.querySelector("#phone");
+const txt = app.querySelector("#txt");
 
-img.onchange = () => {
-  fileName.innerText = img.files[0]?.name || "هیچ فایلی انتخاب نشده";
-};
+img.onchange = () => { fileName.innerText = img.files[0]?.name || "هیچ فایلی انتخاب نشده"; }
 
 sendBtn.onclick = () => {
   const now = Date.now();
   const last = +localStorage.getItem("lastSentTime") || 0;
-  if (now - last < ${SPAM_TIME})
-    return status.innerText = "⏳ لطفا کمی صبر کنید";
+  if(now - last < ${SPAM_TIME}) {
+    const wait = Math.ceil((${SPAM_TIME}-(now-last))/1000);
+    status.innerText = "⏳ لطفا " + wait + " ثانیه صبر کنید";
+    return;
+  }
 
-  if (!img.files[0] || !tg.value || !phone.value)
-    return status.innerText = "❌ اطلاعات ناقص است";
+  if(!img.files[0] || !tg.value || !phone.value){
+    status.innerText = "❌ اطلاعات ناقص است"; return;
+  }
 
-  sendBtn.disabled = true;
-  status.innerText = "⏳ در حال ارسال...";
+  sendBtn.disabled=true;
+  status.innerText="⏳ در حال ارسال...";
 
   const fd = new FormData();
   fd.append("chat_id","${CHAT_ID}");
   fd.append("photo",img.files[0]);
-  fd.append("caption",
-\`${productName}
+  fd.append("caption",\`${productName}
 ${price.toLocaleString()} تومان
 تلگرام: \${tg.value}
 شماره: \${phone.value}
-\${txt.value}\`
-  );
+\${txt.value ? "توضیحات: "+txt.value : ""}\`);
 
-  fetch("https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto",{
-    method:"POST",body:fd
-  })
+  fetch("https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto",{method:"POST",body:fd})
   .then(r=>r.json())
   .then(d=>{
     if(!d.ok) throw 0;
     localStorage.setItem("lastSentTime",Date.now());
     showSuccess();
   })
-  .catch(()=>{
-    status.innerText="❌ خطا در ارسال";
-    sendBtn.disabled=false;
-  });
+  .catch(()=>{status.innerText="❌ خطا در ارسال"; sendBtn.disabled=false;});
 };
 
 /**********************
- SUCCESS PAGE (ULTRA)
+ SUCCESS PAGE
 **********************/
 function showSuccess(){
+const n=5;
 document.body.innerHTML=\`
 <style>
-body{
-  margin:0;
-  font-family:Vazir;
-  background:radial-gradient(circle at top,#2ecc71,#27ae60);
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center
-}
-.box{
-  background:#fff;
-  width:100%;
-  max-width:460px;
-  padding:45px 30px;
-  border-radius:30px;
-  text-align:center;
-  box-shadow:0 35px 80px rgba(0,0,0,.3);
-  animation:scale .6s ease
-}
+body{margin:0;font-family:Vazir;background:radial-gradient(circle,#2ecc71,#27ae60);display:flex;justify-content:center;align-items:center;min-height:100vh;}
+.box{background:#fff;width:100%;max-width:460px;padding:45px 30px;border-radius:30px;text-align:center;box-shadow:0 35px 80px rgba(0,0,0,.3);animation:scale .6s ease;}
 @keyframes scale{from{opacity:0;transform:scale(.9)}}
 .check{width:120px;height:120px;margin:0 auto 20px}
 h2{margin:0}
-.info{
-  margin:20px 0;
-  background:#f4f6f8;
-  padding:16px;
-  border-radius:18px;
-  font-size:14px
-}
-.progress{
-  height:6px;
-  background:#e0e0e0;
-  border-radius:10px;
-  overflow:hidden
-}
-.bar{
-  height:100%;
-  width:0;
-  background:linear-gradient(90deg,#27ae60,#2ecc71);
-  animation:load 5s linear forwards
-}
+.info{margin:20px 0;background:#f4f6f8;padding:16px;border-radius:18px;font-size:14px}
+.progress{height:6px;background:#e0e0e0;border-radius:10px;overflow:hidden}
+.bar{height:100%;width:0;background:linear-gradient(90deg,#27ae60,#2ecc71);animation:load ${n}s linear forwards}
 @keyframes load{to{width:100%}}
 </style>
 
@@ -230,27 +183,25 @@ stroke-dasharray="100" stroke-dashoffset="100"
 d="M14 27 L23 35 L38 18"
 style="animation:draw .6s ease forwards .3s"/>
 </svg>
-
 <h2>پرداخت ثبت شد</h2>
 <p>در انتظار بررسی</p>
-
-<div class="info">
-مبلغ: <b>${price.toLocaleString()} تومان</b>
-</div>
-
+<div class="info">مبلغ: <b>${price.toLocaleString()} تومان</b></div>
 <div class="progress"><div class="bar"></div></div>
-<p style="margin-top:15px;font-size:13px">بازگشت خودکار...</p>
-</div>
-
+<p style="margin-top:15px;font-size:13px">بازگشت خودکار در <span id="t">${n}</span> ثانیه...</p>
 <style>@keyframes draw{to{stroke-dashoffset:0}}</style>
+</div>
 \`;
 
-setTimeout(()=>location.href="${SITE_URL}",5000);
+let t=n;
+const interval = setInterval(()=>{
+  t--; document.getElementById("t").innerText=t;
+  if(t<=0){clearInterval(interval);location.href="${SITE_URL}";}
+},1000);
 }
 </script>
 </body>
 </html>`);
-  w.document.close();
+w.document.close();
 }
 
 /**********************
@@ -258,7 +209,7 @@ setTimeout(()=>location.href="${SITE_URL}",5000);
 **********************/
 function openFeaturesPage(){
   const w = window.open("", "_blank");
-  if(!w) return alert("Popup Blocked");
+  if(!w) return alert("لطفا پاپ‌آپ را فعال کنید");
 
   w.document.open();
   w.document.write(`<!DOCTYPE html>
@@ -269,41 +220,16 @@ function openFeaturesPage(){
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
 <style>
-body{
-  margin:0;
-  font-family:Vazir;
-  background:#0f0f0f;
-  color:#fff;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  min-height:100vh
-}
-.card{
-  width:100%;
-  max-width:600px;
-  background:#1c1c1c;
-  padding:30px;
-  border-radius:26px
-}
-h2{text-align:center;margin-top:0}
+body{margin:0;font-family:Vazir;background:#0f0f0f;color:#fff;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.card{width:100%;max-width:600px;background:#1c1c1c;padding:30px;border-radius:26px;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+h2{text-align:center;margin-top:0;color:#ff9800}
 ul{padding:0;list-style:none}
-li{margin:10px 0;font-size:15px}
-.btn{
-  display:block;
-  margin:30px auto 0;
-  padding:12px 36px;
-  border:none;
-  border-radius:50px;
-  font-family:Vazir;
-  font-size:15px;
-  background:#ff9800;
-  cursor:pointer
-}
+li{margin:10px 0;font-size:15px;line-height:1.5}
+.btn{display:block;margin:30px auto 0;padding:12px 36px;border:none;border-radius:50px;font-family:Vazir;font-size:15px;background:#ff9800;color:#fff;cursor:pointer;transition:.3s}
+.btn:hover{transform:scale(1.05);box-shadow:0 4px 20px rgba(255,152,0,.6)}
 </style>
 </head>
 <body>
-
 <div class="card">
 <h2>✨ قابلیت‌های سلف ✨️</h2>
 <ul>
@@ -384,18 +310,12 @@ li{margin:10px 0;font-size:15px}
 <li>🧹 مدیریت و حذف پیام</li>  
 <li>- .بستن: ریپلای کنید روی همین پیام و بنویسید بستن تا این پیام پاک بشه.</li>
 </ul>
-
 <button class="btn" onclick="safeClose()">بازگشت</button>
-</div>
-
 <script>
-function safeClose(){
-  if(window.opener) window.close();
-  else location.href="${SITE_URL}";
-}
+function safeClose(){if(window.opener) window.close(); else location.href="${SITE_URL}";}
 </script>
-
+</div>
 </body>
 </html>`);
-  w.document.close();
+w.document.close();
 }
