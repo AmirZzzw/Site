@@ -1,18 +1,12 @@
-/* =========================
-   تنظیمات
-========================= */
 const BOT_TOKEN = "7408423935:AAH9nkoZg7ykqQMGKDeitIiOtu6uYZl0Vxg";
 const CHAT_ID  = "7549513123";
 const SITE_URL = "https://sidkashop.qzz.io";
+const SPAM_TIME = 60 * 1000;
 
-const SPAM_TIME = 60 * 1000; // 1 دقیقه
-
-/* =========================
-   صفحه پرداخت
-========================= */
 function openPaymentPage(productName, price) {
   const w = window.open("", "_blank");
 
+  w.document.open();
   w.document.write(`
 <!DOCTYPE html>
 <html lang="fa">
@@ -22,147 +16,121 @@ function openPaymentPage(productName, price) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Vazir';background:#f1f2f4;display:flex;justify-content:center;align-items:center;min-height:100vh}
+body{font-family:Vazir;background:#f1f2f4;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0}
 .card{background:#fff;width:100%;max-width:420px;padding:30px;border-radius:16px;box-shadow:0 8px 25px rgba(0,0,0,.1)}
-h3{text-align:center;margin-bottom:10px}
-.price{text-align:center;color:#27ae60;margin-bottom:15px;font-weight:bold}
+h3{text-align:center}
+.price{text-align:center;color:#27ae60;margin:10px 0;font-weight:bold}
 .bank{background:#f7f7f7;border-radius:12px;padding:12px;text-align:center;font-size:14px;margin-bottom:15px}
-.upload{border:1.5px dashed #bbb;border-radius:12px;padding:15px;text-align:center;font-size:14px;margin-bottom:10px}
+.upload{border:1.5px dashed #bbb;border-radius:12px;padding:15px;text-align:center;margin-bottom:10px}
 .upload input{display:none}
-.upload label{cursor:pointer}
-input,textarea{width:100%;margin-top:8px;padding:10px;border-radius:12px;border:1px solid #ccc;font-family:'Vazir'}
+input,textarea,button{width:100%;margin-top:8px;padding:10px;border-radius:12px;border:1px solid #ccc;font-family:Vazir}
 textarea{resize:none}
-button{width:100%;margin-top:15px;padding:12px;border:none;border-radius:14px;background:#ff9800;font-weight:bold;cursor:pointer}
-button:disabled{opacity:.6;cursor:not-allowed}
+button{background:#ff9800;border:none;font-weight:bold;cursor:pointer}
+button:disabled{opacity:.6}
 #status{text-align:center;font-size:13px;margin-top:10px}
 </style>
 </head>
 <body>
 
-<div class="card">
-  <h3>${productName}</h3>
-  <div class="price">${price.toLocaleString()} تومان</div>
-
-  <div class="bank">
-    واریز به کارت<br>
-    <b>6037 9982 2227 6759</b><br>
-    امیرمحمد یوسفی
-  </div>
-
-  <div class="upload">
-    <label for="img">📤 انتخاب تصویر رسید</label>
-    <div id="fileName">هیچ فایلی انتخاب نشده</div>
-    <input type="file" id="img" accept="image/*">
-  </div>
-
-  <input id="tg" placeholder="آیدی تلگرام">
-  <input id="phone" placeholder="شماره تماس">
-  <textarea id="txt" placeholder="توضیحات (اختیاری)"></textarea>
-
-  <button id="sendBtn">ارسال رسید</button>
-  <div id="status"></div>
-</div>
+<div class="card" id="app"></div>
 
 <script>
-// ===== گرفتن المنت‌ها (مهم: اول تعریف شده) =====
-const img = document.getElementById("img");
-const fileName = document.getElementById("fileName");
-const status = document.getElementById("status");
-const sendBtn = document.getElementById("sendBtn");
+(function(){
+  const app = document.getElementById("app");
 
-const tgEl = document.getElementById("tg");
-const phoneEl = document.getElementById("phone");
-const txtEl = document.getElementById("txt");
+  app.innerHTML = \`
+    <h3>${productName}</h3>
+    <div class="price">${price.toLocaleString()} تومان</div>
 
-// ===== انتخاب فایل =====
-img.onchange = () => {
-  fileName.innerText = img.files[0]?.name || "هیچ فایلی انتخاب نشده";
-};
+    <div class="bank">
+      واریز به کارت<br>
+      <b>6037 9982 2227 6759</b><br>
+      امیرمحمد یوسفی
+    </div>
 
-// ===== ارسال =====
-sendBtn.onclick = () => {
-  const now = Date.now();
-  const last = Number(localStorage.getItem("lastSentTime") || 0);
+    <div class="upload">
+      <label>
+        📤 انتخاب تصویر رسید
+        <input type="file" id="img" accept="image/*">
+      </label>
+      <div id="fileName">هیچ فایلی انتخاب نشده</div>
+    </div>
 
-  if (now - last < ${SPAM_TIME}) {
-    const sec = Math.ceil((${SPAM_TIME} - (now - last)) / 1000);
-    status.innerText = "⏳ لطفاً " + sec + " ثانیه صبر کنید";
-    status.style.color = "orange";
-    return;
-  }
+    <input id="tg" placeholder="آیدی تلگرام">
+    <input id="phone" placeholder="شماره تماس">
+    <textarea id="txt" placeholder="توضیحات (اختیاری)"></textarea>
 
-  const tg = tgEl.value.trim();
-  const phone = phoneEl.value.trim();
-  const txt = txtEl.value.trim();
+    <button id="sendBtn">ارسال رسید</button>
+    <div id="status"></div>
+  \`;
 
-  if (!img.files[0] || !tg || !phone) {
-    status.innerText = "❌ اطلاعات کامل نیست";
-    status.style.color = "red";
-    return;
-  }
+  const img = app.querySelector("#img");
+  const fileName = app.querySelector("#fileName");
+  const sendBtn = app.querySelector("#sendBtn");
+  const status = app.querySelector("#status");
 
-  sendBtn.disabled = true;
-  status.innerText = "⏳ در حال ارسال...";
-  status.style.color = "orange";
+  img.onchange = () => {
+    fileName.innerText = img.files[0]?.name || "هیچ فایلی انتخاب نشده";
+  };
 
-  // ===== کپشن هوشمند =====
-  let caption =
+  sendBtn.onclick = () => {
+    const now = Date.now();
+    const last = Number(localStorage.getItem("lastSentTime") || 0);
+
+    if (now - last < ${SPAM_TIME}) {
+      const s = Math.ceil((${SPAM_TIME} - (now - last)) / 1000);
+      status.innerText = "⏳ " + s + " ثانیه صبر کنید";
+      return;
+    }
+
+    const tg = app.querySelector("#tg").value.trim();
+    const phone = app.querySelector("#phone").value.trim();
+    const txt = app.querySelector("#txt").value.trim();
+
+    if (!img.files[0] || !tg || !phone) {
+      status.innerText = "❌ اطلاعات کامل نیست";
+      return;
+    }
+
+    sendBtn.disabled = true;
+    status.innerText = "⏳ در حال ارسال...";
+
+    let caption =
 \`${productName}
 ${price.toLocaleString()} تومان
 آیدی تلگرام: ${tg}
 شماره: ${phone}\`;
 
-  if (txt) {
-    caption += "\\nتوضیحات: " + txt;
-  }
+    if (txt) caption += "\\nتوضیحات: " + txt;
 
-  const fd = new FormData();
-  fd.append("chat_id", "${CHAT_ID}");
-  fd.append("photo", img.files[0]);
-  fd.append("caption", caption);
+    const fd = new FormData();
+    fd.append("chat_id","${CHAT_ID}");
+    fd.append("photo", img.files[0]);
+    fd.append("caption", caption);
 
-  fetch("https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto", {
-    method: "POST",
-    body: fd
-  })
-  .then(r => r.json())
-  .then(d => {
-    if (!d.ok) throw "";
-    localStorage.setItem("lastSentTime", Date.now());
-    successPage();
-  })
-  .catch(() => {
-    status.innerText = "❌ خطا در ارسال";
-    status.style.color = "red";
-    sendBtn.disabled = false;
-  });
-};
-
-// ===== صفحه موفقیت =====
-function successPage(){
-  document.body.innerHTML = \`
-  <div style="font-family:Vazir;display:flex;justify-content:center;align-items:center;min-height:100vh">
-    <div style="background:#fff;padding:40px;border-radius:16px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.15)">
-      <h2 style="color:#27ae60;margin-bottom:10px">✅ سفارش با موفقیت ثبت شد</h2>
-      <p>بازگشت به سایت تا <b id="t">10</b> ثانیه دیگر</p>
-    </div>
-  </div>\`;
-
-  let t = 10;
-  const i = setInterval(()=>{
-    document.getElementById("t").innerText = --t;
-    if(t <= 0){
-      clearInterval(i);
-      location.href = "${SITE_URL}";
-    }
-  },1000);
-}
+    fetch("https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto", {
+      method:"POST",
+      body:fd
+    })
+    .then(r=>r.json())
+    .then(d=>{
+      if(!d.ok) throw "";
+      localStorage.setItem("lastSentTime",Date.now());
+      document.body.innerHTML =
+        "<h2 style='font-family:Vazir;text-align:center'>✅ ثبت شد<br>در حال بازگشت...</h2>";
+      setTimeout(()=>location.href="${SITE_URL}",3000);
+    })
+    .catch(()=>{
+      status.innerText="❌ خطا";
+      sendBtn.disabled=false;
+    });
+  };
+})();
 </script>
 
 </body>
 </html>
-`);
+  `);
   w.document.close();
 }
 
