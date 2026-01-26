@@ -22,20 +22,20 @@ function openPaymentPage(productName, price) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Vazir',sans-serif;background:#f1f2f4;display:flex;justify-content:center;align-items:center;min-height:100vh;}
-.card{background:#fff;width:100%;max-width:420px;padding:30px;border-radius:16px;box-shadow:0 8px 25px rgba(0,0,0,.1);}
-h3{text-align:center;margin-bottom:10px;font-size:24px;}
-.price{text-align:center;color:#27ae60;margin-bottom:15px;font-weight:bold;font-size:18px;}
-.bank{background:#f7f7f7;border-radius:12px;padding:12px;text-align:center;font-size:14px;margin-bottom:15px;}
-.upload{border:1.5px dashed #bbb;border-radius:12px;padding:15px;text-align:center;font-size:14px;margin-bottom:10px;}
-.upload input{display:none;}
-.upload label{cursor:pointer;}
-input,textarea{width:100%;margin-top:8px;padding:10px;border-radius:12px;border:1px solid #ccc;font-family:'Vazir';font-size:14px;}
-textarea{resize:none;}
-button{width:100%;margin-top:15px;padding:12px;border:none;border-radius:14px;background:#ff9800;font-size:15px;font-weight:bold;cursor:pointer;}
-button:disabled{opacity:.6;cursor:not-allowed;}
-#status{text-align:center;font-size:13px;margin-top:10px;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Vazir';background:#f1f2f4;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.card{background:#fff;width:100%;max-width:420px;padding:30px;border-radius:16px;box-shadow:0 8px 25px rgba(0,0,0,.1)}
+h3{text-align:center;margin-bottom:10px}
+.price{text-align:center;color:#27ae60;margin-bottom:15px;font-weight:bold}
+.bank{background:#f7f7f7;border-radius:12px;padding:12px;text-align:center;font-size:14px;margin-bottom:15px}
+.upload{border:1.5px dashed #bbb;border-radius:12px;padding:15px;text-align:center;font-size:14px;margin-bottom:10px}
+.upload input{display:none}
+.upload label{cursor:pointer}
+input,textarea{width:100%;margin-top:8px;padding:10px;border-radius:12px;border:1px solid #ccc;font-family:'Vazir'}
+textarea{resize:none}
+button{width:100%;margin-top:15px;padding:12px;border:none;border-radius:14px;background:#ff9800;font-weight:bold;cursor:pointer}
+button:disabled{opacity:.6;cursor:not-allowed}
+#status{text-align:center;font-size:13px;margin-top:10px}
 </style>
 </head>
 <body>
@@ -76,18 +76,18 @@ img.onchange = () => {
 
 sendBtn.onclick = () => {
   const now = Date.now();
-  const lastTime = Number(localStorage.getItem("lastSentTime") || 0);
+  const last = Number(localStorage.getItem("lastSentTime") || 0);
 
-  if (now - lastTime < ${SPAM_TIME}) {
-    const remaining = Math.ceil((${SPAM_TIME} - (now - lastTime)) / 1000);
-    status.innerText = "⏳ لطفاً " + remaining + " ثانیه صبر کنید";
+  if (now - last < ${SPAM_TIME}) {
+    const sec = Math.ceil((${SPAM_TIME} - (now - last)) / 1000);
+    status.innerText = "⏳ لطفاً " + sec + " ثانیه صبر کنید";
     status.style.color = "orange";
     return;
   }
 
-  const tg = document.getElementById("tg").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  const txt = document.getElementById("txt").value.trim();
+  const tg = tgEl.value.trim();
+  const phone = phoneEl.value.trim();
+  const txt = txtEl.value.trim();
 
   if (!img.files[0] || !tg || !phone) {
     status.innerText = "❌ اطلاعات کامل نیست";
@@ -105,9 +105,7 @@ ${price.toLocaleString()} تومان
 آیدی تلگرام: ${tg}
 شماره: ${phone}\`;
 
-  if (txt) {
-    caption += "\\nتوضیحات: " + txt;
-  }
+  if (txt) caption += "\\nتوضیحات: " + txt;
 
   const fd = new FormData();
   fd.append("chat_id", "${CHAT_ID}");
@@ -118,40 +116,40 @@ ${price.toLocaleString()} تومان
     method: "POST",
     body: fd
   })
-  .then(res => res.json())
-  .then(data => {
-    if (data.ok) {
-      localStorage.setItem("lastSentTime", Date.now());
-      showSuccessPage();
-    } else {
-      throw new Error();
-    }
+  .then(r => r.json())
+  .then(d => {
+    if (!d.ok) throw "";
+    localStorage.setItem("lastSentTime", Date.now());
+    success();
   })
   .catch(() => {
-    status.innerText = "❌ خطا در ارسال اطلاعات";
+    status.innerText = "❌ خطا در ارسال";
     status.style.color = "red";
     sendBtn.disabled = false;
   });
 };
 
-function showSuccessPage(){
+const tgEl = document.getElementById("tg");
+const phoneEl = document.getElementById("phone");
+const txtEl = document.getElementById("txt");
+
+function success(){
   document.body.innerHTML = \`
-  <div style="font-family:Vazir;display:flex;justify-content:center;align-items:center;min-height:100vh;">
-    <div style="background:#fff;padding:40px;border-radius:16px;text-align:center;max-width:400px;width:100%;box-shadow:0 10px 30px rgba(0,0,0,.15)">
-      <h2 style="color:#27ae60;margin-bottom:15px;">✅ سفارش ثبت شد</h2>
-      <p>بازگشت به سایت تا <b id="t">10</b> ثانیه دیگر</p>
+  <div style="font-family:Vazir;display:flex;justify-content:center;align-items:center;min-height:100vh">
+    <div style="background:#fff;padding:40px;border-radius:16px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.15)">
+      <h2 style="color:#27ae60">✅ سفارش ثبت شد</h2>
+      <p>بازگشت تا <b id="t">10</b> ثانیه دیگر</p>
     </div>
   </div>\`;
 
   let t = 10;
-  const i = setInterval(() => {
-    t--;
-    document.getElementById("t").innerText = t;
-    if (t <= 0) {
+  const i = setInterval(()=>{
+    document.getElementById("t").innerText = --t;
+    if(t <= 0){
       clearInterval(i);
       location.href = "${SITE_URL}";
     }
-  }, 1000);
+  },1000);
 }
 </script>
 </body>
@@ -165,7 +163,7 @@ function showSuccessPage(){
 ========================= */
 function openFeaturesPage() {
   const w = window.open("", "_blank");
-  const html = `
+  w.document.write(`
 <!DOCTYPE html>
 <html lang="fa">
 <head>
@@ -174,13 +172,12 @@ function openFeaturesPage() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
 <style>
-body{font-family:'Vazir';margin:0;background:#1c1c1c;color:white;text-align:center;}
-.container{max-width:700px;margin:30px auto;padding:25px;background:rgba(255,255,255,0.05);border-radius:20px;backdrop-filter:blur(15px);}
-h1{font-size:30px;margin-bottom:20px;color:#ff9800;}
-ul{list-style:none;padding:0;text-align:right;}
-li{margin:8px 0;font-size:16px;}
-button{margin-top:20px;padding:10px 30px;font-size:16px;border:none;border-radius:50px;background:linear-gradient(to right,#ff5722,#ff9800);color:black;cursor:pointer;}
-button:hover{transform:scale(1.05);}
+body{font-family:'Vazir';background:#1c1c1c;color:#fff;text-align:center}
+.container{max-width:700px;margin:30px auto;padding:25px;background:rgba(255,255,255,.05);border-radius:20px}
+h1{color:#ff9800;margin-bottom:20px}
+ul{text-align:right;list-style:none;padding:0}
+li{margin:6px 0;font-size:15px}
+button{margin-top:20px;padding:10px 30px;border:none;border-radius:30px;background:#ff9800;cursor:pointer}
 </style>
 </head>
 <body>
@@ -268,7 +265,6 @@ button:hover{transform:scale(1.05);}
 </div>
 </body>
 </html>
-`;
-  w.document.write(html);
+`);
   w.document.close();
 }
