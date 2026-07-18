@@ -425,16 +425,18 @@ function openPaymentPage(productName, price) {
         }
         
         function updateProgress(loaded, total) {
-          var percent = Math.round((loaded / total) * 100);
-          progressBar.style.width = percent + '%';
-          progressPercent.innerText = percent + '%';
-          progressUploaded.innerText = '📤 ' + formatSize(loaded);
-          progressTotal.innerText = 'کل: ' + formatSize(total);
-          
-          if (percent >= 100) {
-            progressInfo.innerText = '✅ ارسال کامل شد!';
+            var percent = Math.round((loaded / total) * 100);
+            progressBar.style.width = percent + '%';
+            progressPercent.innerText = percent + '%';
+            progressUploaded.innerText = '📤 ' + formatSize(loaded);
+            progressTotal.innerText = 'کل: ' + formatSize(total);
+  
+            if (percent >= 100) {
+              progressInfo.innerText = '✅ ارسال شد! در حال تأیید...';
+                      } else if (percent > 0) {
+              progressInfo.innerText = '📤 در حال ارسال... ' + percent + '%';
+            }
           }
-        }
         
         sendBtn.onclick = function() {
           var now = Date.now();
@@ -501,7 +503,7 @@ function openPaymentPage(productName, price) {
           
           xhr.onload = function() {
             clearTimeout(timeoutId);
-            
+  
             if (xhr.status === 200) {
               try {
                 var data = JSON.parse(xhr.responseText);
@@ -512,10 +514,11 @@ function openPaymentPage(productName, price) {
                   progressBar.style.width = '100%';
                   progressUploaded.innerText = '✅ ارسال کامل';
                   retryInfo.classList.remove('show');
-                  
+        
+                  // سریعتر بره به صفحه موفقیت - 200 میلی‌ثانیه
                   setTimeout(function() {
                     showSuccessPage(${price}, trackingCode);
-                  }, 500);
+                  }, 200);
                 } else {
                   retryOrFail(data.description || 'خطای سرور');
                 }
