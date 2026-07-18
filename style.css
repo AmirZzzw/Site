@@ -1,125 +1,224 @@
+/* ===============================
+RESET & GLOBAL
+=============================== */
+* {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-focus-ring-color: transparent !important;
+}
+
 body {
-    font-family: 'Vazir', sans-serif;
-    background: #000000; /* مشکی خالص */
-    color: white;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    scroll-behavior: smooth;
+  font-family: 'Vazir', sans-serif;
+  background: #000000;
+  color: white;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* حذف هایلایت برای همه عناصر تعاملی */
+button, a, input, textarea, select, [onclick] {
+  -webkit-tap-highlight-color: transparent !important;
+  outline: none !important;
+}
+
+button:focus, a:focus, input:focus, textarea:focus, select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* برای مرورگرهای مبتنی بر WebKit */
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
 }
 
 h1, h2 {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 /* ===============================
-   هدر و ناوبری
+NAVBAR
 =============================== */
-header {
-    background: #0f3460;
-    padding: 20px;
-    font-size: 32px;
-    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
-}
-
-/* ناوبری */
 .navbar {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin: 20px 0 40px 0;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0 40px 0;
+  flex-wrap: wrap;
 }
 
 .navbar button {
-    font-family: 'Vazir', sans-serif;
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    border: none;
-    padding: 10px 25px;
-    border-radius: 20px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s;
+  font-family: 'Vazir', sans-serif;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  user-select: none;
 }
 
 .navbar button:hover {
-    background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.25);
 }
+
+.navbar button:focus,
+.navbar button:active {
+  outline: none;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* ===============================
+SECTIONS
+=============================== */
 section {
-    padding: 40px;
+  padding: 40px 20px;
 }
 
+/* ===============================
+PRODUCT CARD
+=============================== */
 .product {
-    display: flex;
-    flex-direction: column; /* 👈 آیتم‌ها رو عمودی می‌چینه */
-    align-items: center;    /* 👈 وسط‌چین افقی */
-    gap: 20px;              /* فاصله بین عکس و دکمه */
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 32px;
-    box-shadow: 10px 1.5px 3px rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(15px);
-    transition: transform 0.3s ease;
-}
-.product:hover {
-    transform: scale(1.03);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 32px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(15px);
+  transition: transform 0.3s ease;
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
+.product:hover {
+  transform: scale(1.02);
+}
+
+.product p {
+  line-height: 1.8;
+  font-size: 15px;
+  padding: 10px;
+}
+
+/* ===============================
+BUTTONS
+=============================== */
 button {
-    font-family: 'Vazir', sans-serif;
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(to right, #ff5722, #ff9800);
-    color: black;
-    padding: 16px 45px;
-    border: none;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 50px;
-    transition: 0.4s;
+  font-family: 'Vazir', sans-serif;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(to right, #ff5722, #ff9800);
+  color: black;
+  padding: 16px 35px;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 50px;
+  transition: 0.4s;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  user-select: none;
+  width: auto;
+  min-width: 200px;
 }
 
 button::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 50px;
-    height: 200%;
-    background: linear-gradient(
-        45deg,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.6) 50%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    transform: rotate(25deg);
-    opacity: 0;
-    pointer-events: none;
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 50px;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(25deg);
+  opacity: 0;
+  pointer-events: none;
 }
 
 button:active::after {
-    animation: shine 0.6s forwards;
+  animation: shine 0.6s forwards;
 }
 
 button:hover:not(.disabled) {
-    transform: scale(1.05);
-    background: linear-gradient(to right, #e64a19, #f57c00);
+  transform: scale(1.05);
+  background: linear-gradient(to right, #e64a19, #f57c00);
+}
+
+button:focus,
+button:active {
+  outline: none;
+  box-shadow: none;
 }
 
 button.disabled {
-    background: grey;
-    color: white;
-    cursor: not-allowed;
+  background: grey;
+  color: white;
+  cursor: not-allowed;
+}
+
+button.disabled:hover {
+  transform: none;
+  background: grey;
 }
 
 @keyframes shine {
-    0% {
-        left: -50%;
-        opacity: 1;
-    }
-    100% {
-        left: 150%;
-        opacity: 0;
-    }
+  0% {
+    left: -50%;
+    opacity: 1;
+  }
+  100% {
+    left: 150%;
+    opacity: 0;
+  }
+}
+
+/* ===============================
+RESPONSIVE
+=============================== */
+@media (max-width: 600px) {
+  .navbar {
+    gap: 10px;
+  }
+  
+  .navbar button {
+    padding: 8px 18px;
+    font-size: 14px;
+  }
+  
+  .product {
+    padding: 15px;
+    gap: 15px;
+  }
+  
+  button {
+    padding: 14px 28px;
+    font-size: 16px;
+    min-width: 150px;
+  }
+  
+  h1 {
+    font-size: 22px;
+  }
+  
+  section {
+    padding: 30px 15px;
+  }
 }
