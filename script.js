@@ -58,6 +58,50 @@ function openPaymentPage(productName, price) {
         
         .price span { font-size: 13px; color: #9ca0ab; font-weight: normal; }
         
+        .vpn-notice {
+          background: linear-gradient(135deg, rgba(255,152,0,.15), rgba(255,87,34,.1));
+          border: 1px solid rgba(255,152,0,.3);
+          border-radius: 12px;
+          padding: 12px 16px;
+          text-align: center;
+          margin-bottom: 20px;
+          font-size: 12px;
+          color: #ffb347;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          animation: glow 2s ease-in-out infinite;
+        }
+        
+        .vpn-notice .icon {
+          font-size: 20px;
+          animation: bounce 1s ease-in-out infinite;
+        }
+        
+        .vpn-notice .text {
+          line-height: 1.6;
+        }
+        
+        .vpn-notice .highlight {
+          color: #ff9800;
+          font-weight: bold;
+          background: rgba(255,152,0,.2);
+          padding: 2px 8px;
+          border-radius: 6px;
+          white-space: nowrap;
+        }
+        
+        @keyframes glow {
+          0%, 100% { box-shadow: 0 0 5px rgba(255,152,0,.2), 0 0 10px rgba(255,152,0,.1); }
+          50% { box-shadow: 0 0 15px rgba(255,152,0,.4), 0 0 25px rgba(255,152,0,.2); }
+        }
+        
+        @keyframes bounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-5px); }
+        }
+        
         .bank {
           background: #2a2d35;
           padding: 15px;
@@ -128,6 +172,7 @@ function openPaymentPage(productName, price) {
           color: #e1e3e8;
         }
         
+        input::placeholder, textarea::placeholder { color: #5a5e6a; }
         input:focus, textarea:focus { border-color: #ff9800; }
         textarea { resize: none; height: 70px; }
         
@@ -206,12 +251,18 @@ function openPaymentPage(productName, price) {
         
         #status.error { color: #e74c3c; }
         #status.warning { color: #f39c12; }
+        #status.success { color: #2ecc71; }
       </style>
     </head>
     <body>
       <div class="card">
         <h3>${productName}</h3>
         <div class="price">${price.toLocaleString()} <span>تومان</span></div>
+        
+        <div class="vpn-notice">
+          <span class="icon">🔐</span>
+          <span class="text">⚠️ روشن بودن <span class="highlight">VPN</span> جهت ارسال رسید <b>الزامی</b> میباشد</span>
+        </div>
         
         <div class="bank">
           <div>📱 شماره کارت جهت واریز</div>
