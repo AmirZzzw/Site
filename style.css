@@ -4,7 +4,6 @@ RESET & GLOBAL
 * {
   outline: none !important;
   -webkit-tap-highlight-color: transparent !important;
-  -webkit-focus-ring-color: transparent !important;
 }
 
 body {
@@ -15,11 +14,9 @@ body {
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
-  -webkit-tap-highlight-color: transparent;
 }
 
-/* حذف هایلایت برای همه عناصر تعاملی */
-button, a, input, textarea, select, [onclick] {
+button, a, input, textarea, select {
   -webkit-tap-highlight-color: transparent !important;
   outline: none !important;
 }
@@ -29,7 +26,6 @@ button:focus, a:focus, input:focus, textarea:focus, select:focus {
   box-shadow: none !important;
 }
 
-/* برای مرورگرهای مبتنی بر WebKit */
 button::-moz-focus-inner,
 input::-moz-focus-inner {
   border: 0;
@@ -60,8 +56,6 @@ NAVBAR
   font-size: 16px;
   cursor: pointer;
   transition: 0.3s;
-  -webkit-tap-highlight-color: transparent;
-  outline: none;
   user-select: none;
 }
 
@@ -128,8 +122,6 @@ button {
   cursor: pointer;
   border-radius: 50px;
   transition: 0.4s;
-  -webkit-tap-highlight-color: transparent;
-  outline: none;
   user-select: none;
   width: auto;
   min-width: 200px;
