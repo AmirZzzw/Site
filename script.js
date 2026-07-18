@@ -297,7 +297,7 @@ function openPaymentPage(productName, price) {
         
         <div class="bank">
           <div>📱 شماره کارت جهت واریز</div>
-          <div class="card-number">6037 9982 2227 6759</div>
+          <div class="card-number">6219 8614 5364 0772</div>
           <div>به نام: <b style="color:#e1e3e8;">امیرمحمد یوسفی</b></div>
         </div>
         
