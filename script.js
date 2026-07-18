@@ -13,7 +13,8 @@ function openPaymentPage(productName, price) {
   const w = window.open("", "_blank");
   if (!w) return alert("لطفاً پاپ‌آپ مرورگر را فعال کنید.");
 
-  const htmlContent = `
+  w.document.open();
+  w.document.write(`
     <!DOCTYPE html>
     <html lang="fa" dir="rtl">
     <head>
@@ -31,7 +32,6 @@ function openPaymentPage(productName, price) {
           align-items: center;
           justify-content: center;
           padding: 20px;
-          -webkit-tap-highlight-color: transparent;
         }
         .card {
           width: 100%;
@@ -71,15 +71,10 @@ function openPaymentPage(productName, price) {
           align-items: center;
           gap: 8px;
           transition: .3s;
-          -webkit-tap-highlight-color: transparent;
         }
         .upload:hover { background: #f7f9fc; border-color: #a0b0c0; }
         .upload span { font-size: 13px; color: #666; word-break: break-word; }
         .upload input { display: none; }
-        input, textarea, button {
-          outline: none !important;
-          -webkit-tap-highlight-color: transparent !important;
-        }
         input, textarea {
           width: 100%;
           margin-top: 12px;
@@ -90,7 +85,7 @@ function openPaymentPage(productName, price) {
           font-size: 14px;
           transition: border-color .2s;
         }
-        input:focus, textarea:focus { border-color: #ff9800; box-shadow: none !important; }
+        input:focus, textarea:focus { border-color: #ff9800; }
         textarea { resize: none; height: 80px; }
         button {
           width: 100%;
@@ -105,7 +100,6 @@ function openPaymentPage(productName, price) {
           color: #fff;
           cursor: pointer;
           transition: .3s;
-          -webkit-tap-highlight-color: transparent;
         }
         button:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4); }
         button:disabled { opacity: 0.6; cursor: not-allowed; }
@@ -134,147 +128,117 @@ function openPaymentPage(productName, price) {
         <div id="status"></div>
       </div>
       <script>
-        (function() {
-          const imgInput = document.getElementById("receiptImage");
-          const fileNameSpan = document.getElementById("fileName");
-          const sendBtn = document.getElementById("sendBtn");
-          const statusDiv = document.getElementById("status");
-          const tgInput = document.getElementById("telegramId");
-          const phoneInput = document.getElementById("phoneNumber");
-          const descInput = document.getElementById("description");
+        var imgInput = document.getElementById("receiptImage");
+        var fileNameSpan = document.getElementById("fileName");
+        var sendBtn = document.getElementById("sendBtn");
+        var statusDiv = document.getElementById("status");
+        var tgInput = document.getElementById("telegramId");
+        var phoneInput = document.getElementById("phoneNumber");
+        var descInput = document.getElementById("description");
 
-          imgInput.onchange = function() {
-            fileNameSpan.innerText = imgInput.files[0] ? imgInput.files[0].name : "هیچ فایلی انتخاب نشده";
-            fileNameSpan.style.color = imgInput.files[0] ? "#27ae60" : "#999";
-          };
-
-          sendBtn.onclick = function() {
-            var now = Date.now();
-            var lastSent = parseInt(localStorage.getItem("lastSentTime") || "0");
-            var timeDiff = now - lastSent;
-
-            if (timeDiff < ${SPAM_TIME}) {
-              var waitSeconds = Math.ceil((${SPAM_TIME} - timeDiff) / 1000);
-              statusDiv.innerText = "⏳ لطفاً " + waitSeconds + " ثانیه دیگر صبر کنید...";
-              statusDiv.style.color = "#e67e22";
-              return;
-            }
-
-            if (!imgInput.files[0]) {
-              statusDiv.innerText = "❌ لطفاً تصویر رسید را آپلود کنید.";
-              statusDiv.style.color = "#e74c3c";
-              return;
-            }
-            if (!tgInput.value.trim()) {
-              statusDiv.innerText = "❌ لطفاً آیدی تلگرام خود را وارد کنید.";
-              statusDiv.style.color = "#e74c3c";
-              return;
-            }
-            if (!phoneInput.value.trim()) {
-              statusDiv.innerText = "❌ لطفاً شماره تماس خود را وارد کنید.";
-              statusDiv.style.color = "#e74c3c";
-              return;
-            }
-
-            sendBtn.disabled = true;
-            sendBtn.innerText = "⏳ در حال ارسال...";
-            statusDiv.innerText = "";
-            statusDiv.style.color = "#333";
-
-            var caption = "📦 محصول: ${productName.replace(/'/g, "\\'")}\\n💵 مبلغ: ${price.toLocaleString()} تومان\\n👤 تلگرام: " + tgInput.value.trim() + "\\n📞 شماره: " + phoneInput.value.trim() + "\\n📝 توضیحات: " + (descInput.value.trim() || "ندارد");
-
-            var formData = new FormData();
-            formData.append("chat_id", "${CHAT_ID}");
-            formData.append("photo", imgInput.files[0]);
-            formData.append("caption", caption);
-
-            fetch("https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto", {
-              method: "POST",
-              body: formData
-            })
-            .then(function(response) { return response.json(); })
-            .then(function(data) {
-              if (data.ok) {
-                localStorage.setItem("lastSentTime", Date.now().toString());
-                showSuccessPage(${price});
-              } else {
-                throw new Error(data.description || "خطای نامشخص");
-              }
-            })
-            .catch(function(error) {
-              console.error("Error:", error);
-              statusDiv.innerText = "❌ خطا در ارسال. لطفاً دوباره تلاش کنید یا از راه دیگر با ما تماس بگیرید.";
-              statusDiv.style.color = "#e74c3c";
-              sendBtn.disabled = false;
-              sendBtn.innerText = "📨 ارسال مجدد";
-            });
-          };
-
-          function showSuccessPage(price) {
-            var countdown = 5;
-            document.body.innerHTML = '<!DOCTYPE html>' +
-              '<html lang="fa" dir="rtl">' +
-              '<head>' +
-              '<meta charset="UTF-8">' +
-              '<meta name="viewport" content="width=device-width, initial-scale=1.0">' +
-              '<title>پرداخت موفق</title>' +
-              '<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />' +
-              '<style>' +
-              '* { box-sizing: border-box; margin: 0; padding: 0; outline: none !important; -webkit-tap-highlight-color: transparent !important; }' +
-              'body { font-family: "Vazir", sans-serif; background: linear-gradient(135deg, #2ecc71, #27ae60); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }' +
-              '.success-box { background: #fff; width: 100%; max-width: 460px; padding: 45px 30px; border-radius: 30px; text-align: center; box-shadow: 0 35px 80px rgba(0,0,0,.3); animation: popIn .6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }' +
-              '@keyframes popIn { from { opacity: 0; transform: scale(.8); } to { opacity: 1; transform: scale(1); } }' +
-              '.checkmark { width: 100px; height: 100px; margin: 0 auto 25px; background: #ecf9f2; border-radius: 50%; display: flex; align-items: center; justify-content: center; }' +
-              '.checkmark svg { width: 60px; height: 60px; }' +
-              '.checkmark svg circle { fill: none; stroke: #27ae60; stroke-width: 3; stroke-dasharray: 166; stroke-dashoffset: 166; animation: strokeCircle .6s forwards; }' +
-              '.checkmark svg path { fill: none; stroke: #27ae60; stroke-width: 3; stroke-dasharray: 48; stroke-dashoffset: 48; animation: strokeCheck .4s .4s forwards; }' +
-              '@keyframes strokeCircle { to { stroke-dashoffset: 0; } }' +
-              '@keyframes strokeCheck { to { stroke-dashoffset: 0; } }' +
-              'h2 { margin: 0 0 10px; font-size: 24px; color: #2c3e50; }' +
-              '.info { margin: 20px 0; background: #f4f6f8; padding: 16px; border-radius: 18px; font-size: 14px; color: #555; }' +
-              '.progress-bar { height: 6px; background: #e0e0e0; border-radius: 10px; overflow: hidden; margin: 15px 0; }' +
-              '.progress-fill { height: 100%; width: 0; background: linear-gradient(90deg, #27ae60, #2ecc71); animation: fillProgress ' + countdown + 's linear forwards; }' +
-              '@keyframes fillProgress { to { width: 100%; } }' +
-              '.countdown-text { font-size: 13px; color: #777; margin-top: 10px; }' +
-              '</style>' +
-              '</head>' +
-              '<body>' +
-              '<div class="success-box">' +
-              '<div class="checkmark">' +
-              '<svg viewBox="0 0 52 52">' +
-              '<circle cx="26" cy="26" r="25"/>' +
-              '<path d="M14 27 L23 35 L38 18"/>' +
-              '</svg>' +
-              '</div>' +
-              '<h2>✅ پرداخت با موفقیت ثبت شد!</h2>' +
-              '<div class="info">مبلغ پرداختی: <b>' + price.toLocaleString() + ' تومان</b></div>' +
-              '<p style="font-size: 14px; color: #555;">تیم پشتیبانی به زودی با شما تماس خواهد گرفت.</p>' +
-              '<div class="progress-bar"><div class="progress-fill"></div></div>' +
-              '<p class="countdown-text">بازگشت خودکار به سایت در <span id="timer">' + countdown + '</span> ثانیه...</p>' +
-              '</div>' +
-              '<script>' +
-              'var timeLeft = ' + countdown + ';' +
-              'var timerSpan = document.getElementById("timer");' +
-              'var interval = setInterval(function() {' +
-              '  timeLeft--;' +
-              '  if (timerSpan) timerSpan.innerText = timeLeft;' +
-              '  if (timeLeft <= 0) {' +
-              '    clearInterval(interval);' +
-              '    window.location.href = "' + SITE_URL + '";' +
-              '  }' +
-              '}, 1000);' +
-              '<\/script>' +
-              '</body>' +
-              '</html>';
+        imgInput.onchange = function() {
+          if (imgInput.files[0]) {
+            fileNameSpan.innerText = imgInput.files[0].name;
+            fileNameSpan.style.color = "#27ae60";
+          } else {
+            fileNameSpan.innerText = "هیچ فایلی انتخاب نشده";
+            fileNameSpan.style.color = "#999";
           }
-        })();
+        };
+
+        sendBtn.onclick = function() {
+          var now = Date.now();
+          var lastSent = parseInt(localStorage.getItem("lastSentTime") || "0");
+          var timeDiff = now - lastSent;
+
+          if (timeDiff < ${SPAM_TIME}) {
+            var waitSeconds = Math.ceil((${SPAM_TIME} - timeDiff) / 1000);
+            statusDiv.innerText = "⏳ لطفاً " + waitSeconds + " ثانیه دیگر صبر کنید...";
+            statusDiv.style.color = "#e67e22";
+            return;
+          }
+
+          if (!imgInput.files[0]) {
+            statusDiv.innerText = "❌ لطفاً تصویر رسید را آپلود کنید.";
+            statusDiv.style.color = "#e74c3c";
+            return;
+          }
+          if (!tgInput.value.trim()) {
+            statusDiv.innerText = "❌ لطفاً آیدی تلگرام خود را وارد کنید.";
+            statusDiv.style.color = "#e74c3c";
+            return;
+          }
+          if (!phoneInput.value.trim()) {
+            statusDiv.innerText = "❌ لطفاً شماره تماس خود را وارد کنید.";
+            statusDiv.style.color = "#e74c3c";
+            return;
+          }
+
+          sendBtn.disabled = true;
+          sendBtn.innerText = "⏳ در حال ارسال...";
+          statusDiv.innerText = "";
+          statusDiv.style.color = "#333";
+
+          var captionText = "📦 محصول: ${productName}\\n💵 مبلغ: ${price.toLocaleString()} تومان\\n👤 تلگرام: " + tgInput.value.trim() + "\\n📞 شماره: " + phoneInput.value.trim() + "\\n📝 توضیحات: " + (descInput.value.trim() || "ندارد");
+
+          var formData = new FormData();
+          formData.append("chat_id", "${CHAT_ID}");
+          formData.append("photo", imgInput.files[0]);
+          formData.append("caption", captionText);
+
+          fetch("https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto", {
+            method: "POST",
+            body: formData
+          })
+          .then(function(response) { return response.json(); })
+          .then(function(data) {
+            if (data.ok) {
+              localStorage.setItem("lastSentTime", Date.now().toString());
+              showSuccess(${price});
+            } else {
+              throw new Error(data.description || "خطای نامشخص");
+            }
+          })
+          .catch(function(error) {
+            console.error(error);
+            statusDiv.innerText = "❌ خطا در ارسال. لطفاً دوباره تلاش کنید.";
+            statusDiv.style.color = "#e74c3c";
+            sendBtn.disabled = false;
+            sendBtn.innerText = "📨 ارسال مجدد";
+          });
+        };
+
+        function showSuccess(price) {
+          var countdown = 5;
+          document.body.innerHTML = '<div style="font-family:Vazir,sans-serif;background:linear-gradient(135deg,#2ecc71,#27ae60);display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px;">' +
+            '<div style="background:#fff;width:100%;max-width:460px;padding:45px 30px;border-radius:30px;text-align:center;box-shadow:0 35px 80px rgba(0,0,0,.3);">' +
+            '<div style="width:100px;height:100px;margin:0 auto 25px;background:#ecf9f2;border-radius:50%;display:flex;align-items:center;justify-content:center;">' +
+            '<svg width="60" height="60" viewBox="0 0 52 52"><circle cx="26" cy="26" r="25" fill="none" stroke="#27ae60" stroke-width="3"/><path d="M14 27 L23 35 L38 18" fill="none" stroke="#27ae60" stroke-width="3"/></svg>' +
+            '</div>' +
+            '<h2 style="color:#2c3e50;margin-bottom:10px;">✅ پرداخت با موفقیت ثبت شد!</h2>' +
+            '<div style="margin:20px 0;background:#f4f6f8;padding:16px;border-radius:18px;font-size:14px;color:#555;">مبلغ پرداختی: <b>' + price.toLocaleString() + ' تومان</b></div>' +
+            '<p style="font-size:14px;color:#555;margin-bottom:15px;">تیم پشتیبانی به زودی با شما تماس خواهد گرفت.</p>' +
+            '<div style="height:6px;background:#e0e0e0;border-radius:10px;overflow:hidden;"><div style="height:100%;background:linear-gradient(90deg,#27ae60,#2ecc71);animation:fillAnim ' + countdown + 's linear forwards;"></div></div>' +
+            '<p style="font-size:13px;color:#777;margin-top:10px;">بازگشت خودکار به سایت در <span id="timer">' + countdown + '</span> ثانیه...</p>' +
+            '</div>' +
+            '<style>@keyframes fillAnim{from{width:0}to{width:100%}}</style>' +
+            '</div>';
+          
+          var timeLeft = countdown;
+          var timerInterval = setInterval(function() {
+            timeLeft--;
+            var timerEl = document.getElementById("timer");
+            if (timerEl) timerEl.innerText = timeLeft;
+            if (timeLeft <= 0) {
+              clearInterval(timerInterval);
+              window.location.href = "${SITE_URL}";
+            }
+          }, 1000);
+        }
       <\/script>
     </body>
     </html>
-  `;
-
-  w.document.open();
-  w.document.write(htmlContent);
+  `);
   w.document.close();
 }
 
@@ -285,7 +249,8 @@ function openFeaturesPage() {
   const w = window.open("", "_blank");
   if (!w) return alert("لطفاً پاپ‌آپ مرورگر را فعال کنید.");
 
-  const htmlContent = `
+  w.document.open();
+  w.document.write(`
     <!DOCTYPE html>
     <html lang="fa" dir="rtl">
     <head>
@@ -303,7 +268,6 @@ function openFeaturesPage() {
           padding: 30px 20px;
           display: flex;
           justify-content: center;
-          -webkit-tap-highlight-color: transparent;
         }
         .container {
           width: 100%;
@@ -370,8 +334,6 @@ function openFeaturesPage() {
           cursor: pointer;
           text-decoration: none;
           transition: .3s;
-          -webkit-tap-highlight-color: transparent;
-          outline: none !important;
         }
         .back-btn:hover {
           background: #e68900;
@@ -500,9 +462,6 @@ function openFeaturesPage() {
       </div>
     </body>
     </html>
-  `;
-
-  w.document.open();
-  w.document.write(htmlContent);
+  `);
   w.document.close();
 }
