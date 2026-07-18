@@ -5,7 +5,7 @@ const BOT_TOKEN = "7408423935:AAH9nkoZg7ykqQMGKDeitIiOtu6uYZl0Vxg";
 const CHAT_ID = "7549513123";
 const SITE_URL = "https://sidkashop.qzz.io";
 const SPAM_TIME = 60 * 1000;
-const FETCH_TIMEOUT = 30000; // 15 ثانیه
+const FETCH_TIMEOUT = 60000; // 15 ثانیه
 
 /**********************
 PAYMENT PAGE
