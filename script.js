@@ -9,6 +9,18 @@ const FETCH_TIMEOUT = 120000;
 const MAX_RETRIES = 3;
 
 /**********************
+GENERATE TRACKING CODE
+**********************/
+function generateTrackingCode() {
+  var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  var code = '';
+  for (var i = 0; i < 6; i++) {
+    code += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return code;
+}
+
+/**********************
 PAYMENT PAGE
 **********************/
 function openPaymentPage(productName, price) {
@@ -75,15 +87,8 @@ function openPaymentPage(productName, price) {
           animation: glow 2s ease-in-out infinite;
         }
         
-        .vpn-notice .icon {
-          font-size: 20px;
-          animation: bounce 1s ease-in-out infinite;
-        }
-        
-        .vpn-notice .text {
-          line-height: 1.6;
-        }
-        
+        .vpn-notice .icon { font-size: 20px; animation: bounce 1s ease-in-out infinite; }
+        .vpn-notice .text { line-height: 1.6; }
         .vpn-notice .highlight {
           color: #ff9800;
           font-weight: bold;
@@ -158,7 +163,6 @@ function openPaymentPage(productName, price) {
         .upload-text { font-size: 13px; color: #9ca0ab; }
         .file-name { font-size: 11px; color: #ff9800; word-break: break-all; }
         .file-size { font-size: 10px; color: #9ca0ab; }
-        
         .upload-area input { display: none; }
         
         input, textarea {
@@ -353,6 +357,16 @@ function openPaymentPage(productName, price) {
         var lastLoaded = 0;
         var lastTime = 0;
         var retryAttempt = 0;
+        var trackingCode = '';
+        
+        function generateCode() {
+          var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+          var code = '';
+          for (var i = 0; i < 6; i++) {
+            code += chars.charAt(Math.floor(Math.random() * chars.length));
+          }
+          return code;
+        }
         
         function formatSize(bytes) {
           if (bytes === 0) return '0 B';
@@ -370,9 +384,7 @@ function openPaymentPage(productName, price) {
           return m + ':' + (s < 10 ? '0' : '') + s + ' دقیقه';
         }
         
-        uploadArea.onclick = function() {
-          imgInput.click();
-        };
+        uploadArea.onclick = function() { imgInput.click(); };
         
         uploadArea.ondragover = function(e) {
           e.preventDefault();
@@ -492,6 +504,8 @@ function openPaymentPage(productName, price) {
             return;
           }
           
+          trackingCode = generateCode();
+          
           sendBtn.disabled = true;
           sendBtn.innerText = "⏳ در حال ارسال...";
           statusDiv.innerText = "";
@@ -507,7 +521,7 @@ function openPaymentPage(productName, price) {
         };
         
         function sendToTelegram(file) {
-          var captionText = "📦 محصول: ${productName}\\n💵 مبلغ: ${price.toLocaleString()} تومان\\n👤 تلگرام: " + tgInput.value.trim() + "\\n📞 شماره: " + phoneInput.value.trim() + "\\n📝 توضیحات: " + (descInput.value.trim() || "ندارد");
+          var captionText = "🔢 کد پیگیری: " + trackingCode + "\\n📦 محصول: ${productName}\\n💵 مبلغ: ${price.toLocaleString()} تومان\\n👤 تلگرام: " + tgInput.value.trim() + "\\n📞 شماره: " + phoneInput.value.trim() + "\\n📝 توضیحات: " + (descInput.value.trim() || "ندارد");
           
           var formData = new FormData();
           formData.append("chat_id", "${CHAT_ID}");
@@ -542,7 +556,7 @@ function openPaymentPage(productName, price) {
                   retryInfo.classList.remove('show');
                   
                   setTimeout(function() {
-                    showSuccessPage(${price});
+                    showSuccessPage(price, trackingCode);
                   }, 500);
                 } else {
                   retryOrFail(data.description || 'خطای سرور');
@@ -599,37 +613,89 @@ function openPaymentPage(productName, price) {
           }
         }
         
-        function showSuccessPage(price) {
-          var countdown = 8;
-          document.body.innerHTML = '<div style="font-family:Vazir,sans-serif;background:linear-gradient(135deg,#1a1d23 0%,#21242b 50%,#1a1d23 100%);display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px;overflow:hidden;position:relative;">' +
-            '<div style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;">' +
+        function showSuccessPage(price, code) {
+          var countdown = 15;
+          var siteUrl = '${SITE_URL}';
+          
+          document.body.innerHTML = '';
+          
+          var wrapper = document.createElement('div');
+          wrapper.style.cssText = 'font-family:Vazir,sans-serif;background:linear-gradient(135deg,#1a1d23 0%,#21242b 50%,#1a1d23 100%);display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px;overflow:hidden;position:relative;';
+          
+          var particles = document.createElement('div');
+          particles.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;';
+          particles.innerHTML = 
             '<div style="position:absolute;top:10%;left:10%;width:8px;height:8px;background:#ff9800;border-radius:50%;animation:fa 3s ease-in-out infinite;opacity:0.6;"></div>' +
             '<div style="position:absolute;top:20%;right:15%;width:12px;height:12px;background:#2ecc71;border-radius:50%;animation:fb 4s ease-in-out infinite;opacity:0.4;"></div>' +
             '<div style="position:absolute;bottom:30%;left:20%;width:6px;height:6px;background:#ffb347;border-radius:50%;animation:fc 3.5s ease-in-out infinite;opacity:0.7;"></div>' +
             '<div style="position:absolute;top:60%;right:10%;width:10px;height:10px;background:#27ae60;border-radius:50%;animation:fa 2.8s ease-in-out infinite;opacity:0.5;"></div>' +
             '<div style="position:absolute;bottom:15%;right:25%;width:7px;height:7px;background:#ffcc80;border-radius:50%;animation:fb 4.2s ease-in-out infinite;opacity:0.6;"></div>' +
-            '<div style="position:absolute;top:40%;left:5%;width:5px;height:5px;background:#fff;border-radius:50%;animation:fc 3.2s ease-in-out infinite;opacity:0.3;"></div>' +
-            '</div>' +
-            '<div style="position:relative;z-index:1;background:linear-gradient(145deg,#25282f,#1f2127);width:100%;max-width:440px;padding:40px 30px;border-radius:24px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 0 1px #363a43;animation:cp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);">' +
+            '<div style="position:absolute;top:40%;left:5%;width:5px;height:5px;background:#fff;border-radius:50%;animation:fc 3.2s ease-in-out infinite;opacity:0.3;"></div>';
+          
+          var card = document.createElement('div');
+          card.style.cssText = 'position:relative;z-index:1;background:linear-gradient(145deg,#25282f,#1f2127);width:100%;max-width:440px;padding:40px 30px;border-radius:24px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 0 1px #363a43;animation:cp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);';
+          
+          card.innerHTML = 
             '<div style="position:relative;width:90px;height:90px;margin:0 auto 25px;">' +
-            '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:90px;height:90px;background:rgba(46,204,113,.1);border-radius:50%;animation:ri 2s ease-out infinite;"></div>' +
-            '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:70px;height:70px;background:rgba(46,204,113,.15);border-radius:50%;animation:ri 2s ease-out 0.5s infinite;"></div>' +
-            '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:rgba(46,204,113,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;animation:si 0.6s ease 0.3s both;">' +
-            '<svg width="32" height="32" viewBox="0 0 52 52"><circle cx="26" cy="26" r="24" fill="none" stroke="#2ecc71" stroke-width="3" stroke-dasharray="151" stroke-dashoffset="151" style="animation:dc 0.4s ease 0.3s forwards;"/><path d="M15 27 L23 36 L38 17" fill="none" stroke="#2ecc71" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="35" stroke-dashoffset="35" style="animation:dp 0.3s ease 0.7s forwards;"/></svg>' +
-            '</div></div>' +
+              '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:90px;height:90px;background:rgba(46,204,113,.1);border-radius:50%;animation:ri 2s ease-out infinite;"></div>' +
+              '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:70px;height:70px;background:rgba(46,204,113,.15);border-radius:50%;animation:ri 2s ease-out 0.5s infinite;"></div>' +
+              '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:rgba(46,204,113,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;animation:si 0.6s ease 0.3s both;">' +
+                '<svg width="32" height="32" viewBox="0 0 52 52"><circle cx="26" cy="26" r="24" fill="none" stroke="#2ecc71" stroke-width="3" stroke-dasharray="151" stroke-dashoffset="151" style="animation:dc 0.4s ease 0.3s forwards;"/><path d="M15 27 L23 36 L38 17" fill="none" stroke="#2ecc71" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="35" stroke-dashoffset="35" style="animation:dp 0.3s ease 0.7s forwards;"/></svg>' +
+              '</div>' +
+            '</div>' +
             '<h2 style="color:#e1e3e8;margin:0 0 6px;font-size:24px;animation:fu 0.6s ease 0.5s both;">🎉 پرداخت موفق!</h2>' +
             '<p style="color:#9ca0ab;margin:0 0 20px;font-size:13px;animation:fu 0.6s ease 0.6s both;">رسید شما با موفقیت ثبت شد</p>' +
+            '<div style="background:linear-gradient(135deg,rgba(255,152,0,.15),rgba(255,152,0,.05));padding:18px;border-radius:14px;margin-bottom:18px;border:1px solid rgba(255,152,0,.3);animation:fu 0.6s ease 0.65s both;">' +
+              '<div style="font-size:10px;color:#9ca0ab;margin-bottom:6px;">🔢 کد پیگیری</div>' +
+              '<div style="font-size:32px;color:#ff9800;font-weight:bold;letter-spacing:6px;font-family:Courier New,monospace;direction:ltr;">' + code + '</div>' +
+              '<div style="font-size:10px;color:#9ca0ab;margin-top:4px;">این کد را نزد خود نگه دارید</div>' +
+            '</div>' +
             '<div style="background:#2a2d35;padding:16px;border-radius:14px;margin-bottom:18px;border:1px solid #363a43;animation:fu 0.6s ease 0.7s both;">' +
-            '<div style="font-size:11px;color:#9ca0ab;margin-bottom:4px;">💰 مبلغ پرداختی</div>' +
-            '<div style="font-size:28px;color:#ff9800;font-weight:bold;">' + price.toLocaleString() + '</div>' +
-            '<div style="font-size:12px;color:#9ca0ab;">تومان</div></div>' +
+              '<div style="font-size:11px;color:#9ca0ab;margin-bottom:4px;">💰 مبلغ پرداختی</div>' +
+              '<div style="font-size:28px;color:#ff9800;font-weight:bold;">' + price.toLocaleString() + '</div>' +
+              '<div style="font-size:12px;color:#9ca0ab;">تومان</div>' +
+            '</div>' +
             '<div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:18px;color:#9ca0ab;font-size:12px;animation:fu 0.6s ease 0.8s both;"><span>📞</span><span>تیم پشتیبانی به زودی با شما تماس میگیرد</span></div>' +
             '<div style="animation:fu 0.6s ease 0.9s both;">' +
-            '<div style="height:5px;background:#2a2d35;border-radius:8px;overflow:hidden;margin-bottom:10px;"><div style="height:100%;background:linear-gradient(90deg,#ff9800,#ffb347);border-radius:8px;animation:cb ' + countdown + 's linear forwards;"></div></div>' +
-            '<p style="font-size:12px;color:#5a5e6a;margin:0;">🔄 بازگشت خودکار در <span id="timer" style="color:#ff9800;font-weight:bold;font-size:15px;">' + countdown + '</span> ثانیه</p></div>' +
-            '<button onclick="window.opener?window.close():window.location.href=\\'${SITE_URL}\\'" style="margin-top:18px;padding:10px 30px;background:rgba(255,152,0,.1);color:#ff9800;border:1px solid rgba(255,152,0,.3);border-radius:40px;font-family:Vazir,sans-serif;font-size:13px;cursor:pointer;transition:all .3s;animation:fu 0.6s ease 1s both;" onmouseover="this.style.background=\\'rgba(255,152,0,.2)\\';this.style.borderColor=\\'#ff9800\\';" onmouseout="this.style.background=\\'rgba(255,152,0,.1)\\';this.style.borderColor=\\'rgba(255,152,0,.3)\\';" onclick="event.preventDefault();window.opener?window.close():window.location.href=\\'${SITE_URL}\\';">🏠 بازگشت به سایت</button>' +
+              '<div style="height:5px;background:#2a2d35;border-radius:8px;overflow:hidden;margin-bottom:10px;"><div style="height:100%;background:linear-gradient(90deg,#ff9800,#ffb347);border-radius:8px;animation:cb ' + countdown + 's linear forwards;"></div></div>' +
+              '<p style="font-size:12px;color:#5a5e6a;margin:0;">🔄 بازگشت خودکار در <span id="timer" style="color:#ff9800;font-weight:bold;font-size:15px;">' + countdown + '</span> ثانیه</p>' +
             '</div>' +
-            '<style>@keyframes fa{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-20px) rotate(180deg)}}@keyframes fb{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-15px) scale(1.5)}}@keyframes fc{0%,100%{transform:translate(0,0)}33%{transform:translate(10px,-20px)}66%{transform:translate(-10px,-10px)}}@keyframes cp{from{opacity:0;transform:scale(.8) translateY(40px)}to{opacity:1;transform:scale(1) translateY(0)}}@keyframes ri{0%{transform:translate(-50%,-50%) scale(0.5);opacity:1}100%{transform:translate(-50%,-50%) scale(2);opacity:0}}@keyframes si{from{transform:translate(-50%,-50%) scale(0)}to{transform:translate(-50%,-50%) scale(1)}}@keyframes dc{to{stroke-dashoffset:0}}@keyframes dp{to{stroke-dashoffset:0}}@keyframes fu{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}@keyframes cb{from{width:0}to{width:100%}}</style></div>';
+            '<button id="backBtn" style="margin-top:18px;padding:10px 30px;background:rgba(255,152,0,.1);color:#ff9800;border:1px solid rgba(255,152,0,.3);border-radius:40px;font-family:Vazir,sans-serif;font-size:13px;cursor:pointer;transition:all .3s;animation:fu 0.6s ease 1s both;">🏠 بازگشت به سایت</button>';
+          
+          var style = document.createElement('style');
+          style.textContent = 
+            '@keyframes fa{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-20px) rotate(180deg)}}' +
+            '@keyframes fb{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-15px) scale(1.5)}}' +
+            '@keyframes fc{0%,100%{transform:translate(0,0)}33%{transform:translate(10px,-20px)}66%{transform:translate(-10px,-10px)}}' +
+            '@keyframes cp{from{opacity:0;transform:scale(.8) translateY(40px)}to{opacity:1;transform:scale(1) translateY(0)}}' +
+            '@keyframes ri{0%{transform:translate(-50%,-50%) scale(0.5);opacity:1}100%{transform:translate(-50%,-50%) scale(2);opacity:0}}' +
+            '@keyframes si{from{transform:translate(-50%,-50%) scale(0)}to{transform:translate(-50%,-50%) scale(1)}}' +
+            '@keyframes dc{to{stroke-dashoffset:0}}' +
+            '@keyframes dp{to{stroke-dashoffset:0}}' +
+            '@keyframes fu{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}' +
+            '@keyframes cb{from{width:0}to{width:100%}}';
+          
+          wrapper.appendChild(particles);
+          wrapper.appendChild(card);
+          wrapper.appendChild(style);
+          document.body.appendChild(wrapper);
+          
+          var backBtn = document.getElementById('backBtn');
+          backBtn.onmouseover = function() {
+            this.style.background = 'rgba(255,152,0,.2)';
+            this.style.borderColor = '#ff9800';
+          };
+          backBtn.onmouseout = function() {
+            this.style.background = 'rgba(255,152,0,.1)';
+            this.style.borderColor = 'rgba(255,152,0,.3)';
+          };
+          backBtn.onclick = function() {
+            if (window.opener) {
+              window.close();
+            } else {
+              window.location.href = siteUrl;
+            }
+          };
           
           var timeLeft = countdown;
           var timerInterval = setInterval(function() {
@@ -637,13 +703,13 @@ function openPaymentPage(productName, price) {
             var timerEl = document.getElementById("timer");
             if (timerEl) {
               timerEl.innerText = timeLeft;
-              if (timeLeft <= 3) {
+              if (timeLeft <= 5) {
                 timerEl.style.color = '#e74c3c';
               }
             }
             if (timeLeft <= 0) {
               clearInterval(timerInterval);
-              window.location.href = "${SITE_URL}";
+              window.location.href = siteUrl;
             }
           }, 1000);
         }
