@@ -6,6 +6,7 @@ const CHAT_ID = "7549513123";
 const SITE_URL = "https://sidkashop.qzz.io";
 const SPAM_TIME = 60 * 1000;
 const FETCH_TIMEOUT = 120000;
+const MAX_RETRIES = 3;
 
 /**********************
 PAYMENT PAGE
@@ -252,6 +253,22 @@ function openPaymentPage(productName, price) {
         #status.error { color: #e74c3c; }
         #status.warning { color: #f39c12; }
         #status.success { color: #2ecc71; }
+        
+        .retry-info {
+          background: rgba(231, 76, 60, 0.1);
+          border: 1px solid rgba(231, 76, 60, 0.3);
+          border-radius: 10px;
+          padding: 10px 14px;
+          margin-top: 10px;
+          font-size: 11px;
+          color: #e74c3c;
+          text-align: center;
+          line-height: 1.8;
+          display: none;
+        }
+        
+        .retry-info.show { display: block; }
+        .retry-info b { color: #ff9800; }
       </style>
     </head>
     <body>
@@ -300,6 +317,11 @@ function openPaymentPage(productName, price) {
           </div>
         </div>
         
+        <div class="retry-info" id="retryInfo">
+          🔄 در حال تلاش مجدد... (<span id="retryCount">1</span>/3)
+          <br>⚠️ لطفاً <b>VPN</b> خود را بررسی کنید
+        </div>
+        
         <div id="status"></div>
       </div>
       
@@ -324,10 +346,13 @@ function openPaymentPage(productName, price) {
         var progressTotal = document.getElementById("progressTotal");
         var progressSpeed = document.getElementById("progressSpeed");
         var progressETA = document.getElementById("progressETA");
+        var retryInfo = document.getElementById("retryInfo");
+        var retryCount = document.getElementById("retryCount");
         
         var selectedFile = null;
         var lastLoaded = 0;
         var lastTime = 0;
+        var retryAttempt = 0;
         
         function formatSize(bytes) {
           if (bytes === 0) return '0 B';
@@ -397,6 +422,7 @@ function openPaymentPage(productName, price) {
           progressTotal.innerText = 'کل: 0 KB';
           progressSpeed.innerText = 'سرعت: --';
           progressETA.innerText = 'زمان: --';
+          retryInfo.classList.remove('show');
         }
         
         function updateProgress(loaded, total) {
@@ -470,11 +496,13 @@ function openPaymentPage(productName, price) {
           sendBtn.innerText = "⏳ در حال ارسال...";
           statusDiv.innerText = "";
           statusDiv.className = '';
+          retryInfo.classList.remove('show');
           
           resetProgress();
           progressContainer.classList.add('active');
           progressInfo.innerText = '📤 در حال ارسال...';
           
+          retryAttempt = 0;
           sendToTelegram(selectedFile);
         };
         
@@ -490,7 +518,7 @@ function openPaymentPage(productName, price) {
           
           var timeoutId = setTimeout(function() {
             xhr.abort();
-            handleError('timeout');
+            retryOrFail('timeout');
           }, ${FETCH_TIMEOUT});
           
           xhr.upload.onprogress = function(e) {
@@ -511,28 +539,29 @@ function openPaymentPage(productName, price) {
                   progressPercent.innerText = '100%';
                   progressBar.style.width = '100%';
                   progressUploaded.innerText = '✅ ارسال کامل';
+                  retryInfo.classList.remove('show');
                   
                   setTimeout(function() {
                     showSuccessPage(${price});
                   }, 500);
                 } else {
-                  handleError(data.description || 'خطای سرور');
+                  retryOrFail(data.description || 'خطای سرور');
                 }
               } catch(e) {
-                handleError('خطا در پردازش پاسخ');
+                retryOrFail('خطا در پردازش پاسخ');
               }
             } else {
-              handleError('خطای HTTP: ' + xhr.status);
+              retryOrFail('خطای HTTP: ' + xhr.status);
             }
           };
           
           xhr.onerror = function() {
             clearTimeout(timeoutId);
-            handleError('network');
+            retryOrFail('network');
           };
           
           xhr.onabort = function() {
-            handleError('abort');
+            retryOrFail('abort');
           };
           
           xhr.open("POST", "https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto");
@@ -542,19 +571,32 @@ function openPaymentPage(productName, price) {
           lastTime = 0;
         }
         
-        function handleError(type) {
-          progressContainer.classList.remove('active');
-          sendBtn.disabled = false;
-          sendBtn.innerText = "📨 ارسال مجدد";
+        function retryOrFail(errorType) {
+          retryAttempt++;
           
-          if (type === 'timeout' || type === 'abort') {
-            statusDiv.innerText = "⏰ زمان ارسال طولانی شد. اینترنت خود را بررسی کنید.";
-          } else if (type === 'network') {
-            statusDiv.innerText = "❌ خطای شبکه. لطفاً دوباره تلاش کنید.";
+          if (retryAttempt < ${MAX_RETRIES}) {
+            retryInfo.classList.add('show');
+            retryCount.innerText = retryAttempt;
+            progressInfo.innerText = '🔄 تلاش مجدد ' + retryAttempt + ' از ' + ${MAX_RETRIES} + '...';
+            
+            setTimeout(function() {
+              sendToTelegram(selectedFile);
+            }, 2000);
           } else {
-            statusDiv.innerText = "❌ خطا در ارسال. لطفاً دوباره تلاش کنید.";
+            retryInfo.classList.remove('show');
+            progressContainer.classList.remove('active');
+            sendBtn.disabled = false;
+            sendBtn.innerText = "📨 ارسال مجدد";
+            
+            if (errorType === 'timeout' || errorType === 'abort') {
+              statusDiv.innerText = "⏰ زمان ارسال طولانی شد. VPN و اینترنت خود را بررسی کنید.";
+            } else if (errorType === 'network') {
+              statusDiv.innerText = "❌ خطای شبکه. لطفاً VPN را روشن کنید و دوباره تلاش کنید.";
+            } else {
+              statusDiv.innerText = "❌ خطا در ارسال. لطفاً دوباره تلاش کنید.";
+            }
+            statusDiv.className = 'error';
           }
-          statusDiv.className = 'error';
         }
         
         function showSuccessPage(price) {
