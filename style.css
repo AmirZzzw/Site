@@ -10,7 +10,20 @@
    accent-2:  #3FA9A0  muted teal — status / secondary
    --------------------------------------------------------- */
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, a {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+button:focus,
+a:focus {
+  outline: none;
+}
 
 :root{
   --bg: #0A0D12;
