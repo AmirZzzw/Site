@@ -51,7 +51,6 @@
 </head>
 <body>
 
-<!-- ambient backdrop -->
 <div class="grid-field" aria-hidden="true"></div>
 
 <!-- Navbar -->
@@ -62,11 +61,11 @@
       <span class="brand-name">Sidka<span class="accent">.</span>Shop</span>
     </a>
     <nav class="nav-links">
-      <button data-scroll="products">محصولات</button>
-      <button data-scroll="about">درباره ما</button>
-      <button data-scroll="contact">ارتباط با ما</button>
+      <button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">محصولات</button>
+      <button onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">درباره ما</button>
+      <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">ارتباط با ما</button>
     </nav>
-    <button class="nav-cta" data-scroll="contact">شروع کنید</button>
+    <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">شروع کنید</button>
   </div>
 </header>
 
@@ -76,17 +75,12 @@
   <section class="hero">
     <div class="hero-inner">
       <span class="eyebrow"><span class="dot"></span>SIDKA&nbsp;/&nbsp;DIGITAL&nbsp;SERVICES</span>
-      <h1 class="hero-title">خدمات دیجیتال،<br>با استانداردِ یک پنل حرفه‌ای.</h1>
+      <h1 class="hero-title">خدمات دیجیتال، با استانداردِ یک پنل حرفه‌ای.</h1>
       <p class="hero-sub">اشتراک ویاکس، سلف تلگرام، طراحی گرافیک و ساخت پنل اختصاصی — تحویل سریع، قیمت شفاف، پشتیبانی واقعی.</p>
       <div class="hero-actions">
-        <button class="btn btn-primary" data-scroll="products">مشاهده محصولات</button>
-        <button class="btn btn-ghost" data-scroll="contact">تماس با پشتیبانی</button>
+        <button class="btn btn-primary" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">مشاهده محصولات</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">تماس با پشتیبانی</button>
       </div>
-      <dl class="hero-stats">
-        <div><dt>۵</dt><dd>دسته‌بندی خدمات</dd></div>
-        <div><dt>۲۴/۷</dt><dd>پشتیبانی آنلاین</dd></div>
-        <div><dt>آنی</dt><dd>تحویل سفارش</dd></div>
-      </dl>
     </div>
   </section>
 
@@ -110,23 +104,23 @@
         <div class="plan">
           <span class="plan-label">یک‌روزه</span>
           <span class="plan-price">۱۵,۰۰۰<i>تومان</i></span>
-          <button class="btn btn-line" data-buy="اشتراک یکروزه" data-price="15000">خرید</button>
+          <button class="btn btn-line" onclick="openPaymentPage('اشتراک یکروزه', 15000)">خرید</button>
         </div>
         <div class="plan">
           <span class="plan-label">یک‌هفته</span>
           <span class="plan-price">۷۰,۰۰۰<i>تومان</i></span>
-          <button class="btn btn-line" data-buy="اشتراک یک‌هفته" data-price="70000">خرید</button>
+          <button class="btn btn-line" onclick="openPaymentPage('اشتراک یک‌هفته', 70000)">خرید</button>
         </div>
         <div class="plan plan-featured">
           <span class="plan-tag">پیشنهادی</span>
           <span class="plan-label">یک‌ماهه</span>
           <span class="plan-price">۲۳۰,۰۰۰<i>تومان</i></span>
-          <button class="btn btn-primary" data-buy="اشتراک یک‌ماهه" data-price="230000">خرید</button>
+          <button class="btn btn-primary" onclick="openPaymentPage('اشتراک یک‌ماهه', 230000)">خرید</button>
         </div>
         <div class="plan">
           <span class="plan-label">دائم</span>
           <span class="plan-price">۳۵۰,۰۰۰<i>تومان</i></span>
-          <button class="btn btn-line" data-buy="اشتراک دائم" data-price="350000">خرید</button>
+          <button class="btn btn-line" onclick="openPaymentPage('اشتراک دائم', 350000)">خرید</button>
         </div>
       </div>
     </article>
@@ -159,17 +153,9 @@
         <div class="plan plan-info">
           <span class="plan-label">امکانات سلف</span>
           <p class="plan-desc">پیش از بازگشت موجودی، قابلیت‌ها را ببینید.</p>
-          <button class="btn btn-ghost" id="featuresBtn">مشاهده قابلیت‌ها</button>
+          <button class="btn btn-ghost" onclick="openFeaturesPage()">مشاهده قابلیت‌ها</button>
         </div>
       </div>
-      <ul class="features-list" id="featuresList" hidden>
-        <li>مخفی‌سازی وضعیت آنلاین بودن</li>
-        <li>پاسخ‌گوی خودکار پیام‌ها</li>
-        <li>مشاهده و ذخیره استوری بدون اطلاع مخاطب</li>
-        <li>گزارش زمان بازدید پیام‌ها</li>
-        <li>ارسال زمان‌بندی‌شده‌ی پیام</li>
-        <li>قفل اختصاصی چت‌های خصوصی</li>
-      </ul>
     </article>
 
     <!-- Simple products -->
@@ -180,7 +166,7 @@
         <p>طراحی اختصاصی تامنیل با تمرکز بر نرخ کلیک بالا.</p>
         <div class="simple-foot">
           <span class="plan-price">۵۰,۰۰۰<i>تومان</i></span>
-          <button class="btn btn-line" data-buy="تامنیل یوتیوب" data-price="50000">خرید</button>
+          <button class="btn btn-line" onclick="openPaymentPage('تامنیل یوتیوب', 50000)">خرید</button>
         </div>
       </article>
 
@@ -190,7 +176,7 @@
         <p>طراحی هویت بصری پروفایل کانال، هماهنگ با برند شما.</p>
         <div class="simple-foot">
           <span class="plan-price">۵۰,۰۰۰<i>تومان</i></span>
-          <button class="btn btn-line" data-buy="پروفایل چنل تلگرام" data-price="50000">خرید</button>
+          <button class="btn btn-line" onclick="openPaymentPage('پروفایل چنل تلگرام', 50000)">خرید</button>
         </div>
       </article>
 
@@ -200,7 +186,7 @@
         <p>طراحی و پیاده‌سازی پنل فروش یا مدیریت، مطابق نیاز کسب‌وکار شما، از صفر تا تحویل.</p>
         <div class="simple-foot">
           <span class="plan-price">۹۰۰,۰۰۰<i>تومان</i></span>
-          <button class="btn btn-primary" data-buy="ساخت پنل" data-price="900000">درخواست مشاوره</button>
+          <button class="btn btn-primary" onclick="openPaymentPage('ساخت پنل', 900000)">درخواست مشاوره</button>
         </div>
       </article>
     </div>
@@ -251,9 +237,6 @@
   <span class="dot-sep">·</span>
   <span>تمامی حقوق محفوظ است</span>
 </footer>
-
-<!-- toast -->
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="script.js"></script>
 </body>
