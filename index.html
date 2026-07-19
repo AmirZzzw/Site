@@ -18,7 +18,7 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://sidkashop.qzz.io/Logo.png" />
   <link rel="apple-touch-icon" href="https://sidkashop.qzz.io/Logo.png" />
-  <meta name="theme-color" content="#f5f2ed" />
+  <meta name="theme-color" content="#141210" />
 
   <!-- JSON-LD -->
   <script type="application/ld+json">
@@ -45,7 +45,7 @@
   <!-- Style -->
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="dark">
 
   <header class="navbar">
     <div class="brand">
@@ -57,11 +57,7 @@
       <button onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">درباره</button>
       <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">تماس</button>
     </nav>
-    <div style="display:flex; gap:0.6rem; align-items:center;">
-      <button class="theme-toggle" onclick="toggleDarkMode()" aria-label="تغییر تم">
-        <span class="icon"></span>
-        <span class="label" id="themeLabel">روشن</span>
-      </button>
+    <div>
       <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">همین حالا</button>
     </div>
   </header>
@@ -230,32 +226,6 @@
     <span>همیشه در دسترس</span>
   </footer>
 
-  <!-- اسکریپت خارجی که خودت دادی -->
   <script src="script.js"></script>
-
-  <!-- دارک مود (تغییرات کوچک برای هماهنگی با script.js) -->
-  <script>
-    // این تابع رو اینجا میذاریم تا با دکمه‌ی داخل html کار کنه
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark');
-      const label = document.getElementById('themeLabel');
-      if (document.body.classList.contains('dark')) {
-        label.textContent = 'تاریک';
-        localStorage.setItem('theme', 'dark');
-      } else {
-        label.textContent = 'روشن';
-        localStorage.setItem('theme', 'light');
-      }
-    }
-
-    // بارگذاری تم ذخیره‌شده
-    (function loadTheme() {
-      if (localStorage.getItem('theme') === 'dark') {
-        document.body.classList.add('dark');
-        document.getElementById('themeLabel').textContent = 'تاریک';
-      }
-    })();
-  </script>
-
 </body>
 </html>
