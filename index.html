@@ -42,23 +42,83 @@
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   
-  <!-- CSS (کاملاً بازطراحی شده با حس انسانی و بدون ردپای هوش مصنوعی) -->
   <style>
     /* reset & base */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background-color: #f7f5f2;
-      color: #1e1a17;
       font-family: 'Vazirmatn', 'Inter', sans-serif;
       line-height: 1.6;
       padding: 0 1rem;
+      transition: background-color 0.3s, color 0.3s;
     }
     a { text-decoration: none; color: inherit; }
     button { cursor: pointer; font-family: inherit; }
     img { display: block; max-width: 100%; }
-    .container { max-width: 1100px; margin: 0 auto; }
 
-    /* navbar ساده و تمیز */
+    /* Theme variables */
+    :root {
+      --bg: #f7f5f2;
+      --bg-card: #ffffff;
+      --bg-soft: #f0ebe5;
+      --bg-hover: #fcfaf8;
+      --text: #1e1a17;
+      --text-muted: #4f4640;
+      --text-light: #7a6e64;
+      --border: #e9e3db;
+      --border-dark: #d6cdc1;
+      --shadow: rgba(0,0,0,0.02);
+      --accent: #b68b7c;
+      --btn-bg: #1e1a17;
+      --btn-text: #f5f2ed;
+      --status-on: #d4e0d0;
+      --status-off: #edd9d4;
+      --plan-bg: #faf8f6;
+      --plan-featured: #e8e1d9;
+      --plan-info: #f3efe9;
+    }
+
+    body.dark {
+      --bg: #141210;
+      --bg-card: #1f1b18;
+      --bg-soft: #26211d;
+      --bg-hover: #2c2722;
+      --text: #ece6df;
+      --text-muted: #b5a89a;
+      --text-light: #8f8278;
+      --border: #2f2924;
+      --border-dark: #3b352f;
+      --shadow: rgba(0,0,0,0.4);
+      --accent: #c9b09f;
+      --btn-bg: #ece6df;
+      --btn-text: #1e1a17;
+      --status-on: #2b4a2b;
+      --status-off: #8f4e42;
+      --plan-bg: #26211d;
+      --plan-featured: #2f2924;
+      --plan-info: #26211d;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    /* dark mode toggle */
+    .theme-toggle {
+      background: none;
+      border: 1.5px solid var(--border);
+      border-radius: 40px;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.8rem;
+      color: var(--text);
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .theme-toggle:hover { background: var(--bg-soft); }
+
+    /* navbar */
     .navbar {
       max-width: 1100px;
       margin: 1.5rem auto 2rem;
@@ -66,11 +126,12 @@
       justify-content: space-between;
       align-items: center;
       padding: 0.75rem 1.5rem;
-      background: #ffffffdd;
+      background: var(--bg-card);
       backdrop-filter: blur(6px);
       border-radius: 60px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.02);
-      border: 1px solid #e9e3db;
+      box-shadow: 0 4px 20px var(--shadow);
+      border: 1px solid var(--border);
+      transition: background 0.3s, border 0.3s;
     }
     .brand {
       display: flex;
@@ -84,10 +145,10 @@
       width: 34px;
       height: 34px;
       border-radius: 12px;
-      background: #d6cdc1;
+      background: var(--border-dark);
       object-fit: cover;
     }
-    .brand-name .accent { color: #b68b7c; }
+    .brand-name .accent { color: var(--accent); }
     .nav-links {
       display: flex;
       gap: 2rem;
@@ -97,45 +158,47 @@
     .nav-links button {
       background: none;
       border: none;
-      color: #3b352f;
+      color: var(--text-muted);
       transition: 0.2s;
       padding: 0.25rem 0;
       border-bottom: 2px solid transparent;
     }
-    .nav-links button:hover { border-bottom-color: #b68b7c; color: #1e1a17; }
+    .nav-links button:hover { border-bottom-color: var(--accent); color: var(--text); }
     .nav-cta {
-      background: #1e1a17;
+      background: var(--btn-bg);
       border: none;
-      color: #f5f2ed;
+      color: var(--btn-text);
       padding: 0.6rem 1.5rem;
       border-radius: 40px;
       font-weight: 600;
       font-size: 0.9rem;
       transition: 0.2s;
     }
-    .nav-cta:hover { background: #3b352f; }
+    .nav-cta:hover { opacity: 0.8; }
 
-    /* hero — با حس شخصی و روایت‌گونه */
+    /* hero */
     .hero {
       max-width: 1100px;
       margin: 2.5rem auto 4rem;
       padding: 2rem 1.5rem 3rem;
-      background: #f0ebe5;
+      background: var(--bg-soft);
       border-radius: 48px;
       position: relative;
       overflow: hidden;
+      transition: background 0.3s;
     }
     .hero-inner { position: relative; z-index: 2; }
     .eyebrow {
       display: inline-block;
-      background: #e3dbd2;
+      background: var(--border);
       padding: 0.2rem 1rem;
       border-radius: 40px;
       font-size: 0.7rem;
       font-weight: 600;
       letter-spacing: 0.04em;
-      color: #4b413a;
+      color: var(--text-light);
       margin-bottom: 1.2rem;
+      transition: background 0.3s;
     }
     .hero-title {
       font-size: 2.8rem;
@@ -144,11 +207,11 @@
       max-width: 700px;
       margin-bottom: 1.2rem;
       letter-spacing: -0.02em;
-      color: #1a1613;
+      color: var(--text);
     }
     .hero-sub {
       font-size: 1.15rem;
-      color: #4f4640;
+      color: var(--text-muted);
       max-width: 550px;
       margin-bottom: 2.2rem;
       line-height: 1.7;
@@ -162,18 +225,18 @@
       font-size: 0.95rem;
       border: none;
       transition: 0.2s;
-      background: white;
-      color: #1e1a17;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      background: var(--bg-card);
+      color: var(--text);
+      box-shadow: 0 2px 6px var(--shadow);
     }
-    .btn-primary { background: #1e1a17; color: white; }
-    .btn-primary:hover { background: #3b352f; }
-    .btn-ghost { background: transparent; border: 1.5px solid #cbc1b5; }
-    .btn-ghost:hover { background: #e3dbd2; border-color: #b5a89a; }
-    .btn-line { background: transparent; border: 1.5px solid #d6cdc1; }
-    .btn-line:hover { background: #e9e3db; }
+    .btn-primary { background: var(--btn-bg); color: var(--btn-text); }
+    .btn-primary:hover { opacity: 0.8; }
+    .btn-ghost { background: transparent; border: 1.5px solid var(--border-dark); }
+    .btn-ghost:hover { background: var(--border); border-color: var(--text-light); }
+    .btn-line { background: transparent; border: 1.5px solid var(--border-dark); }
+    .btn-line:hover { background: var(--border); }
 
-    /* section headings */
+    /* section */
     .section {
       max-width: 1100px;
       margin: 4rem auto;
@@ -188,14 +251,15 @@
       margin-top: 0.2rem;
     }
 
-    /* catalog / product cards */
+    /* catalog */
     .catalog {
-      background: white;
+      background: var(--bg-card);
       border-radius: 40px;
       padding: 2rem 2rem 2.5rem;
       margin-bottom: 3rem;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.02);
-      border: 1px solid #ece6df;
+      box-shadow: 0 8px 30px var(--shadow);
+      border: 1px solid var(--border);
+      transition: background 0.3s, border 0.3s;
     }
     .catalog-head {
       display: flex;
@@ -205,17 +269,20 @@
       flex-wrap: wrap;
     }
     .catalog-head h3 { font-size: 1.6rem; font-weight: 600; }
-    .catalog-sub { color: #7a6e64; font-size: 0.9rem; font-weight: 400; }
+    .catalog-sub { color: var(--text-light); font-size: 0.9rem; font-weight: 400; }
     .status {
-      background: #e3dbd2;
+      background: var(--border);
       padding: 0.2rem 0.9rem;
       border-radius: 40px;
       font-size: 0.7rem;
       font-weight: 600;
-      color: #4b413a;
+      color: var(--text-light);
+      transition: background 0.3s;
     }
-    .status-on { background: #d4e0d0; color: #2b4a2b; }
-    .status-off { background: #edd9d4; color: #8f4e42; }
+    .status-on { background: var(--status-on); color: #2b4a2b; }
+    .status-off { background: var(--status-off); color: #8f4e42; }
+    body.dark .status-on { color: #a8c9a8; }
+    body.dark .status-off { color: #dbaa9a; }
 
     .plan-grid {
       display: grid;
@@ -223,18 +290,18 @@
       gap: 1.2rem;
     }
     .plan {
-      background: #faf8f6;
+      background: var(--plan-bg);
       border-radius: 28px;
       padding: 1.2rem 1rem 1.5rem;
       text-align: center;
-      border: 1px solid #e9e3db;
+      border: 1px solid var(--border);
       transition: 0.2s;
     }
-    .plan:hover { background: #f5f1ec; }
-    .plan-featured { background: #e8e1d9; border-color: #cbc1b5; position: relative; }
+    .plan:hover { background: var(--bg-hover); }
+    .plan-featured { background: var(--plan-featured); border-color: var(--border-dark); position: relative; }
     .plan-tag {
-      background: #1e1a17;
-      color: white;
+      background: var(--btn-bg);
+      color: var(--btn-text);
       font-size: 0.6rem;
       padding: 0.15rem 0.8rem;
       border-radius: 40px;
@@ -243,12 +310,12 @@
     }
     .plan-label { display: block; font-weight: 600; margin-bottom: 0.3rem; }
     .plan-price { font-size: 1.4rem; font-weight: 700; }
-    .plan-price i { font-style: normal; font-size: 0.7rem; font-weight: 400; color: #7a6e64; }
+    .plan-price i { font-style: normal; font-size: 0.7rem; font-weight: 400; color: var(--text-light); }
     .plan .btn { margin-top: 0.8rem; width: 100%; }
     .plan-disabled { opacity: 0.6; filter: grayscale(0.3); }
-    .plan-disabled .btn { background: #e3dbd2; border-color: #d6cdc1; cursor: not-allowed; }
-    .plan-info { background: #f3efe9; border-color: #dbd2c7; }
-    .plan-desc { font-size: 0.8rem; color: #5f554b; margin: 0.5rem 0; }
+    .plan-disabled .btn { background: var(--border); border-color: var(--border-dark); cursor: not-allowed; }
+    .plan-info { background: var(--plan-info); border-color: var(--border-dark); }
+    .plan-desc { font-size: 0.8rem; color: var(--text-light); margin: 0.5rem 0; }
 
     /* simple grid */
     .simple-grid {
@@ -258,22 +325,21 @@
       margin-top: 1.5rem;
     }
     .simple-card {
-      background: white;
+      background: var(--bg-card);
       border-radius: 32px;
       padding: 1.5rem 1.5rem 1.8rem;
-      border: 1px solid #ece6df;
+      border: 1px solid var(--border);
       transition: 0.2s;
     }
-    .simple-card:hover { background: #fcfaf8; }
-    .simple-card-wide { grid-column: span 1; } /* fallback */
-    .eyebrow-sm { font-size: 0.6rem; background: #e9e3db; padding: 0.1rem 0.8rem; border-radius: 30px; display: inline-block; margin-bottom: 0.8rem; }
+    .simple-card:hover { background: var(--bg-hover); }
+    .eyebrow-sm { font-size: 0.6rem; background: var(--border); padding: 0.1rem 0.8rem; border-radius: 30px; display: inline-block; margin-bottom: 0.8rem; transition: background 0.3s; }
     .simple-card h3 { font-size: 1.2rem; margin-bottom: 0.3rem; }
-    .simple-card p { color: #5f554b; font-size: 0.9rem; margin-bottom: 1rem; }
+    .simple-card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem; }
     .simple-foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
 
     /* about */
-    .section-about { background: #f0ebe5; padding: 3rem 2rem; border-radius: 48px; }
-    .about-text { max-width: 700px; font-size: 1.1rem; color: #3f3832; line-height: 1.8; }
+    .section-about { background: var(--bg-soft); padding: 3rem 2rem; border-radius: 48px; transition: background 0.3s; }
+    .about-text { max-width: 700px; font-size: 1.1rem; color: var(--text-muted); line-height: 1.8; }
 
     /* contact */
     .contact-grid {
@@ -282,16 +348,16 @@
       gap: 1.2rem;
     }
     .contact-card {
-      background: white;
+      background: var(--bg-card);
       border-radius: 28px;
       padding: 1.5rem 1.2rem;
-      border: 1px solid #e9e3db;
+      border: 1px solid var(--border);
       transition: 0.15s;
       display: flex;
       flex-direction: column;
     }
-    .contact-card:hover { background: #fcfaf8; border-color: #cbc1b5; }
-    .contact-kind { font-size: 0.6rem; font-weight: 600; color: #8f8278; letter-spacing: 0.04em; }
+    .contact-card:hover { background: var(--bg-hover); border-color: var(--border-dark); }
+    .contact-kind { font-size: 0.6rem; font-weight: 600; color: var(--text-light); letter-spacing: 0.04em; }
     .contact-name { font-weight: 600; margin-top: 0.2rem; }
 
     /* footer */
@@ -299,17 +365,18 @@
       max-width: 1100px;
       margin: 4rem auto 2rem;
       padding-top: 1.5rem;
-      border-top: 1px solid #e3dbd2;
+      border-top: 1px solid var(--border);
       display: flex;
       gap: 0.8rem;
       font-size: 0.85rem;
-      color: #7a6e64;
+      color: var(--text-light);
       justify-content: center;
       flex-wrap: wrap;
+      transition: border-color 0.3s;
     }
-    .dot-sep { color: #d6cdc1; }
+    .dot-sep { color: var(--border-dark); }
 
-    /* ریسپانسیو */
+    /* responsive */
     @media (max-width: 760px) {
       .navbar { flex-wrap: wrap; gap: 0.8rem; justify-content: center; border-radius: 40px; padding: 0.8rem 1.2rem; }
       .nav-links { gap: 1.2rem; flex-wrap: wrap; justify-content: center; }
@@ -325,14 +392,11 @@
       .catalog { padding: 1.5rem; }
       .section-about { padding: 2rem 1rem; }
     }
-
-    /* حذف گریدِ اضافی و المان‌های غیرطبیعی */
     .grid-field { display: none; }
   </style>
 </head>
 <body>
 
-<!-- هدر با حس ساده و انسانی -->
 <header class="navbar">
   <div class="brand">
     <img src="https://sidkashop.qzz.io/Logo.png" alt="" class="brand-mark" />
@@ -343,11 +407,15 @@
     <button onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">درباره</button>
     <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">تماس</button>
   </nav>
-  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">همین حالا</button>
+  <div style="display:flex; gap:0.6rem; align-items:center;">
+    <button class="theme-toggle" onclick="toggleDarkMode()" aria-label="تغییر تم">
+      <span id="theme-icon">🌙</span> <span id="theme-label">دارک</span>
+    </button>
+    <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">همین حالا</button>
+  </div>
 </header>
 
 <main>
-  <!-- بخش معرفی با لحن غیررسمی و صمیمی -->
   <section class="hero">
     <div class="hero-inner">
       <span class="eyebrow">سیدکا · دیجیتال</span>
@@ -363,14 +431,12 @@
     </div>
   </section>
 
-  <!-- محصولات -->
   <section id="products" class="section">
     <div class="section-head">
       <span class="eyebrow">خدمات</span>
       <h2>محصولاتی که کار راه‌اندازن</h2>
     </div>
 
-    <!-- ویاکس -->
     <article class="catalog">
       <div class="catalog-head">
         <div>
@@ -404,7 +470,6 @@
       </div>
     </article>
 
-    <!-- سلف تلگرام -->
     <article class="catalog">
       <div class="catalog-head">
         <div>
@@ -437,7 +502,6 @@
       </div>
     </article>
 
-    <!-- خدمات ساده -->
     <div class="simple-grid">
       <article class="simple-card">
         <span class="eyebrow-sm">طراحی</span>
@@ -471,7 +535,6 @@
     </div>
   </section>
 
-  <!-- درباره -->
   <section id="about" class="section section-about">
     <div class="section-head">
       <span class="eyebrow">درباره ما</span>
@@ -484,7 +547,6 @@
     </p>
   </section>
 
-  <!-- ارتباط -->
   <section id="contact" class="section section-contact">
     <div class="section-head">
       <span class="eyebrow">تماس</span>
@@ -517,18 +579,41 @@
   <span>همیشه در دسترس</span>
 </footer>
 
-<!-- اسکریپت‌های کم‌حجم و طبیعی -->
 <script>
-  // توابع باز کردن صفحه پرداخت و ویژگی‌ها (همون‌طور که قبلاً بوده، اما با اسم‌های ساده)
+  // توابع پرداخت و مشاهده قابلیت‌ها (همون کارایی که اول بود)
   function openPaymentPage(product, price) {
-    // اینجا می‌تونید هر منطق پرداختی که دارید قرار بدید
     alert(`درخواست خرید: ${product} — مبلغ: ${price.toLocaleString()} تومان`);
-    // مثلاً هدایت به درگاه: window.location.href = 'https://your-payment-gateway.com?product='+encodeURIComponent(product)+'&amount='+price;
+    // در صورت نیاز: window.location.href = 'https://your-payment-gateway.com?product='+encodeURIComponent(product)+'&amount='+price;
   }
+
   function openFeaturesPage() {
-    alert('قابلیت‌های سلف تلگرام:\n- نمایش آنلاین\/آفلاین\n- مدیریت پیام‌ها\n- مشاهده وضعیت مخاطبین\n- و ...');
-    // یا باز کردن صفحه جداگانه
+    alert('قابلیت‌های سلف تلگرام:\n- نمایش آنلاین/آفلاین\n- مدیریت پیام‌ها\n- مشاهده وضعیت مخاطبین\n- و ...');
   }
+
+  // دارک مود
+  function toggleDarkMode() {
+    document.body.classList.toggle('dark');
+    const icon = document.getElementById('theme-icon');
+    const label = document.getElementById('theme-label');
+    if (document.body.classList.contains('dark')) {
+      icon.textContent = '☀️';
+      label.textContent = 'روشن';
+      localStorage.setItem('theme', 'dark');
+    } else {
+      icon.textContent = '🌙';
+      label.textContent = 'دارک';
+      localStorage.setItem('theme', 'light');
+    }
+  }
+
+  // بارگذاری تم ذخیره‌شده
+  (function loadTheme() {
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+      document.getElementById('theme-icon').textContent = '☀️';
+      document.getElementById('theme-label').textContent = 'روشن';
+    }
+  })();
 </script>
 </body>
 </html>
