@@ -1,14 +1,11 @@
 /* ===== script.js ===== */
-/* طراحی کامل و حرفه‌ای - سیدکا شاپ */
+/* طراحی نهایی - ترکیب استایل اصلی با تم سیدکا شاپ */
 
 const SITE_URL = "https://sidkashop.qzz.io";
 const SPAM_TIME = 60 * 1000;
 const FETCH_TIMEOUT = 120000;
 const MAX_RETRIES = 3;
 
-/**********************
-GENERATE TRACKING CODE
-**********************/
 function generateTrackingCode() {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   let code = '';
@@ -22,9 +19,6 @@ function getCurrentTheme() {
   return document.body.classList.contains('dark') ? 'dark' : 'light';
 }
 
-/**********************
-PAYMENT PAGE
-**********************/
 function openPaymentPage(productName, price) {
   const w = window.open("", "_blank");
   if (!w) return alert("لطفاً پاپ‌آپ مرورگر را فعال کنید.");
@@ -40,378 +34,265 @@ function openPaymentPage(productName, price) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>پرداخت | ${productName}</title>
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #f7f5f2;
       --card: #ffffff;
       --soft: #f0ebe5;
-      --hover: #fcfaf8;
       --text: #1e1a17;
       --muted: #4f4640;
       --light: #7a6e64;
       --border: #e9e3db;
       --border-dark: #d6cdc1;
       --accent: #b68b7c;
-      --accent-light: #d4c4b8;
+      --accent-glow: #c9a063;
       --btn-bg: #1e1a17;
       --btn-text: #f5f2ed;
-      --success: #5a9e96;
+      --success: #3FA9A0;
       --error: #c0392b;
-      --warning: #c2956a;
-      --shadow: 0 4px 24px rgba(0,0,0,0.06);
-      --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+      --warning: #b68b7c;
     }
     html.dark {
-      --bg: #141210;
-      --card: #1f1b18;
-      --soft: #26211d;
-      --hover: #2c2722;
-      --text: #ece6df;
-      --muted: #b5a89a;
-      --light: #8f8278;
-      --border: #2f2924;
-      --border-dark: #3b352f;
-      --accent: #c9b09f;
-      --accent-light: #a89080;
-      --btn-bg: #ece6df;
-      --btn-text: #1e1a17;
-      --success: #6bbcb5;
+      --bg: #0A0D12;
+      --card: #12161D;
+      --soft: #1A2029;
+      --text: #ECE9E2;
+      --muted: #99A1AF;
+      --light: #5C6472;
+      --border: #262D3A;
+      --border-dark: #262D3A;
+      --accent: #C9A063;
+      --accent-glow: #D9B47C;
+      --btn-bg: #C9A063;
+      --btn-text: #14110A;
+      --success: #3FA9A0;
       --error: #e74c3c;
-      --warning: #d4a574;
-      --shadow: 0 4px 24px rgba(0,0,0,0.3);
-      --shadow-lg: 0 12px 40px rgba(0,0,0,0.5);
+      --warning: #D9B47C;
     }
 
-    * { margin:0; padding:0; box-sizing:border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; outline: none !important; -webkit-tap-highlight-color: transparent !important; }
+
     body {
       font-family: 'Vazirmatn', sans-serif;
       background: var(--bg);
-      color: var(--text);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 20px;
-      line-height: 1.7;
+      color: var(--text);
       transition: background 0.3s, color 0.3s;
     }
 
     .card {
-      background: var(--card);
       width: 100%;
-      max-width: 480px;
-      border-radius: 32px;
-      padding: 2.5rem 2rem;
-      box-shadow: var(--shadow-lg);
-      border: 1px solid var(--border);
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s;
+      max-width: 460px;
+      background: var(--card);
+      padding: 30px 25px;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.4), 0 0 0 1px var(--border);
+      transition: background 0.3s, box-shadow 0.3s;
     }
 
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-light), var(--accent));
-      opacity: 0.6;
+    h3 { text-align: center; margin: 0 0 5px; color: var(--text); font-size: 18px; }
+
+    .price {
+      text-align: center;
+      margin: 8px 0 20px;
+      font-size: 26px;
+      color: var(--accent);
+      font-weight: bold;
+      font-family: 'JetBrains Mono', monospace;
     }
 
-    /* Header */
-    .eyebrow {
-      display: inline-block;
-      background: var(--soft);
-      color: var(--light);
-      padding: 0.3rem 1.2rem;
-      border-radius: 50px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      margin-bottom: 0.8rem;
-    }
+    .price span { font-size: 13px; color: var(--muted); font-weight: normal; font-family: 'Vazirmatn', sans-serif; }
 
-    .product-name {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 0.3rem;
-      color: var(--text);
-    }
-
-    .price-tag {
-      font-size: 2.8rem;
-      font-weight: 800;
-      color: var(--text);
-      line-height: 1;
-      margin-bottom: 0.2rem;
-      letter-spacing: -0.02em;
-    }
-
-    .price-tag .currency {
-      font-size: 0.9rem;
-      font-weight: 400;
-      color: var(--muted);
-      margin-right: 0.3rem;
-    }
-
-    /* VPN Notice */
-    .vpn-alert {
-      background: linear-gradient(135deg, rgba(182,139,124,0.1), rgba(182,139,124,0.05));
-      border: 1px solid var(--accent-light);
-      border-radius: 16px;
-      padding: 1rem 1.2rem;
-      margin: 1.5rem 0;
+    .vpn-notice {
+      background: linear-gradient(135deg, rgba(201,160,99,.15), rgba(140,116,74,.12));
+      border: 1px solid rgba(201,160,99,.3);
+      border-radius: 12px;
+      padding: 12px 16px;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 12px;
+      color: var(--accent-glow);
       display: flex;
       align-items: center;
-      gap: 0.8rem;
-      font-size: 0.82rem;
-      color: var(--muted);
-      transition: all 0.3s;
+      justify-content: center;
+      gap: 8px;
+      animation: glow 2s ease-in-out infinite;
     }
 
-    .vpn-alert .icon {
-      font-size: 1.6rem;
-      flex-shrink: 0;
-      animation: pulse 2s ease-in-out infinite;
+    .vpn-notice .icon {
+      font-size: 20px;
+      animation: bounce 1s ease-in-out infinite;
     }
 
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 0.8; }
-      50% { transform: scale(1.1); opacity: 1; }
+    .vpn-notice .text {
+      line-height: 1.6;
     }
 
-    .vpn-alert strong {
+    .vpn-notice .highlight {
       color: var(--accent);
+      font-weight: bold;
+      background: rgba(201,160,99,.2);
+      padding: 2px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
     }
 
-    /* Bank Info */
-    .bank-box {
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 5px rgba(201,160,99,.2), 0 0 10px rgba(201,160,99,.1); }
+      50% { box-shadow: 0 0 15px rgba(201,160,99,.4), 0 0 25px rgba(201,160,99,.2); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .bank {
       background: var(--soft);
-      border-radius: 20px;
-      padding: 1.2rem;
+      padding: 15px;
+      border-radius: 14px;
       text-align: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 20px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 2;
       border: 1px solid var(--border);
-      transition: all 0.3s;
+      border-right: 3px solid var(--accent);
+      transition: background 0.3s;
     }
 
-    .bank-box .label {
-      font-size: 0.75rem;
-      color: var(--light);
-      margin-bottom: 0.3rem;
-      letter-spacing: 0.03em;
-    }
-
-    .bank-box .card-no {
-      font-size: 1.5rem;
-      font-weight: 700;
+    .card-number {
+      font-size: 18px;
       color: var(--text);
-      letter-spacing: 0.1em;
+      letter-spacing: 2px;
+      font-family: 'JetBrains Mono', monospace;
       direction: ltr;
       display: inline-block;
-      font-family: monospace;
-      background: var(--card);
-      padding: 0.5rem 1.2rem;
-      border-radius: 12px;
-      margin: 0.5rem 0;
-      border: 1px solid var(--border-dark);
+      background: var(--bg);
+      padding: 6px 14px;
+      border-radius: 8px;
+      margin: 6px 0;
     }
 
-    .bank-box .owner {
-      font-size: 0.85rem;
-      color: var(--muted);
-      font-weight: 500;
-    }
-
-    /* Upload */
-    .upload-zone {
+    .upload-area {
       border: 2px dashed var(--border-dark);
-      border-radius: 20px;
-      padding: 1.5rem;
+      border-radius: 14px;
+      padding: 20px;
       text-align: center;
       cursor: pointer;
-      transition: all 0.25s;
-      background: var(--card);
-      margin-bottom: 0.8rem;
-      position: relative;
-      overflow: hidden;
+      margin-bottom: 15px;
+      transition: all .3s;
+      background: var(--soft);
+      min-height: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
     }
 
-    .upload-zone:hover {
-      border-color: var(--accent);
-      background: var(--hover);
-      transform: translateY(-1px);
-      box-shadow: var(--shadow);
-    }
+    .upload-area:hover { border-color: var(--accent); }
 
-    .upload-zone.done {
+    .upload-area.has-file {
       border-color: var(--success);
       border-style: solid;
-      background: rgba(90,158,150,0.05);
+      background: rgba(63, 169, 160, 0.06);
     }
 
-    .upload-zone .upload-icon {
-      font-size: 2.2rem;
-      margin-bottom: 0.3rem;
-      transition: transform 0.3s;
-    }
+    .upload-icon { font-size: 32px; transition: transform 0.3s; }
+    .upload-area:hover .upload-icon { transform: translateY(-3px); }
+    .upload-text { font-size: 13px; color: var(--muted); }
+    .file-name { font-size: 11px; color: var(--accent); word-break: break-all; font-weight: 500; }
+    .file-size { font-size: 10px; color: var(--muted); }
 
-    .upload-zone:hover .upload-icon {
-      transform: translateY(-3px);
-    }
+    .upload-area input { display: none; }
 
-    .upload-zone .upload-hint {
-      font-size: 0.85rem;
-      color: var(--light);
-      font-weight: 500;
-    }
-
-    .upload-zone .file-info {
-      font-size: 0.75rem;
-      color: var(--accent);
-      margin-top: 0.2rem;
-      font-weight: 600;
-      word-break: break-all;
-    }
-
-    .upload-zone .file-size {
-      font-size: 0.7rem;
-      color: var(--light);
-    }
-
-    .upload-zone input {
-      display: none;
-    }
-
-    /* Inputs */
-    .input-group {
-      margin-bottom: 0.7rem;
-    }
-
-    .input-group input,
-    .input-group textarea {
+    input, textarea {
       width: 100%;
-      padding: 0.9rem 1.1rem;
-      border-radius: 16px;
-      border: 1.5px solid var(--border-dark);
+      margin-top: 10px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border-dark);
       font-family: 'Vazirmatn', sans-serif;
-      font-size: 0.9rem;
-      background: var(--card);
+      font-size: 13px;
+      background: var(--soft);
       color: var(--text);
       transition: all 0.2s;
-      outline: none;
     }
 
-    .input-group input:focus,
-    .input-group textarea:focus {
-      border-color: var(--accent);
-      background: var(--hover);
-      box-shadow: 0 0 0 3px rgba(182,139,124,0.1);
-    }
+    input::placeholder, textarea::placeholder { color: var(--light); }
+    input:focus, textarea:focus { border-color: var(--accent); }
+    textarea { resize: none; height: 70px; }
 
-    .input-group input::placeholder,
-    .input-group textarea::placeholder {
-      color: var(--light);
-      opacity: 0.7;
-    }
-
-    .input-group textarea {
-      resize: none;
-      height: 75px;
-    }
-
-    /* Button */
-    .btn-submit {
+    .send-btn {
       width: 100%;
-      padding: 1rem;
+      margin-top: 18px;
+      padding: 14px;
       border: none;
-      border-radius: 16px;
+      border-radius: 14px;
       font-family: 'Vazirmatn', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      background: var(--btn-bg);
+      font-size: 15px;
+      font-weight: bold;
+      background: linear-gradient(135deg, var(--accent), var(--accent-glow));
       color: var(--btn-text);
       cursor: pointer;
-      transition: all 0.2s;
-      margin-top: 0.5rem;
-      letter-spacing: 0.02em;
+      transition: all .3s;
     }
 
-    .btn-submit:hover:not(:disabled) {
-      opacity: 0.88;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-    }
+    .send-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(201, 160, 99, 0.3); }
+    .send-btn:disabled { opacity: 0.7; cursor: not-allowed; }
 
-    .btn-submit:active:not(:disabled) {
-      transform: scale(0.98);
-    }
-
-    .btn-submit:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      background: var(--border-dark);
-      color: var(--light);
-    }
-
-    /* Progress */
-    .progress-wrap {
-      margin-top: 1rem;
+    .progress-container {
+      margin-top: 15px;
       display: none;
       background: var(--soft);
-      border-radius: 18px;
-      padding: 1.2rem;
+      padding: 15px;
+      border-radius: 12px;
       border: 1px solid var(--border);
-      transition: all 0.3s;
+      transition: background 0.3s;
     }
 
-    .progress-wrap.active {
-      display: block;
-      animation: slideDown 0.3s ease;
-    }
+    .progress-container.active { display: block; animation: slideDown 0.3s ease; }
 
     @keyframes slideDown {
       from { opacity: 0; transform: translateY(-10px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .progress-stats {
+    .progress-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 0.6rem;
-      font-size: 0.85rem;
+      margin-bottom: 8px;
+      font-size: 11px;
     }
 
-    .progress-percent {
-      font-weight: 700;
-      font-size: 1.3rem;
-      color: var(--accent);
-    }
+    .progress-percent { color: var(--accent); font-weight: bold; font-size: 16px; font-family: 'JetBrains Mono', monospace; }
+    .progress-info { color: var(--muted); font-size: 12px; }
 
-    .progress-detail {
-      color: var(--muted);
-      font-size: 0.8rem;
-    }
-
-    .progress-track {
-      height: 8px;
-      background: var(--card);
-      border-radius: 20px;
+    .progress-bar-outer {
+      height: 6px;
+      background: var(--bg);
+      border-radius: 10px;
       overflow: hidden;
-      margin-bottom: 0.6rem;
+      margin-bottom: 8px;
     }
 
-    .progress-fill {
+    .progress-bar-inner {
       height: 100%;
-      background: linear-gradient(90deg, var(--accent), var(--accent-light));
-      border-radius: 20px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-glow));
+      border-radius: 10px;
       width: 0%;
-      transition: width 0.4s ease;
+      transition: width 0.3s;
       position: relative;
     }
 
-    .progress-fill::after {
+    .progress-bar-inner::after {
       content: '';
       position: absolute;
       right: 0; top: 0; bottom: 0;
@@ -421,253 +302,117 @@ function openPaymentPage(productName, price) {
       filter: blur(4px);
     }
 
-    .progress-sizes {
+    .progress-details {
       display: flex;
       justify-content: space-between;
-      font-size: 0.7rem;
-      color: var(--light);
+      font-size: 10px;
+      color: var(--muted);
+      flex-wrap: wrap;
+      gap: 4px;
     }
 
-    /* Status */
-    .status-msg {
+    #status {
       text-align: center;
-      margin-top: 0.8rem;
-      font-size: 0.82rem;
-      min-height: 1.5rem;
-      font-weight: 500;
-      transition: all 0.2s;
+      margin-top: 12px;
+      font-size: 12px;
+      min-height: 18px;
+      color: var(--muted);
     }
 
-    .status-msg.error { color: var(--error); }
-    .status-msg.warning { color: var(--warning); }
-    .status-msg.success { color: var(--success); }
+    #status.error { color: #e74c3c; }
+    #status.warning { color: var(--warning); }
+    #status.success { color: var(--success); }
 
-    /* Retry */
-    .retry-box {
-      background: rgba(192,57,43,0.08);
-      border: 1px solid rgba(192,57,43,0.25);
-      border-radius: 14px;
-      padding: 0.7rem 1rem;
-      margin-top: 0.8rem;
-      font-size: 0.78rem;
-      color: var(--error);
+    .retry-info {
+      background: rgba(231, 76, 60, 0.1);
+      border: 1px solid rgba(231, 76, 60, 0.3);
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-top: 10px;
+      font-size: 11px;
+      color: #e74c3c;
       text-align: center;
+      line-height: 1.8;
       display: none;
       animation: slideDown 0.3s ease;
     }
 
-    .retry-box.show { display: block; }
-
-    /* Success Overlay */
-    .success-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: var(--bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      padding: 20px;
-    }
-
-    .success-card {
-      background: var(--card);
-      border-radius: 36px;
-      padding: 3rem 2rem;
-      text-align: center;
-      max-width: 440px;
-      width: 100%;
-      box-shadow: var(--shadow-lg);
-      border: 1px solid var(--border);
-      animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    @keyframes popIn {
-      from { opacity: 0; transform: scale(0.8) translateY(30px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
-    }
-
-    .success-icon {
-      width: 80px;
-      height: 80px;
-      background: rgba(90,158,150,0.12);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1.5rem;
-      font-size: 2.5rem;
-      animation: popIn 0.6s ease 0.2s both;
-    }
-
-    .success-title {
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin-bottom: 0.3rem;
-      animation: popIn 0.6s ease 0.3s both;
-    }
-
-    .success-sub {
-      color: var(--muted);
-      font-size: 0.9rem;
-      margin-bottom: 1.5rem;
-      animation: popIn 0.6s ease 0.35s both;
-    }
-
-    .tracking-badge {
-      background: var(--soft);
-      border-radius: 16px;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      border: 1px solid var(--border);
-      animation: popIn 0.6s ease 0.4s both;
-    }
-
-    .tracking-badge .track-label {
-      font-size: 0.7rem;
-      color: var(--light);
-      letter-spacing: 0.06em;
-      margin-bottom: 0.3rem;
-    }
-
-    .tracking-badge .track-code {
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--accent);
-      letter-spacing: 0.15em;
-      direction: ltr;
-      font-family: monospace;
-    }
-
-    .success-price {
-      font-size: 2.2rem;
-      font-weight: 700;
-      margin: 1rem 0 0.5rem;
-      animation: popIn 0.6s ease 0.5s both;
-    }
-
-    .success-price .currency {
-      font-size: 0.8rem;
-      color: var(--muted);
-      font-weight: 400;
-    }
-
-    .success-note {
-      color: var(--light);
-      font-size: 0.82rem;
-      margin-bottom: 1.8rem;
-      animation: popIn 0.6s ease 0.55s both;
-    }
-
-    .btn-back {
-      display: inline-block;
-      background: var(--btn-bg);
-      color: var(--btn-text);
-      padding: 0.9rem 2.5rem;
-      border-radius: 50px;
-      border: none;
-      font-family: 'Vazirmatn', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      animation: popIn 0.6s ease 0.6s both;
-    }
-
-    .btn-back:hover {
-      opacity: 0.85;
-      transform: translateY(-2px);
-      box-shadow: var(--shadow);
-    }
-
-    /* Mobile */
-    @media (max-width: 500px) {
-      .card { padding: 1.8rem 1.3rem; border-radius: 26px; }
-      .price-tag { font-size: 2.2rem; }
-      .bank-box .card-no { font-size: 1.2rem; letter-spacing: 0.05em; }
-      .success-card { padding: 2rem 1.5rem; }
-    }
+    .retry-info.show { display: block; }
+    .retry-info b { color: var(--accent); }
   </style>
 </head>
 <body>
-  <div class="card" id="mainCard">
-    <span class="eyebrow">تکمیل سفارش</span>
-    <div class="product-name">${productName}</div>
-    <div class="price-tag">${price.toLocaleString()} <span class="currency">تومان</span></div>
+  <div class="card">
+    <h3>${productName}</h3>
+    <div class="price">${price.toLocaleString()} <span>تومان</span></div>
 
-    <div class="vpn-alert">
+    <div class="vpn-notice">
       <span class="icon">🔐</span>
-      <span>روشن بودن <strong>VPN</strong> جهت ارسال رسید <strong>الزامی</strong> می‌باشد</span>
+      <span class="text">⚠️ روشن بودن <span class="highlight">VPN</span> جهت ارسال رسید <b>الزامی</b> میباشد</span>
     </div>
 
-    <div class="bank-box">
-      <div class="label">📱 شماره کارت جهت واریز</div>
-      <div class="card-no">6219 8614 5364 0772</div>
-      <div class="owner">به نام: <strong style="color:var(--text);">امیرمحمد یوسفی</strong></div>
+    <div class="bank">
+      <div>📱 شماره کارت جهت واریز</div>
+      <div class="card-number">6219 8614 5364 0772</div>
+      <div>به نام: <b style="color:var(--text);">امیرمحمد یوسفی</b></div>
     </div>
 
-    <div class="upload-zone" id="uploadZone">
+    <div class="upload-area" id="uploadArea">
       <div class="upload-icon" id="uploadIcon">📁</div>
-      <div class="upload-hint" id="uploadHint">کلیک کنید یا تصویر رسید را اینجا رها کنید</div>
-      <div class="file-info" id="fileInfo"></div>
+      <div class="upload-text" id="uploadText">برای آپلود تصویر رسید کلیک کنید</div>
+      <div class="file-name" id="fileName"></div>
       <div class="file-size" id="fileSize"></div>
-      <input type="file" id="fileInput" accept="image/*">
+      <input type="file" id="receiptImage" accept="image/*">
     </div>
 
-    <div class="input-group">
-      <input type="text" id="telegramId" placeholder="✈️ آیدی تلگرام (مثال: @username)">
-    </div>
-    <div class="input-group">
-      <input type="tel" id="phoneNumber" placeholder="📞 شماره تماس">
-    </div>
-    <div class="input-group">
-      <textarea id="description" placeholder="📝 توضیحات (اختیاری)"></textarea>
-    </div>
+    <input type="text" id="telegramId" placeholder="✈️ آیدی تلگرام (مثال: @username)">
+    <input type="tel" id="phoneNumber" placeholder="📞 شماره تماس">
+    <textarea id="description" placeholder="📝 توضیحات (اختیاری)"></textarea>
 
-    <button class="btn-submit" id="submitBtn">📨 ارسال رسید</button>
+    <button class="send-btn" id="sendBtn">📨 ارسال رسید</button>
 
-    <div class="progress-wrap" id="progressWrap">
-      <div class="progress-stats">
+    <div class="progress-container" id="progressContainer">
+      <div class="progress-header">
         <span class="progress-percent" id="progressPercent">0%</span>
-        <span class="progress-detail" id="progressInfo">در حال آماده‌سازی...</span>
+        <span class="progress-info" id="progressInfo">در حال آماده‌سازی...</span>
       </div>
-      <div class="progress-track">
-        <div class="progress-fill" id="progressFill"></div>
+      <div class="progress-bar-outer">
+        <div class="progress-bar-inner" id="progressBar"></div>
       </div>
-      <div class="progress-sizes">
+      <div class="progress-details">
         <span id="progressUploaded">📤 0 KB</span>
-        <span id="progressTotal">📥 0 KB</span>
+        <span id="progressTotal">کل: 0 KB</span>
       </div>
     </div>
 
-    <div class="retry-box" id="retryBox">
-      🔄 در حال تلاش مجدد... (<span id="retryCount">1</span>/${MAX_RETRIES})<br>
-      ⚠️ لطفاً <strong>VPN</strong> خود را بررسی کنید
+    <div class="retry-info" id="retryInfo">
+      🔄 در حال تلاش مجدد... (<span id="retryCount">1</span>/${MAX_RETRIES})
+      <br>⚠️ لطفاً <b>VPN</b> خود را بررسی کنید
     </div>
 
-    <div class="status-msg" id="statusMsg"></div>
+    <div id="status"></div>
   </div>
 
   <script>
-    var fileInput = document.getElementById("fileInput");
-    var uploadZone = document.getElementById("uploadZone");
+    var imgInput = document.getElementById("receiptImage");
+    var uploadArea = document.getElementById("uploadArea");
     var uploadIcon = document.getElementById("uploadIcon");
-    var uploadHint = document.getElementById("uploadHint");
-    var fileInfo = document.getElementById("fileInfo");
-    var fileSize = document.getElementById("fileSize");
-    var submitBtn = document.getElementById("submitBtn");
-    var statusMsg = document.getElementById("statusMsg");
+    var uploadText = document.getElementById("uploadText");
+    var fileNameEl = document.getElementById("fileName");
+    var fileSizeEl = document.getElementById("fileSize");
+    var sendBtn = document.getElementById("sendBtn");
+    var statusDiv = document.getElementById("status");
     var tgInput = document.getElementById("telegramId");
     var phoneInput = document.getElementById("phoneNumber");
     var descInput = document.getElementById("description");
-    var progressWrap = document.getElementById("progressWrap");
+
+    var progressContainer = document.getElementById("progressContainer");
     var progressPercent = document.getElementById("progressPercent");
     var progressInfo = document.getElementById("progressInfo");
-    var progressFill = document.getElementById("progressFill");
+    var progressBar = document.getElementById("progressBar");
     var progressUploaded = document.getElementById("progressUploaded");
     var progressTotal = document.getElementById("progressTotal");
-    var retryBox = document.getElementById("retryBox");
+    var retryInfo = document.getElementById("retryInfo");
     var retryCount = document.getElementById("retryCount");
 
     var selectedFile = null;
@@ -682,209 +427,308 @@ function openPaymentPage(productName, price) {
       return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
     }
 
-    uploadZone.onclick = function(e) {
-      if (e.target !== fileInput) fileInput.click();
+    uploadArea.onclick = function() {
+      imgInput.click();
     };
 
-    uploadZone.ondragover = function(e) {
+    uploadArea.ondragover = function(e) {
       e.preventDefault();
-      uploadZone.style.borderColor = 'var(--accent)';
-      uploadZone.style.background = 'var(--hover)';
+      uploadArea.style.borderColor = 'var(--accent)';
     };
 
-    uploadZone.ondragleave = function() {
-      uploadZone.style.borderColor = selectedFile ? 'var(--success)' : 'var(--border-dark)';
-      uploadZone.style.background = selectedFile ? 'rgba(90,158,150,0.05)' : 'var(--card)';
-    };
-
-    uploadZone.ondrop = function(e) {
+    uploadArea.ondragleave = function(e) {
       e.preventDefault();
-      uploadZone.style.borderColor = 'var(--border-dark)';
-      uploadZone.style.background = 'var(--card)';
+      uploadArea.style.borderColor = selectedFile ? 'var(--success)' : 'var(--border-dark)';
+    };
+
+    uploadArea.ondrop = function(e) {
+      e.preventDefault();
+      uploadArea.style.borderColor = selectedFile ? 'var(--success)' : 'var(--border-dark)';
       if (e.dataTransfer.files.length > 0) {
-        fileInput.files = e.dataTransfer.files;
-        handleFile();
+        imgInput.files = e.dataTransfer.files;
+        handleFileSelect();
       }
     };
 
-    fileInput.onchange = handleFile;
+    imgInput.onchange = handleFileSelect;
 
-    function handleFile() {
-      if (fileInput.files && fileInput.files[0]) {
-        selectedFile = fileInput.files[0];
-        fileInfo.textContent = selectedFile.name;
-        fileSize.textContent = formatSize(selectedFile.size);
-        uploadIcon.textContent = '✅';
-        uploadHint.textContent = 'تصویر با موفقیت انتخاب شد';
-        uploadZone.classList.add('done');
-        statusMsg.textContent = '';
-        statusMsg.className = 'status-msg';
+    function handleFileSelect() {
+      if (imgInput.files && imgInput.files[0]) {
+        selectedFile = imgInput.files[0];
+        fileNameEl.innerText = selectedFile.name;
+        fileSizeEl.innerText = 'حجم: ' + formatSize(selectedFile.size);
+        uploadIcon.innerText = '✅';
+        uploadText.innerText = 'تصویر انتخاب شد';
+        uploadArea.classList.add('has-file');
+      } else {
+        selectedFile = null;
+        fileNameEl.innerText = '';
+        fileSizeEl.innerText = '';
+        uploadIcon.innerText = '📁';
+        uploadText.innerText = 'برای آپلود تصویر رسید کلیک کنید';
+        uploadArea.classList.remove('has-file');
       }
     }
 
     function resetProgress() {
-      progressWrap.classList.remove('active');
-      progressFill.style.width = '0%';
-      progressPercent.textContent = '0%';
-      progressInfo.textContent = 'در حال آماده‌سازی...';
-      progressUploaded.textContent = '📤 0 KB';
-      progressTotal.textContent = '📥 0 KB';
-      retryBox.classList.remove('show');
+      progressContainer.classList.remove('active');
+      progressBar.style.width = '0%';
+      progressPercent.innerText = '0%';
+      progressInfo.innerText = 'در حال آماده‌سازی...';
+      progressUploaded.innerText = '📤 0 KB';
+      progressTotal.innerText = 'کل: 0 KB';
+      retryInfo.classList.remove('show');
     }
 
     function updateProgress(loaded, total) {
-      var pct = Math.round((loaded / total) * 100);
-      progressFill.style.width = pct + '%';
-      progressPercent.textContent = pct + '%';
-      progressUploaded.textContent = '📤 ' + formatSize(loaded);
-      progressTotal.textContent = '📥 ' + formatSize(total);
-      if (pct >= 100) progressInfo.textContent = '✅ ارسال کامل شد!';
-      else if (pct > 0) progressInfo.textContent = '📤 در حال ارسال... ' + pct + '%';
+      var percent = Math.round((loaded / total) * 100);
+      progressBar.style.width = percent + '%';
+      progressPercent.innerText = percent + '%';
+      progressUploaded.innerText = '📤 ' + formatSize(loaded);
+      progressTotal.innerText = 'کل: ' + formatSize(total);
+
+      if (percent >= 100) {
+        progressInfo.innerText = '✅ ارسال شد! در حال تأیید...';
+      } else if (percent > 0) {
+        progressInfo.innerText = '📤 در حال ارسال... ' + percent + '%';
+      }
     }
 
-    submitBtn.onclick = function() {
+    sendBtn.onclick = function() {
       var now = Date.now();
       var lastSent = parseInt(localStorage.getItem("lastSentTime") || "0");
-      var diff = now - lastSent;
+      var timeDiff = now - lastSent;
 
-      if (diff < ${SPAM_TIME}) {
-        var wait = Math.ceil((${SPAM_TIME} - diff) / 1000);
-        statusMsg.textContent = "⏳ لطفاً " + wait + " ثانیه دیگر صبر کنید...";
-        statusMsg.className = 'status-msg warning';
+      if (timeDiff < ${SPAM_TIME}) {
+        var waitSeconds = Math.ceil((${SPAM_TIME} - timeDiff) / 1000);
+        statusDiv.innerText = "⏳ لطفاً " + waitSeconds + " ثانیه دیگر صبر کنید...";
+        statusDiv.className = 'warning';
         return;
       }
 
       if (!selectedFile) {
-        statusMsg.textContent = "❌ لطفاً تصویر رسید را آپلود کنید";
-        statusMsg.className = 'status-msg error';
-        uploadZone.style.borderColor = 'var(--error)';
-        setTimeout(function() { uploadZone.style.borderColor = 'var(--border-dark)'; }, 1500);
+        statusDiv.innerText = "❌ لطفاً تصویر رسید را آپلود کنید.";
+        statusDiv.className = 'error';
         return;
       }
-
       if (!tgInput.value.trim()) {
-        statusMsg.textContent = "❌ لطفاً آیدی تلگرام خود را وارد کنید";
-        statusMsg.className = 'status-msg error';
-        tgInput.focus();
+        statusDiv.innerText = "❌ لطفاً آیدی تلگرام خود را وارد کنید.";
+        statusDiv.className = 'error';
         return;
       }
-
       if (!phoneInput.value.trim()) {
-        statusMsg.textContent = "❌ لطفاً شماره تماس خود را وارد کنید";
-        statusMsg.className = 'status-msg error';
-        phoneInput.focus();
+        statusDiv.innerText = "❌ لطفاً شماره تماس خود را وارد کنید.";
+        statusDiv.className = 'error';
         return;
       }
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = "⏳ در حال ارسال...";
-      statusMsg.textContent = '';
-      statusMsg.className = 'status-msg';
+      sendBtn.disabled = true;
+      sendBtn.innerText = "⏳ در حال ارسال...";
+      statusDiv.innerText = "";
+      statusDiv.className = '';
+      retryInfo.classList.remove('show');
+
       resetProgress();
-      progressWrap.classList.add('active');
+      progressContainer.classList.add('active');
+      progressInfo.innerText = '📤 در حال ارسال...';
+
       retryAttempt = 0;
       sendToTelegram(selectedFile);
     };
 
     function sendToTelegram(file) {
-      var caption = "🔢 کد پیگیری: " + trackingCode + "\\n📦 محصول: ${productName}\\n💵 مبلغ: ${price.toLocaleString()} تومان\\n👤 تلگرام: " + tgInput.value.trim() + "\\n📞 شماره: " + phoneInput.value.trim() + "\\n📝 توضیحات: " + (descInput.value.trim() || "ندارد");
+      var captionText = "🔢 کد پیگیری: " + trackingCode + "\\n📦 محصول: ${productName}\\n💵 مبلغ: ${price.toLocaleString()} تومان\\n👤 تلگرام: " + tgInput.value.trim() + "\\n📞 شماره: " + phoneInput.value.trim() + "\\n📝 توضیحات: " + (descInput.value.trim() || "ندارد");
 
-      var fd = new FormData();
-      fd.append("photo", file);
-      fd.append("caption", caption);
+      var formData = new FormData();
+      formData.append("photo", file);
+      formData.append("caption", captionText);
 
       var xhr = new XMLHttpRequest();
-      var tid = setTimeout(function() {
+
+      var timeoutId = setTimeout(function() {
         xhr.abort();
-        handleRetry('timeout');
+        retryOrFail('timeout');
       }, ${FETCH_TIMEOUT});
 
       xhr.upload.onprogress = function(e) {
-        if (e.lengthComputable) updateProgress(e.loaded, e.total);
+        if (e.lengthComputable) {
+          updateProgress(e.loaded, e.total);
+        }
       };
 
       xhr.onload = function() {
-        clearTimeout(tid);
+        clearTimeout(timeoutId);
+
         if (xhr.status === 200) {
           try {
             var data = JSON.parse(xhr.responseText);
             if (data.ok) {
               localStorage.setItem("lastSentTime", Date.now().toString());
-              showSuccess();
+              progressInfo.innerText = '✅ ارسال موفق!';
+              progressPercent.innerText = '100%';
+              progressBar.style.width = '100%';
+              progressUploaded.innerText = '✅ ارسال کامل';
+              retryInfo.classList.remove('show');
+
+              setTimeout(function() {
+                showSuccessPage(${price}, trackingCode);
+              }, 200);
             } else {
-              handleRetry(data.description || 'خطای سرور');
+              retryOrFail(data.description || 'خطای سرور');
             }
           } catch(e) {
-            handleRetry('خطا در پردازش پاسخ سرور');
+            retryOrFail('خطا در پردازش پاسخ');
           }
         } else {
-          handleRetry('HTTP ' + xhr.status);
+          retryOrFail('خطای HTTP: ' + xhr.status);
         }
       };
 
       xhr.onerror = function() {
-        clearTimeout(tid);
-        handleRetry('network');
+        clearTimeout(timeoutId);
+        retryOrFail('network');
       };
 
       xhr.onabort = function() {
-        handleRetry('abort');
+        retryOrFail('abort');
       };
 
       xhr.open("POST", "https://api-sidkashop.amirsidka.workers.dev");
-      xhr.send(fd);
+      xhr.send(formData);
     }
 
-    function handleRetry(reason) {
+    function retryOrFail(errorType) {
       retryAttempt++;
+
       if (retryAttempt < ${MAX_RETRIES}) {
-        retryBox.classList.add('show');
-        retryCount.textContent = retryAttempt;
-        progressInfo.textContent = '🔄 تلاش ' + retryAttempt + ' از ' + ${MAX_RETRIES};
+        retryInfo.classList.add('show');
+        retryCount.innerText = retryAttempt;
+        progressInfo.innerText = '🔄 تلاش مجدد ' + retryAttempt + ' از ' + ${MAX_RETRIES} + '...';
+
         setTimeout(function() {
           sendToTelegram(selectedFile);
         }, 2000);
       } else {
-        retryBox.classList.remove('show');
-        progressWrap.classList.remove('active');
-        submitBtn.disabled = false;
-        submitBtn.textContent = "📨 ارسال مجدد";
-        if (reason === 'timeout' || reason === 'abort') {
-          statusMsg.textContent = "⏰ زمان ارسال طولانی شد. لطفاً VPN و اینترنت را بررسی کنید";
-        } else if (reason === 'network') {
-          statusMsg.textContent = "❌ خطای شبکه. لطفاً VPN را روشن کنید و دوباره تلاش کنید";
+        retryInfo.classList.remove('show');
+        progressContainer.classList.remove('active');
+        sendBtn.disabled = false;
+        sendBtn.innerText = "📨 ارسال مجدد";
+
+        if (errorType === 'timeout' || errorType === 'abort') {
+          statusDiv.innerText = "⏰ زمان ارسال طولانی شد. VPN و اینترنت خود را بررسی کنید.";
+        } else if (errorType === 'network') {
+          statusDiv.innerText = "❌ خطای شبکه. لطفاً VPN را روشن کنید و دوباره تلاش کنید.";
         } else {
-          statusMsg.textContent = "❌ " + reason + ". لطفاً دوباره تلاش کنید";
+          statusDiv.innerText = "❌ خطا در ارسال. لطفاً دوباره تلاش کنید.";
         }
-        statusMsg.className = 'status-msg error';
+        statusDiv.className = 'error';
       }
     }
 
-    function showSuccess() {
+    function showSuccessPage(price, code) {
+      var countdown = 15;
+      var siteUrl = '${SITE_URL}';
+
       document.body.innerHTML = '';
       document.body.style.margin = '0';
-      document.body.style.padding = '20px';
-      document.body.style.display = 'flex';
-      document.body.style.alignItems = 'center';
-      document.body.style.justifyContent = 'center';
-      document.body.style.minHeight = '100vh';
-      document.body.style.background = 'var(--bg)';
+      document.body.style.padding = '0';
+      document.body.style.overflow = 'hidden';
 
-      var sc = document.createElement('div');
-      sc.className = 'success-card';
-      sc.innerHTML =
-        '<div class="success-icon">✅</div>' +
-        '<h2 class="success-title">پرداخت موفقیت‌آمیز</h2>' +
-        '<p class="success-sub">رسید شما با موفقیت ثبت شد</p>' +
-        '<div class="tracking-badge">' +
-          '<div class="track-label">🔢 کد پیگیری</div>' +
-          '<div class="track-code">' + trackingCode + '</div>' +
+      var wrapper = document.createElement('div');
+      wrapper.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;font-family:Vazirmatn,sans-serif;background:linear-gradient(135deg,#0A0D12 0%,#12161D 50%,#0A0D12 100%);display:flex;justify-content:center;align-items:center;padding:20px;overflow:hidden;z-index:9999;';
+
+      var particles = document.createElement('div');
+      particles.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;';
+      particles.innerHTML =
+        '<div style="position:absolute;top:10%;left:10%;width:8px;height:8px;background:#C9A063;border-radius:50%;animation:fa 3s ease-in-out infinite;opacity:0.6;"></div>' +
+        '<div style="position:absolute;top:20%;right:15%;width:12px;height:12px;background:#3FA9A0;border-radius:50%;animation:fb 4s ease-in-out infinite;opacity:0.4;"></div>' +
+        '<div style="position:absolute;bottom:30%;left:20%;width:6px;height:6px;background:#D9B47C;border-radius:50%;animation:fc 3.5s ease-in-out infinite;opacity:0.7;"></div>' +
+        '<div style="position:absolute;top:60%;right:10%;width:10px;height:10px;background:#3FA9A0;border-radius:50%;animation:fa 2.8s ease-in-out infinite;opacity:0.5;"></div>' +
+        '<div style="position:absolute;bottom:15%;right:25%;width:7px;height:7px;background:#D9B47C;border-radius:50%;animation:fb 4.2s ease-in-out infinite;opacity:0.6;"></div>' +
+        '<div style="position:absolute;top:40%;left:5%;width:5px;height:5px;background:#ECE9E2;border-radius:50%;animation:fc 3.2s ease-in-out infinite;opacity:0.3;"></div>' +
+        '<div style="position:absolute;top:75%;left:30%;width:9px;height:9px;background:#C9A063;border-radius:50%;animation:fa 3.7s ease-in-out infinite;opacity:0.5;"></div>' +
+        '<div style="position:absolute;bottom:40%;right:5%;width:11px;height:11px;background:#3FA9A0;border-radius:50%;animation:fb 3.1s ease-in-out infinite;opacity:0.4;"></div>';
+
+      var card = document.createElement('div');
+      card.style.cssText = 'position:relative;z-index:1;background:linear-gradient(145deg,#161B23,#12161D);width:100%;max-width:440px;padding:40px 30px;border-radius:24px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 0 1px #262D3A;animation:cp 0.8s cubic-bezier(0.175,0.885,0.32,1.275);';
+
+      card.innerHTML =
+        '<div style="position:relative;width:90px;height:90px;margin:0 auto 25px;">' +
+          '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:90px;height:90px;background:rgba(63,169,160,.1);border-radius:50%;animation:ri 2s ease-out infinite;"></div>' +
+          '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:70px;height:70px;background:rgba(63,169,160,.15);border-radius:50%;animation:ri 2s ease-out 0.5s infinite;"></div>' +
+          '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:rgba(63,169,160,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;animation:si 0.6s ease 0.3s both;">' +
+            '<svg width="32" height="32" viewBox="0 0 52 52"><circle cx="26" cy="26" r="24" fill="none" stroke="#3FA9A0" stroke-width="3" stroke-dasharray="151" stroke-dashoffset="151" style="animation:dc 0.4s ease 0.3s forwards;"/><path d="M15 27 L23 36 L38 17" fill="none" stroke="#3FA9A0" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="35" stroke-dashoffset="35" style="animation:dp 0.3s ease 0.7s forwards;"/></svg>' +
+          '</div>' +
         '</div>' +
-        '<div class="success-price">${price.toLocaleString()} <span class="currency">تومان</span></div>' +
-        '<p class="success-note">📞 تیم پشتیبانی به زودی با شما تماس می‌گیرد</p>' +
-        '<button class="btn-back" onclick="window.opener ? window.close() : window.location.href=\\'${SITE_URL}\\'">🏠 بازگشت به سایت</button>';
+        '<h2 style="color:#ECE9E2;margin:0 0 6px;font-size:24px;animation:fu 0.6s ease 0.5s both;">🎉 پرداخت موفق!</h2>' +
+        '<p style="color:#99A1AF;margin:0 0 20px;font-size:13px;animation:fu 0.6s ease 0.6s both;">رسید شما با موفقیت ثبت شد</p>' +
+        '<div style="background:linear-gradient(135deg,rgba(201,160,99,.15),rgba(201,160,99,.05));padding:18px;border-radius:14px;margin-bottom:18px;border:1px solid rgba(201,160,99,.3);animation:fu 0.6s ease 0.65s both;">' +
+          '<div style="font-size:10px;color:#99A1AF;margin-bottom:6px;">🔢 کد پیگیری</div>' +
+          '<div style="font-size:32px;color:#C9A063;font-weight:bold;letter-spacing:6px;font-family:\\'JetBrains Mono\\',monospace;direction:ltr;">' + code + '</div>' +
+          '<div style="font-size:10px;color:#99A1AF;margin-top:4px;">این کد را نزد خود نگه دارید</div>' +
+        '</div>' +
+        '<div style="background:#1A2029;padding:16px;border-radius:14px;margin-bottom:18px;border:1px solid #262D3A;animation:fu 0.6s ease 0.7s both;">' +
+          '<div style="font-size:11px;color:#99A1AF;margin-bottom:4px;">💰 مبلغ پرداختی</div>' +
+          '<div style="font-size:28px;color:#C9A063;font-weight:bold;font-family:\\'JetBrains Mono\\',monospace;">' + price.toLocaleString() + '</div>' +
+          '<div style="font-size:12px;color:#99A1AF;">تومان</div>' +
+        '</div>' +
+        '<div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:18px;color:#99A1AF;font-size:12px;animation:fu 0.6s ease 0.8s both;"><span>📞</span><span>تیم پشتیبانی به زودی با شما تماس میگیرد</span></div>' +
+        '<div style="animation:fu 0.6s ease 0.9s both;">' +
+          '<div style="height:5px;background:#1A2029;border-radius:8px;overflow:hidden;margin-bottom:10px;"><div style="height:100%;background:linear-gradient(90deg,#C9A063,#D9B47C);border-radius:8px;animation:cb ' + countdown + 's linear forwards;"></div></div>' +
+          '<p style="font-size:12px;color:#5C6472;margin:0;">🔄 بازگشت خودکار در <span id="timer" style="color:#C9A063;font-weight:bold;font-size:15px;">' + countdown + '</span> ثانیه</p>' +
+        '</div>' +
+        '<button id="backBtn" style="margin-top:18px;padding:10px 30px;background:rgba(201,160,99,.1);color:#C9A063;border:1px solid rgba(201,160,99,.3);border-radius:40px;font-family:Vazirmatn,sans-serif;font-size:13px;cursor:pointer;transition:all .3s;animation:fu 0.6s ease 1s both;">🏠 بازگشت به سایت</button>';
 
-      document.body.appendChild(sc);
+      var style = document.createElement('style');
+      style.textContent =
+        '@keyframes fa{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-20px) rotate(180deg)}}' +
+        '@keyframes fb{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-15px) scale(1.5)}}' +
+        '@keyframes fc{0%,100%{transform:translate(0,0)}33%{transform:translate(10px,-20px)}66%{transform:translate(-10px,-10px)}}' +
+        '@keyframes cp{from{opacity:0;transform:scale(.8) translateY(40px)}to{opacity:1;transform:scale(1) translateY(0)}}' +
+        '@keyframes ri{0%{transform:translate(-50%,-50%) scale(0.5);opacity:1}100%{transform:translate(-50%,-50%) scale(2);opacity:0}}' +
+        '@keyframes si{from{transform:translate(-50%,-50%) scale(0)}to{transform:translate(-50%,-50%) scale(1)}}' +
+        '@keyframes dc{to{stroke-dashoffset:0}}' +
+        '@keyframes dp{to{stroke-dashoffset:0}}' +
+        '@keyframes fu{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}' +
+        '@keyframes cb{from{width:0}to{width:100%}}';
+
+      wrapper.appendChild(particles);
+      wrapper.appendChild(card);
+      wrapper.appendChild(style);
+      document.body.appendChild(wrapper);
+
+      var backBtn = document.getElementById('backBtn');
+      backBtn.onmouseover = function() {
+        this.style.background = 'rgba(201,160,99,.2)';
+        this.style.borderColor = '#C9A063';
+      };
+      backBtn.onmouseout = function() {
+        this.style.background = 'rgba(201,160,99,.1)';
+        this.style.borderColor = 'rgba(201,160,99,.3)';
+      };
+      backBtn.onclick = function() {
+        if (window.opener) {
+          window.close();
+        } else {
+          window.location.href = siteUrl;
+        }
+      };
+
+      var timeLeft = countdown;
+      var timerInterval = setInterval(function() {
+        timeLeft--;
+        var timerEl = document.getElementById("timer");
+        if (timerEl) {
+          timerEl.innerText = timeLeft;
+          if (timeLeft <= 5) {
+            timerEl.style.color = '#e74c3c';
+          }
+        }
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          window.location.href = siteUrl;
+        }
+      }, 1000);
     }
   <\/script>
 </body>
@@ -892,9 +736,6 @@ function openPaymentPage(productName, price) {
   w.document.close();
 }
 
-/**********************
-FEATURES PAGE
-**********************/
 function openFeaturesPage() {
   const w = window.open("", "_blank");
   if (!w) return alert("لطفاً پاپ‌آپ مرورگر را فعال کنید.");
@@ -909,38 +750,33 @@ function openFeaturesPage() {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>قابلیت‌های سلف تلگرام</title>
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #f7f5f2;
       --card: #ffffff;
       --soft: #f0ebe5;
-      --hover: #fcfaf8;
       --text: #1e1a17;
       --muted: #4f4640;
       --light: #7a6e64;
       --border: #e9e3db;
-      --border-dark: #d6cdc1;
       --accent: #b68b7c;
-      --btn-bg: #1e1a17;
-      --btn-text: #f5f2ed;
-      --shadow: 0 8px 30px rgba(0,0,0,0.04);
+      --accent-glow: #c9a063;
+      --success: #3FA9A0;
     }
     html.dark {
-      --bg: #141210;
-      --card: #1f1b18;
-      --soft: #26211d;
-      --hover: #2c2722;
-      --text: #ece6df;
-      --muted: #b5a89a;
-      --light: #8f8278;
-      --border: #2f2924;
-      --border-dark: #3b352f;
-      --accent: #c9b09f;
-      --btn-bg: #ece6df;
-      --btn-text: #1e1a17;
-      --shadow: 0 8px 30px rgba(0,0,0,0.3);
+      --bg: #0A0D12;
+      --card: #12161D;
+      --soft: #1A2029;
+      --text: #ECE9E2;
+      --muted: #99A1AF;
+      --light: #5C6472;
+      --border: #262D3A;
+      --accent: #C9A063;
+      --accent-glow: #D9B47C;
+      --success: #3FA9A0;
     }
-    * { margin:0; padding:0; box-sizing:border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; outline: none !important; -webkit-tap-highlight-color: transparent !important; }
     body {
       font-family: 'Vazirmatn', sans-serif;
       background: var(--bg);
@@ -953,115 +789,87 @@ function openFeaturesPage() {
     }
     .container {
       width: 100%;
-      max-width: 720px;
+      max-width: 700px;
       background: var(--card);
-      border-radius: 32px;
-      padding: 2.5rem 2rem;
-      box-shadow: var(--shadow);
+      border-radius: 24px;
+      padding: 35px 30px;
+      box-shadow: 0 15px 40px rgba(0,0,0,.6);
       border: 1px solid var(--border);
     }
     h2 {
       text-align: center;
-      margin-bottom: 2rem;
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--text);
+      margin-bottom: 30px;
+      color: var(--accent);
+      font-size: 26px;
     }
-    .group {
-      margin-bottom: 1.2rem;
+    .command-group {
+      margin-bottom: 25px;
       background: var(--soft);
-      border-radius: 20px;
-      padding: 1.2rem 1.5rem;
+      border-radius: 16px;
+      padding: 18px;
       border: 1px solid var(--border);
-      transition: all 0.3s;
+      transition: background 0.3s;
     }
-    .group:hover {
-      background: var(--hover);
-      transform: translateX(-2px);
-    }
-    .group h3 {
-      color: var(--accent);
-      margin-bottom: 0.6rem;
-      font-size: 1rem;
-      font-weight: 700;
-    }
-    .group ul {
-      list-style: none;
-      padding: 0;
-    }
-    .group li {
-      margin: 0.4rem 0;
-      font-size: 0.85rem;
-      padding: 0.4rem 0;
+    .command-group h3 {
+      color: var(--success);
+      margin-bottom: 10px;
+      font-size: 17px;
       border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      flex-wrap: wrap;
+      padding-bottom: 8px;
     }
-    .group li:last-child { border-bottom: none; }
-    .group code {
-      background: var(--card);
-      color: var(--accent);
-      padding: 0.15rem 0.7rem;
-      border-radius: 8px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      white-space: nowrap;
-      border: 1px solid var(--border-dark);
+    .command-group ul { list-style: none; padding: 0; }
+    .command-group li {
+      margin: 8px 0;
+      font-size: 13px;
+      background: var(--bg);
+      padding: 10px 14px;
+      border-radius: 10px;
+      border-right: 3px solid var(--accent);
+    }
+    .command-group li code {
+      background: var(--soft);
+      color: var(--accent-glow);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
     }
     .back-btn {
       display: block;
       width: fit-content;
-      margin: 2rem auto 0;
-      padding: 0.9rem 2.8rem;
-      background: var(--btn-bg);
-      color: var(--btn-text);
+      margin: 30px auto 0;
+      padding: 12px 40px;
+      background: var(--accent);
+      color: #14110A;
       border: none;
       border-radius: 50px;
       font-family: 'Vazirmatn', sans-serif;
-      font-size: 1rem;
-      font-weight: 600;
+      font-size: 15px;
+      font-weight: bold;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: .3s;
     }
     .back-btn:hover {
-      opacity: 0.85;
+      background: var(--accent-glow);
       transform: translateY(-2px);
-      box-shadow: var(--shadow);
-    }
-    @media (max-width: 500px) {
-      .container { padding: 1.5rem 1.2rem; }
-      .group { padding: 1rem; }
-      .group code { font-size: 0.75rem; }
+      box-shadow: 0 6px 20px rgba(201,160,99,.5);
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h2>✨ قابلیت‌های سلف تلگرام ✨</h2>
-    
-    <div class="group"><h3>🕒 ساعت و بیو</h3><ul><li><code>.تایم روشن</code> فعال کردن نمایش ساعت در اسم</li><li><code>.تایم خاموش</code> غیرفعال کردن ساعت</li><li><code>.بیو روشن</code> قرار دادن ساعت داخل بیو</li><li><code>.بیو خاموش</code> حذف ساعت از بیو</li></ul></div>
-    
-    <div class="group"><h3>🎨 فونت و زیبایی</h3><ul><li><code>.فونت ها</code> نمایش لیست فونت‌ها</li><li><code>.تنظیم فونت n</code> تنظیم فونت</li><li><code>.لایک اسم مورد نظر</code> ساخت لایک</li><li><code>.بیو رندوم</code> تولید بیوی تصادفی</li></ul></div>
-    
-    <div class="group"><h3>📢 بنر و گروه‌ها</h3><ul><li><code>.بنر</code> ارسال پیام به گروه‌ها</li><li><code>.بنر غیرفعال</code> توقف ارسال</li><li><code>.حذف بنر</code> حذف گروه از لیست</li><li><code>.حذف بنر غیرفعال</code> بازگرداندن گروه</li></ul></div>
-    
-    <div class="group"><h3>🧑‍💻 وضعیت آنلاین</h3><ul><li><code>.برجسته فعال</code> / <code>.برجسته غیرفعال</code></li><li><code>.آنلاین فعال</code> / <code>.آنلاین خاموش</code></li><li><code>.کج فعال</code> / <code>.کج غیرفعال</code></li><li><code>.تکی فعال</code> / <code>.تکی غیرفعال</code></li></ul></div>
-    
-    <div class="group"><h3>🔒 جوین اجباری</h3><ul><li><code>.معاف جوین اجباری [ایدی]</code></li><li><code>.حذف معاف جوین اجباری [ایدی]</code></li><li><code>.پیوی قفل</code> / <code>.پیوی باز</code></li><li><code>.قفل ایدی چنل</code> / <code>.حذف قفل ایدی چنل</code></li></ul></div>
-    
-    <div class="group"><h3>👥 مدیریت کاربران</h3><ul><li><code>.سکوت</code> / <code>.حذف سکوت</code></li><li><code>.دشمن</code> / <code>.حذف دشمن</code></li><li><code>.آیدی</code> نمایش اطلاعات</li></ul></div>
-    
-    <div class="group"><h3>📄 ذخیره‌سازی</h3><ul><li><code>.تنظیم ریلم</code> / <code>.حذف ریلم</code></li><li><code>.پشتیبانگیری از چت ها</code></li><li><code>.پشتیبانگیری از چت</code></li></ul></div>
-    
-    <div class="group"><h3>🚫 فیلتر کلمات</h3><ul><li><code>.فیلتر کلمه کلمه1، کلمه2</code></li><li><code>.حذف کلمه فیلتر کلمه1</code></li><li><code>.لیست کلمات فیلتر شده</code></li></ul></div>
-    
-    <div class="group"><h3>🛠️ متفرقه</h3><ul><li><code>.ارز</code> <code>.فال</code> <code>.سرعت</code> <code>.بگو text</code> <code>.انقضا</code> <code>.تاریخ</code> <code>.حساب 2+2</code> <code>.ترجمه test</code></li></ul></div>
-    
-    <div class="group"><h3>🎉 فان</h3><ul><li><code>.دوست دارم</code> <code>.جوک</code> <code>.خنده</code> <code>.قلب</code> <code>.فاک</code> <code>.گل</code> <code>.دختر</code></li></ul></div>
-
-    <button class="back-btn" onclick="window.opener ? window.close() : window.location.href='${SITE_URL}';">🔙 بازگشت به سایت</button>
+    <div class="command-group"><h3>🕒 ساعت و بیو</h3><ul><li><code>.تایم روشن</code> : فعال کردن نمایش ساعت در اسم.</li><li><code>.تایم خاموش</code> : غیرفعال کردن ساعت.</li><li><code>.بیو روشن</code> : قرار دادن ساعت داخل بیو.</li><li><code>.بیو خاموش</code> : حذف ساعت از بیو.</li></ul></div>
+    <div class="command-group"><h3>🎨 فونت و زیبایی</h3><ul><li><code>.فونت ها</code> : نمایش لیست فونت‌ها.</li><li><code>.تنظیم فونت n</code> : تنظیم فونت.</li><li><code>.لایک اسم مورد نظر</code> : ساخت لایک.</li><li><code>.بیو رندوم</code> : تولید بیوی تصادفی.</li></ul></div>
+    <div class="command-group"><h3>📢 بنر و گروه‌ها</h3><ul><li><code>.بنر</code> : ارسال پیام به گروه‌ها.</li><li><code>.بنر غیرفعال</code> : توقف ارسال.</li><li><code>.حذف بنر</code> : حذف گروه از لیست.</li><li><code>.حذف بنر غیرفعال</code> : بازگرداندن گروه.</li></ul></div>
+    <div class="command-group"><h3>🧑‍💻 وضعیت آنلاین</h3><ul><li><code>.برجسته فعال</code> / <code>غیرفعال</code></li><li><code>.آنلاین فعال</code> / <code>خاموش</code></li><li><code>.کج فعال</code> / <code>غیرفعال</code></li><li><code>.تکی فعال</code> / <code>غیرفعال</code></li></ul></div>
+    <div class="command-group"><h3>🔒 جوین اجباری</h3><ul><li><code>.معاف جوین اجباری [ایدی]</code></li><li><code>.حذف معاف جوین اجباری [ایدی]</code></li><li><code>.پیوی قفل</code> / <code>.پیوی باز</code></li><li><code>.قفل ایدی چنل</code> / <code>.حذف قفل ایدی چنل</code></li></ul></div>
+    <div class="command-group"><h3>👥 مدیریت کاربران</h3><ul><li><code>.سکوت</code> / <code>.حذف سکوت</code></li><li><code>.دشمن</code> / <code>.حذف دشمن</code></li><li><code>.آیدی</code> : نمایش اطلاعات.</li></ul></div>
+    <div class="command-group"><h3>📄 ذخیره‌سازی</h3><ul><li><code>.تنظیم ریلم</code> / <code>.حذف ریلم</code></li><li><code>.پشتیبانگیری از چت ها</code></li><li><code>.پشتیبانگیری از چت</code></li></ul></div>
+    <div class="command-group"><h3>🚫 فیلتر کلمات</h3><ul><li><code>.فیلتر کلمه کلمه1، کلمه2</code></li><li><code>.حذف کلمه فیلتر کلمه1</code></li><li><code>.لیست کلمات فیلتر شده</code></li></ul></div>
+    <div class="command-group"><h3>🛠️ متفرقه</h3><ul><li><code>.ارز</code> <code>.فال</code> <code>.سرعت</code> <code>.بگو text</code> <code>.انقضا</code> <code>.تاریخ</code> <code>.حساب 2+2</code> <code>.ترجمه test</code></li></ul></div>
+    <div class="command-group"><h3>🎉 فان</h3><ul><li><code>.دوست دارم</code> <code>.جوک</code> <code>.خنده</code> <code>.قلب</code> <code>.فاک</code> <code>.گل</code> <code>.دختر</code></li></ul></div>
+    <button class="back-btn" onclick="if(window.opener)window.close();else location.href='${SITE_URL}';">🔙 بازگشت به سایت</button>
   </div>
 </body>
 </html>`);
