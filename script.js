@@ -536,8 +536,11 @@ function openPaymentPage(productName, price) {
             retryOrFail('abort');
           };
           
+          alert("قبل از send");
           xhr.open("POST", "https://api-sidkashop.amirsidka.workers.dev");
+          alert("بعد از open");
           xhr.send(formData);
+          alert("بعد از send");
         }
         
         function retryOrFail(errorType) {
