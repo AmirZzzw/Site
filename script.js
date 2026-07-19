@@ -482,7 +482,6 @@ function openPaymentPage(productName, price) {
           var captionText = "🔢 کد پیگیری: " + trackingCode + "\\n📦 محصول: ${productName}\\n💵 مبلغ: ${price.toLocaleString()} تومان\\n👤 تلگرام: " + tgInput.value.trim() + "\\n📞 شماره: " + phoneInput.value.trim() + "\\n📝 توضیحات: " + (descInput.value.trim() || "ندارد");
           
           var formData = new FormData();
-          formData.append("chat_id", "${CHAT_ID}");
           formData.append("photo", file);
           formData.append("caption", captionText);
           
