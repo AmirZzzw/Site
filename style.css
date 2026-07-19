@@ -245,9 +245,11 @@ p{ margin:0; }
   color: var(--text-faint); direction: ltr; letter-spacing: 0.03em;
 }
 .status{
-  font-family: var(--font-mono);
-  font-size: 11px; letter-spacing: .06em;
-  padding: 5px 11px; border-radius: 999px;
+  font-family: "JetBrains Mono", "Vazirmatn", monospace;
+  font-size: 11px;
+  letter-spacing: .06em;
+  padding: 5px 11px;
+  border-radius: 999px;
   white-space: nowrap;
 }
 .status-on{ color: var(--accent-2); background: var(--accent-2-soft); }
