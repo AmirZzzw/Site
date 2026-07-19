@@ -1,8 +1,6 @@
 /**********************
 CONFIG
 **********************/
-const BOT_TOKEN = "7408423935:AAH9nkoZg7ykqQMGKDeitIiOtu6uYZl0Vxg";
-const CHAT_ID = "7549513123";
 const SITE_URL = "https://sidkashop.qzz.io";
 const SPAM_TIME = 60 * 1000;
 const FETCH_TIMEOUT = 120000;
@@ -539,7 +537,7 @@ function openPaymentPage(productName, price) {
             retryOrFail('abort');
           };
           
-          xhr.open("POST", "https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto");
+          xhr.open("POST", "https://api-sidkashop.amirsidka.workers.dev");
           xhr.send(formData);
         }
         
