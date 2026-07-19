@@ -19,613 +19,243 @@
   <link rel="icon" type="image/png" href="https://sidkashop.qzz.io/Logo.png" />
   <link rel="apple-touch-icon" href="https://sidkashop.qzz.io/Logo.png" />
   <meta name="theme-color" content="#f5f2ed" />
-  
+
   <!-- JSON-LD -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Sidka Shop",
-    "alternateName": "سیدکا شاپ",
-    "url": "https://sidkashop.qzz.io/",
-    "description": "سیدکا شاپ ارائه‌دهنده خدمات دیجیتال شامل اشتراک سلف تلگرام، پنل کمک هدشات فری‌فایر، پشتیبانی سریع و قیمت مناسب.",
-    "publisher": {
-      "@type": "Organization",
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
       "name": "Sidka Shop",
-      "logo": { "@type": "ImageObject", "url": "https://sidkashop.qzz.io/Logo.png" }
+      "alternateName": "سیدکا شاپ",
+      "url": "https://sidkashop.qzz.io/",
+      "description": "سیدکا شاپ ارائه‌دهنده خدمات دیجیتال شامل اشتراک سلف تلگرام، پنل کمک هدشات فری‌فایر، پشتیبانی سریع و قیمت مناسب.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Sidka Shop",
+        "logo": { "@type": "ImageObject", "url": "https://sidkashop.qzz.io/Logo.png" }
+      }
     }
-  }
   </script>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-  
-  <style>
-    /* reset & base */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Vazirmatn', 'Inter', sans-serif;
-      line-height: 1.6;
-      padding: 0 1rem;
-      transition: background-color 0.3s, color 0.3s;
-    }
-    a { text-decoration: none; color: inherit; }
-    button { cursor: pointer; font-family: inherit; }
-    img { display: block; max-width: 100%; }
 
-    /* Theme variables */
-    :root {
-      --bg: #f7f5f2;
-      --bg-card: #ffffff;
-      --bg-soft: #f0ebe5;
-      --bg-hover: #fcfaf8;
-      --text: #1e1a17;
-      --text-muted: #4f4640;
-      --text-light: #7a6e64;
-      --border: #e9e3db;
-      --border-dark: #d6cdc1;
-      --shadow: rgba(0,0,0,0.02);
-      --accent: #b68b7c;
-      --btn-bg: #1e1a17;
-      --btn-text: #f5f2ed;
-      --status-on: #d4e0d0;
-      --status-off: #edd9d4;
-      --plan-bg: #faf8f6;
-      --plan-featured: #e8e1d9;
-      --plan-info: #f3efe9;
-      --theme-toggle-bg: #e9e3db;
-      --theme-toggle-text: #1e1a17;
-    }
-
-    body.dark {
-      --bg: #141210;
-      --bg-card: #1f1b18;
-      --bg-soft: #26211d;
-      --bg-hover: #2c2722;
-      --text: #ece6df;
-      --text-muted: #b5a89a;
-      --text-light: #8f8278;
-      --border: #2f2924;
-      --border-dark: #3b352f;
-      --shadow: rgba(0,0,0,0.4);
-      --accent: #c9b09f;
-      --btn-bg: #ece6df;
-      --btn-text: #1e1a17;
-      --status-on: #2b4a2b;
-      --status-off: #8f4e42;
-      --plan-bg: #26211d;
-      --plan-featured: #2f2924;
-      --plan-info: #26211d;
-      --theme-toggle-bg: #2f2924;
-      --theme-toggle-text: #ece6df;
-    }
-
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-    }
-
-    /* dark mode toggle - بدون اموجی */
-    .theme-toggle {
-      background: var(--theme-toggle-bg);
-      border: 1px solid var(--border-dark);
-      border-radius: 40px;
-      padding: 0.4rem 1rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--theme-toggle-text);
-      transition: 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      letter-spacing: 0.02em;
-    }
-    .theme-toggle:hover { opacity: 0.8; transform: scale(0.97); }
-    .theme-toggle .icon {
-      display: inline-block;
-      width: 16px;
-      height: 16px;
-      background: currentColor;
-      border-radius: 50%;
-      opacity: 0.7;
-      transition: 0.3s;
-    }
-    body.dark .theme-toggle .icon {
-      background: #f5c542;
-      box-shadow: 0 0 8px rgba(245,197,66,0.3);
-    }
-    .theme-toggle .label { font-size: 0.7rem; }
-
-    /* navbar */
-    .navbar {
-      max-width: 1100px;
-      margin: 1.5rem auto 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.75rem 1.5rem;
-      background: var(--bg-card);
-      backdrop-filter: blur(6px);
-      border-radius: 60px;
-      box-shadow: 0 4px 20px var(--shadow);
-      border: 1px solid var(--border);
-      transition: background 0.3s, border 0.3s;
-    }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-weight: 700;
-      font-size: 1.3rem;
-      letter-spacing: -0.02em;
-    }
-    .brand-mark {
-      width: 34px;
-      height: 34px;
-      border-radius: 12px;
-      background: var(--border-dark);
-      object-fit: cover;
-    }
-    .brand-name .accent { color: var(--accent); }
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      font-size: 0.95rem;
-      font-weight: 500;
-    }
-    .nav-links button {
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      transition: 0.2s;
-      padding: 0.25rem 0;
-      border-bottom: 2px solid transparent;
-    }
-    .nav-links button:hover { border-bottom-color: var(--accent); color: var(--text); }
-    .nav-cta {
-      background: var(--btn-bg);
-      border: none;
-      color: var(--btn-text);
-      padding: 0.6rem 1.5rem;
-      border-radius: 40px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: 0.2s;
-    }
-    .nav-cta:hover { opacity: 0.8; }
-
-    /* hero */
-    .hero {
-      max-width: 1100px;
-      margin: 2.5rem auto 4rem;
-      padding: 2rem 1.5rem 3rem;
-      background: var(--bg-soft);
-      border-radius: 48px;
-      position: relative;
-      overflow: hidden;
-      transition: background 0.3s;
-    }
-    .hero-inner { position: relative; z-index: 2; }
-    .eyebrow {
-      display: inline-block;
-      background: var(--border);
-      padding: 0.2rem 1rem;
-      border-radius: 40px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      color: var(--text-light);
-      margin-bottom: 1.2rem;
-      transition: background 0.3s;
-    }
-    .hero-title {
-      font-size: 2.8rem;
-      font-weight: 700;
-      line-height: 1.2;
-      max-width: 700px;
-      margin-bottom: 1.2rem;
-      letter-spacing: -0.02em;
-      color: var(--text);
-    }
-    .hero-sub {
-      font-size: 1.15rem;
-      color: var(--text-muted);
-      max-width: 550px;
-      margin-bottom: 2.2rem;
-      line-height: 1.7;
-    }
-    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .btn {
-      display: inline-block;
-      padding: 0.75rem 2rem;
-      border-radius: 60px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      border: none;
-      transition: 0.2s;
-      background: var(--bg-card);
-      color: var(--text);
-      box-shadow: 0 2px 6px var(--shadow);
-    }
-    .btn-primary { background: var(--btn-bg); color: var(--btn-text); }
-    .btn-primary:hover { opacity: 0.8; }
-    .btn-ghost { background: transparent; border: 1.5px solid var(--border-dark); }
-    .btn-ghost:hover { background: var(--border); border-color: var(--text-light); }
-    .btn-line { background: transparent; border: 1.5px solid var(--border-dark); }
-    .btn-line:hover { background: var(--border); }
-
-    /* section */
-    .section {
-      max-width: 1100px;
-      margin: 4rem auto;
-    }
-    .section-head {
-      margin-bottom: 2.5rem;
-    }
-    .section-head h2 {
-      font-size: 2rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      margin-top: 0.2rem;
-    }
-
-    /* catalog */
-    .catalog {
-      background: var(--bg-card);
-      border-radius: 40px;
-      padding: 2rem 2rem 2.5rem;
-      margin-bottom: 3rem;
-      box-shadow: 0 8px 30px var(--shadow);
-      border: 1px solid var(--border);
-      transition: background 0.3s, border 0.3s;
-    }
-    .catalog-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-    }
-    .catalog-head h3 { font-size: 1.6rem; font-weight: 600; }
-    .catalog-sub { color: var(--text-light); font-size: 0.9rem; font-weight: 400; }
-    .status {
-      background: var(--border);
-      padding: 0.2rem 0.9rem;
-      border-radius: 40px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--text-light);
-      transition: background 0.3s;
-    }
-    .status-on { background: var(--status-on); color: #2b4a2b; }
-    .status-off { background: var(--status-off); color: #8f4e42; }
-    body.dark .status-on { color: #a8c9a8; }
-    body.dark .status-off { color: #dbaa9a; }
-
-    .plan-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 1.2rem;
-    }
-    .plan {
-      background: var(--plan-bg);
-      border-radius: 28px;
-      padding: 1.2rem 1rem 1.5rem;
-      text-align: center;
-      border: 1px solid var(--border);
-      transition: 0.2s;
-    }
-    .plan:hover { background: var(--bg-hover); }
-    .plan-featured { background: var(--plan-featured); border-color: var(--border-dark); position: relative; }
-    .plan-tag {
-      background: var(--btn-bg);
-      color: var(--btn-text);
-      font-size: 0.6rem;
-      padding: 0.15rem 0.8rem;
-      border-radius: 40px;
-      display: inline-block;
-      margin-bottom: 0.5rem;
-    }
-    .plan-label { display: block; font-weight: 600; margin-bottom: 0.3rem; }
-    .plan-price { font-size: 1.4rem; font-weight: 700; }
-    .plan-price i { font-style: normal; font-size: 0.7rem; font-weight: 400; color: var(--text-light); }
-    .plan .btn { margin-top: 0.8rem; width: 100%; }
-    .plan-disabled { opacity: 0.6; filter: grayscale(0.3); }
-    .plan-disabled .btn { background: var(--border); border-color: var(--border-dark); cursor: not-allowed; }
-    .plan-info { background: var(--plan-info); border-color: var(--border-dark); }
-    .plan-desc { font-size: 0.8rem; color: var(--text-light); margin: 0.5rem 0; }
-
-    /* simple grid */
-    .simple-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-      margin-top: 1.5rem;
-    }
-    .simple-card {
-      background: var(--bg-card);
-      border-radius: 32px;
-      padding: 1.5rem 1.5rem 1.8rem;
-      border: 1px solid var(--border);
-      transition: 0.2s;
-    }
-    .simple-card:hover { background: var(--bg-hover); }
-    .eyebrow-sm { font-size: 0.6rem; background: var(--border); padding: 0.1rem 0.8rem; border-radius: 30px; display: inline-block; margin-bottom: 0.8rem; transition: background 0.3s; }
-    .simple-card h3 { font-size: 1.2rem; margin-bottom: 0.3rem; }
-    .simple-card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem; }
-    .simple-foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
-
-    /* about */
-    .section-about { background: var(--bg-soft); padding: 3rem 2rem; border-radius: 48px; transition: background 0.3s; }
-    .about-text { max-width: 700px; font-size: 1.1rem; color: var(--text-muted); line-height: 1.8; }
-
-    /* contact */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1.2rem;
-    }
-    .contact-card {
-      background: var(--bg-card);
-      border-radius: 28px;
-      padding: 1.5rem 1.2rem;
-      border: 1px solid var(--border);
-      transition: 0.15s;
-      display: flex;
-      flex-direction: column;
-    }
-    .contact-card:hover { background: var(--bg-hover); border-color: var(--border-dark); }
-    .contact-kind { font-size: 0.6rem; font-weight: 600; color: var(--text-light); letter-spacing: 0.04em; }
-    .contact-name { font-weight: 600; margin-top: 0.2rem; }
-
-    /* footer */
-    .site-footer {
-      max-width: 1100px;
-      margin: 4rem auto 2rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
-      display: flex;
-      gap: 0.8rem;
-      font-size: 0.85rem;
-      color: var(--text-light);
-      justify-content: center;
-      flex-wrap: wrap;
-      transition: border-color 0.3s;
-    }
-    .dot-sep { color: var(--border-dark); }
-
-    /* responsive */
-    @media (max-width: 760px) {
-      .navbar { flex-wrap: wrap; gap: 0.8rem; justify-content: center; border-radius: 40px; padding: 0.8rem 1.2rem; }
-      .nav-links { gap: 1.2rem; flex-wrap: wrap; justify-content: center; }
-      .nav-cta { padding: 0.4rem 1.2rem; }
-      .hero { padding: 1.5rem 1rem; }
-      .hero-title { font-size: 2rem; }
-      .plan-grid { grid-template-columns: 1fr 1fr; }
-      .simple-grid { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 460px) {
-      .plan-grid { grid-template-columns: 1fr; }
-      .hero-title { font-size: 1.7rem; }
-      .catalog { padding: 1.5rem; }
-      .section-about { padding: 2rem 1rem; }
-    }
-    .grid-field { display: none; }
-  </style>
+  <!-- Style -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<header class="navbar">
-  <div class="brand">
-    <img src="https://sidkashop.qzz.io/Logo.png" alt="" class="brand-mark" />
-    <span class="brand-name">سیدکا<span class="accent">·</span>شاپ</span>
-  </div>
-  <nav class="nav-links">
-    <button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">محصولات</button>
-    <button onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">درباره</button>
-    <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">تماس</button>
-  </nav>
-  <div style="display:flex; gap:0.6rem; align-items:center;">
-    <button class="theme-toggle" onclick="toggleDarkMode()" aria-label="تغییر تم">
-      <span class="icon"></span>
-      <span class="label" id="themeLabel">روشن</span>
-    </button>
-    <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">همین حالا</button>
-  </div>
-</header>
+  <header class="navbar">
+    <div class="brand">
+      <img src="https://sidkashop.qzz.io/Logo.png" alt="" class="brand-mark" />
+      <span class="brand-name">سیدکا<span class="accent">·</span>شاپ</span>
+    </div>
+    <nav class="nav-links">
+      <button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">محصولات</button>
+      <button onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">درباره</button>
+      <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">تماس</button>
+    </nav>
+    <div style="display:flex; gap:0.6rem; align-items:center;">
+      <button class="theme-toggle" onclick="toggleDarkMode()" aria-label="تغییر تم">
+        <span class="icon"></span>
+        <span class="label" id="themeLabel">روشن</span>
+      </button>
+      <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">همین حالا</button>
+    </div>
+  </header>
 
-<main>
-  <section class="hero">
-    <div class="hero-inner">
-      <span class="eyebrow">سیدکا · دیجیتال</span>
-      <h1 class="hero-title">خدمات دیجیتال، بی‌حاشیه و درست</h1>
-      <p class="hero-sub">
-        اشتراک ویاکس، سلف تلگرام، طراحی تامنیل و حتی ساخت پنل اختصاصی — 
-        بدون پیچیدگی، با قیمت سر راست و پشتیبانی که واقعاً جواب می‌دهد.
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <span class="eyebrow">سیدکا · دیجیتال</span>
+        <h1 class="hero-title">خدمات دیجیتال، بی‌حاشیه و درست</h1>
+        <p class="hero-sub">
+          اشتراک ویاکس، سلف تلگرام، طراحی تامنیل و حتی ساخت پنل اختصاصی —
+          بدون پیچیدگی، با قیمت سر راست و پشتیبانی که واقعاً جواب می‌دهد.
+        </p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">ببین چه داریم</button>
+          <button class="btn btn-ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">پیام بدید</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="products" class="section">
+      <div class="section-head">
+        <span class="eyebrow">خدمات</span>
+        <h2>محصولاتی که کار راه‌اندازن</h2>
+      </div>
+
+      <article class="catalog">
+        <div class="catalog-head">
+          <div>
+            <h3>اشتراک ویاکس پنل</h3>
+            <p class="catalog-sub">ViaX — سریع و بدون دردسر</p>
+          </div>
+          <span class="status status-on">موجود</span>
+        </div>
+        <div class="plan-grid">
+          <div class="plan">
+            <span class="plan-label">یک روزه</span>
+            <span class="plan-price">15,000 <i>تومان</i></span>
+            <button class="btn btn-line" onclick="openPaymentPage('اشتراک یکروزه', 15000)">خرید</button>
+          </div>
+          <div class="plan">
+            <span class="plan-label">یک هفته</span>
+            <span class="plan-price">70,000 <i>تومان</i></span>
+            <button class="btn btn-line" onclick="openPaymentPage('اشتراک یک‌هفته', 70000)">خرید</button>
+          </div>
+          <div class="plan plan-featured">
+            <span class="plan-tag">پیشنهاد ویژه</span>
+            <span class="plan-label">یک ماهه</span>
+            <span class="plan-price">230,000 <i>تومان</i></span>
+            <button class="btn btn-primary" onclick="openPaymentPage('اشتراک یک‌ماهه', 230000)">خرید</button>
+          </div>
+          <div class="plan">
+            <span class="plan-label">دائم</span>
+            <span class="plan-price">350,000 <i>تومان</i></span>
+            <button class="btn btn-line" onclick="openPaymentPage('اشتراک دائم', 350000)">خرید</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="catalog">
+        <div class="catalog-head">
+          <div>
+            <h3>اشتراک سلف تلگرام</h3>
+            <p class="catalog-sub">Telegram Self — به‌زودی دوباره</p>
+          </div>
+          <span class="status status-off">تمام شده</span>
+        </div>
+        <div class="plan-grid">
+          <div class="plan plan-disabled">
+            <span class="plan-label">یک ماهه</span>
+            <span class="plan-price">40,000 <i>تومان</i></span>
+            <button class="btn btn-line" disabled>ناموجود</button>
+          </div>
+          <div class="plan plan-disabled">
+            <span class="plan-label">دو ماهه</span>
+            <span class="plan-price">80,000 <i>تومان</i></span>
+            <button class="btn btn-line" disabled>ناموجود</button>
+          </div>
+          <div class="plan plan-disabled">
+            <span class="plan-label">سه ماهه</span>
+            <span class="plan-price">120,000 <i>تومان</i></span>
+            <button class="btn btn-line" disabled>ناموجود</button>
+          </div>
+          <div class="plan plan-info">
+            <span class="plan-label">امکانات سلف</span>
+            <p class="plan-desc">برای وقتی که برگشت، بدونیم چیه</p>
+            <button class="btn btn-ghost" onclick="openFeaturesPage()">مشاهده قابلیت‌ها</button>
+          </div>
+        </div>
+      </article>
+
+      <div class="simple-grid">
+        <article class="simple-card">
+          <span class="eyebrow-sm">طراحی</span>
+          <h3>تامنیل یوتیوب</h3>
+          <p>طرحی که کلیک رو بالا می‌بره، مخصوص ویدیوهای شما.</p>
+          <div class="simple-foot">
+            <span class="plan-price">50,000 <i>تومان</i></span>
+            <button class="btn btn-line" onclick="openPaymentPage('تامنیل یوتیوب', 50000)">خرید</button>
+          </div>
+        </article>
+
+        <article class="simple-card">
+          <span class="eyebrow-sm">طراحی</span>
+          <h3>پروفایل کانال تلگرام</h3>
+          <p>تصویر و هویت بصری کانال، هماهنگ با برند شما.</p>
+          <div class="simple-foot">
+            <span class="plan-price">50,000 <i>تومان</i></span>
+            <button class="btn btn-line" onclick="openPaymentPage('پروفایل چنل تلگرام', 50000)">خرید</button>
+          </div>
+        </article>
+
+        <article class="simple-card simple-card-wide">
+          <span class="eyebrow-sm">سفارشی‌سازی</span>
+          <h3>ساخت پنل اختصاصی</h3>
+          <p>هر پنل فروش یا مدیریتی که نیاز دارید، از صفر تا تحویل.</p>
+          <div class="simple-foot">
+            <span class="plan-price">900,000 <i>تومان</i></span>
+            <button class="btn btn-primary" onclick="openPaymentPage('ساخت پنل', 900000)">خرید</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="about" class="section section-about">
+      <div class="section-head">
+        <span class="eyebrow">درباره ما</span>
+        <h2>چرا سیدکا شاپ؟</h2>
+      </div>
+      <p class="about-text">
+        ما یه تیم کوچیکیم که کارش رو بلده. نه وعده‌های عجیب می‌دیم، نه قیمت‌های الکی.
+        از اشتراک سلف تلگرام و ویاکس بگیر تا طراحی گرافیک و ساخت پنل — همه‌ش رو با یه اصل ساده پیش می‌بریم:
+        مشتری راضی، کار درست، پشتیبانی بی‌حاشیه.
       </p>
-      <div class="hero-actions">
-        <button class="btn btn-primary" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">ببین چه داریم</button>
-        <button class="btn btn-ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">پیام بدید</button>
+    </section>
+
+    <section id="contact" class="section section-contact">
+      <div class="section-head">
+        <span class="eyebrow">تماس</span>
+        <h2>راه‌های ارتباطی</h2>
       </div>
-    </div>
-  </section>
-
-  <section id="products" class="section">
-    <div class="section-head">
-      <span class="eyebrow">خدمات</span>
-      <h2>محصولاتی که کار راه‌اندازن</h2>
-    </div>
-
-    <article class="catalog">
-      <div class="catalog-head">
-        <div>
-          <h3>اشتراک ویاکس پنل</h3>
-          <p class="catalog-sub">ViaX — سریع و بدون دردسر</p>
-        </div>
-        <span class="status status-on">موجود</span>
+      <div class="contact-grid">
+        <a class="contact-card" href="https://t.me/SidkaShop" target="_blank" rel="noopener">
+          <span class="contact-kind">تلگرام</span>
+          <span class="contact-name">کانال اصلی</span>
+        </a>
+        <a class="contact-card" href="https://t.me/SidkaSelf" target="_blank" rel="noopener">
+          <span class="contact-kind">تلگرام</span>
+          <span class="contact-name">کانال سلف</span>
+        </a>
+        <a class="contact-card" href="https://t.me/IAmiro" target="_blank" rel="noopener">
+          <span class="contact-kind">تلگرام</span>
+          <span class="contact-name">پشتیبانی مستقیم</span>
+        </a>
+        <a class="contact-card" href="https://www.instagram.com/iamiro" target="_blank" rel="noopener">
+          <span class="contact-kind">اینستاگرام</span>
+          <span class="contact-name">صفحه مالک</span>
+        </a>
       </div>
-      <div class="plan-grid">
-        <div class="plan">
-          <span class="plan-label">یک روزه</span>
-          <span class="plan-price">15,000 <i>تومان</i></span>
-          <button class="btn btn-line" onclick="openPaymentPage('اشتراک یکروزه', 15000)">خرید</button>
-        </div>
-        <div class="plan">
-          <span class="plan-label">یک هفته</span>
-          <span class="plan-price">70,000 <i>تومان</i></span>
-          <button class="btn btn-line" onclick="openPaymentPage('اشتراک یک‌هفته', 70000)">خرید</button>
-        </div>
-        <div class="plan plan-featured">
-          <span class="plan-tag">پیشنهاد ویژه</span>
-          <span class="plan-label">یک ماهه</span>
-          <span class="plan-price">230,000 <i>تومان</i></span>
-          <button class="btn btn-primary" onclick="openPaymentPage('اشتراک یک‌ماهه', 230000)">خرید</button>
-        </div>
-        <div class="plan">
-          <span class="plan-label">دائم</span>
-          <span class="plan-price">350,000 <i>تومان</i></span>
-          <button class="btn btn-line" onclick="openPaymentPage('اشتراک دائم', 350000)">خرید</button>
-        </div>
-      </div>
-    </article>
+    </section>
+  </main>
 
-    <article class="catalog">
-      <div class="catalog-head">
-        <div>
-          <h3>اشتراک سلف تلگرام</h3>
-          <p class="catalog-sub">Telegram Self — به‌زودی دوباره</p>
-        </div>
-        <span class="status status-off">تمام شده</span>
-      </div>
-      <div class="plan-grid">
-        <div class="plan plan-disabled">
-          <span class="plan-label">یک ماهه</span>
-          <span class="plan-price">40,000 <i>تومان</i></span>
-          <button class="btn btn-line" disabled>ناموجود</button>
-        </div>
-        <div class="plan plan-disabled">
-          <span class="plan-label">دو ماهه</span>
-          <span class="plan-price">80,000 <i>تومان</i></span>
-          <button class="btn btn-line" disabled>ناموجود</button>
-        </div>
-        <div class="plan plan-disabled">
-          <span class="plan-label">سه ماهه</span>
-          <span class="plan-price">120,000 <i>تومان</i></span>
-          <button class="btn btn-line" disabled>ناموجود</button>
-        </div>
-        <div class="plan plan-info">
-          <span class="plan-label">امکانات سلف</span>
-          <p class="plan-desc">برای وقتی که برگشت، بدونیم چیه</p>
-          <button class="btn btn-ghost" onclick="openFeaturesPage()">مشاهده قابلیت‌ها</button>
-        </div>
-      </div>
-    </article>
+  <footer class="site-footer">
+    <span>© سیدکا شاپ</span>
+    <span class="dot-sep">·</span>
+    <span>همیشه در دسترس</span>
+  </footer>
 
-    <div class="simple-grid">
-      <article class="simple-card">
-        <span class="eyebrow-sm">طراحی</span>
-        <h3>تامنیل یوتیوب</h3>
-        <p>طرحی که کلیک رو بالا می‌بره، مخصوص ویدیوهای شما.</p>
-        <div class="simple-foot">
-          <span class="plan-price">50,000 <i>تومان</i></span>
-          <button class="btn btn-line" onclick="openPaymentPage('تامنیل یوتیوب', 50000)">خرید</button>
-        </div>
-      </article>
+  <!-- اسکریپت خارجی که خودت دادی -->
+  <script src="script.js"></script>
 
-      <article class="simple-card">
-        <span class="eyebrow-sm">طراحی</span>
-        <h3>پروفایل کانال تلگرام</h3>
-        <p>تصویر و هویت بصری کانال، هماهنگ با برند شما.</p>
-        <div class="simple-foot">
-          <span class="plan-price">50,000 <i>تومان</i></span>
-          <button class="btn btn-line" onclick="openPaymentPage('پروفایل چنل تلگرام', 50000)">خرید</button>
-        </div>
-      </article>
-
-      <article class="simple-card simple-card-wide">
-        <span class="eyebrow-sm">سفارشی‌سازی</span>
-        <h3>ساخت پنل اختصاصی</h3>
-        <p>هر پنل فروش یا مدیریتی که نیاز دارید، از صفر تا تحویل.</p>
-        <div class="simple-foot">
-          <span class="plan-price">900,000 <i>تومان</i></span>
-          <button class="btn btn-primary" onclick="openPaymentPage('ساخت پنل', 900000)">خرید</button>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <section id="about" class="section section-about">
-    <div class="section-head">
-      <span class="eyebrow">درباره ما</span>
-      <h2>چرا سیدکا شاپ؟</h2>
-    </div>
-    <p class="about-text">
-      ما یه تیم کوچیکیم که کارش رو بلده. نه وعده‌های عجیب می‌دیم، نه قیمت‌های الکی.
-      از اشتراک سلف تلگرام و ویاکس بگیر تا طراحی گرافیک و ساخت پنل — همه‌ش رو با یه اصل ساده پیش می‌بریم: 
-      مشتری راضی، کار درست، پشتیبانی بی‌حاشیه.
-    </p>
-  </section>
-
-  <section id="contact" class="section section-contact">
-    <div class="section-head">
-      <span class="eyebrow">تماس</span>
-      <h2>راه‌های ارتباطی</h2>
-    </div>
-    <div class="contact-grid">
-      <a class="contact-card" href="https://t.me/SidkaShop" target="_blank" rel="noopener">
-        <span class="contact-kind">تلگرام</span>
-        <span class="contact-name">کانال اصلی</span>
-      </a>
-      <a class="contact-card" href="https://t.me/SidkaSelf" target="_blank" rel="noopener">
-        <span class="contact-kind">تلگرام</span>
-        <span class="contact-name">کانال سلف</span>
-      </a>
-      <a class="contact-card" href="https://t.me/IAmiro" target="_blank" rel="noopener">
-        <span class="contact-kind">تلگرام</span>
-        <span class="contact-name">پشتیبانی مستقیم</span>
-      </a>
-      <a class="contact-card" href="https://www.instagram.com/iamiro" target="_blank" rel="noopener">
-        <span class="contact-kind">اینستاگرام</span>
-        <span class="contact-name">صفحه مالک</span>
-      </a>
-    </div>
-  </section>
-</main>
-
-<footer class="site-footer">
-  <span>© سیدکا شاپ</span>
-  <span class="dot-sep">·</span>
-  <span>همیشه در دسترس</span>
-</footer>
-
-<!-- اسکریپت خارجی که خودت دادی -->
-<script src="script.js"></script>
-
-<!-- دارک مود (تغییرات کوچک برای هماهنگی با script.js) -->
-<script>
-  // این تابع رو اینجا میذاریم تا با دکمه‌ی داخل html کار کنه
-  function toggleDarkMode() {
-    document.body.classList.toggle('dark');
-    const label = document.getElementById('themeLabel');
-    if (document.body.classList.contains('dark')) {
-      label.textContent = 'تاریک';
-      localStorage.setItem('theme', 'dark');
-    } else {
-      label.textContent = 'روشن';
-      localStorage.setItem('theme', 'light');
+  <!-- دارک مود (تغییرات کوچک برای هماهنگی با script.js) -->
+  <script>
+    // این تابع رو اینجا میذاریم تا با دکمه‌ی داخل html کار کنه
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark');
+      const label = document.getElementById('themeLabel');
+      if (document.body.classList.contains('dark')) {
+        label.textContent = 'تاریک';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        label.textContent = 'روشن';
+        localStorage.setItem('theme', 'light');
+      }
     }
-  }
 
-  // بارگذاری تم ذخیره‌شده
-  (function loadTheme() {
-    if (localStorage.getItem('theme') === 'dark') {
-      document.body.classList.add('dark');
-      document.getElementById('themeLabel').textContent = 'تاریک';
-    }
-  })();
-</script>
+    // بارگذاری تم ذخیره‌شده
+    (function loadTheme() {
+      if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark');
+        document.getElementById('themeLabel').textContent = 'تاریک';
+      }
+    })();
+  </script>
 
 </body>
 </html>
