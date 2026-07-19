@@ -1627,7 +1627,7 @@ function openTicketPage(serviceName) {
           '<div class="tracking-code">' + trackingCode + '</div>' +
           '<div class="tracking-hint">این کد را نزد خود نگه دارید</div>' +
         '</div>' +
-        '<div class="support-text"><span>📞</span><span>تا ۲۴ ساعت آینده باهات تماس می‌گیریم</span></div>' +
+        '<div class="support-text"><span>🙏</span><span>با تشکر از صبوری شما.</span></div>' +
         '<div class="countdown-wrap">' +
           '<div class="countdown-bar"><div class="countdown-fill"></div></div>' +
           '<p class="countdown-text">🔄 بازگشت خودکار در <span class="countdown-num" id="timer">' + countdown + '</span> ثانیه</p>' +
