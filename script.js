@@ -36,122 +36,153 @@ function openPaymentPage(productName, price) {
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>پرداخت | ${productName}</title>
       <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
-      <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
       <style>
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none !important; -webkit-tap-highlight-color: transparent !important; }
-
+        
         body {
-          font-family: 'Vazirmatn', sans-serif;
-          background: #0A0D12;
+          font-family: 'Vazirmatn', 'Inter', sans-serif;
+          background: #f7f5f2;
           min-height: 100vh;
           display: flex;
           align-items: center;
           justify-content: center;
           padding: 20px;
-          color: #ECE9E2;
+          color: #1e1a17;
+          transition: background 0.3s, color 0.3s;
         }
-
+        
+        body.dark {
+          background: #141210;
+          color: #ece6df;
+        }
+        
         .card {
           width: 100%;
           max-width: 460px;
-          background: #12161D;
+          background: #ffffff;
           padding: 30px 25px;
-          border-radius: 20px;
-          box-shadow: 0 20px 60px rgba(0,0,0,.4), 0 0 0 1px #262D3A;
+          border-radius: 40px;
+          box-shadow: 0 8px 30px rgba(0,0,0,0.02);
+          border: 1px solid #e9e3db;
+          transition: background 0.3s, border 0.3s, box-shadow 0.3s;
         }
-
-        h3 { text-align: center; margin: 0 0 5px; color: #ECE9E2; font-size: 18px; }
-
+        
+        body.dark .card {
+          background: #1f1b18;
+          border: 1px solid #2f2924;
+          box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+        
+        h3 { 
+          text-align: center; 
+          margin: 0 0 5px; 
+          color: #1e1a17; 
+          font-size: 20px;
+          font-weight: 600;
+          transition: color 0.3s;
+        }
+        
+        body.dark h3 { color: #ece6df; }
+        
         .price {
           text-align: center;
           margin: 8px 0 20px;
-          font-size: 26px;
-          color: #C9A063;
-          font-weight: bold;
-          font-family: 'JetBrains Mono', monospace;
+          font-size: 28px;
+          color: #b68b7c;
+          font-weight: 700;
         }
-
-        .price span { font-size: 13px; color: #99A1AF; font-weight: normal; font-family: 'Vazirmatn', sans-serif; }
-
+        
+        .price span { 
+          font-size: 13px; 
+          color: #7a6e64; 
+          font-weight: 400; 
+          font-family: 'Vazirmatn', sans-serif;
+        }
+        
+        body.dark .price span { color: #8f8278; }
+        
         .vpn-notice {
-          background: linear-gradient(135deg, rgba(201,160,99,.15), rgba(140,116,74,.12));
-          border: 1px solid rgba(201,160,99,.3);
-          border-radius: 12px;
+          background: #f0ebe5;
+          border: 1px solid #d6cdc1;
+          border-radius: 16px;
           padding: 12px 16px;
           text-align: center;
           margin-bottom: 20px;
           font-size: 12px;
-          color: #D9B47C;
+          color: #4f4640;
           display: flex;
           align-items: center;
           justify-content: center;
           gap: 8px;
-          animation: glow 2s ease-in-out infinite;
+          transition: background 0.3s, border 0.3s, color 0.3s;
         }
-
-        .vpn-notice .icon {
-          font-size: 20px;
-          animation: bounce 1s ease-in-out infinite;
+        
+        body.dark .vpn-notice {
+          background: #26211d;
+          border: 1px solid #3b352f;
+          color: #b5a89a;
         }
-
-        .vpn-notice .text {
-          line-height: 1.6;
-        }
-
+        
         .vpn-notice .highlight {
-          color: #C9A063;
+          color: #b68b7c;
           font-weight: bold;
-          background: rgba(201,160,99,.2);
+          background: rgba(182, 139, 124, 0.1);
           padding: 2px 8px;
           border-radius: 6px;
           white-space: nowrap;
         }
-
-        @keyframes glow {
-          0%, 100% { box-shadow: 0 0 5px rgba(201,160,99,.2), 0 0 10px rgba(201,160,99,.1); }
-          50% { box-shadow: 0 0 15px rgba(201,160,99,.4), 0 0 25px rgba(201,160,99,.2); }
-        }
-
-        @keyframes bounce {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-5px); }
-        }
-
+        
+        body.dark .vpn-notice .highlight { color: #c9b09f; }
+        
         .bank {
-          background: #1A2029;
+          background: #f7f5f2;
           padding: 15px;
-          border-radius: 14px;
+          border-radius: 16px;
           text-align: center;
           margin-bottom: 20px;
           font-size: 12px;
-          color: #99A1AF;
+          color: #7a6e64;
           line-height: 2;
-          border: 1px solid #262D3A;
-          border-right: 3px solid #C9A063;
+          border: 1px solid #e9e3db;
+          border-right: 3px solid #b68b7c;
+          transition: background 0.3s, border 0.3s, color 0.3s;
         }
-
+        
+        body.dark .bank {
+          background: #26211d;
+          border: 1px solid #2f2924;
+          color: #8f8278;
+        }
+        
         .card-number {
           font-size: 18px;
-          color: #ECE9E2;
+          color: #1e1a17;
           letter-spacing: 2px;
-          font-family: 'JetBrains Mono', monospace;
+          font-family: 'Inter', monospace;
           direction: ltr;
           display: inline-block;
-          background: #0A0D12;
+          background: #ffffff;
           padding: 6px 14px;
           border-radius: 8px;
           margin: 6px 0;
+          transition: background 0.3s, color 0.3s;
         }
-
+        
+        body.dark .card-number {
+          background: #1f1b18;
+          color: #ece6df;
+        }
+        
         .upload-area {
-          border: 2px dashed #262D3A;
-          border-radius: 14px;
+          border: 2px dashed #d6cdc1;
+          border-radius: 16px;
           padding: 20px;
           text-align: center;
           cursor: pointer;
           margin-bottom: 15px;
           transition: all .3s;
-          background: #1A2029;
+          background: #f7f5f2;
           min-height: 80px;
           display: flex;
           flex-direction: column;
@@ -159,67 +190,104 @@ function openPaymentPage(productName, price) {
           justify-content: center;
           gap: 5px;
         }
-
-        .upload-area:hover { border-color: #C9A063; }
-
-        .upload-area.has-file {
-          border-color: #3FA9A0;
-          border-style: solid;
-          background: rgba(63, 169, 160, 0.06);
+        
+        body.dark .upload-area {
+          background: #26211d;
+          border-color: #3b352f;
         }
-
+        
+        .upload-area:hover { border-color: #b68b7c; }
+        body.dark .upload-area:hover { border-color: #c9b09f; }
+        
+        .upload-area.has-file {
+          border-color: #b68b7c;
+          border-style: solid;
+          background: rgba(182, 139, 124, 0.05);
+        }
+        
+        body.dark .upload-area.has-file {
+          border-color: #c9b09f;
+          background: rgba(201, 176, 159, 0.05);
+        }
+        
         .upload-icon { font-size: 32px; }
-        .upload-text { font-size: 13px; color: #99A1AF; }
-        .file-name { font-size: 11px; color: #C9A063; word-break: break-all; }
-        .file-size { font-size: 10px; color: #99A1AF; }
-
+        .upload-text { font-size: 13px; color: #7a6e64; }
+        body.dark .upload-text { color: #8f8278; }
+        
+        .file-name { font-size: 11px; color: #b68b7c; word-break: break-all; }
+        body.dark .file-name { color: #c9b09f; }
+        
+        .file-size { font-size: 10px; color: #7a6e64; }
+        body.dark .file-size { color: #8f8278; }
+        
         .upload-area input { display: none; }
-
+        
         input, textarea {
           width: 100%;
           margin-top: 10px;
           padding: 12px 14px;
-          border-radius: 12px;
-          border: 1px solid #262D3A;
+          border-radius: 14px;
+          border: 1px solid #d6cdc1;
           font-family: 'Vazirmatn', sans-serif;
           font-size: 13px;
-          background: #1A2029;
-          color: #ECE9E2;
+          background: #f7f5f2;
+          color: #1e1a17;
+          transition: background 0.3s, border 0.3s, color 0.3s;
         }
-
-        input::placeholder, textarea::placeholder { color: #5C6472; }
-        input:focus, textarea:focus { border-color: #C9A063; }
+        
+        body.dark input, body.dark textarea {
+          background: #26211d;
+          border: 1px solid #3b352f;
+          color: #ece6df;
+        }
+        
+        input::placeholder, textarea::placeholder { color: #7a6e64; }
+        body.dark input::placeholder, body.dark textarea::placeholder { color: #8f8278; }
+        
+        input:focus, textarea:focus { border-color: #b68b7c; }
+        body.dark input:focus, body.dark textarea:focus { border-color: #c9b09f; }
+        
         textarea { resize: none; height: 70px; }
-
+        
         .send-btn {
           width: 100%;
           margin-top: 18px;
           padding: 14px;
           border: none;
-          border-radius: 14px;
+          border-radius: 60px;
           font-family: 'Vazirmatn', sans-serif;
           font-size: 15px;
-          font-weight: bold;
-          background: linear-gradient(135deg, #C9A063, #D9B47C);
-          color: #14110A;
+          font-weight: 600;
+          background: #1e1a17;
+          color: #f5f2ed;
           cursor: pointer;
           transition: all .3s;
         }
-
-        .send-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(201, 160, 99, 0.3); }
-        .send-btn:disabled { opacity: 0.7; cursor: not-allowed; }
-
+        
+        body.dark .send-btn {
+          background: #ece6df;
+          color: #1e1a17;
+        }
+        
+        .send-btn:hover:not(:disabled) { opacity: 0.8; transform: translateY(-2px); }
+        .send-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        
         .progress-container {
           margin-top: 15px;
           display: none;
-          background: #1A2029;
+          background: #f7f5f2;
           padding: 15px;
-          border-radius: 12px;
-          border: 1px solid #262D3A;
+          border-radius: 16px;
+          border: 1px solid #e9e3db;
         }
-
+        
+        body.dark .progress-container {
+          background: #26211d;
+          border: 1px solid #2f2924;
+        }
+        
         .progress-container.active { display: block; }
-
+        
         .progress-header {
           display: flex;
           justify-content: space-between;
@@ -227,62 +295,91 @@ function openPaymentPage(productName, price) {
           margin-bottom: 8px;
           font-size: 11px;
         }
-
-        .progress-percent { color: #C9A063; font-weight: bold; font-size: 16px; font-family: 'JetBrains Mono', monospace; }
-        .progress-info { color: #99A1AF; font-size: 12px; }
-
+        
+        .progress-percent { 
+          color: #b68b7c; 
+          font-weight: bold; 
+          font-size: 16px; 
+          font-family: 'Inter', monospace;
+        }
+        
+        body.dark .progress-percent { color: #c9b09f; }
+        
+        .progress-info { color: #7a6e64; font-size: 12px; }
+        body.dark .progress-info { color: #8f8278; }
+        
         .progress-bar-outer {
           height: 6px;
-          background: #0A0D12;
+          background: #e9e3db;
           border-radius: 10px;
           overflow: hidden;
           margin-bottom: 8px;
         }
-
+        
+        body.dark .progress-bar-outer { background: #2f2924; }
+        
         .progress-bar-inner {
           height: 100%;
-          background: linear-gradient(90deg, #C9A063, #D9B47C);
+          background: #b68b7c;
           border-radius: 10px;
           width: 0%;
           transition: width 0.3s;
         }
-
+        
+        body.dark .progress-bar-inner { background: #c9b09f; }
+        
         .progress-details {
           display: flex;
           justify-content: space-between;
           font-size: 10px;
-          color: #99A1AF;
+          color: #7a6e64;
           flex-wrap: wrap;
           gap: 4px;
         }
-
+        
+        body.dark .progress-details { color: #8f8278; }
+        
         #status {
           text-align: center;
           margin-top: 12px;
           font-size: 12px;
           min-height: 18px;
-          color: #99A1AF;
+          color: #7a6e64;
         }
-
-        #status.error { color: #e74c3c; }
-        #status.warning { color: #D9B47C; }
-        #status.success { color: #3FA9A0; }
-
+        
+        body.dark #status { color: #8f8278; }
+        
+        #status.error { color: #c0392b; }
+        body.dark #status.error { color: #e74c3c; }
+        
+        #status.warning { color: #b68b7c; }
+        body.dark #status.warning { color: #c9b09f; }
+        
+        #status.success { color: #b68b7c; }
+        body.dark #status.success { color: #c9b09f; }
+        
         .retry-info {
-          background: rgba(231, 76, 60, 0.1);
-          border: 1px solid rgba(231, 76, 60, 0.3);
-          border-radius: 10px;
+          background: rgba(192, 57, 43, 0.05);
+          border: 1px solid rgba(192, 57, 43, 0.2);
+          border-radius: 12px;
           padding: 10px 14px;
           margin-top: 10px;
           font-size: 11px;
-          color: #e74c3c;
+          color: #c0392b;
           text-align: center;
           line-height: 1.8;
           display: none;
         }
-
+        
+        body.dark .retry-info {
+          background: rgba(231, 76, 60, 0.05);
+          border-color: rgba(231, 76, 60, 0.2);
+          color: #e74c3c;
+        }
+        
         .retry-info.show { display: block; }
-        .retry-info b { color: #C9A063; }
+        .retry-info b { color: #b68b7c; }
+        body.dark .retry-info b { color: #c9b09f; }
       </style>
     </head>
     <body>
@@ -291,14 +388,14 @@ function openPaymentPage(productName, price) {
         <div class="price">${price.toLocaleString()} <span>تومان</span></div>
 
         <div class="vpn-notice">
-          <span class="icon">🔐</span>
-          <span class="text">⚠️ روشن بودن <span class="highlight">VPN</span> جهت ارسال رسید <b>الزامی</b> میباشد</span>
+          <span>🔐</span>
+          <span>⚠️ روشن بودن <span class="highlight">VPN</span> جهت ارسال رسید <b>الزامی</b> میباشد</span>
         </div>
 
         <div class="bank">
           <div>📱 شماره کارت جهت واریز</div>
           <div class="card-number">6219 8614 5364 0772</div>
-          <div>به نام: <b style="color:#ECE9E2;">امیرمحمد یوسفی</b></div>
+          <div>به نام: <b style="color:#b68b7c;">امیرمحمد یوسفی</b></div>
         </div>
 
         <div class="upload-area" id="uploadArea">
@@ -338,6 +435,12 @@ function openPaymentPage(productName, price) {
       </div>
 
       <script>
+        // تشخیص دارک مود از صفحه اصلی
+        var isDarkMode = window.opener && window.opener.document.body.classList.contains('dark');
+        if (isDarkMode) {
+          document.body.classList.add('dark');
+        }
+        
         var imgInput = document.getElementById("receiptImage");
         var uploadArea = document.getElementById("uploadArea");
         var uploadIcon = document.getElementById("uploadIcon");
@@ -377,17 +480,17 @@ function openPaymentPage(productName, price) {
 
         uploadArea.ondragover = function(e) {
           e.preventDefault();
-          uploadArea.style.borderColor = '#C9A063';
+          uploadArea.style.borderColor = '#b68b7c';
         };
 
         uploadArea.ondragleave = function(e) {
           e.preventDefault();
-          uploadArea.style.borderColor = selectedFile ? '#3FA9A0' : '#262D3A';
+          uploadArea.style.borderColor = selectedFile ? '#b68b7c' : '#d6cdc1';
         };
 
         uploadArea.ondrop = function(e) {
           e.preventDefault();
-          uploadArea.style.borderColor = selectedFile ? '#3FA9A0' : '#262D3A';
+          uploadArea.style.borderColor = selectedFile ? '#b68b7c' : '#d6cdc1';
           if (e.dataTransfer.files.length > 0) {
             imgInput.files = e.dataTransfer.files;
             handleFileSelect();
@@ -579,55 +682,85 @@ function openPaymentPage(productName, price) {
           document.body.style.overflow = 'hidden';
 
           var wrapper = document.createElement('div');
-          wrapper.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;font-family:Vazirmatn,sans-serif;background:linear-gradient(135deg,#0A0D12 0%,#12161D 50%,#0A0D12 100%);display:flex;justify-content:center;align-items:center;padding:20px;overflow:hidden;z-index:9999;';
-
-          var particles = document.createElement('div');
-          particles.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;';
-          particles.innerHTML =
-            '<div style="position:absolute;top:10%;left:10%;width:8px;height:8px;background:#C9A063;border-radius:50%;animation:fa 3s ease-in-out infinite;opacity:0.6;"></div>' +
-            '<div style="position:absolute;top:20%;right:15%;width:12px;height:12px;background:#3FA9A0;border-radius:50%;animation:fb 4s ease-in-out infinite;opacity:0.4;"></div>' +
-            '<div style="position:absolute;bottom:30%;left:20%;width:6px;height:6px;background:#D9B47C;border-radius:50%;animation:fc 3.5s ease-in-out infinite;opacity:0.7;"></div>' +
-            '<div style="position:absolute;top:60%;right:10%;width:10px;height:10px;background:#3FA9A0;border-radius:50%;animation:fa 2.8s ease-in-out infinite;opacity:0.5;"></div>' +
-            '<div style="position:absolute;bottom:15%;right:25%;width:7px;height:7px;background:#D9B47C;border-radius:50%;animation:fb 4.2s ease-in-out infinite;opacity:0.6;"></div>' +
-            '<div style="position:absolute;top:40%;left:5%;width:5px;height:5px;background:#ECE9E2;border-radius:50%;animation:fc 3.2s ease-in-out infinite;opacity:0.3;"></div>' +
-            '<div style="position:absolute;top:75%;left:30%;width:9px;height:9px;background:#C9A063;border-radius:50%;animation:fa 3.7s ease-in-out infinite;opacity:0.5;"></div>' +
-            '<div style="position:absolute;bottom:40%;right:5%;width:11px;height:11px;background:#3FA9A0;border-radius:50%;animation:fb 3.1s ease-in-out infinite;opacity:0.4;"></div>';
+          wrapper.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;font-family:Vazirmatn,sans-serif;background:#f7f5f2;display:flex;justify-content:center;align-items:center;padding:20px;overflow:hidden;z-index:9999;transition:background 0.3s;';
+          
+          if (isDarkMode) {
+            wrapper.style.background = '#141210';
+          }
 
           var card = document.createElement('div');
-          card.style.cssText = 'position:relative;z-index:1;background:linear-gradient(145deg,#161B23,#12161D);width:100%;max-width:440px;padding:40px 30px;border-radius:24px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 0 1px #262D3A;animation:cp 0.8s cubic-bezier(0.175,0.885,0.32,1.275);';
+          card.style.cssText = 'position:relative;z-index:1;background:#ffffff;width:100%;max-width:440px;padding:40px 30px;border-radius:40px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,0.02);border:1px solid #e9e3db;animation:cp 0.8s cubic-bezier(0.175,0.885,0.32,1.275);transition:background 0.3s,border 0.3s,box-shadow 0.3s;';
+          
+          if (isDarkMode) {
+            card.style.background = '#1f1b18';
+            card.style.border = '1px solid #2f2924';
+            card.style.boxShadow = '0 8px 30px rgba(0,0,0,0.4)';
+          }
 
           card.innerHTML =
-            '<div style="position:relative;width:90px;height:90px;margin:0 auto 25px;">' +
-              '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:90px;height:90px;background:rgba(63,169,160,.1);border-radius:50%;animation:ri 2s ease-out infinite;"></div>' +
-              '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:70px;height:70px;background:rgba(63,169,160,.15);border-radius:50%;animation:ri 2s ease-out 0.5s infinite;"></div>' +
-              '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:rgba(63,169,160,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;animation:si 0.6s ease 0.3s both;">' +
-                '<svg width="32" height="32" viewBox="0 0 52 52"><circle cx="26" cy="26" r="24" fill="none" stroke="#3FA9A0" stroke-width="3" stroke-dasharray="151" stroke-dashoffset="151" style="animation:dc 0.4s ease 0.3s forwards;"/><path d="M15 27 L23 36 L38 17" fill="none" stroke="#3FA9A0" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="35" stroke-dashoffset="35" style="animation:dp 0.3s ease 0.7s forwards;"/></svg>' +
+            '<div style="position:relative;width:80px;height:80px;margin:0 auto 25px;">' +
+              '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80px;height:80px;background:rgba(182,139,124,.1);border-radius:50%;animation:ri 2s ease-out infinite;"></div>' +
+              '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:rgba(182,139,124,.15);border-radius:50%;animation:ri 2s ease-out 0.5s infinite;"></div>' +
+              '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:50px;height:50px;background:rgba(182,139,124,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;animation:si 0.6s ease 0.3s both;">' +
+                '<svg width="28" height="28" viewBox="0 0 52 52"><circle cx="26" cy="26" r="24" fill="none" stroke="#b68b7c" stroke-width="3" stroke-dasharray="151" stroke-dashoffset="151" style="animation:dc 0.4s ease 0.3s forwards;"/><path d="M15 27 L23 36 L38 17" fill="none" stroke="#b68b7c" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="35" stroke-dashoffset="35" style="animation:dp 0.3s ease 0.7s forwards;"/></svg>' +
               '</div>' +
             '</div>' +
-            '<h2 style="color:#ECE9E2;margin:0 0 6px;font-size:24px;animation:fu 0.6s ease 0.5s both;">🎉 پرداخت موفق!</h2>' +
-            '<p style="color:#99A1AF;margin:0 0 20px;font-size:13px;animation:fu 0.6s ease 0.6s both;">رسید شما با موفقیت ثبت شد</p>' +
-            '<div style="background:linear-gradient(135deg,rgba(201,160,99,.15),rgba(201,160,99,.05));padding:18px;border-radius:14px;margin-bottom:18px;border:1px solid rgba(201,160,99,.3);animation:fu 0.6s ease 0.65s both;">' +
-              '<div style="font-size:10px;color:#99A1AF;margin-bottom:6px;">🔢 کد پیگیری</div>' +
-              '<div style="font-size:32px;color:#C9A063;font-weight:bold;letter-spacing:6px;font-family:\\'JetBrains Mono\\',monospace;direction:ltr;">' + code + '</div>' +
-              '<div style="font-size:10px;color:#99A1AF;margin-top:4px;">این کد را نزد خود نگه دارید</div>' +
+            '<h2 style="color:#1e1a17;margin:0 0 6px;font-size:24px;animation:fu 0.6s ease 0.5s both;transition:color 0.3s;">🎉 پرداخت موفق!</h2>' +
+            '<p style="color:#4f4640;margin:0 0 20px;font-size:13px;animation:fu 0.6s ease 0.6s both;transition:color 0.3s;">رسید شما با موفقیت ثبت شد</p>' +
+            '<div style="background:#f0ebe5;padding:18px;border-radius:16px;margin-bottom:18px;border:1px solid #d6cdc1;animation:fu 0.6s ease 0.65s both;transition:background 0.3s,border 0.3s;">' +
+              '<div style="font-size:10px;color:#7a6e64;margin-bottom:6px;">🔢 کد پیگیری</div>' +
+              '<div style="font-size:32px;color:#b68b7c;font-weight:bold;letter-spacing:6px;font-family:\'Inter\',monospace;direction:ltr;">' + code + '</div>' +
+              '<div style="font-size:10px;color:#7a6e64;margin-top:4px;">این کد را نزد خود نگه دارید</div>' +
             '</div>' +
-            '<div style="background:#1A2029;padding:16px;border-radius:14px;margin-bottom:18px;border:1px solid #262D3A;animation:fu 0.6s ease 0.7s both;">' +
-              '<div style="font-size:11px;color:#99A1AF;margin-bottom:4px;">💰 مبلغ پرداختی</div>' +
-              '<div style="font-size:28px;color:#C9A063;font-weight:bold;font-family:\\'JetBrains Mono\\',monospace;">' + price.toLocaleString() + '</div>' +
-              '<div style="font-size:12px;color:#99A1AF;">تومان</div>' +
+            '<div style="background:#f7f5f2;padding:16px;border-radius:16px;margin-bottom:18px;border:1px solid #e9e3db;animation:fu 0.6s ease 0.7s both;transition:background 0.3s,border 0.3s;">' +
+              '<div style="font-size:11px;color:#7a6e64;margin-bottom:4px;">💰 مبلغ پرداختی</div>' +
+              '<div style="font-size:28px;color:#b68b7c;font-weight:bold;font-family:\'Inter\',monospace;">' + price.toLocaleString() + '</div>' +
+              '<div style="font-size:12px;color:#7a6e64;">تومان</div>' +
             '</div>' +
-            '<div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:18px;color:#99A1AF;font-size:12px;animation:fu 0.6s ease 0.8s both;"><span>📞</span><span>تیم پشتیبانی به زودی با شما تماس میگیرد</span></div>' +
+            '<div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:18px;color:#4f4640;font-size:12px;animation:fu 0.6s ease 0.8s both;transition:color 0.3s;"><span>📞</span><span>تیم پشتیبانی به زودی با شما تماس میگیرد</span></div>' +
             '<div style="animation:fu 0.6s ease 0.9s both;">' +
-              '<div style="height:5px;background:#1A2029;border-radius:8px;overflow:hidden;margin-bottom:10px;"><div style="height:100%;background:linear-gradient(90deg,#C9A063,#D9B47C);border-radius:8px;animation:cb ' + countdown + 's linear forwards;"></div></div>' +
-              '<p style="font-size:12px;color:#5C6472;margin:0;">🔄 بازگشت خودکار در <span id="timer" style="color:#C9A063;font-weight:bold;font-size:15px;">' + countdown + '</span> ثانیه</p>' +
+              '<div style="height:5px;background:#e9e3db;border-radius:8px;overflow:hidden;margin-bottom:10px;transition:background 0.3s;"><div style="height:100%;background:#b68b7c;border-radius:8px;animation:cb ' + countdown + 's linear forwards;transition:background 0.3s;"></div></div>' +
+              '<p style="font-size:12px;color:#7a6e64;margin:0;">🔄 بازگشت خودکار در <span id="timer" style="color:#b68b7c;font-weight:bold;font-size:15px;">' + countdown + '</span> ثانیه</p>' +
             '</div>' +
-            '<button id="backBtn" style="margin-top:18px;padding:10px 30px;background:rgba(201,160,99,.1);color:#C9A063;border:1px solid rgba(201,160,99,.3);border-radius:40px;font-family:Vazirmatn,sans-serif;font-size:13px;cursor:pointer;transition:all .3s;animation:fu 0.6s ease 1s both;">🏠 بازگشت به سایت</button>';
+            '<button id="backBtn" style="margin-top:18px;padding:10px 30px;background:#1e1a17;color:#f5f2ed;border:none;border-radius:60px;font-family:Vazirmatn,sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;animation:fu 0.6s ease 1s both;">🏠 بازگشت به سایت</button>';
+
+          // اعمال دارک مود برای المان‌های داخل کارت
+          if (isDarkMode) {
+            var elements = card.querySelectorAll('h2, p, div, span');
+            elements.forEach(function(el) {
+              if (el.style.color === '#1e1a17') el.style.color = '#ece6df';
+              if (el.style.color === '#4f4640') el.style.color = '#b5a89a';
+              if (el.style.color === '#7a6e64') el.style.color = '#8f8278';
+              if (el.style.background === '#f0ebe5') {
+                el.style.background = '#26211d';
+                el.style.border = '1px solid #2f2924';
+              }
+              if (el.style.background === '#f7f5f2') {
+                el.style.background = '#26211d';
+                el.style.border = '1px solid #2f2924';
+              }
+              if (el.style.background === '#e9e3db') {
+                el.style.background = '#2f2924';
+              }
+              if (el.style.color === '#b68b7c') el.style.color = '#c9b09f';
+            });
+            
+            var backBtn = card.querySelector('#backBtn');
+            if (backBtn) {
+              backBtn.style.background = '#ece6df';
+              backBtn.style.color = '#1e1a17';
+            }
+            
+            var progressDiv = card.querySelector('div[style*="height:5px;background:#e9e3db"]');
+            if (progressDiv) {
+              progressDiv.style.background = '#2f2924';
+              var innerDiv = progressDiv.querySelector('div');
+              if (innerDiv) innerDiv.style.background = '#c9b09f';
+            }
+          }
 
           var style = document.createElement('style');
           style.textContent =
-            '@keyframes fa{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-20px) rotate(180deg)}}' +
-            '@keyframes fb{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-15px) scale(1.5)}}' +
-            '@keyframes fc{0%,100%{transform:translate(0,0)}33%{transform:translate(10px,-20px)}66%{transform:translate(-10px,-10px)}}' +
             '@keyframes cp{from{opacity:0;transform:scale(.8) translateY(40px)}to{opacity:1;transform:scale(1) translateY(0)}}' +
             '@keyframes ri{0%{transform:translate(-50%,-50%) scale(0.5);opacity:1}100%{transform:translate(-50%,-50%) scale(2);opacity:0}}' +
             '@keyframes si{from{transform:translate(-50%,-50%) scale(0)}to{transform:translate(-50%,-50%) scale(1)}}' +
@@ -636,19 +769,16 @@ function openPaymentPage(productName, price) {
             '@keyframes fu{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}' +
             '@keyframes cb{from{width:0}to{width:100%}}';
 
-          wrapper.appendChild(particles);
           wrapper.appendChild(card);
           wrapper.appendChild(style);
           document.body.appendChild(wrapper);
 
           var backBtn = document.getElementById('backBtn');
           backBtn.onmouseover = function() {
-            this.style.background = 'rgba(201,160,99,.2)';
-            this.style.borderColor = '#C9A063';
+            this.style.opacity = '0.8';
           };
           backBtn.onmouseout = function() {
-            this.style.background = 'rgba(201,160,99,.1)';
-            this.style.borderColor = 'rgba(201,160,99,.3)';
+            this.style.opacity = '1';
           };
           backBtn.onclick = function() {
             if (window.opener) {
@@ -665,7 +795,8 @@ function openPaymentPage(productName, price) {
             if (timerEl) {
               timerEl.innerText = timeLeft;
               if (timeLeft <= 5) {
-                timerEl.style.color = '#e74c3c';
+                timerEl.style.color = '#c0392b';
+                if (isDarkMode) timerEl.style.color = '#e74c3c';
               }
             }
             if (timeLeft <= 0) {
@@ -697,19 +828,143 @@ function openFeaturesPage() {
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>قابلیت‌های سلف تلگرام</title>
       <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
-      <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
       <style>
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none !important; -webkit-tap-highlight-color: transparent !important; }
-        body { font-family: 'Vazirmatn', sans-serif; background: #0A0D12; color: #C4C9D2; line-height: 1.8; padding: 30px 20px; display: flex; justify-content: center; }
-        .container { width: 100%; max-width: 700px; background: #12161D; border-radius: 24px; padding: 35px 30px; box-shadow: 0 15px 40px rgba(0,0,0,.6); border: 1px solid #262D3A; }
-        h2 { text-align: center; margin-bottom: 30px; color: #C9A063; font-size: 26px; }
-        .command-group { margin-bottom: 25px; background: #1A2029; border-radius: 16px; padding: 18px; border: 1px solid #262D3A; }
-        .command-group h3 { color: #3FA9A0; margin-bottom: 10px; font-size: 17px; border-bottom: 1px solid #262D3A; padding-bottom: 8px; }
-        .command-group ul { list-style: none; padding: 0; }
-        .command-group li { margin: 8px 0; font-size: 13px; background: #0A0D12; padding: 10px 14px; border-radius: 10px; border-right: 3px solid #C9A063; }
-        .command-group li code { background: #262D3A; color: #D9B47C; padding: 2px 8px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
-        .back-btn { display: block; width: fit-content; margin: 30px auto 0; padding: 12px 40px; background: #C9A063; color: #14110A; border: none; border-radius: 50px; font-family: 'Vazirmatn', sans-serif; font-size: 15px; font-weight: bold; cursor: pointer; transition: .3s; }
-        .back-btn:hover { background: #D9B47C; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(201,160,99,.5); }
+        
+        body {
+          font-family: 'Vazirmatn', 'Inter', sans-serif;
+          background: #f7f5f2;
+          color: #1e1a17;
+          line-height: 1.8;
+          padding: 30px 20px;
+          display: flex;
+          justify-content: center;
+          transition: background 0.3s, color 0.3s;
+        }
+        
+        body.dark {
+          background: #141210;
+          color: #ece6df;
+        }
+        
+        .container {
+          width: 100%;
+          max-width: 700px;
+          background: #ffffff;
+          border-radius: 40px;
+          padding: 35px 30px;
+          box-shadow: 0 8px 30px rgba(0,0,0,0.02);
+          border: 1px solid #e9e3db;
+          transition: background 0.3s, border 0.3s, box-shadow 0.3s;
+        }
+        
+        body.dark .container {
+          background: #1f1b18;
+          border: 1px solid #2f2924;
+          box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+        
+        h2 {
+          text-align: center;
+          margin-bottom: 30px;
+          color: #b68b7c;
+          font-size: 26px;
+          font-weight: 600;
+          transition: color 0.3s;
+        }
+        
+        body.dark h2 { color: #c9b09f; }
+        
+        .command-group {
+          margin-bottom: 25px;
+          background: #f7f5f2;
+          border-radius: 20px;
+          padding: 18px;
+          border: 1px solid #e9e3db;
+          transition: background 0.3s, border 0.3s;
+        }
+        
+        body.dark .command-group {
+          background: #26211d;
+          border: 1px solid #2f2924;
+        }
+        
+        .command-group h3 {
+          color: #b68b7c;
+          margin-bottom: 10px;
+          font-size: 17px;
+          border-bottom: 1px solid #e9e3db;
+          padding-bottom: 8px;
+          transition: color 0.3s, border 0.3s;
+        }
+        
+        body.dark .command-group h3 {
+          color: #c9b09f;
+          border-bottom: 1px solid #2f2924;
+        }
+        
+        .command-group ul {
+          list-style: none;
+          padding: 0;
+        }
+        
+        .command-group li {
+          margin: 8px 0;
+          font-size: 13px;
+          background: #ffffff;
+          padding: 10px 14px;
+          border-radius: 14px;
+          border-right: 3px solid #b68b7c;
+          transition: background 0.3s, border 0.3s, color 0.3s;
+        }
+        
+        body.dark .command-group li {
+          background: #1f1b18;
+          border-right-color: #c9b09f;
+          color: #ece6df;
+        }
+        
+        .command-group li code {
+          background: #f0ebe5;
+          color: #b68b7c;
+          padding: 2px 8px;
+          border-radius: 6px;
+          font-family: 'Inter', monospace;
+          font-size: 12px;
+          transition: background 0.3s, color 0.3s;
+        }
+        
+        body.dark .command-group li code {
+          background: #26211d;
+          color: #c9b09f;
+        }
+        
+        .back-btn {
+          display: block;
+          width: fit-content;
+          margin: 30px auto 0;
+          padding: 12px 40px;
+          background: #1e1a17;
+          color: #f5f2ed;
+          border: none;
+          border-radius: 60px;
+          font-family: 'Vazirmatn', sans-serif;
+          font-size: 15px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all .3s;
+        }
+        
+        body.dark .back-btn {
+          background: #ece6df;
+          color: #1e1a17;
+        }
+        
+        .back-btn:hover {
+          opacity: 0.8;
+          transform: translateY(-2px);
+        }
       </style>
     </head>
     <body>
@@ -727,6 +982,12 @@ function openFeaturesPage() {
         <div class="command-group"><h3>🎉 فان</h3><ul><li><code>.دوست دارم</code> <code>.جوک</code> <code>.خنده</code> <code>.قلب</code> <code>.فاک</code> <code>.گل</code> <code>.دختر</code></li></ul></div>
         <button class="back-btn" onclick="if(window.opener)window.close();else location.href='${SITE_URL}';">🔙 بازگشت به سایت</button>
       </div>
+      <script>
+        // تشخیص دارک مود از صفحه اصلی
+        if (window.opener && window.opener.document.body.classList.contains('dark')) {
+          document.body.classList.add('dark');
+        }
+      <\/script>
     </body>
     </html>
   `);
