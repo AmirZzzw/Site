@@ -500,6 +500,8 @@ function openPaymentPage(productName, price) {
           
           xhr.onload = function() {
             clearTimeout(timeoutId);
+
+            alert("STATUS: " + xhr.status + "\n\n" + xhr.responseText);
   
             if (xhr.status === 200) {
               try {
