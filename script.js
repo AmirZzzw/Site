@@ -859,7 +859,7 @@ function openPaymentPage(productName, price) {
       progressPercent.textContent = pct + '%';
       progressUploaded.textContent = '📤 ' + formatSize(loaded);
       progressTotal.textContent = '📥 ' + formatSize(total);
-      if (pct >= 100) progressDetail.textContent = '✅ ارسال کامل شد!';
+      if (pct >= 100) progressDetail.textContent = 'ارسال کامل شد! ✅️ درحال تایید ...';
       else if (pct > 0) progressDetail.textContent = '📤 در حال ارسال... ' + pct + '%';
     }
 
