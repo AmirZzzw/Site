@@ -42,147 +42,107 @@ function openPaymentPage(productName, price) {
         
         body {
           font-family: 'Vazirmatn', 'Inter', sans-serif;
-          background: #f7f5f2;
+          background: #141210;
           min-height: 100vh;
           display: flex;
           align-items: center;
           justify-content: center;
           padding: 20px;
-          color: #1e1a17;
-          transition: background 0.3s, color 0.3s;
-        }
-        
-        body.dark {
-          background: #141210;
           color: #ece6df;
         }
         
         .card {
           width: 100%;
           max-width: 460px;
-          background: #ffffff;
+          background: #1f1b18;
           padding: 30px 25px;
           border-radius: 40px;
-          box-shadow: 0 8px 30px rgba(0,0,0,0.02);
-          border: 1px solid #e9e3db;
-          transition: background 0.3s, border 0.3s, box-shadow 0.3s;
-        }
-        
-        body.dark .card {
-          background: #1f1b18;
-          border: 1px solid #2f2924;
           box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+          border: 1px solid #2f2924;
         }
         
         h3 { 
           text-align: center; 
           margin: 0 0 5px; 
-          color: #1e1a17; 
+          color: #ece6df; 
           font-size: 20px;
           font-weight: 600;
-          transition: color 0.3s;
         }
-        
-        body.dark h3 { color: #ece6df; }
         
         .price {
           text-align: center;
           margin: 8px 0 20px;
           font-size: 28px;
-          color: #b68b7c;
+          color: #c9b09f;
           font-weight: 700;
         }
         
         .price span { 
           font-size: 13px; 
-          color: #7a6e64; 
+          color: #8f8278; 
           font-weight: 400; 
           font-family: 'Vazirmatn', sans-serif;
         }
         
-        body.dark .price span { color: #8f8278; }
-        
         .vpn-notice {
-          background: #f0ebe5;
-          border: 1px solid #d6cdc1;
+          background: #26211d;
+          border: 1px solid #3b352f;
           border-radius: 16px;
           padding: 12px 16px;
           text-align: center;
           margin-bottom: 20px;
           font-size: 12px;
-          color: #4f4640;
+          color: #b5a89a;
           display: flex;
           align-items: center;
           justify-content: center;
           gap: 8px;
-          transition: background 0.3s, border 0.3s, color 0.3s;
-        }
-        
-        body.dark .vpn-notice {
-          background: #26211d;
-          border: 1px solid #3b352f;
-          color: #b5a89a;
         }
         
         .vpn-notice .highlight {
-          color: #b68b7c;
+          color: #c9b09f;
           font-weight: bold;
-          background: rgba(182, 139, 124, 0.1);
+          background: rgba(201, 176, 159, 0.1);
           padding: 2px 8px;
           border-radius: 6px;
           white-space: nowrap;
         }
         
-        body.dark .vpn-notice .highlight { color: #c9b09f; }
-        
         .bank {
-          background: #f7f5f2;
+          background: #26211d;
           padding: 15px;
           border-radius: 16px;
           text-align: center;
           margin-bottom: 20px;
           font-size: 12px;
-          color: #7a6e64;
-          line-height: 2;
-          border: 1px solid #e9e3db;
-          border-right: 3px solid #b68b7c;
-          transition: background 0.3s, border 0.3s, color 0.3s;
-        }
-        
-        body.dark .bank {
-          background: #26211d;
-          border: 1px solid #2f2924;
           color: #8f8278;
+          line-height: 2;
+          border: 1px solid #2f2924;
+          border-right: 3px solid #c9b09f;
         }
         
         .card-number {
           font-size: 18px;
-          color: #1e1a17;
+          color: #ece6df;
           letter-spacing: 2px;
           font-family: 'Inter', monospace;
           direction: ltr;
           display: inline-block;
-          background: #ffffff;
+          background: #1f1b18;
           padding: 6px 14px;
           border-radius: 8px;
           margin: 6px 0;
-          transition: background 0.3s, color 0.3s;
-        }
-        
-        body.dark .card-number {
-          background: #1f1b18;
-          color: #ece6df;
         }
         
         .upload-area {
-          border: 2px dashed #d6cdc1;
+          border: 2px dashed #3b352f;
           border-radius: 16px;
           padding: 20px;
           text-align: center;
           cursor: pointer;
           margin-bottom: 15px;
           transition: all .3s;
-          background: #f7f5f2;
+          background: #26211d;
           min-height: 80px;
           display: flex;
           flex-direction: column;
@@ -191,35 +151,18 @@ function openPaymentPage(productName, price) {
           gap: 5px;
         }
         
-        body.dark .upload-area {
-          background: #26211d;
-          border-color: #3b352f;
-        }
-        
-        .upload-area:hover { border-color: #b68b7c; }
-        body.dark .upload-area:hover { border-color: #c9b09f; }
+        .upload-area:hover { border-color: #c9b09f; }
         
         .upload-area.has-file {
-          border-color: #b68b7c;
-          border-style: solid;
-          background: rgba(182, 139, 124, 0.05);
-        }
-        
-        body.dark .upload-area.has-file {
           border-color: #c9b09f;
+          border-style: solid;
           background: rgba(201, 176, 159, 0.05);
         }
         
         .upload-icon { font-size: 32px; }
-        .upload-text { font-size: 13px; color: #7a6e64; }
-        body.dark .upload-text { color: #8f8278; }
-        
-        .file-name { font-size: 11px; color: #b68b7c; word-break: break-all; }
-        body.dark .file-name { color: #c9b09f; }
-        
-        .file-size { font-size: 10px; color: #7a6e64; }
-        body.dark .file-size { color: #8f8278; }
-        
+        .upload-text { font-size: 13px; color: #8f8278; }
+        .file-name { font-size: 11px; color: #c9b09f; word-break: break-all; }
+        .file-size { font-size: 10px; color: #8f8278; }
         .upload-area input { display: none; }
         
         input, textarea {
@@ -227,26 +170,16 @@ function openPaymentPage(productName, price) {
           margin-top: 10px;
           padding: 12px 14px;
           border-radius: 14px;
-          border: 1px solid #d6cdc1;
+          border: 1px solid #3b352f;
           font-family: 'Vazirmatn', sans-serif;
           font-size: 13px;
-          background: #f7f5f2;
-          color: #1e1a17;
-          transition: background 0.3s, border 0.3s, color 0.3s;
-        }
-        
-        body.dark input, body.dark textarea {
           background: #26211d;
-          border: 1px solid #3b352f;
           color: #ece6df;
+          transition: border 0.3s;
         }
         
-        input::placeholder, textarea::placeholder { color: #7a6e64; }
-        body.dark input::placeholder, body.dark textarea::placeholder { color: #8f8278; }
-        
-        input:focus, textarea:focus { border-color: #b68b7c; }
-        body.dark input:focus, body.dark textarea:focus { border-color: #c9b09f; }
-        
+        input::placeholder, textarea::placeholder { color: #8f8278; }
+        input:focus, textarea:focus { border-color: #c9b09f; }
         textarea { resize: none; height: 70px; }
         
         .send-btn {
@@ -258,15 +191,10 @@ function openPaymentPage(productName, price) {
           font-family: 'Vazirmatn', sans-serif;
           font-size: 15px;
           font-weight: 600;
-          background: #1e1a17;
-          color: #f5f2ed;
-          cursor: pointer;
-          transition: all .3s;
-        }
-        
-        body.dark .send-btn {
           background: #ece6df;
           color: #1e1a17;
+          cursor: pointer;
+          transition: all .3s;
         }
         
         .send-btn:hover:not(:disabled) { opacity: 0.8; transform: translateY(-2px); }
@@ -275,14 +203,9 @@ function openPaymentPage(productName, price) {
         .progress-container {
           margin-top: 15px;
           display: none;
-          background: #f7f5f2;
+          background: #26211d;
           padding: 15px;
           border-radius: 16px;
-          border: 1px solid #e9e3db;
-        }
-        
-        body.dark .progress-container {
-          background: #26211d;
           border: 1px solid #2f2924;
         }
         
@@ -297,89 +220,66 @@ function openPaymentPage(productName, price) {
         }
         
         .progress-percent { 
-          color: #b68b7c; 
+          color: #c9b09f; 
           font-weight: bold; 
           font-size: 16px; 
           font-family: 'Inter', monospace;
         }
         
-        body.dark .progress-percent { color: #c9b09f; }
-        
-        .progress-info { color: #7a6e64; font-size: 12px; }
-        body.dark .progress-info { color: #8f8278; }
+        .progress-info { color: #8f8278; font-size: 12px; }
         
         .progress-bar-outer {
           height: 6px;
-          background: #e9e3db;
+          background: #2f2924;
           border-radius: 10px;
           overflow: hidden;
           margin-bottom: 8px;
         }
         
-        body.dark .progress-bar-outer { background: #2f2924; }
-        
         .progress-bar-inner {
           height: 100%;
-          background: #b68b7c;
+          background: #c9b09f;
           border-radius: 10px;
           width: 0%;
           transition: width 0.3s;
         }
         
-        body.dark .progress-bar-inner { background: #c9b09f; }
-        
         .progress-details {
           display: flex;
           justify-content: space-between;
           font-size: 10px;
-          color: #7a6e64;
+          color: #8f8278;
           flex-wrap: wrap;
           gap: 4px;
         }
-        
-        body.dark .progress-details { color: #8f8278; }
         
         #status {
           text-align: center;
           margin-top: 12px;
           font-size: 12px;
           min-height: 18px;
-          color: #7a6e64;
+          color: #8f8278;
         }
         
-        body.dark #status { color: #8f8278; }
-        
-        #status.error { color: #c0392b; }
-        body.dark #status.error { color: #e74c3c; }
-        
-        #status.warning { color: #b68b7c; }
-        body.dark #status.warning { color: #c9b09f; }
-        
-        #status.success { color: #b68b7c; }
-        body.dark #status.success { color: #c9b09f; }
+        #status.error { color: #e74c3c; }
+        #status.warning { color: #c9b09f; }
+        #status.success { color: #c9b09f; }
         
         .retry-info {
-          background: rgba(192, 57, 43, 0.05);
-          border: 1px solid rgba(192, 57, 43, 0.2);
+          background: rgba(231, 76, 60, 0.05);
+          border: 1px solid rgba(231, 76, 60, 0.2);
           border-radius: 12px;
           padding: 10px 14px;
           margin-top: 10px;
           font-size: 11px;
-          color: #c0392b;
+          color: #e74c3c;
           text-align: center;
           line-height: 1.8;
           display: none;
         }
         
-        body.dark .retry-info {
-          background: rgba(231, 76, 60, 0.05);
-          border-color: rgba(231, 76, 60, 0.2);
-          color: #e74c3c;
-        }
-        
         .retry-info.show { display: block; }
-        .retry-info b { color: #b68b7c; }
-        body.dark .retry-info b { color: #c9b09f; }
+        .retry-info b { color: #c9b09f; }
       </style>
     </head>
     <body>
@@ -395,7 +295,7 @@ function openPaymentPage(productName, price) {
         <div class="bank">
           <div>📱 شماره کارت جهت واریز</div>
           <div class="card-number">6219 8614 5364 0772</div>
-          <div>به نام: <b style="color:#b68b7c;">امیرمحمد یوسفی</b></div>
+          <div>به نام: <b style="color:#c9b09f;">امیرمحمد یوسفی</b></div>
         </div>
 
         <div class="upload-area" id="uploadArea">
@@ -435,12 +335,6 @@ function openPaymentPage(productName, price) {
       </div>
 
       <script>
-        // تشخیص دارک مود از صفحه اصلی
-        var isDarkMode = window.opener && window.opener.document.body.classList.contains('dark');
-        if (isDarkMode) {
-          document.body.classList.add('dark');
-        }
-        
         var imgInput = document.getElementById("receiptImage");
         var uploadArea = document.getElementById("uploadArea");
         var uploadIcon = document.getElementById("uploadIcon");
@@ -474,30 +368,32 @@ function openPaymentPage(productName, price) {
           return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
         }
 
-        uploadArea.onclick = function() {
+        // ===== فیکس آپلود فایل =====
+        uploadArea.addEventListener('click', function(e) {
+          e.stopPropagation();
           imgInput.click();
-        };
+        });
 
-        uploadArea.ondragover = function(e) {
+        uploadArea.addEventListener('dragover', function(e) {
           e.preventDefault();
-          uploadArea.style.borderColor = '#b68b7c';
-        };
+          uploadArea.style.borderColor = '#c9b09f';
+        });
 
-        uploadArea.ondragleave = function(e) {
+        uploadArea.addEventListener('dragleave', function(e) {
           e.preventDefault();
-          uploadArea.style.borderColor = selectedFile ? '#b68b7c' : '#d6cdc1';
-        };
+          uploadArea.style.borderColor = selectedFile ? '#c9b09f' : '#3b352f';
+        });
 
-        uploadArea.ondrop = function(e) {
+        uploadArea.addEventListener('drop', function(e) {
           e.preventDefault();
-          uploadArea.style.borderColor = selectedFile ? '#b68b7c' : '#d6cdc1';
+          uploadArea.style.borderColor = selectedFile ? '#c9b09f' : '#3b352f';
           if (e.dataTransfer.files.length > 0) {
             imgInput.files = e.dataTransfer.files;
             handleFileSelect();
           }
-        };
+        });
 
-        imgInput.onchange = handleFileSelect;
+        imgInput.addEventListener('change', handleFileSelect);
 
         function handleFileSelect() {
           if (imgInput.files && imgInput.files[0]) {
@@ -528,20 +424,20 @@ function openPaymentPage(productName, price) {
         }
 
         function updateProgress(loaded, total) {
-            var percent = Math.round((loaded / total) * 100);
-            progressBar.style.width = percent + '%';
-            progressPercent.innerText = percent + '%';
-            progressUploaded.innerText = '📤 ' + formatSize(loaded);
-            progressTotal.innerText = 'کل: ' + formatSize(total);
+          var percent = Math.round((loaded / total) * 100);
+          progressBar.style.width = percent + '%';
+          progressPercent.innerText = percent + '%';
+          progressUploaded.innerText = '📤 ' + formatSize(loaded);
+          progressTotal.innerText = 'کل: ' + formatSize(total);
 
-            if (percent >= 100) {
-              progressInfo.innerText = '✅ ارسال شد! در حال تأیید...';
-                      } else if (percent > 0) {
-              progressInfo.innerText = '📤 در حال ارسال... ' + percent + '%';
-            }
+          if (percent >= 100) {
+            progressInfo.innerText = '✅ ارسال شد! در حال تأیید...';
+          } else if (percent > 0) {
+            progressInfo.innerText = '📤 در حال ارسال... ' + percent + '%';
           }
+        }
 
-        sendBtn.onclick = function() {
+        sendBtn.addEventListener('click', function() {
           var now = Date.now();
           var lastSent = parseInt(localStorage.getItem("lastSentTime") || "0");
           var timeDiff = now - lastSent;
@@ -581,7 +477,7 @@ function openPaymentPage(productName, price) {
 
           retryAttempt = 0;
           sendToTelegram(selectedFile);
-        };
+        });
 
         function sendToTelegram(file) {
           var captionText = "🔢 کد پیگیری: " + trackingCode + "\\n📦 محصول: ${productName}\\n💵 مبلغ: ${price.toLocaleString()} تومان\\n👤 تلگرام: " + tgInput.value.trim() + "\\n📞 شماره: " + phoneInput.value.trim() + "\\n📝 توضیحات: " + (descInput.value.trim() || "ندارد");
@@ -682,82 +578,37 @@ function openPaymentPage(productName, price) {
           document.body.style.overflow = 'hidden';
 
           var wrapper = document.createElement('div');
-          wrapper.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;font-family:Vazirmatn,sans-serif;background:#f7f5f2;display:flex;justify-content:center;align-items:center;padding:20px;overflow:hidden;z-index:9999;transition:background 0.3s;';
-          
-          if (isDarkMode) {
-            wrapper.style.background = '#141210';
-          }
+          wrapper.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;font-family:Vazirmatn,sans-serif;background:#141210;display:flex;justify-content:center;align-items:center;padding:20px;overflow:hidden;z-index:9999;';
 
           var card = document.createElement('div');
-          card.style.cssText = 'position:relative;z-index:1;background:#ffffff;width:100%;max-width:440px;padding:40px 30px;border-radius:40px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,0.02);border:1px solid #e9e3db;animation:cp 0.8s cubic-bezier(0.175,0.885,0.32,1.275);transition:background 0.3s,border 0.3s,box-shadow 0.3s;';
-          
-          if (isDarkMode) {
-            card.style.background = '#1f1b18';
-            card.style.border = '1px solid #2f2924';
-            card.style.boxShadow = '0 8px 30px rgba(0,0,0,0.4)';
-          }
+          card.style.cssText = 'position:relative;z-index:1;background:#1f1b18;width:100%;max-width:440px;padding:40px 30px;border-radius:40px;text-align:center;border:1px solid #2f2924;box-shadow:0 8px 30px rgba(0,0,0,0.4);animation:cp 0.8s cubic-bezier(0.175,0.885,0.32,1.275);';
 
           card.innerHTML =
             '<div style="position:relative;width:80px;height:80px;margin:0 auto 25px;">' +
-              '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80px;height:80px;background:rgba(182,139,124,.1);border-radius:50%;animation:ri 2s ease-out infinite;"></div>' +
-              '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:rgba(182,139,124,.15);border-radius:50%;animation:ri 2s ease-out 0.5s infinite;"></div>' +
-              '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:50px;height:50px;background:rgba(182,139,124,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;animation:si 0.6s ease 0.3s both;">' +
-                '<svg width="28" height="28" viewBox="0 0 52 52"><circle cx="26" cy="26" r="24" fill="none" stroke="#b68b7c" stroke-width="3" stroke-dasharray="151" stroke-dashoffset="151" style="animation:dc 0.4s ease 0.3s forwards;"/><path d="M15 27 L23 36 L38 17" fill="none" stroke="#b68b7c" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="35" stroke-dashoffset="35" style="animation:dp 0.3s ease 0.7s forwards;"/></svg>' +
+              '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80px;height:80px;background:rgba(201,176,159,.1);border-radius:50%;animation:ri 2s ease-out infinite;"></div>' +
+              '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:rgba(201,176,159,.15);border-radius:50%;animation:ri 2s ease-out 0.5s infinite;"></div>' +
+              '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:50px;height:50px;background:rgba(201,176,159,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;animation:si 0.6s ease 0.3s both;">' +
+                '<svg width="28" height="28" viewBox="0 0 52 52"><circle cx="26" cy="26" r="24" fill="none" stroke="#c9b09f" stroke-width="3" stroke-dasharray="151" stroke-dashoffset="151" style="animation:dc 0.4s ease 0.3s forwards;"/><path d="M15 27 L23 36 L38 17" fill="none" stroke="#c9b09f" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="35" stroke-dashoffset="35" style="animation:dp 0.3s ease 0.7s forwards;"/></svg>' +
               '</div>' +
             '</div>' +
-            '<h2 style="color:#1e1a17;margin:0 0 6px;font-size:24px;animation:fu 0.6s ease 0.5s both;transition:color 0.3s;">🎉 پرداخت موفق!</h2>' +
-            '<p style="color:#4f4640;margin:0 0 20px;font-size:13px;animation:fu 0.6s ease 0.6s both;transition:color 0.3s;">رسید شما با موفقیت ثبت شد</p>' +
-            '<div style="background:#f0ebe5;padding:18px;border-radius:16px;margin-bottom:18px;border:1px solid #d6cdc1;animation:fu 0.6s ease 0.65s both;transition:background 0.3s,border 0.3s;">' +
-              '<div style="font-size:10px;color:#7a6e64;margin-bottom:6px;">🔢 کد پیگیری</div>' +
-              '<div style="font-size:32px;color:#b68b7c;font-weight:bold;letter-spacing:6px;font-family:\'Inter\',monospace;direction:ltr;">' + code + '</div>' +
-              '<div style="font-size:10px;color:#7a6e64;margin-top:4px;">این کد را نزد خود نگه دارید</div>' +
+            '<h2 style="color:#ece6df;margin:0 0 6px;font-size:24px;animation:fu 0.6s ease 0.5s both;">🎉 پرداخت موفق!</h2>' +
+            '<p style="color:#b5a89a;margin:0 0 20px;font-size:13px;animation:fu 0.6s ease 0.6s both;">رسید شما با موفقیت ثبت شد</p>' +
+            '<div style="background:#26211d;padding:18px;border-radius:16px;margin-bottom:18px;border:1px solid #2f2924;animation:fu 0.6s ease 0.65s both;">' +
+              '<div style="font-size:10px;color:#8f8278;margin-bottom:6px;">🔢 کد پیگیری</div>' +
+              '<div style="font-size:32px;color:#c9b09f;font-weight:bold;letter-spacing:6px;font-family:\'Inter\',monospace;direction:ltr;">' + code + '</div>' +
+              '<div style="font-size:10px;color:#8f8278;margin-top:4px;">این کد را نزد خود نگه دارید</div>' +
             '</div>' +
-            '<div style="background:#f7f5f2;padding:16px;border-radius:16px;margin-bottom:18px;border:1px solid #e9e3db;animation:fu 0.6s ease 0.7s both;transition:background 0.3s,border 0.3s;">' +
-              '<div style="font-size:11px;color:#7a6e64;margin-bottom:4px;">💰 مبلغ پرداختی</div>' +
-              '<div style="font-size:28px;color:#b68b7c;font-weight:bold;font-family:\'Inter\',monospace;">' + price.toLocaleString() + '</div>' +
-              '<div style="font-size:12px;color:#7a6e64;">تومان</div>' +
+            '<div style="background:#26211d;padding:16px;border-radius:16px;margin-bottom:18px;border:1px solid #2f2924;animation:fu 0.6s ease 0.7s both;">' +
+              '<div style="font-size:11px;color:#8f8278;margin-bottom:4px;">💰 مبلغ پرداختی</div>' +
+              '<div style="font-size:28px;color:#c9b09f;font-weight:bold;font-family:\'Inter\',monospace;">' + price.toLocaleString() + '</div>' +
+              '<div style="font-size:12px;color:#8f8278;">تومان</div>' +
             '</div>' +
-            '<div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:18px;color:#4f4640;font-size:12px;animation:fu 0.6s ease 0.8s both;transition:color 0.3s;"><span>📞</span><span>تیم پشتیبانی به زودی با شما تماس میگیرد</span></div>' +
+            '<div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:18px;color:#b5a89a;font-size:12px;animation:fu 0.6s ease 0.8s both;"><span>📞</span><span>تیم پشتیبانی به زودی با شما تماس میگیرد</span></div>' +
             '<div style="animation:fu 0.6s ease 0.9s both;">' +
-              '<div style="height:5px;background:#e9e3db;border-radius:8px;overflow:hidden;margin-bottom:10px;transition:background 0.3s;"><div style="height:100%;background:#b68b7c;border-radius:8px;animation:cb ' + countdown + 's linear forwards;transition:background 0.3s;"></div></div>' +
-              '<p style="font-size:12px;color:#7a6e64;margin:0;">🔄 بازگشت خودکار در <span id="timer" style="color:#b68b7c;font-weight:bold;font-size:15px;">' + countdown + '</span> ثانیه</p>' +
+              '<div style="height:5px;background:#2f2924;border-radius:8px;overflow:hidden;margin-bottom:10px;"><div style="height:100%;background:#c9b09f;border-radius:8px;animation:cb ' + countdown + 's linear forwards;"></div></div>' +
+              '<p style="font-size:12px;color:#8f8278;margin:0;">🔄 بازگشت خودکار در <span id="timer" style="color:#c9b09f;font-weight:bold;font-size:15px;">' + countdown + '</span> ثانیه</p>' +
             '</div>' +
-            '<button id="backBtn" style="margin-top:18px;padding:10px 30px;background:#1e1a17;color:#f5f2ed;border:none;border-radius:60px;font-family:Vazirmatn,sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;animation:fu 0.6s ease 1s both;">🏠 بازگشت به سایت</button>';
-
-          // اعمال دارک مود برای المان‌های داخل کارت
-          if (isDarkMode) {
-            var elements = card.querySelectorAll('h2, p, div, span');
-            elements.forEach(function(el) {
-              if (el.style.color === '#1e1a17') el.style.color = '#ece6df';
-              if (el.style.color === '#4f4640') el.style.color = '#b5a89a';
-              if (el.style.color === '#7a6e64') el.style.color = '#8f8278';
-              if (el.style.background === '#f0ebe5') {
-                el.style.background = '#26211d';
-                el.style.border = '1px solid #2f2924';
-              }
-              if (el.style.background === '#f7f5f2') {
-                el.style.background = '#26211d';
-                el.style.border = '1px solid #2f2924';
-              }
-              if (el.style.background === '#e9e3db') {
-                el.style.background = '#2f2924';
-              }
-              if (el.style.color === '#b68b7c') el.style.color = '#c9b09f';
-            });
-            
-            var backBtn = card.querySelector('#backBtn');
-            if (backBtn) {
-              backBtn.style.background = '#ece6df';
-              backBtn.style.color = '#1e1a17';
-            }
-            
-            var progressDiv = card.querySelector('div[style*="height:5px;background:#e9e3db"]');
-            if (progressDiv) {
-              progressDiv.style.background = '#2f2924';
-              var innerDiv = progressDiv.querySelector('div');
-              if (innerDiv) innerDiv.style.background = '#c9b09f';
-            }
-          }
+            '<button id="backBtn" style="margin-top:18px;padding:10px 30px;background:#ece6df;color:#1e1a17;border:none;border-radius:60px;font-family:Vazirmatn,sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;animation:fu 0.6s ease 1s both;">🏠 بازگشت به سایت</button>';
 
           var style = document.createElement('style');
           style.textContent =
@@ -774,19 +625,19 @@ function openPaymentPage(productName, price) {
           document.body.appendChild(wrapper);
 
           var backBtn = document.getElementById('backBtn');
-          backBtn.onmouseover = function() {
+          backBtn.addEventListener('mouseover', function() {
             this.style.opacity = '0.8';
-          };
-          backBtn.onmouseout = function() {
+          });
+          backBtn.addEventListener('mouseout', function() {
             this.style.opacity = '1';
-          };
-          backBtn.onclick = function() {
+          });
+          backBtn.addEventListener('click', function() {
             if (window.opener) {
               window.close();
             } else {
               window.location.href = siteUrl;
             }
-          };
+          });
 
           var timeLeft = countdown;
           var timerInterval = setInterval(function() {
@@ -795,8 +646,7 @@ function openPaymentPage(productName, price) {
             if (timerEl) {
               timerEl.innerText = timeLeft;
               if (timeLeft <= 5) {
-                timerEl.style.color = '#c0392b';
-                if (isDarkMode) timerEl.style.color = '#e74c3c';
+                timerEl.style.color = '#e74c3c';
               }
             }
             if (timeLeft <= 0) {
@@ -834,74 +684,46 @@ function openFeaturesPage() {
         
         body {
           font-family: 'Vazirmatn', 'Inter', sans-serif;
-          background: #f7f5f2;
-          color: #1e1a17;
+          background: #141210;
+          color: #ece6df;
           line-height: 1.8;
           padding: 30px 20px;
           display: flex;
           justify-content: center;
-          transition: background 0.3s, color 0.3s;
-        }
-        
-        body.dark {
-          background: #141210;
-          color: #ece6df;
         }
         
         .container {
           width: 100%;
           max-width: 700px;
-          background: #ffffff;
+          background: #1f1b18;
           border-radius: 40px;
           padding: 35px 30px;
-          box-shadow: 0 8px 30px rgba(0,0,0,0.02);
-          border: 1px solid #e9e3db;
-          transition: background 0.3s, border 0.3s, box-shadow 0.3s;
-        }
-        
-        body.dark .container {
-          background: #1f1b18;
-          border: 1px solid #2f2924;
           box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+          border: 1px solid #2f2924;
         }
         
         h2 {
           text-align: center;
           margin-bottom: 30px;
-          color: #b68b7c;
+          color: #c9b09f;
           font-size: 26px;
           font-weight: 600;
-          transition: color 0.3s;
         }
-        
-        body.dark h2 { color: #c9b09f; }
         
         .command-group {
           margin-bottom: 25px;
-          background: #f7f5f2;
+          background: #26211d;
           border-radius: 20px;
           padding: 18px;
-          border: 1px solid #e9e3db;
-          transition: background 0.3s, border 0.3s;
-        }
-        
-        body.dark .command-group {
-          background: #26211d;
           border: 1px solid #2f2924;
         }
         
         .command-group h3 {
-          color: #b68b7c;
+          color: #c9b09f;
           margin-bottom: 10px;
           font-size: 17px;
-          border-bottom: 1px solid #e9e3db;
-          padding-bottom: 8px;
-          transition: color 0.3s, border 0.3s;
-        }
-        
-        body.dark .command-group h3 {
-          color: #c9b09f;
           border-bottom: 1px solid #2f2924;
+          padding-bottom: 8px;
         }
         
         .command-group ul {
@@ -912,32 +734,20 @@ function openFeaturesPage() {
         .command-group li {
           margin: 8px 0;
           font-size: 13px;
-          background: #ffffff;
+          background: #1f1b18;
           padding: 10px 14px;
           border-radius: 14px;
-          border-right: 3px solid #b68b7c;
-          transition: background 0.3s, border 0.3s, color 0.3s;
-        }
-        
-        body.dark .command-group li {
-          background: #1f1b18;
-          border-right-color: #c9b09f;
+          border-right: 3px solid #c9b09f;
           color: #ece6df;
         }
         
         .command-group li code {
-          background: #f0ebe5;
-          color: #b68b7c;
+          background: #26211d;
+          color: #c9b09f;
           padding: 2px 8px;
           border-radius: 6px;
           font-family: 'Inter', monospace;
           font-size: 12px;
-          transition: background 0.3s, color 0.3s;
-        }
-        
-        body.dark .command-group li code {
-          background: #26211d;
-          color: #c9b09f;
         }
         
         .back-btn {
@@ -945,8 +755,8 @@ function openFeaturesPage() {
           width: fit-content;
           margin: 30px auto 0;
           padding: 12px 40px;
-          background: #1e1a17;
-          color: #f5f2ed;
+          background: #ece6df;
+          color: #1e1a17;
           border: none;
           border-radius: 60px;
           font-family: 'Vazirmatn', sans-serif;
@@ -954,11 +764,6 @@ function openFeaturesPage() {
           font-weight: 600;
           cursor: pointer;
           transition: all .3s;
-        }
-        
-        body.dark .back-btn {
-          background: #ece6df;
-          color: #1e1a17;
         }
         
         .back-btn:hover {
@@ -982,12 +787,6 @@ function openFeaturesPage() {
         <div class="command-group"><h3>🎉 فان</h3><ul><li><code>.دوست دارم</code> <code>.جوک</code> <code>.خنده</code> <code>.قلب</code> <code>.فاک</code> <code>.گل</code> <code>.دختر</code></li></ul></div>
         <button class="back-btn" onclick="if(window.opener)window.close();else location.href='${SITE_URL}';">🔙 بازگشت به سایت</button>
       </div>
-      <script>
-        // تشخیص دارک مود از صفحه اصلی
-        if (window.opener && window.opener.document.body.classList.contains('dark')) {
-          document.body.classList.add('dark');
-        }
-      <\/script>
     </body>
     </html>
   `);
