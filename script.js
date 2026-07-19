@@ -1,10 +1,3 @@
-window.onerror = function(message, source, line, col, error) {
-  alert(
-    "ERROR:\n" +
-    message +
-    "\nLine: " + line
-  );
-};
 /**********************
 CONFIG
 **********************/
@@ -543,16 +536,8 @@ function openPaymentPage(productName, price) {
             retryOrFail('abort');
           };
           
-          alert("قبل از send");
-          try {
-            xhr.open("POST", "https://api-sidkashop.amirsidka.workers.dev");
-            alert("open ok");
-          } catch (e) {
-            alert(e.name + "\n" + e.message);
-          }
-          alert("بعد از open");
+          xhr.open("POST", "https://api-sidkashop.amirsidka.workers.dev");
           xhr.send(formData);
-          alert("بعد از send");
         }
         
         function retryOrFail(errorType) {
