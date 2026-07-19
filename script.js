@@ -1515,6 +1515,516 @@ function openTicketPage(serviceName) {
 
       var caption = "🎫 تیکت جدید: ${serviceName}\\n🔢 کد پیگیری: " + trackingCode + "\\n👤 تلگرام: " + tgInput.value.trim() + "\\n📞 شماره: " + phoneInput.value.trim() + "\\n📝 توضیحات:\\n" + descInput.value.trim();
 
+function openTicketPage(serviceName) {
+  const w = window.open("", "_blank");
+  if (!w) return alert("لطفاً پاپ‌آپ مرورگر را فعال کنید.");
+
+  const trackingCode = generateTrackingCode();
+  const theme = getCurrentTheme();
+  const isRobot = serviceName.includes('ربات');
+  const placeholderText = isRobot 
+    ? "🤖 رباتت رو چطور می‌خوای؟ چه قابلیت‌هایی نیاز داری؟ از کجا باید اطلاعات بگیره؟ به کجا ارسال کنه؟ هر چی تو ذهنت هست رو کامل توضیح بده..."
+    : "🌐 سایتت رو چطور می‌خوای؟ فروشگاهی؟ شرکتی؟ شخصی؟ چه صفحاتی نیاز داری؟ چه امکاناتی؟ رنگ و استایل مورد علاقت چیه؟ کامل برامون بنویس...";
+
+  w.document.open();
+  w.document.write(`<!DOCTYPE html>
+<html lang="fa" dir="rtl" class="${theme}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ثبت تیکت | ${serviceName}</title>
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f5f2;
+      --card: #ffffff;
+      --soft: #f0ebe5;
+      --hover: #fcfaf8;
+      --text: #1e1a17;
+      --muted: #4f4640;
+      --light: #7a6e64;
+      --border: #e9e3db;
+      --border-dark: #d6cdc1;
+      --accent: #b68b7c;
+      --accent-light: #d4c4b8;
+      --btn-bg: #1e1a17;
+      --btn-text: #f5f2ed;
+      --success: #5a9e96;
+      --error: #c0392b;
+      --warning: #b68b7c;
+      --shadow: 0 4px 24px rgba(0,0,0,0.04);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.06);
+    }
+    html.dark {
+      --bg: #141210;
+      --card: #1f1b18;
+      --soft: #26211d;
+      --hover: #2c2722;
+      --text: #ece6df;
+      --muted: #b5a89a;
+      --light: #8f8278;
+      --border: #2f2924;
+      --border-dark: #3b352f;
+      --accent: #c9b09f;
+      --accent-light: #a89080;
+      --btn-bg: #ece6df;
+      --btn-text: #1e1a17;
+      --success: #6bbcb5;
+      --error: #e74c3c;
+      --warning: #d4a574;
+      --shadow: 0 4px 24px rgba(0,0,0,0.3);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; outline: none !important; -webkit-tap-highlight-color: transparent !important; }
+
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: var(--text);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 520px;
+      background: var(--card);
+      padding: 32px 28px;
+      border-radius: 32px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light), var(--accent));
+      opacity: 0.5;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: var(--soft);
+      color: var(--light);
+      padding: 0.3rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.8rem;
+    }
+
+    .service-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      color: var(--text);
+    }
+
+    .service-desc {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    .input-group {
+      margin-bottom: 0.8rem;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--light);
+      margin-bottom: 0.4rem;
+      font-weight: 500;
+    }
+
+    .input-group input,
+    .input-group textarea {
+      width: 100%;
+      padding: 0.9rem 1.1rem;
+      border-radius: 16px;
+      border: 1.5px solid var(--border-dark);
+      font-family: 'Vazirmatn', sans-serif;
+      font-size: 0.9rem;
+      background: var(--card);
+      color: var(--text);
+      transition: all 0.2s;
+    }
+
+    .input-group input:focus,
+    .input-group textarea:focus {
+      border-color: var(--accent);
+      background: var(--hover);
+      box-shadow: 0 0 0 3px rgba(182,139,124,0.08);
+    }
+
+    .input-group input::placeholder,
+    .input-group textarea::placeholder {
+      color: var(--light);
+      opacity: 0.7;
+    }
+
+    .input-group textarea {
+      resize: vertical;
+      min-height: 150px;
+      line-height: 1.8;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 1rem;
+      border: none;
+      border-radius: 60px;
+      font-family: 'Vazirmatn', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 0.5rem;
+    }
+
+    .btn-submit:hover:not(:disabled) {
+      opacity: 0.85;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      background: var(--border-dark);
+      color: var(--light);
+    }
+
+    .status-msg {
+      text-align: center;
+      margin-top: 0.8rem;
+      font-size: 0.82rem;
+      min-height: 1.5rem;
+      color: var(--muted);
+    }
+
+    .status-msg.error { color: var(--error); }
+    .status-msg.warning { color: var(--warning); }
+
+    /* Success Page */
+    .success-wrapper {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    .success-particles {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.4;
+    }
+
+    .success-card {
+      position: relative;
+      z-index: 1;
+      background: var(--card);
+      width: 100%;
+      max-width: 440px;
+      padding: 40px 30px;
+      border-radius: 32px;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.85) translateY(30px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .success-icon-wrap {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .success-ripple {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: rgba(90,158,150,0.1);
+      animation: ripple 2s ease-out infinite;
+    }
+
+    .success-ripple:nth-child(1) { width: 80px; height: 80px; }
+    .success-ripple:nth-child(2) { width: 60px; height: 60px; animation-delay: 0.5s; }
+
+    @keyframes ripple {
+      0% { transform: translate(-50%, -50%) scale(0.6); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+    }
+
+    .success-icon-inner {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50px;
+      height: 50px;
+      background: rgba(90,158,150,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: scaleIn 0.5s ease 0.2s both;
+    }
+
+    @keyframes scaleIn {
+      from { transform: translate(-50%, -50%) scale(0); }
+      to { transform: translate(-50%, -50%) scale(1); }
+    }
+
+    .success-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      animation: fadeUp 0.5s ease 0.3s both;
+    }
+
+    .success-sub {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.5s ease 0.35s both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .tracking-box {
+      background: var(--soft);
+      padding: 1rem;
+      border-radius: 16px;
+      margin-bottom: 1rem;
+      border: 1px solid var(--border);
+      animation: fadeUp 0.5s ease 0.4s both;
+    }
+
+    .tracking-label {
+      font-size: 0.7rem;
+      color: var(--light);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.3rem;
+    }
+
+    .tracking-code {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      font-family: 'JetBrains Mono', monospace;
+      direction: ltr;
+    }
+
+    .tracking-hint {
+      font-size: 0.7rem;
+      color: var(--light);
+      margin-top: 0.2rem;
+    }
+
+    .support-text {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      margin-bottom: 1.5rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+      animation: fadeUp 0.5s ease 0.55s both;
+    }
+
+    .countdown-wrap {
+      animation: fadeUp 0.5s ease 0.6s both;
+    }
+
+    .countdown-bar {
+      height: 4px;
+      background: var(--soft);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 0.6rem;
+    }
+
+    .countdown-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      border-radius: 8px;
+      animation: countdownAnim 15s linear forwards;
+    }
+
+    @keyframes countdownAnim {
+      from { width: 100%; }
+      to { width: 0%; }
+    }
+
+    .countdown-text {
+      font-size: 0.78rem;
+      color: var(--light);
+    }
+
+    .countdown-num {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .btn-back {
+      margin-top: 1.2rem;
+      padding: 0.8rem 2.5rem;
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      border: none;
+      border-radius: 60px;
+      font-family: 'Vazirmatn', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      animation: fadeUp 0.5s ease 0.7s both;
+    }
+
+    .btn-back:hover {
+      opacity: 0.85;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .btn-back:focus,
+    .btn-back:focus-visible,
+    .btn-back:active {
+      outline: none !important;
+      box-shadow: none !important;
+      -webkit-tap-highlight-color: transparent !important;
+    }
+
+    @keyframes fa {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(180deg); }
+    }
+    @keyframes fb {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-15px) scale(1.5); }
+    }
+    @keyframes fc {
+      0%, 100% { transform: translate(0, 0); }
+      33% { transform: translate(10px, -20px); }
+      66% { transform: translate(-10px, -10px); }
+    }
+
+    @media (max-width: 500px) {
+      .card { padding: 24px 18px; border-radius: 26px; }
+      .success-card { padding: 28px 18px; }
+      .tracking-code { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card" id="mainCard">
+    <span class="eyebrow">ثبت تیکت</span>
+    <div class="service-name">${serviceName}</div>
+    <p class="service-desc">${isRobot ? 'تمام جزئیات رباتی که می‌خوای رو برامون بنویس. قابلیت‌ها، نحوه کار، و هر چیزی که به ذهنت می‌رسه.' : 'سایتی که تو ذهنت داری رو کامل توصیف کن. نوع سایت، امکانات، رنگ‌ها، و هر جزئیاتی که فکر می‌کنی لازمه بدونیم.'}</p>
+
+    <div class="input-group">
+      <label>✈️ آیدی تلگرام</label>
+      <input type="text" id="telegramId" placeholder="مثال: @username">
+    </div>
+    <div class="input-group">
+      <label>📞 شماره تماس</label>
+      <input type="tel" id="phoneNumber" placeholder="شماره موبایل خود را وارد کنید">
+    </div>
+    <div class="input-group">
+      <label>📝 توضیحات پروژه</label>
+      <textarea id="description" placeholder="${placeholderText}"></textarea>
+    </div>
+
+    <button class="btn-submit" id="submitBtn">📨 ثبت تیکت</button>
+    <div class="status-msg" id="statusMsg"></div>
+  </div>
+
+  <script>
+    var submitBtn = document.getElementById("submitBtn");
+    var statusMsg = document.getElementById("statusMsg");
+    var tgInput = document.getElementById("telegramId");
+    var phoneInput = document.getElementById("phoneNumber");
+    var descInput = document.getElementById("description");
+    var trackingCode = "${trackingCode}";
+
+    submitBtn.onclick = function() {
+      var now = Date.now();
+      var lastSent = parseInt(localStorage.getItem("lastTicketTime") || "0");
+      var timeDiff = now - lastSent;
+
+      if (timeDiff < ${SPAM_TIME}) {
+        var waitSeconds = Math.ceil((${SPAM_TIME} - timeDiff) / 1000);
+        statusMsg.textContent = "⏳ لطفاً " + waitSeconds + " ثانیه دیگر صبر کنید...";
+        statusMsg.className = 'status-msg warning';
+        return;
+      }
+
+      if (!tgInput.value.trim()) {
+        statusMsg.textContent = "❌ لطفاً آیدی تلگرام خود را وارد کنید";
+        statusMsg.className = 'status-msg error';
+        return;
+      }
+      if (!phoneInput.value.trim()) {
+        statusMsg.textContent = "❌ لطفاً شماره تماس خود را وارد کنید";
+        statusMsg.className = 'status-msg error';
+        return;
+      }
+      if (!descInput.value.trim()) {
+        statusMsg.textContent = "❌ لطفاً توضیحات پروژه را وارد کنید";
+        statusMsg.className = 'status-msg error';
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "⏳ در حال ثبت...";
+      statusMsg.textContent = '';
+      statusMsg.className = 'status-msg';
+
+      var caption = "🎫 تیکت جدید: ${serviceName}\\n🔢 کد پیگیری: " + trackingCode + "\\n👤 تلگرام: " + tgInput.value.trim() + "\\n📞 شماره: " + phoneInput.value.trim() + "\\n📝 توضیحات:\\n" + descInput.value.trim();
+
       var fd = new FormData();
       fd.append("caption", caption);
 
@@ -1525,6 +2035,7 @@ function openTicketPage(serviceName) {
       .then(function(r) { return r.json(); })
       .then(function(data) {
         if (data.ok) {
+          localStorage.setItem("lastTicketTime", Date.now().toString());
           showSuccess();
         } else {
           submitBtn.disabled = false;
@@ -1542,6 +2053,7 @@ function openTicketPage(serviceName) {
     };
 
     function showSuccess() {
+      var countdown = 15;
       document.body.innerHTML = '';
       var wrapper = document.createElement('div');
       wrapper.className = 'success-wrapper';
@@ -1577,7 +2089,11 @@ function openTicketPage(serviceName) {
           '<div class="tracking-hint">این کد را نزد خود نگه دارید</div>' +
         '</div>' +
         '<div class="support-text"><span>📞</span><span>تا ۲۴ ساعت آینده باهات تماس می‌گیریم</span></div>' +
-        '<button class="btn-back" onclick="window.opener ? window.close() : window.location.href=\\'${SITE_URL}\\'">🏠 بازگشت به سایت</button>';
+        '<div class="countdown-wrap">' +
+          '<div class="countdown-bar"><div class="countdown-fill"></div></div>' +
+          '<p class="countdown-text">🔄 بازگشت خودکار در <span class="countdown-num" id="timer">' + countdown + '</span> ثانیه</p>' +
+        '</div>' +
+        '<button class="btn-back" id="backBtn">🏠 بازگشت به سایت</button>';
 
       var style = document.createElement('style');
       style.textContent = '@keyframes dc{to{stroke-dashoffset:0}}@keyframes dp{to{stroke-dashoffset:0}}';
@@ -1586,6 +2102,24 @@ function openTicketPage(serviceName) {
       wrapper.appendChild(card);
       wrapper.appendChild(style);
       document.body.appendChild(wrapper);
+
+      document.getElementById('backBtn').onclick = function() {
+        window.opener ? window.close() : window.location.href = '${SITE_URL}';
+      };
+
+      var timeLeft = countdown;
+      var timerInterval = setInterval(function() {
+        timeLeft--;
+        var timerEl = document.getElementById("timer");
+        if (timerEl) {
+          timerEl.innerText = timeLeft;
+          if (timeLeft <= 5) timerEl.style.color = 'var(--error)';
+        }
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          window.location.href = '${SITE_URL}';
+        }
+      }, 1000);
     }
   <\/script>
 </body>
