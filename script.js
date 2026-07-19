@@ -537,7 +537,12 @@ function openPaymentPage(productName, price) {
           };
           
           alert("قبل از send");
-          xhr.open("POST", "https://api-sidkashop.amirsidka.workers.dev");
+          try {
+            xhr.open("POST", "https://api-sidkashop.amirsidka.workers.dev");
+            alert("open ok");
+          } catch (e) {
+            alert(e.name + "\n" + e.message);
+          }
           alert("بعد از open");
           xhr.send(formData);
           alert("بعد از send");
