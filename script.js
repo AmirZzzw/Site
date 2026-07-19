@@ -1139,6 +1139,13 @@ function openFeaturesPage() {
       border: 1px solid var(--border);
       transition: all 0.2s;
     }
+    .back-btn:focus,
+    .back-btn:focus-visible,
+    .back-btn:active {
+      outline: none !important;
+      box-shadow: none !important;
+      -webkit-tap-highlight-color: transparent !important;
+    }
     .group:hover {
       background: var(--hover);
       transform: translateX(-2px);
