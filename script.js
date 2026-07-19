@@ -1,3 +1,10 @@
+window.onerror = function(message, source, line, col, error) {
+  alert(
+    "ERROR:\n" +
+    message +
+    "\nLine: " + line
+  );
+};
 /**********************
 CONFIG
 **********************/
