@@ -206,19 +206,6 @@ p{ margin:0; }
   margin-top: 32px;
   display:flex; gap: 12px; justify-content:center; flex-wrap: wrap;
 }
-.hero-stats{
-  margin: 56px 0 0;
-  display:flex; justify-content:center; gap: 48px;
-  padding-top: 28px;
-  border-top: 1px solid var(--border-soft);
-}
-.hero-stats div{ text-align:center; }
-.hero-stats dt{
-  font-family: var(--font-mono);
-  font-size: 22px; font-weight: 700; color: var(--accent);
-  direction: ltr;
-}
-.hero-stats dd{ margin: 4px 0 0; font-size: 12.5px; color: var(--text-faint); }
 
 /* ---------------- Sections ---------------- */
 .section{ max-width: 1120px; margin: 0 auto; padding: 72px 24px; }
@@ -284,25 +271,6 @@ p{ margin:0; }
 .plan-info{ justify-content: center; }
 .plan-desc{ font-size: 12.5px; color: var(--text-faint); }
 
-.features-list{
-  margin-top: 20px;
-  padding-top: 18px;
-  border-top: 1px solid var(--border-soft);
-  display:grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px 20px;
-}
-.features-list li{
-  font-size: 14px; color: var(--text-dim);
-  padding-right: 18px; position: relative;
-}
-.features-list li::before{
-  content: "";
-  position:absolute; right:0; top: 9px;
-  width:6px; height:6px; border-radius:50%;
-  background: var(--accent-2);
-}
-
 /* simple product cards */
 .simple-grid{
   display:grid;
@@ -359,41 +327,16 @@ p{ margin:0; }
 }
 .dot-sep{ margin: 0 8px; }
 
-/* toast */
-.toast{
-  position: fixed;
-  bottom: 22px;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  color: var(--text);
-  font-size: 13.5px;
-  padding: 12px 20px;
-  border-radius: 10px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .2s ease, transform .2s ease;
-  z-index: 100;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-}
-.toast.show{
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
 /* ---------------- Responsive ---------------- */
 @media (max-width: 860px){
   .plan-grid{ grid-template-columns: repeat(2, 1fr); }
   .simple-grid{ grid-template-columns: 1fr; }
   .contact-grid{ grid-template-columns: repeat(2, 1fr); }
-  .features-list{ grid-template-columns: 1fr; }
 }
 @media (max-width: 560px){
   .nav-links{ display:none; }
   .plan-grid{ grid-template-columns: 1fr 1fr; }
   .hero{ padding: 72px 18px 48px; }
-  .hero-stats{ gap: 28px; }
 }
 
 @media (prefers-reduced-motion: reduce){
