@@ -537,6 +537,13 @@ function openPaymentPage(productName, price) {
       to { transform: translate(-50%, -50%) scale(1); }
     }
 
+    @keyframes drawCircle {
+      to { stroke-dashoffset: 0; }
+    }
+    @keyframes drawCheck {
+      to { stroke-dashoffset: 0; }
+    }
+
     .success-title {
       font-size: 1.5rem;
       font-weight: 700;
@@ -993,7 +1000,12 @@ function openPaymentPage(productName, price) {
         '<div class="success-icon-wrap">' +
           '<div class="success-ripple"></div>' +
           '<div class="success-ripple"></div>' +
-          '<div class="success-icon-inner">✅</div>' +
+          '<div class="success-icon-inner">' +
+          '<svg width="28" height="28" viewBox="0 0 52 52">' +
+            '<circle cx="26" cy="26" r="24" fill="none" stroke="var(--success)" stroke-width="3" stroke-dasharray="151" stroke-dashoffset="151" style="animation: drawCircle 0.4s ease 0.3s forwards;"/>' +
+            '<path d="M15 27 L23 36 L38 17" fill="none" stroke="var(--success)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="35" stroke-dashoffset="35" style="animation: drawCheck 0.3s ease 0.7s forwards;"/>' +
+          '</svg>' +
+        '</div>' +
         '</div>' +
         '<h2 class="success-title">پرداخت موفقیت‌آمیز</h2>' +
         '<p class="success-sub">رسید شما با موفقیت ثبت شد</p>' +
